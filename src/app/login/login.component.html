@@ -1,0 +1,55 @@
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+<div class="container has-text-centered" id="login">
+    <p class="title is-size-3 is-family-primary has-text-success-dark ">
+    Log In
+    </p>
+    <span> </span>
+    <span></span>
+    <span></span>
+</div>
+
+<div class="columns is-mobile is-centered">
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="box" style="width: 450px" novalidate autocomplete="false">
+    
+    <div class="field">
+        <label class="label">Email</label>
+        <div class="control has-icons-left has-icons-right">
+            
+            <input [ngClass]="{ 'has-error' : submitted && formControls.email.errors }" class="input" placeholder="e.g. erlito@example.com" type="email"> 
+            <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+            </span>
+            <div *ngIf="submitted && formControls.email.errors" class="help is-danger">
+                <div *ngIf="formControls.email.errors.required">Email is required</div>
+                <span class="icon is-small is-right">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </span>
+            </div>
+
+        </div>      
+    </div>
+
+    <div class="field">
+        <label class="label">Password</label>
+        <div class="control">
+            
+            <input [ngClass]="{ 'has-error' : submitted && formControls.password.errors }" class="input" type="password" placeholder="********">
+            <div *ngIf="submitted && formControls.password.errors" class="help is-danger">
+                <div *ngIf="formControls.password.errors.required">Password is required</div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="field is-grouped is-grouped-right">
+        <p class="control">
+        <button class="button is-hovered is-rounded is-success is-outlined" value="Log in" type="submit">
+            LOG IN
+        </button>
+        </p>
+    </div>
+    </form>
+</div>

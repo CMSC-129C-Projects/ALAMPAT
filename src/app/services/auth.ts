@@ -33,4 +33,17 @@ export class UserService {
             this.registrationError = error
         }
     }
+
+    public login(userInfo: User){
+        localStorage.setItem('ACCESS_TOKEN', "access_token");
+      }
+    
+      public isLoggedIn(){
+        return localStorage.getItem('ACCESS_TOKEN') !== null;
+    
+      }
+    
+      public logout(){
+        localStorage.removeItem('ACCESS_TOKEN');
+      }
 }
