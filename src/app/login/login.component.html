@@ -18,12 +18,13 @@
         <label class="label">Email</label>
         <div class="control has-icons-left has-icons-right">
             
-            <input [ngClass]="{ 'has-error' : submitted && formControls.email.errors }" class="input" placeholder="e.g. erlito@example.com" type="email"> 
+            <input [ngClass]="{ 'has-error' : submitted && formControls.email?.errors }" class="input" placeholder="e.g. erlito@example.com" formControlName="email" type="email" required> 
             <span class="icon is-small is-left">
                 <i class="fas fa-envelope"></i>
             </span>
-            <div *ngIf="submitted && formControls.email.errors" class="help is-danger">
-                <div *ngIf="formControls.email.errors.required">Email is required</div>
+            <div *ngIf="submitted && formControls.email?.errors" class="help is-danger">
+                <div *ngIf="formControls.email?.errors?.required">Email is required</div>
+                <div *ngIf="formControls.email?.errors?.email">Email is invalid</div>
                 <span class="icon is-small is-right">
                     <i class="fas fa-exclamation-triangle"></i>
                 </span>
@@ -36,9 +37,9 @@
         <label class="label">Password</label>
         <div class="control">
             
-            <input [ngClass]="{ 'has-error' : submitted && formControls.password.errors }" class="input" type="password" placeholder="********">
-            <div *ngIf="submitted && formControls.password.errors" class="help is-danger">
-                <div *ngIf="formControls.password.errors.required">Password is required</div>
+            <input [ngClass]="{ 'has-error' : submitted && formControls.password?.errors }" class="input" placeholder="********" formControlName="password" type="password" required>
+            <div *ngIf="submitted && formControls.password?.errors" class="help is-danger">
+                <div *ngIf="formControls.password?.errors?.required">Password is required</div>
             </div>
 
         </div>
