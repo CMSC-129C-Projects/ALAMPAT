@@ -8,7 +8,7 @@
         </header>
         <section class="modal-card-body">
             <!-- Content ... -->
-            <form [formGroup]="contactForm" (ngSubmit)="onSubmit" novalidate>
+            <form [formGroup]="createForm" (ngSubmit)="onSubmit" validate>
                 <label class="label">Choose Account Type:</label>
                 <div class="field is-grouped is-grouped-centered">
                     <div class="control">
@@ -20,52 +20,91 @@
                             <input type="radio" name="userType" value="seller" formControlName="userType">
                             SELLER
                         </label>
+                        <div *ngIf="createForm.get('userType')?.invalid" class="älert alert-danger">
+                            <span class="has-text-danger is-size-7">Please choose an account type.</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="column is-4"></div>
                 <div class="field">
                     <label class="label ">Name</label>
                     <div class="control">
-                        <input formControlName="name" class="input" type="name" placeholder="e.g. Han Jisung">
+                        <input class="input" type="name" placeholder="e.g. Han Jisung" formControlName="name" required>
+                        <div *ngIf="(name?.dirty || name?.touched)" class="älert alert-danger">
+                            <div *ngIf="name?.errors?.required">
+                                <p class="has-text-danger is-size-7">Name is required.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label ">Email</label>
                     <div class="control">
-                        <input formControlName="email" class="input" type="email" placeholder="e.g. erlito@example.com">
+                        <input formControlName="email" class="input" type="email" placeholder="e.g. erlito@example.com"
+                            required>
+                        <div *ngIf="(email?.dirty || email?.touched)" class="älert alert-danger">
+                            <div *ngIf="email?.errors?.required">
+                                <p class="has-text-danger is-size-7">Email is required.</p>
+                            </div>
+                            <div *ngIf="email?.errors?.pattern">
+                                <p class="has-text-danger is-size-7">That email is not valid.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label ">Password</label>
                     <div class="control">
-                        <input formControlName="password" class="input" type="password" placeholder="*******">
+                        <input formControlName="password" class="input" type="password" placeholder="*******" required>
+                        <div *ngIf="(password?.dirty || password?.touched)" class="älert alert-danger">
+                            <div *ngIf="password?.errors?.required">
+                                <p class="has-text-danger is-size-7">Password is required.</p>
+                            </div>
+                            <div *ngIf="password?.errors?.minlength">
+                                <p class="has-text-danger is-size-7">Minimum length for password should be 8.</p>
+                            </div>
+                            <!-- <div *ngIf="password?.errors?.pattern">
+                                <p class="has-text-danger is-size-7">Password must contain at least one number and a
+                                    capital letter.</p>
+                            </div> -->
+                        </div>
                     </div>
                 </div>
 
                 <div class="field">
-                    <label class="label ">Phone Number</label>
-                    <div class="control">
-                        <input formControlName="phoneNumber" class="input" type="phone number"
-                            placeholder="e.g. +63912345678 / 09123456789">
+                    <label class="label">Phone Number</label>
+                    <div class="control field has-addons">
+                        <a class="button is-static">
+                            +63
+                        </a>
+                        <p class="control">
+                            <input formControlName="phoneNumber" class="input" type="phoneNumber"
+                                placeholder="e.g. +63912345678" required>
+                        </p>
                     </div>
+                    <p *ngIf="(phoneNumber?.dirty || phoneNumber?.touched)" class="älert alert-danger">
+                        <span *ngIf="phoneNumber?.errors?.required" class="has-text-danger is-size-7">
+                            Cellphone number is required.</span>
                 </div>
+                <span *ngIf="phoneNumber?.errors?.pattern" class="has-text-danger is-size-7">
+                    Please enter your 10-digit phone number.</span>
 
-                <div class="field">
+
+                <!-- <div class="field">
                     <label class="label ">Address</label>
                     <div class="control">
                         <input formControlName="address" class="input" type="address"
                             placeholder="e.g. Street No., Barangay, Town / Municiplaity, City, Province, Country">
                     </div>
-                </div>
+                </div> -->
             </form>
         </section>
 
         <footer class="modal-card-foot">
 
-            <button (click)="onSubmit()" class="button is-small is-success is-outlined">Register</button>
+            <button (click)="onSubmit()" class="button is-small is-success is-outlined" [disabled] = "!createForm.valid">Register</button>
             <button (click)="onClickExit()" class="button is-small is-danger is-outlined">Cancel</button>
 
         </footer>
