@@ -53,7 +53,8 @@
             </span>
             <div *ngIf="submitted && formControls.password?.errors" class="help is-danger">
                 <div *ngIf="formControls.password?.errors?.required">Password is required</div>
-                <div *ngIf="formControls.password?.errors?.minlength">Password should contain atleast 8 characters</div>
+                <div *ngIf="formControls.password?.errors?.minlength"></div>
+                <div *ngIf="formControls.password?.errors?.pattern">Password should contain at least 8 characters with 1 number, 1 uppercase letter and 1 symbol</div>
                 <span class="icon is-right is-danger">
                     <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-exclamation" viewBox="0 0 16 16">
                         <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.553.553 0 0 1-1.1 0L7.1 4.995z"/>
