@@ -40,6 +40,7 @@
             <input [ngClass]="{ 'has-error' : submitted && formControls.password?.errors }" class="input" placeholder="********" formControlName="password" type="password" required>
             <div *ngIf="submitted && formControls.password?.errors" class="help is-danger">
                 <div *ngIf="formControls.password?.errors?.required">Password is required</div>
+                <div *ngIf="formControls.password?.errors?.minlength">Password should contain atleast 8 characters</div>
             </div>
 
         </div>
