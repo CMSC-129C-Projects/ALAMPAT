@@ -24,7 +24,7 @@
             </span>
             <div *ngIf="submitted && formControls.email?.errors" class="help is-danger">
                 <div *ngIf="formControls.email?.errors?.required">Email is required</div>
-                <div *ngIf="formControls.email?.errors?.email">Email is invalid</div>
+                <div *ngIf="formControls.email?.errors?.pattern">Email is invalid</div>
                 <span class="icon is-small is-right">
                     <i class="fas fa-exclamation-triangle"></i>
                 </span>
