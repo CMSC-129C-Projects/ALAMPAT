@@ -17,10 +17,11 @@ export class ContactComponent implements OnInit {
   }
 
   createForm = new FormGroup({});
+  submitted: boolean = false;
 
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   phonePattern = "^((\\+91-?)|0)?[0-9]{10}$";
-  passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
+  passwordPattern = "^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
 
   ngOnInit(): void {
     this.createForm = new FormGroup({
@@ -45,6 +46,9 @@ export class ContactComponent implements OnInit {
       ]),
       userType: new FormControl('', [
         Validators.required,
+      ]),
+      agreeBox: new FormControl('', [
+        Validators.requiredTrue
       ])
     });
   }
@@ -55,7 +59,7 @@ export class ContactComponent implements OnInit {
   get address() { return this.createForm.get('address'); }
   get password() { return this.createForm.get('password'); }
   get userType() { return this.createForm.get('userType'); }
-
+  get agreebox() { return this.createForm.get('agreeBox') }
 
 
   onSubmit = () => {
@@ -69,8 +73,10 @@ export class ContactComponent implements OnInit {
     }
 
     this.userService.registerUser(regUser);
-    let { value } = this.createForm;
-    console.log(value);
+  }
+  onReset() {
+    this.submitted = false;
+    this.createForm.reset();
   }
 
   onClickExit = () => {

@@ -4,7 +4,7 @@
     <div class="modal-card">
         <header class="modal-card-head">
             <p class="modal-card-title">Registration</p>
-            <button (click)="onClickExit()" class="delete" aria-label="close"></button>
+            <button (click)="onClickExit()" (click)="onReset()" class="delete" aria-label="close"></button>
         </header>
         <section class="modal-card-body">
             <!-- Content ... -->
@@ -62,13 +62,10 @@
                             <div *ngIf="password?.errors?.required">
                                 <p class="has-text-danger is-size-7">Password is required.</p>
                             </div>
-                            <div *ngIf="password?.errors?.minlength">
-                                <p class="has-text-danger is-size-7">Minimum length for password should be 8.</p>
+                            <div *ngIf="password?.errors?.pattern">
+                                <p class="has-text-danger is-size-7">Password should contain a minimum of 8 characters
+                                    with at least 1 number, 1 uppercase letter and 1 symbol</p>
                             </div>
-                            <!-- <div *ngIf="password?.errors?.pattern">
-                                <p class="has-text-danger is-size-7">Password must contain at least one number and a
-                                    capital letter.</p>
-                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -87,9 +84,10 @@
                     <p *ngIf="(phoneNumber?.dirty || phoneNumber?.touched)" class="älert alert-danger">
                         <span *ngIf="phoneNumber?.errors?.required" class="has-text-danger is-size-7">
                             Cellphone number is required.</span>
+                        <span *ngIf="phoneNumber?.errors?.pattern" class="has-text-danger is-size-7">
+                            Please enter your 10-digit phone number.</span>
+
                 </div>
-                <span *ngIf="phoneNumber?.errors?.pattern" class="has-text-danger is-size-7">
-                    Please enter your 10-digit phone number.</span>
 
 
                 <!-- <div class="field">
@@ -104,8 +102,10 @@
 
         <footer class="modal-card-foot">
 
-            <button (click)="onSubmit()" class="button is-small is-success is-outlined" [disabled] = "!createForm.valid">Register</button>
-            <button (click)="onClickExit()" class="button is-small is-danger is-outlined">Cancel</button>
+            <button (click)="onSubmit()" (click)="onReset()" (click)="onClickExit()"
+                class="button is-small is-success is-outlined">Register</button>
+            <button (click)="onClickExit()" (click)="onReset()"
+                class="button is-small is-danger is-outlined">Cancel</button>
 
         </footer>
     </div>
