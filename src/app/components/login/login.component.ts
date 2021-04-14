@@ -13,9 +13,10 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   submitted = false;
+  //proceed: boolean = false;
   //returnUrl: string;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService )  {
   }
 
   ngOnInit(): void {
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
   // convenience getter for easy access to form fields
   get formControls() { return this.loginForm.controls; }
 
-  login () {
+  login = async () => {
     console.log(this.loginForm.value);
     this.submitted = true;
     if(this.loginForm.invalid){

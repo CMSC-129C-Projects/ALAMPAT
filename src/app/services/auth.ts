@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios'
 import { User } from '../models/User'
+import { Router, ActivatedRoute } from '@angular/router';
 
 const localAPI = 'http://localhost:3000'
 
 interface RegistrationResponse {
     message: string;
     success: boolean;
+}
+
+interface LoginResponse {
+    message: string;
+    loggedin: boolean;
 }
 
 @Injectable({
@@ -18,12 +24,13 @@ export class UserService {
     isLoggedin: boolean = false;
     loginError: string = '';
 
-    constructor() { }
+    constructor(private router:Router) { }
 
     registerUser = async (user: User) => {
         try {
             const response = await axios.post<RegistrationResponse>(`${localAPI}/user/register`, user);
             const { message, success } = response.data
+            console.log(response.data)
             if (success) {
                 this.isRegistered = true;
             } else {
@@ -39,13 +46,16 @@ export class UserService {
     login = async (userInfo: User) => {
         localStorage.setItem('ACCESS_TOKEN', "access_token");
         try {
-            const response = await axios.post<RegistrationResponse>(`${localAPI}/user/login`, userInfo);
-            const { message, success } = response.data
-            if (success) {
+            const response = await axios.post<LoginResponse>(`${localAPI}/user/login`, userInfo);
+            const { message, loggedin } = response.data
+            if (loggedin) {
                 this.isLoggedin = true;
+                console.log(message)
+                this.router.navigate(['/loading'])
             } else {
+                this.loginError = 'Something went wrong';
                 this.isLoggedin = false;
-                this.loginError = 'Something went wrong'
+                
             }
         } catch (error) {
             console.log(error)
