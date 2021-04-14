@@ -16,7 +16,6 @@ export class LoginComponent implements OnInit {
   //returnUrl: string;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService) {
- 
   }
 
   ngOnInit(): void {
@@ -41,7 +40,5 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.loginForm.value);
     //this.router.navigateByUrl('/admin');
   }
-
-  
 
 }
