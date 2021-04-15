@@ -53,7 +53,8 @@ export class UserService {
                 console.log(message)
                 this.router.navigate(['/loading'])
             } else {
-                this.loginError = 'Something went wrong';
+                this.loginError = message;
+                console.log( this.loginError)
                 this.isLoggedin = false;
                 
             }

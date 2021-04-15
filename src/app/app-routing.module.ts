@@ -6,8 +6,9 @@ import { ContactComponent } from '../app/components/contact/contact.component';
 import { LoginComponent } from '../app/components/login/login.component';
 
 const routes: Routes = [
-  //{ path: '', redirectTo: '/welcome', pathMatch: 'full'},
-  //{ path: 'welcome', component: WelcomeComponent},
+  { path: '', redirectTo: '/welcome', pathMatch: 'full'},
+  { path: 'welcome', component: WelcomeComponent},
+  { path: 'loading', component: LoadingComponent},
   //
 ];
 
