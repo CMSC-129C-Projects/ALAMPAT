@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { FooterComponent } from './footer/footer.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { RegisterLoadingComponent } from './components/register-loading/register-loading.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
     FooterComponent,
-    ContactComponent
+    ContactComponent,
+    RegisterLoadingComponent
   ],
   imports: [
     BrowserModule,
