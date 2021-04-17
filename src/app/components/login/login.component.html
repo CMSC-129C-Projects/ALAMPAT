@@ -6,7 +6,9 @@
 
 <div class="columns is-mobile is-centered">
     <form [formGroup]="loginForm" (ngSubmit)="login()" class="box" style="width: 450px" novalidate autocomplete="false">
-    
+    <div *ngIf="userService.showErrorMessage" class = "notification is-danger is-light has-text-centered">
+        Invalid email and/or password. Please try again.
+    </div>
     <div class="field">
         <label class="label">Email</label>
         <div class="control has-icons-left">  
@@ -42,12 +44,14 @@
         </div>
     </div>
 
+    
+
     <div class="field is-grouped is-grouped-right">
-        <p class="control">
+        <div class="control">
         <button (onClick) ="login()" class="button is-hovered is-rounded is-success is-outlined" value="Log in" type="submit">
             LOG IN
         </button>
-        </p>
+    </div>
     </div>
     </form>
 </div>

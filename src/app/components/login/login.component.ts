@@ -13,10 +13,8 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   submitted = false;
-  //proceed: boolean = false;
-  //returnUrl: string;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService )  {
+  constructor(private formBuilder: FormBuilder, public userService: UserService )  {
   }
 
   ngOnInit(): void {
@@ -24,9 +22,6 @@ export class LoginComponent implements OnInit {
       email: ['',[ Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       password: ['', [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')]],
     });
-
-    // get return url from route parameters or default to '/'
-    //this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   // convenience getter for easy access to form fields
@@ -39,7 +34,5 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.userService.login(this.loginForm.value);
-    //this.router.navigateByUrl('/admin');
   }
-
 }

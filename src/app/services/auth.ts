@@ -23,6 +23,7 @@ export class UserService {
     registrationError: string = '';
     isLoggedin: boolean = false;
     loginError: string = '';
+    showErrorMessage: boolean = false;
 
     constructor(private router:Router) { }
 
@@ -45,6 +46,7 @@ export class UserService {
 
     login = async (userInfo: User) => {
         localStorage.setItem('ACCESS_TOKEN', "access_token");
+        this.showErrorMessage = false;
         try {
             const response = await axios.post<LoginResponse>(`${localAPI}/user/login`, userInfo);
             const { message, loggedin } = response.data
@@ -53,12 +55,13 @@ export class UserService {
                 console.log(message)
                 this.router.navigate(['/loading'])
             } else {
+                this.showErrorMessage = true;
                 this.loginError = message;
                 console.log( this.loginError)
-                this.isLoggedin = false;
-                
+                this.isLoggedin = false;   
             }
         } catch (error) {
+            this.showErrorMessage = true;
             console.log(error)
             this.loginError = error
         }
