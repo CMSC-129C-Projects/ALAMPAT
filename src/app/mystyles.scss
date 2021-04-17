@@ -1,0 +1,25 @@
+@import "../sass/utilities/initial-variables";
+@import "../sass/utilities/functions";
+
+$alampat-green: #3f8165;
+$alampat-green-invert: findColorInvert($alampat-green);
+$alampat-brown: #c46c0c;
+$alampat-brown-invert: findColorInvert($alampat-brown);
+$alampat-orange: #d14734;
+$alampat-orange-invert: findColorInvert($alampat-orange);
+$alampat-yellow:#facd8a;
+$alampat-yellow-invert: findColorInvert($alampat-yellow);
+$alampat-blue:#ddeee7;
+$alampat-blue-invert: findColorInvert($alampat-blue);
+
+@import "../sass/utilities/derived-variables";
+$addColors: (
+  "alampat-green":($alampat-green, $alampat-green-invert),
+  "alampat-brown": ($alampat-brown, $alampat-brown-invert),
+  "alampat-orange": ($alampat-orange, $alampat-orange-invert),
+  "alampat-yellow": ($alampat-yellow, $alampat-yellow-invert),
+  "alampat-blue": ($alampat-blue, $alampat-blue-invert),
+);
+$colors: map-merge($colors, $addColors);
+
+@import "../bulma";

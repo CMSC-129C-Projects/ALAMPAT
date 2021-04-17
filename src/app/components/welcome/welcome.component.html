@@ -1,0 +1,130 @@
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
+  .span-spaces {
+    padding-left: 5px;
+    padding-right: 10px;
+  }
+</style>
+
+<section class="hero is-halfheight">
+  <!-- Navigation bar header -->
+  <div class="hero-head">
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item">
+            <img src="assets/alampat-icon.ico" alt="hakdog" width="29">
+          </a>
+          <span class="navbar-item">
+            ALAMPAT
+          </span>
+          <span class="navbar-burger" data-target="navbarMenuHeroA">
+            <span> </span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+        <div id="navbarMenuHeroA" class="navbar-menu">
+          <div class="navbar-end">
+            <a href="#login" class="navbar-item">
+              Log In
+            </a>
+            <a (click)="onClickSignUp()" class="navbar-item">
+              Sign Up
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  </div>
+
+  <!-- Hero content: will be in the middle -->
+  <div class="hero-body" id="alampat">
+    <div class="container has-text-centered has-text-weight-bold">
+      <p class="title is-size-1 is-family-primary">
+        Welcome to
+      </p>
+
+      <figure class="image has-ratio">
+        <img src="assets/alogo.png">
+      </figure>
+
+      <p class="subtitle is-italic">
+        "Where art flows from the heart."
+      </p>
+    </div>
+  </div>
+
+</section>
+
+<!-- Wave bg-->
+<div class="background-image">
+  <img src="assets/bg.png">
+</div>
+
+<!-- Login form -->
+<section>
+  <div class="container has-text-centered" id="login">
+    <p class="title is-size-3 is-family-primary has-text-success-dark ">
+      Log In
+    </p>
+    <span> </span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <div class="columns is-mobile is-centered">
+
+    <form class="box" style="width: 450px">
+      <div class="field">
+        <label class="label ">Email</label>
+        <div class="control">
+          <input class="input" type="email" placeholder="e.g. erlito@example.com">
+
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control">
+          <input class="input" type="password" placeholder="********">
+        </div>
+      </div>
+
+      <div class="field is-grouped is-grouped-right">
+        <p class="control">
+          <a class="button is-hovered is-rounded is-success is-outlined">
+            LOG IN
+          </a>
+        </p>
+      </div>
+    </form>
+  </div>
+
+</section>
+
+<!-- Sign Up button-->
+
+<div class="card-container">
+  <span class="span-spaces">
+    <p class="subtitle is-10 has-text-centered">
+      Don't have an account yet?
+    </p>
+  </span>
+  <button (click)="onClickSignUp()" class="button is-small button is-success is-outlined ">Sign Up</button>
+</div>
+<div class="column is-4"></div>
+
+<app-contact [openRegisterModal]='showSignUp'></app-contact>
+<app-footer></app-footer>

@@ -25,7 +25,11 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/logo.png",
+              "src/assets/alampat.ico",
+              "src/assets/person-sharp.svg",
+              "src/assets/people-sharp.svg"
             ],
             "styles": [
               "node_modules/bulma/css/bulma.css",
@@ -66,7 +70,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "frontend:build"
+            "browserTarget": "frontend:build",
+            "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {

@@ -1,0 +1,146 @@
+<!-- Registration Modal -->
+<div class="modal" [ngClass]="openRegisterModal ? 'is-active' : ''">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Registration</p>
+            <button (click)="onClickExit()" (click)="onReset()" class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            <!-- Content ... -->
+            <form [formGroup]="createForm" (ngSubmit)="onSubmit" validate>
+                <label class="label">Choose Account Type:</label>
+                <div class="field is-grouped is-grouped-centered">
+                    <div class="control">
+                        <label class="radio">
+                            <input type="radio" name="userType" value="buyer" formControlName="userType">
+                            BUYER
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="userType" value="seller" formControlName="userType">
+                            SELLER
+                        </label>
+                        <div *ngIf="createForm.get('userType')?.invalid" class="älert alert-danger">
+                            <span class="has-text-danger is-size-7">Please choose an account type.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label ">Name</label>
+                    <div class="control has-icons-left">
+                        <span class="icon is-small is-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                <path fill-rule="evenodd"
+                                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                            </svg>
+                            <i class="bi bi-person-circle"></i>
+                        </span>
+                        <input class="input" type="name" placeholder="Han Jisung" formControlName="name" required>
+                        <div *ngIf="(name?.dirty || name?.touched)" class="älert alert-danger">
+                            <div *ngIf="name?.errors?.required">
+                                <p class="has-text-danger is-size-7">Name is required.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label ">Email</label>
+                    <div class="control has-icons-left">
+                        <span class="icon is-small is-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z" />
+                            </svg>
+                            <i class="bi bi-envelope-fill"></i>
+                        </span>
+                        <input formControlName="email" class="input" type="email" placeholder="erlito@example.com"
+                            required>
+                        <div *ngIf="(email?.dirty || email?.touched)" class="älert alert-danger">
+                            <div *ngIf="email?.errors?.required">
+                                <p class="has-text-danger is-size-7">Email is required.</p>
+                            </div>
+                            <div *ngIf="email?.errors?.pattern">
+                                <p class="has-text-danger is-size-7">That email is not valid.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label ">Password</label>
+                    <div class="control has-icons-left">
+                        <span class="icon is-small is-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-key-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2zM2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                            </svg>
+                            <i class="bi bi-key-fill"></i>
+                        </span>
+                        <input formControlName="password" class="input" type="password" placeholder="********" required>
+                        <div *ngIf="(password?.dirty || password?.touched)" class="älert alert-danger">
+                            <div *ngIf="password?.errors?.required">
+                                <p class="has-text-danger is-size-7">Password is required.</p>
+                            </div>
+                            <div *ngIf="password?.errors?.pattern">
+                                <p class="has-text-danger is-size-7">Password should contain a minimum of 8 characters
+                                    with at least 1 number, 1 uppercase letter and 1 symbol</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Phone Number</label>
+                    <div class="control field has-addons has-icons-left">
+                        <a class="button is-static">
+                            +63
+                        </a>
+                        <p class="control">
+                            <span class="icon is-small is-left">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+                                </svg>
+                                <i class="bi bi-telephone-fill"></i>
+                            </span>
+                            <input formControlName="phoneNumber" class="input" type="phoneNumber"
+                                placeholder="+63912345678" required>
+                        </p>
+                    </div>
+                    <p *ngIf="(phoneNumber?.dirty || phoneNumber?.touched)" class="älert alert-danger">
+                        <span *ngIf="phoneNumber?.errors?.required" class="has-text-danger is-size-7">
+                            Cellphone number is required.</span>
+                        <span *ngIf="phoneNumber?.errors?.pattern" class="has-text-danger is-size-7">
+                            Please enter your 10-digit phone number.</span>
+
+                </div>
+
+
+                <!-- <div class="field">
+                    <label class="label ">Address</label>
+                    <div class="control">
+                        <input formControlName="address" class="input" type="address"
+                            placeholder="e.g. Street No., Barangay, Town / Municiplaity, City, Province, Country">
+                    </div>
+                </div> -->
+                <!-- <button *ngIf="onValidate()" (click)="isDisabled=false" class="button is-small is-success is-outlined">Finish</button> -->
+            </form>
+        </section>
+
+        <footer class="modal-card-foot buttons is-right">
+                <button (click)="onClickExit()" (click)="onReset()"
+                    class="button is-small is-danger is-outlined">Cancel</button>
+                <button (click)="onSubmit()" (click)="onReset()" (click)="onClickExit()"
+                    class="button is-small is-success is-outlined" >Register</button>
+        </footer>
+
+
+    </div>
+</div>
