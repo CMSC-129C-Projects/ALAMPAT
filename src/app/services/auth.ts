@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios'
 import { User } from '../models/User'
+import { Router, ActivatedRoute } from '@angular/router';
 
 const localAPI = 'http://localhost:3000'
 
@@ -15,8 +16,9 @@ interface RegistrationResponse {
 export class UserService {
     isRegistered: boolean = false;
     registrationError: string = '';
+    showRegistrationError:boolean = false;
 
-    constructor() { }
+    constructor(private router: Router) { }
 
     registerUser = async (user: User) => {
         try {

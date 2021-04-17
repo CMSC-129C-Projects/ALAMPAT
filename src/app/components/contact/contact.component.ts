@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/auth';
 export class ContactComponent implements OnInit {
   @Input() openRegisterModal: boolean;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,) {
     this.openRegisterModal = false;
   }
 
