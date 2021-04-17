@@ -48,7 +48,7 @@ export class ContactComponent implements OnInit {
         Validators.required,
       ]),
       agreeBox: new FormControl('', [
-        Validators.requiredTrue
+        Validators.required
       ])
     });
   }
@@ -59,8 +59,6 @@ export class ContactComponent implements OnInit {
   get address() { return this.createForm.get('address'); }
   get password() { return this.createForm.get('password'); }
   get userType() { return this.createForm.get('userType'); }
-  get agreebox() { return this.createForm.get('agreeBox') }
-
 
   onSubmit = () => {
     const regUser: User = {
@@ -71,9 +69,9 @@ export class ContactComponent implements OnInit {
       password: this.createForm.get('password')?.value,
       userType: this.createForm.get('userType')?.value,
     }
-
     this.userService.registerUser(regUser);
   }
+
   onReset() {
     this.submitted = false;
     this.createForm.reset();
