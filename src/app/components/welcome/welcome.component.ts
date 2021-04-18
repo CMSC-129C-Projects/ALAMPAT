@@ -14,6 +14,12 @@ export class WelcomeComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  public navigateToLogin(section: string) {
+    window.location.hash = '';
+    window.location.hash = section;
+}
+
   onClickSignUp = () => {
     this.showSignUp = !this.showSignUp;
   }

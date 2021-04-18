@@ -36,7 +36,7 @@
         </div>
         <div id="navbarMenuHeroA" class="navbar-menu">
           <div class="navbar-end">
-            <a href = "#login"  class="navbar-item">
+            <a fragment="LogIn" (click)="navigateToLogin('LogIn')" class="navbar-item">
               Log In
             </a>
             <a (click)="onClickSignUp()" class="navbar-item">
@@ -74,7 +74,7 @@
 </div>
 
 <!-- Login form -->
-<div id = "login" name = "login">
+<div id = "LogIn" name = "LogIn">
   <app-login></app-login>
 </div>
 

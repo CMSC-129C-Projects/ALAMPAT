@@ -24,11 +24,12 @@ import { LoadingComponent } from './components/loading/loading.component';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+  
 
   ],
   exports:[
     WelcomeComponent,
-   
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
