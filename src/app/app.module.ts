@@ -13,6 +13,7 @@ import { MyaccountbuyerComponent } from './components/myaccountbuyer/myaccountbu
 import { MyaccountsellerComponent } from './components/myaccountseller/myaccountseller.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { PortfolioComponent } from './components/portfolio/portfolio.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { LoadingComponent } from './components/loading/loading.component';
     HeaderbuyerComponent,
     HeadersellerComponent,
     LoginComponent,
-    LoadingComponent
+    LoadingComponent,
+    PortfolioComponent
   ],
   imports: [
     BrowserModule,
