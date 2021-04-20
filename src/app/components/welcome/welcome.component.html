@@ -36,7 +36,7 @@
         </div>
         <div id="navbarMenuHeroA" class="navbar-menu">
           <div class="navbar-end">
-            <a href="#login" class="navbar-item">
+            <a fragment="LogIn" (click)="navigateToLogin('LogIn')" class="navbar-item">
               Log In
             </a>
             <a (click)="onClickSignUp()" class="navbar-item">
@@ -74,45 +74,10 @@
 </div>
 
 <!-- Login form -->
-<section>
-  <div class="container has-text-centered" id="login">
-    <p class="title is-size-3 is-family-primary has-text-success-dark ">
-      Log In
-    </p>
-    <span> </span>
-    <span></span>
-    <span></span>
-  </div>
+<div id = "LogIn" name = "LogIn">
+  <app-login></app-login>
+</div>
 
-  <div class="columns is-mobile is-centered">
-
-    <form class="box" style="width: 450px">
-      <div class="field">
-        <label class="label ">Email</label>
-        <div class="control">
-          <input class="input" type="email" placeholder="e.g. erlito@example.com">
-
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Password</label>
-        <div class="control">
-          <input class="input" type="password" placeholder="********">
-        </div>
-      </div>
-
-      <div class="field is-grouped is-grouped-right">
-        <p class="control">
-          <a class="button is-hovered is-rounded is-success is-outlined">
-            LOG IN
-          </a>
-        </p>
-      </div>
-    </form>
-  </div>
-
-</section>
 
 <!-- Sign Up button-->
 
