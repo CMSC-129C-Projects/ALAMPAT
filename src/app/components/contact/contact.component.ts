@@ -16,9 +16,9 @@ export class ContactComponent implements OnInit {
     this.openRegisterModal = false;
   }
 
-  createForm = new FormGroup({});
+  createForm: FormGroup;
   submitted: boolean = false;
-  registeredUser: boolean = true;
+  registeredUser: boolean = false;
 
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   phonePattern = "^((\\+91-?)|0)?[0-9]{10}$";
@@ -61,17 +61,15 @@ export class ContactComponent implements OnInit {
   get password() { return this.createForm.get('password'); }
   get userType() { return this.createForm.get('userType'); }
 
+  get formControls() { return this.createForm.controls };
+
   onSubmit = () => {
-    const regUser: User = {
-      name: this.createForm.get('name')?.value,
-      email: this.createForm.get('email')?.value,
-      phoneNumber: this.createForm.get('phoneNumber')?.value,
-      address: this.createForm.get('address')?.value,
-      password: this.createForm.get('password')?.value,
-      userType: this.createForm.get('userType')?.value,
+    console.log(this.createForm.value);
+    this.submitted = true;
+    if(this.createForm.invalid){
+      return;
     }
-    this.userService.registerUser(regUser);
-    this.registeredUser = true;
+    this.userService.registerUser(this.createForm.value);
   }
 
   onReset() {
