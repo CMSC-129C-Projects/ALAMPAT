@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-welcome',
@@ -8,13 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeComponent implements OnInit {
   showSignUp: boolean = false;
-  constructor() {
-  }
+  showLogin: boolean = false;
+
+  constructor() { }
 
   ngOnInit(): void {
   }
+
+  public navigateToLogin(section: string) {
+    window.location.hash = '';
+    window.location.hash = section;
+}
+
   onClickSignUp = () => {
     this.showSignUp = !this.showSignUp;
   }
 
+ 
 }
