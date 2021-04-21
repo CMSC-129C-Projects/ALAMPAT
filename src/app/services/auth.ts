@@ -35,9 +35,11 @@ export class UserService {
             console.log(response.data)
             if (success) {
                 this.isRegistered = true;
+                this.showRegistrationError=false;
                 console.log("User Registered!")
             } else {
                 this.isRegistered = false;
+                this.showRegistrationError=true;
                 this.registrationError = 'Something went wrong'
             }
         } catch (error) {
