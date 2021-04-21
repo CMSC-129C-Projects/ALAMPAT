@@ -1,26 +1,155 @@
 <app-headerseller></app-headerseller>
+<style>
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  
+    .span-spaces {
+      padding-left: 5px;
+      padding-right: 430px;
+    }
+</style>
+
+<div class="container">
+    <nav class="breadcrumb is-small" aria-label="breadcrumbs">
+        <li><a href="#">
+            <span class="icon is-small">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                    <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+                  </svg>
+                  <i class="bi bi-caret-left-fill" aria-hidden="true"></i>
+              </span>
+              <span>Back to Seller Shop</span> 
+          </a></li>
+    </nav>
+</div>
 <div class="hero-body">
     <div class="columns is-mobile">
-        <div class="column is-one-fifth is-narrow"></div>
+        <div class="column is-three-fifths is-offset-one-fifth">
+            <div class="card-container">
+                <span class="span-spaces">
+                    <div class="title is-family-primary has-icons-left">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" fill="currentColor" class="bi bi-easel-fill" viewBox="0 0 16 16">
+                            <path d="M8.473.337a.5.5 0 0 0-.946 0L6.954 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h1.85l-1.323 3.837a.5.5 0 1 0 .946.326L4.908 11H7.5v2.5a.5.5 0 0 0 1 0V11h2.592l1.435 4.163a.5.5 0 0 0 .946-.326L12.15 11H14a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H9.046L8.473.337z"/>
+                        </svg>
+                        <i class="bi bi-easel-fill"></i>
+                        Create Portfolio 
+                    </div>
+                </span>
+                <button class="button is-danger is-rounded">
+                    <strong>ADD ARTWORK</strong>
+                </button>
+            </div>
+            <hr style="background-color:#e8e6e6">
             
-        <div class="column">
-            <div class="title is-family-primary has-icons-left">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" fill="currentColor" class="bi bi-easel-fill" viewBox="0 0 16 16">
-                    <path d="M8.473.337a.5.5 0 0 0-.946 0L6.954 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h1.85l-1.323 3.837a.5.5 0 1 0 .946.326L4.908 11H7.5v2.5a.5.5 0 0 0 1 0V11h2.592l1.435 4.163a.5.5 0 0 0 .946-.326L12.15 11H14a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H9.046L8.473.337z"/>
-                </svg>
-                <i class="bi bi-easel-fill"></i>
-                Create Portfolio 
+            <!-- ARTWORK SECTION-->
+            <div class="columns is-multiline is-mobile">
+                <div class="column is-4">
+                    <div class="card">
+                        <div class="card-content">
+                            <p class="text has-text-weight-bold has-text-centered">
+                                Artwork Name
+                            </p>
+                        </div>
+                        <a class="card-image">
+                            <figure class="image is-3by2">
+                              <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
+                            </figure>
+                        </a>
+                        <div class="card-content">
+                            some description
+                        </div>
+                    </div>
+                </div> 
+                <div class="column is-4">
+                    <div class="card">
+                        <header class="card-content">
+                            <p class="subtitle is-size-6 has-text-weight-bold has-text-centered">
+                                Artwork Name
+                        </header>
+                        <a class="card-image">
+                            <figure class="image is-3by2">
+                              <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
+                            </figure>
+                        </a>
+                        <div class="card-content">
+                            <div class="content">
+                                Lorem ipsum leo risus, porta ac consectetur ac, vestibulum at eros. Donec id elit non mi porta gravida at eget metus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras mattis consectetur purus sit amet fermentum.
+                              </div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="column is-4">
+                    <div class="card">
+                        <div class="card-content">
+                            <p class="text has-text-weight-bold has-text-centered">
+                                Artwork Name
+                            </p>
+                        </div>
+                        <a class="card-image">
+                            <figure class="image is-3by2">
+                              <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
+                            </figure>
+                        </a>
+                        <div class="card-content">
+                            some description
+                        </div>
+                    </div>
+                </div> 
+                <div class="column is-4">
+                    <div class="card">
+                        <div class="card-content">
+                            <p class="text has-text-weight-bold has-text-centered">
+                                Artwork Name
+                            </p>
+                        </div>
+                        <a class="card-image">
+                            <figure class="image is-3by2">
+                              <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
+                            </figure>
+                        </a>
+                        <div class="card-content">
+                            some description
+                        </div>
+                    </div>
+                </div> 
+                <div class="column is-4">
+                    <div class="card">
+                        <div class="card-content">
+                            <p class="text has-text-weight-bold has-text-centered">
+                                Artwork Name
+                            </p>
+                        </div>
+                        <a class="card-image">
+                            <figure class="image is-3by2">
+                              <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
+                            </figure>
+                        </a>
+                        <div class="card-content">
+                            some description
+                        </div>
+                    </div>
+                </div> 
+                <div class="column is-4">
+                    <div class="card">
+                        <div class="card-content">
+                            <p class="text has-text-weight-bold has-text-centered">
+                                Artwork Name
+                            </p>
+                        </div>
+                        <a class="card-image">
+                            <figure class="image is-3by2">
+                              <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
+                            </figure>
+                        </a>
+                        <div class="card-content">
+                            some description
+                        </div>
+                    </div>
+                </div> 
             </div>
         </div>
-        <div class="column is-2">  
-            <button class="button is-hovered is-rounded is-danger is-outlined ">
-                <strong>ADD ARTWORK</strong>
-            </button>
-        </div>
-        
-            <hr style="background-color:#e8e6e6">
-
-        
-        <div class="column is-one-fifth is-narrow"></div>
     </div>
 </div>
+<app-footer></app-footer>
