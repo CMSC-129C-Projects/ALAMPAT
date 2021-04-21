@@ -8,10 +8,9 @@
         </header>
         <section class="modal-card-body">
             <!-- Content ... -->
-            <form [formGroup]="createForm" (ngSubmit)="onSubmit" novalidate autocomplete="false">
-                <div *ngIf="userService.showRegistrationError"
-                    class="notification is-danger is-light has-text-centered">
-                    <p class="has-text-danger is-size-7">All fields must be filled.</p>
+            <form [formGroup]="createForm" (ngSubmit)="onSubmit" validate>
+                <div *ngIf="registeredUser" class="notification is-danger is-light has-text-centered">
+                    Account already existed!
                 </div>
                 <label class="label">Choose Account Type:</label>
                 <div class="field is-grouped is-grouped-centered">
@@ -21,11 +20,13 @@
                             BUYER
                         </label>
                         <label class="radio">
+                            
                             <input type="radio" name="userType" value="seller" formControlName="userType">
                             SELLER
                         </label>
-                        <div *ngIf="userType?.errors?.required">
-                            <p class="has-text-danger is-size-7">Account type is required.</p>
+
+                        <div *ngIf="  createForm.get('userType')?.invalid" class="älert alert-danger">
+                            <span class="has-text-danger is-size-7">Please choose an account type.</span>                
                         </div>
                     </div>
                 </div>
@@ -43,6 +44,7 @@
                             <i class="bi bi-person-circle"></i>
                         </span>
                         <input class="input" type="name" placeholder="Han Jisung" formControlName="name" required>
+
                         <div *ngIf="(name?.dirty || name?.touched || submitted)" class="älert alert-danger">
                             <div *ngIf="name?.errors?.required">
                                 <p class="has-text-danger is-size-7">Name is required.</p>
@@ -87,6 +89,7 @@
                             <i class="bi bi-key-fill"></i>
                         </span>
                         <input formControlName="password" class="input" type="password" placeholder="********" required>
+
                         <div *ngIf="(password?.dirty || password?.touched || submitted)" class="älert alert-danger">
                             <div *ngIf="password?.errors?.required">
                                 <p class="has-text-danger is-size-7">Password is required.</p>
@@ -142,8 +145,12 @@
         <footer class="modal-card-foot buttons is-right">
             <button (click)="onClickExit()" (click)="onReset()"
                 class="button is-small is-danger is-outlined">Cancel</button>
-            <button (click)="onSubmit()" class="button is-small is-success is-outlined" routerLink = "/registration-confirmed">
-                Register</button>
+
+            <button (click)="onSubmit()" 
+                class="button is-small is-success is-outlined">Register</button>
+            <div *ngIf="regSuccess" class="notification is-success is-light has-text-centered" routerLink = "/registration-confirmed">
+                    Registration Successful!
+            </div>
         </footer>
     </div>
 </div>

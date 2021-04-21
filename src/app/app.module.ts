@@ -23,7 +23,6 @@ import { ContactComponent } from './components/contact/contact.component';
   ],
   exports:[
     WelcomeComponent,
-    
   ],
   providers: [],
   bootstrap: [AppComponent]

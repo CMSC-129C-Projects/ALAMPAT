@@ -27,10 +27,15 @@ export class LoginComponent implements OnInit {
 
   login = async () => {
     console.log(this.loginForm.value);
-    this.submitted = true;
+    
     if(this.loginForm.invalid){
-      return;
+      this.submitted = true;
+      console.log("Input a valid password and/ email");
+      this.loginForm.reset();
+    } else {
+      this.userService.login(this.loginForm.value);
     }
-    this.userService.login(this.loginForm.value);
   }
+
+
 }
