@@ -12,12 +12,13 @@ import { UserService } from 'src/app/services/auth';
 export class ContactComponent implements OnInit {
   @Input() openRegisterModal: boolean;
 
-  constructor(private userService: UserService) {
+  constructor(public userService: UserService,) {
     this.openRegisterModal = false;
   }
 
   createForm = new FormGroup({});
   submitted: boolean = false;
+  registeredUser: boolean = true;
 
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   phonePattern = "^((\\+91-?)|0)?[0-9]{10}$";
@@ -70,6 +71,7 @@ export class ContactComponent implements OnInit {
       userType: this.createForm.get('userType')?.value,
     }
     this.userService.registerUser(regUser);
+    this.registeredUser = true;
   }
 
   onReset() {

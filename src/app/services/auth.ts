@@ -21,6 +21,7 @@ interface LoginResponse {
 export class UserService {
     isRegistered: boolean = false;
     registrationError: string = '';
+    showRegistrationError:boolean = false;
     isLoggedin: boolean = false;
     loginError: string = '';
     showErrorMessage: boolean = false;
@@ -34,6 +35,7 @@ export class UserService {
             console.log(response.data)
             if (success) {
                 this.isRegistered = true;
+                console.log("User Registered!")
             } else {
                 this.isRegistered = false;
                 this.registrationError = 'Something went wrong'
