@@ -22,7 +22,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     WelcomeComponent,
     FooterComponent,
     ContactComponent,
-    routingComponents
+    routingComponents,
     MyaccountbuyerComponent,
     MyaccountsellerComponent,
     HeaderbuyerComponent,
