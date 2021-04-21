@@ -26,6 +26,7 @@ export class UserService {
             const { message, success } = response.data
             if (success) {
                 this.isRegistered = true;
+                console.log("User Registered!")
             } else {
                 this.isRegistered = false;
                 this.registrationError = 'Something went wrong'

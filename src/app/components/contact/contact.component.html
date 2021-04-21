@@ -8,9 +8,6 @@
         </header>
         <section class="modal-card-body">
             <!-- Content ... -->
-            <div *ngIf="userService.isRegistered" class = "notification is-danger is-light has-text-centered">
-                Invalid email. User is already registered. Please try again.
-            </div>
             <form [formGroup]="createForm" (ngSubmit)="onSubmit" validate>
                 <label class="label">Choose Account Type:</label>
                 <div class="field is-grouped is-grouped-centered">
@@ -134,16 +131,18 @@
                     </div>
                 </div> -->
                 <!-- <button *ngIf="onValidate()" (click)="isDisabled=false" class="button is-small is-success is-outlined">Finish</button> -->
+
             </form>
         </section>
 
         <footer class="modal-card-foot buttons is-right">
-                <button (click)="onClickExit()" (click)="onReset()"
-                    class="button is-small is-danger is-outlined">Cancel</button>
-                <button (click)="onSubmit()" (click)="onReset()" (click)="onClickExit()"
-                    class="button is-small is-success is-outlined" >Register</button>
+            <button (click)="onClickExit()" (click)="onReset()"
+                class="button is-small is-danger is-outlined">Cancel</button>
+            <button (click)="onSubmit()" (click)="onReset()"
+                class="button is-small is-success is-outlined">Register</button>
+            <div *ngIf="this.registeredUser" class="notification is-success is-light has-text-centered">
+                Registration Complete!
+            </div>
         </footer>
-
-
     </div>
 </div>
