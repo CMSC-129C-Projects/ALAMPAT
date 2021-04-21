@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { User } from 'src/app/models/User';
 import { UserService } from 'src/app/services/auth';
-
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-contact',
@@ -12,13 +12,13 @@ import { UserService } from 'src/app/services/auth';
 export class ContactComponent implements OnInit {
   @Input() openRegisterModal: boolean;
 
-  constructor(public userService: UserService,) {
+  constructor(public userService: UserService, private router: Router) {
     this.openRegisterModal = false;
   }
 
   createForm = new FormGroup({});
-  submitted: boolean = false;
-  registeredUser: boolean = true;
+  submitted = false;
+  registeredUser: boolean = false;
 
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   phonePattern = "^((\\+91-?)|0)?[0-9]{10}$";
@@ -70,12 +70,19 @@ export class ContactComponent implements OnInit {
       password: this.createForm.get('password')?.value,
       userType: this.createForm.get('userType')?.value,
     }
-    this.userService.registerUser(regUser);
-    this.registeredUser = true;
+    const reguser = this.userService.registerUser(regUser);
+    if(!reguser){
+      this.registeredUser = true;
+      this.router.navigate(['/loading'])
+    }
+    else{
+      this.submitted = true
+      this.openRegisterModal = true
+    }
   }
 
   onReset() {
-    this.submitted = false;
+    this.submitted = true;
     this.createForm.reset();
   }
 
