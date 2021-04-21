@@ -62,22 +62,29 @@ export class ContactComponent implements OnInit {
   get userType() { return this.createForm.get('userType'); }
 
   onSubmit = () => {
-    const regUser: User = {
-      name: this.createForm.get('name')?.value,
-      email: this.createForm.get('email')?.value,
-      phoneNumber: this.createForm.get('phoneNumber')?.value,
-      address: this.createForm.get('address')?.value,
-      password: this.createForm.get('password')?.value,
-      userType: this.createForm.get('userType')?.value,
-    }
-    const reguser = this.userService.registerUser(regUser);
-    if(!reguser){
-      this.registeredUser = true;
-      this.router.navigate(['/loading'])
-    }
-    else{
-      this.submitted = true
-      this.openRegisterModal = true
+    if(this.createForm.invalid){
+      this.submitted = true;
+      console.log("Input the required fields");
+      this.createForm.reset();
+
+    } else{
+      const regUser: User = {
+        name: this.createForm.get('name')?.value,
+        email: this.createForm.get('email')?.value,
+        phoneNumber: this.createForm.get('phoneNumber')?.value,
+        address: this.createForm.get('address')?.value,
+        password: this.createForm.get('password')?.value,
+        userType: this.createForm.get('userType')?.value,
+      }
+      const reguser = this.userService.registerUser(regUser);
+      if(!reguser){
+        this.registeredUser = true;
+        this.router.navigate(['/loading'])
+      }
+      else{
+        this.submitted = true
+        this.openRegisterModal = true
+      }
     }
   }
 

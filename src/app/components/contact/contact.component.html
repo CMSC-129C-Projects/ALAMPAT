@@ -9,6 +9,7 @@
         <section class="modal-card-body">
             <!-- Content ... -->
             <form [formGroup]="createForm" (ngSubmit)="onSubmit" validate>
+                
                 <label class="label">Choose Account Type:</label>
                 <div class="field is-grouped is-grouped-centered">
                     <div class="control">
@@ -17,6 +18,7 @@
                             BUYER
                         </label>
                         <label class="radio">
+                            
                             <input type="radio" name="userType" value="seller" formControlName="userType">
                             SELLER
                         </label>
