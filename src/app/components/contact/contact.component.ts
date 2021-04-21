@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { User } from 'src/app/models/User';
 import { UserService } from 'src/app/services/auth';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -12,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class ContactComponent implements OnInit {
   @Input() openRegisterModal: boolean;
 
-  constructor(public userService: UserService, private router: Router) {
+  constructor(public userService: UserService, private router: Router, private route: ActivatedRoute) {
     this.openRegisterModal = false;
   }
 
@@ -27,7 +26,7 @@ export class ContactComponent implements OnInit {
   phonePattern = "^((\\+91-?)|0)?[0-9]{10}$";
   passwordPattern = "^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.createForm = new FormGroup({
       name: new FormControl('', [
         Validators.required
@@ -56,32 +55,31 @@ export class ContactComponent implements OnInit {
   get name() { return this.createForm.get('name'); }
   get email() { return this.createForm.get('email'); }
   get phoneNumber() { return this.createForm.get('phoneNumber'); }
-  
   get password() { return this.createForm.get('password'); }
   get userType() { return this.createForm.get('userType'); }
 
   onSubmit = async () => {
-    if(this.createForm.invalid){
+    if (this.createForm.invalid) {
       this.submitted = true;
       console.log("Input all the required fields");
       this.createForm.reset();
-    } else{
+    } else {
       var reguser = await this.userService.registerUser(this.createForm.value);
-      if(reguser === true){
+      if (reguser === true) {
         this.registeredUser = false
         this.regSuccess = true;
         //this.router.navigate(['/loading'])
       }
-      else{
+      else {
         this.registeredUser = true
         this.submitted = true
         this.openRegisterModal = true
         this.regSuccess = false;
       }
     }
-
+  }
   onReset() {
-    this.submitted = true;
+    this.submitted = false;
     this.createForm.reset();
   }
 
@@ -89,5 +87,6 @@ export class ContactComponent implements OnInit {
     this.regSuccess = false;
     this.registeredUser = false
     this.openRegisterModal = false;
+    this.onReset();
   }
 }
