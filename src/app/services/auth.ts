@@ -37,8 +37,9 @@ export class UserService {
                 this.isRegistered = true;
                 console.log("User Registered!")
                 console.log(response.data)
-                return this.isRegistered
                 //this.router.navigate(['/loading'])
+                return this.isRegistered
+                //
             } else {
                 this.isRegistered = false;
                 this.registrationError = 'Something went wrong'

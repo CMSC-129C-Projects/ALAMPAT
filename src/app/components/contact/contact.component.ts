@@ -19,6 +19,7 @@ export class ContactComponent implements OnInit {
   createForm = new FormGroup({});
   submitted = false;
   registeredUser: boolean = false;
+  regSuccess = false;
 
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   phonePattern = "^((\\+91-?)|0)?[0-9]{10}$";
@@ -37,9 +38,7 @@ export class ContactComponent implements OnInit {
         Validators.required,
         Validators.pattern(this.phonePattern)
       ]),
-      address: new FormControl('', [
-        Validators.required
-      ]),
+
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
@@ -48,23 +47,21 @@ export class ContactComponent implements OnInit {
       userType: new FormControl('', [
         Validators.required,
       ]),
-      agreeBox: new FormControl('', [
-        Validators.required
-      ])
+
     });
   }
 
   get name() { return this.createForm.get('name'); }
   get email() { return this.createForm.get('email'); }
   get phoneNumber() { return this.createForm.get('phoneNumber'); }
-  get address() { return this.createForm.get('address'); }
+  
   get password() { return this.createForm.get('password'); }
   get userType() { return this.createForm.get('userType'); }
 
-  onSubmit = () => {
+  onSubmit = async () => {
     if(this.createForm.invalid){
       this.submitted = true;
-      console.log("Input the required fields");
+      console.log("Input all the required fields");
       this.createForm.reset();
 
     } else{
@@ -72,18 +69,22 @@ export class ContactComponent implements OnInit {
         name: this.createForm.get('name')?.value,
         email: this.createForm.get('email')?.value,
         phoneNumber: this.createForm.get('phoneNumber')?.value,
-        address: this.createForm.get('address')?.value,
+        address: '',
         password: this.createForm.get('password')?.value,
         userType: this.createForm.get('userType')?.value,
       }
-      const reguser = this.userService.registerUser(regUser);
-      if(!reguser){
-        this.registeredUser = true;
-        this.router.navigate(['/loading'])
+      var reguser = await this.userService.registerUser(regUser);
+      if(reguser === true){
+        this.registeredUser = false
+        this.regSuccess = true;
+        //this.router.navigate(['/loading'])
       }
       else{
+        this.registeredUser = true
         this.submitted = true
         this.openRegisterModal = true
+
+        this.regSuccess = false;
       }
     }
   }
@@ -94,6 +95,8 @@ export class ContactComponent implements OnInit {
   }
 
   onClickExit = () => {
+    this.regSuccess = false;
+    this.registeredUser = false
     this.openRegisterModal = false;
   }
 }
