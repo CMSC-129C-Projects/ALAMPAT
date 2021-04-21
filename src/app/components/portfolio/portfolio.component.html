@@ -7,7 +7,7 @@
   
     .span-spaces {
       padding-left: 5px;
-      padding-right: 430px;
+      padding-right: 30px;
     }
 </style>
 
@@ -37,119 +37,154 @@
                         Create Portfolio 
                     </div>
                 </span>
-                <button class="button is-danger is-rounded">
-                    <strong>ADD ARTWORK</strong>
-                </button>
+                <div class="container">
+                    <div class="buttons is-right">
+                        <a class="button is-danger"> <strong>ADD ARTWORK</strong></a>
+                    </div>
+                </div>
             </div>
             <hr style="background-color:#e8e6e6">
             
+            
             <!-- ARTWORK SECTION-->
             <div class="columns is-multiline is-mobile">
+                
                 <div class="column is-4">
                     <div class="card">
-                        <div class="card-content">
-                            <p class="text has-text-weight-bold has-text-centered">
-                                Artwork Name
-                            </p>
-                        </div>
                         <a class="card-image">
                             <figure class="image is-3by2">
                               <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
                             </figure>
                         </a>
                         <div class="card-content">
-                            some description
+                            <p class="text has-text-weight-bold">
+                                Artwork Name 
+                            </p>
+                            <div class="content">
+                                some description...
+                            </div>
                         </div>
+                        <footer class="card-footer">
+                            <a href="#" class="card-footer-item">Edit</a>
+                            <a (click)="onClickDelete()" class="card-footer-item" value="delete" type="delete">Delete</a>
+                        </footer>
                     </div>
                 </div> 
+                
                 <div class="column is-4">
                     <div class="card">
-                        <header class="card-content">
-                            <p class="subtitle is-size-6 has-text-weight-bold has-text-centered">
-                                Artwork Name
-                        </header>
                         <a class="card-image">
                             <figure class="image is-3by2">
                               <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
                             </figure>
                         </a>
                         <div class="card-content">
+                            <p class="text has-text-weight-bold">
+                                Artwork Name
+                            </p>
                             <div class="content">
                                 Lorem ipsum leo risus, porta ac consectetur ac, vestibulum at eros. Donec id elit non mi porta gravida at eget metus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras mattis consectetur purus sit amet fermentum.
-                              </div>
+                            </div>
                         </div>
+                        <footer class="card-footer">
+                            <a href="#" class="card-footer-item">Edit</a>
+                            <a (click)="onClickDelete()" class="card-footer-item" value="delete" type="delete">Delete</a>
+                        </footer>
                     </div>
                 </div> 
+               
                 <div class="column is-4">
                     <div class="card">
-                        <div class="card-content">
-                            <p class="text has-text-weight-bold has-text-centered">
-                                Artwork Name
-                            </p>
-                        </div>
                         <a class="card-image">
                             <figure class="image is-3by2">
                               <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
                             </figure>
                         </a>
                         <div class="card-content">
-                            some description
-                        </div>
-                    </div>
-                </div> 
-                <div class="column is-4">
-                    <div class="card">
-                        <div class="card-content">
-                            <p class="text has-text-weight-bold has-text-centered">
+                            <p class="text has-text-weight-bold">
                                 Artwork Name
                             </p>
+                            <div class="content">
+                                some description...
+                            </div>
                         </div>
+                        <footer class="card-footer">
+                            <a href="#" class="card-footer-item">Edit</a>
+                            <a (click)="onClickDelete()" class="card-footer-item" value="delete" type="delete">Delete</a>
+                        </footer>
+                    </div>
+                </div> 
+                
+                <div class="column is-4">
+                    <div class="card">
                         <a class="card-image">
                             <figure class="image is-3by2">
                               <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
                             </figure>
                         </a>
                         <div class="card-content">
-                            some description
-                        </div>
-                    </div>
-                </div> 
-                <div class="column is-4">
-                    <div class="card">
-                        <div class="card-content">
-                            <p class="text has-text-weight-bold has-text-centered">
+                            <p class="text has-text-weight-bold">
                                 Artwork Name
                             </p>
+                            <div class="content">
+                                some description...
+                            </div>
                         </div>
+                        <footer class="card-footer">
+                            <a href="#" class="card-footer-item">Edit</a>
+                            <a (click)="onClickDelete()" class="card-footer-item" value="delete" type="delete">Delete</a>
+                        </footer>
+                    </div>
+                </div> 
+               
+                <div class="column is-4">
+                    <div class="card">
                         <a class="card-image">
                             <figure class="image is-3by2">
                               <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
                             </figure>
                         </a>
                         <div class="card-content">
-                            some description
-                        </div>
-                    </div>
-                </div> 
-                <div class="column is-4">
-                    <div class="card">
-                        <div class="card-content">
-                            <p class="text has-text-weight-bold has-text-centered">
+                            <p class="text has-text-weight-bold">
                                 Artwork Name
                             </p>
+                            <div class="content">
+                                some description...
+                            </div>
                         </div>
+                        <footer class="card-footer">
+                            <a href="#" class="card-footer-item">Edit</a>
+                            <a (click)="onClickDelete()" class="card-footer-item" value="delete" type="delete">Delete</a>
+                        </footer>
+                    </div>
+                </div> 
+                
+                <div class="column is-4">
+                    <div class="card">
                         <a class="card-image">
                             <figure class="image is-3by2">
                               <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
                             </figure>
                         </a>
                         <div class="card-content">
-                            some description
+                            <p class="text has-text-weight-bold">
+                                Artwork Name
+                            </p>
+                            <div class="content">
+                                some description...
+                            </div>
                         </div>
+                        <footer class="card-footer">
+                            <a href="#" class="card-footer-item">Edit</a>
+                            <a (click)="onClickDelete()" class="card-footer-item" value="delete" type="delete">Delete</a>
+                        </footer>
                     </div>
                 </div> 
+
             </div>
-        </div>
+        </div> 
     </div>
 </div>
+
+<app-deletemodal [openDeleteModal] = 'showDeleteModal'></app-deletemodal>
 <app-footer></app-footer>

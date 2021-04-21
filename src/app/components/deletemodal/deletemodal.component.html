@@ -1,0 +1,22 @@
+<div class="modal" [ngClass]="openDeleteModal ? 'is-active' : '' ">
+    <div class="modal-background"></div>
+    <div class="notification is-outline">
+        <button (click)="onClickExit()" class="delete"></button>
+        <p class="mt-4">Are you sure you want to delete this item?</p>
+        <footer class="px-3 py-2 mt-4">
+            <div class="buttons is-centered px-4 mx-5 ">
+                <button (click)="onClickExit()" class="button is-danger is-outlined">Cancel</button>
+                <button (click)="onSubmit()" class="button is-success is-outlined"> <strong>Yes</strong></button>
+            </div>
+            
+        </footer>
+        
+    </div>
+    
+        
+      
+            
+            
+         
+ 
+</div>

@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./portfolio.component.css']
 })
 export class PortfolioComponent implements OnInit {
+  showDeleteModal: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onClickDelete () {
+    this.showDeleteModal = !this.showDeleteModal;
+  }
 }

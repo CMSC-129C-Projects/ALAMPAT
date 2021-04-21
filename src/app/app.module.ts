@@ -14,6 +14,8 @@ import { MyaccountsellerComponent } from './components/myaccountseller/myaccount
 import { LoginComponent } from './components/login/login.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
+import { PortfolioArtworkComponent } from './components/portfolio-artwork/portfolio-artwork.component';
+import { DeletemodalComponent } from './components/deletemodal/deletemodal.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { PortfolioComponent } from './components/portfolio/portfolio.component';
     HeadersellerComponent,
     LoginComponent,
     LoadingComponent,
-    PortfolioComponent
+    PortfolioComponent,
+    PortfolioArtworkComponent,
+    DeletemodalComponent
   ],
   imports: [
     BrowserModule,
