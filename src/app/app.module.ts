@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { SellershopComponent } from './components/sellershop/sellershop.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ContactComponent } from './components/contact/contact.component';
     WelcomeComponent,
     FooterComponent,
     ContactComponent,
-    routingComponents
+    routingComponents,
+    SellershopComponent
   ],
   imports: [
     BrowserModule,
