@@ -39,7 +39,7 @@
                 </span>
                 <div class="container">
                     <div class="buttons is-right">
-                        <a class="button is-danger"> <strong>ADD ARTWORK</strong></a>
+                        <button (click)= "onClickAddArtwork()" class="button is-danger"> <strong>ADD ARTWORK</strong></button>
                     </div>
                 </div>
             </div>
@@ -185,6 +185,6 @@
         </div> 
     </div>
 </div>
-
+<app-portfolio-artwork [openAddArtworkModal] = 'showAddArtworkModal'></app-portfolio-artwork>
 <app-deletemodal [openDeleteModal] = 'showDeleteModal'></app-deletemodal>
 <app-footer></app-footer>
