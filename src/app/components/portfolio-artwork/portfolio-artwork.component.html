@@ -29,7 +29,7 @@
                     <label class="label">Artwork Image</label>
                     <div class="file is-info has-name is-fullwidth">
                         <label class="file-label">
-                          <input class="file-input" type="file" name="artworkimage" formControlName="artworkimage" required>
+                          <input class="file-input" type="file" (change)="uploadFile($event)" name="artworkimage" formControlName="artworkimage" required>
                           <span class="file-cta">
                             <span class="file-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
@@ -43,7 +43,6 @@
                             </span>
                           </span>
                           <span class="file-name">
-                            Screen Shot 2017-07-29 at 15.54.25.png
                           </span>
                         </label>
                       </div>
@@ -63,7 +62,7 @@
         </section>
         <footer class="modal-card-foot buttons is-right">
             <button (click)="onClickExit()" class="button is-danger is-outlined">Cancel</button>
-            <button (click)="onSubmit()" class="button is-success">Save changes</button>
+            <button (click)="addArtwork()" class="button is-success">Add</button>
         </footer>
     </div>
   </div>
