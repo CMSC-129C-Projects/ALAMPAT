@@ -8,5 +8,10 @@ router.get('/getUserByEmail', (req, res, next) => {
     const user = userController.getUserByEmail(email)
     res.send({ user })
 })
+
+router.get('/profile', userController.getUserList)
+router.get('/profile/:id', userController.getUserByID)
+
+
 module.exports = router;
 

@@ -31,26 +31,15 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+app.use('/users', UserRoute)
+app.use('/auth', AuthRoute)
+
 //app.use(morgan('dev'))
 //app.use(bodyParser.urlencoded({extended: true}))
 //app.use(bodyParser.json())
 
 
 
-app.post("/create_user", async (req, res) => {
-    try {
-        const myuser = new User(req.body)
-        await myuser.save()
-        res.send(myuser)
-    } catch (err) {
-        res.send({
-            message: err
-        })
-    }
-})
-
-app.use('/users', UserRoute)
-app.use('/auth', AuthRoute)
 
 app.listen(3000, () => {
     console.log("Listening to 3000");
