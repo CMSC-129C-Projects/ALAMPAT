@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PortfolioComponent implements OnInit {
   showAddArtworkModal: boolean = false;
+  showEditArtworkModal: boolean = false;
   showDeleteModal: boolean = false;
 
   constructor() { }
@@ -18,6 +19,9 @@ export class PortfolioComponent implements OnInit {
     this.showAddArtworkModal = !this.showAddArtworkModal;
   }
   
+  onClickEditArtwork = () => {
+    this.showEditArtworkModal = !this.showEditArtworkModal;
+  }
   onClickDelete = () => {
     this.showDeleteModal = !this.showDeleteModal;
   }

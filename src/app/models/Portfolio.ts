@@ -1,12 +1,19 @@
 export class Portfolio {
     artworkname: string;
     artworkdescription: string;
-    artworkimage: HTMLImageElement;
+    artworkimage: {
+        filename: string,
+        contentType: string, 
+        imageBase64: string
+    }
 
     constructor() {
-        var img = new Image();
         this.artworkname = '';
         this.artworkdescription = '';
-        this.artworkimage = img;
+        this.artworkimage = {
+            filename : '',
+            contentType : '',
+            imageBase64 : ''
+        };
     }
 }
