@@ -17,6 +17,7 @@ export class PortfolioComponent implements OnInit {
   onClickAddArtwork = () => {
     this.showAddArtworkModal = !this.showAddArtworkModal;
   }
+  
   onClickDelete = () => {
     this.showDeleteModal = !this.showDeleteModal;
   }
