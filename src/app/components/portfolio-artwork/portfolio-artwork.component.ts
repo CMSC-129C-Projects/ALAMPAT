@@ -41,7 +41,7 @@ export class PortfolioArtworkComponent implements OnInit {
         filename: [''],
         contentType: [''],
         imageBase64:[''],
-      }, {validators: [Validators.required]}),
+      }, {Validators: [Validators.required]}),
 
       artworkname: ['', Validators.required],
       artworkdescription: ['', Validators.required]

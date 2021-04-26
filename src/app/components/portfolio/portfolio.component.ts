@@ -9,20 +9,30 @@ export class PortfolioComponent implements OnInit {
   showAddArtworkModal: boolean = false;
   showEditArtworkModal: boolean = false;
   showDeleteModal: boolean = false;
+  openImageModal: boolean = false;
+  showed: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
   }
+  onClickOpen () {
+    this.openImageModal = true;
+  }
 
-  onClickAddArtwork = () => {
+  onClickExit () {
+    this.openImageModal = false;
+    this.showed = false;
+  }
+
+  onClickAddArtwork () {
     this.showAddArtworkModal = !this.showAddArtworkModal;
   }
   
-  onClickEditArtwork = () => {
+  onClickEditArtwork () {
     this.showEditArtworkModal = !this.showEditArtworkModal;
   }
-  onClickDelete = () => {
+  onClickDelete () {
     this.showDeleteModal = !this.showDeleteModal;
   }
 }

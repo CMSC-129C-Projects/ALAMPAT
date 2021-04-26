@@ -52,7 +52,7 @@
                 <div class="column is-4">
                     <div class="card">
                         <a class="card-image">
-                            <figure class="image is-3by2">
+                            <figure class="image is-3by2" (click)="onClickOpen()">
                               <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
                             </figure>
                         </a>
@@ -74,7 +74,7 @@
                 <div class="column is-4">
                     <div class="card">
                         <a class="card-image">
-                            <figure class="image is-3by2">
+                            <figure class="image is-3by2" (click)="onClickOpen()">
                               <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
                             </figure>
                         </a>
@@ -96,7 +96,7 @@
                 <div class="column is-4">
                     <div class="card">
                         <a class="card-image">
-                            <figure class="image is-3by2">
+                            <figure class="image is-3by2" (click)="onClickOpen()">
                               <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
                             </figure>
                         </a>
@@ -118,7 +118,7 @@
                 <div class="column is-4">
                     <div class="card">
                         <a class="card-image">
-                            <figure class="image is-3by2">
+                            <figure class="image is-3by2" (click)="onClickOpen()">
                               <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
                             </figure>
                         </a>
@@ -140,7 +140,7 @@
                 <div class="column is-4">
                     <div class="card">
                         <a class="card-image">
-                            <figure class="image is-3by2">
+                            <figure class="image is-3by2" (click)="onClickOpen()">
                               <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
                             </figure>
                         </a>
@@ -162,7 +162,7 @@
                 <div class="column is-4">
                     <div class="card">
                         <a class="card-image">
-                            <figure class="image is-3by2">
+                            <figure class="image is-3by2" (click)="onClickOpen()">
                               <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
                             </figure>
                         </a>
@@ -189,3 +189,13 @@
 <app-portfolio-artwork [openEditArtworkModal] = 'showEditArtworkModal'></app-portfolio-artwork>
 <app-deletemodal [openDeleteModal] = 'showDeleteModal'></app-deletemodal>
 <app-footer></app-footer>
+
+<div class="modal" [ngClass]="openImageModal ? 'is-active' : ''">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <p class="image">
+        <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
+      </p>
+    </div>
+    <button class="modal-close is-large" aria-label="close" (click)="onClickExit()"></button>
+  </div>
