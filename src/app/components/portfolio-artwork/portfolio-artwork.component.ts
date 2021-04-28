@@ -29,7 +29,7 @@ export class PortfolioArtworkComponent implements OnInit {
     this.uploadService.portfolio.subscribe((artwork)=>{
       this.artwork = artwork 
 
-      this.initForm()
+      
       this.imageSRC = this.domSanitizer.bypassSecurityTrustUrl(this.artwork.artworkimage?.imageBase64)
     }, (error) => {
       console.log("Error", error)
@@ -95,10 +95,12 @@ export class PortfolioArtworkComponent implements OnInit {
   addArtwork = async () => {
     console.log(this.portfolioForm.value);
     this.submitted = true;
-    this.openSuccessModal = true;
+    
     if(this.portfolioForm.invalid){
       return;
     }
+    else
+    this.openSuccessModal = true;
     const artwork: Portfolio = {
       artworkname: this.portfolioForm.get('artworkname')?.value,
       artworkimage: this.portfolioForm.get('artworkimage')?.value,

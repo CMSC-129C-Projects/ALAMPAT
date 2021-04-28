@@ -27,6 +27,7 @@ export class UploadService {
     constructor(private router:Router) { }
 
     uploadPortfolio = async (portfolio: Portfolio) => {
+        console.log('in get portfolio')
         try {
             const response = await axios.post<uploadResponse>(`${localAPI}/seller/${this.userID}/addportfolio`, portfolio);
             const { message, success } = response.data

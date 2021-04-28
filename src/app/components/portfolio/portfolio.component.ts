@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Portfolio } from 'src/app/models/Portfolio';
 import { UploadService } from 'src/app/services/upload';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-portfolio',
@@ -14,10 +15,21 @@ export class PortfolioComponent implements OnInit {
   openImageModal: boolean = false;
   showed: boolean = false;
 
+  artwork: any;
+  portfolioList: any = [{}];
+  public imageSRC: any ;
+  userID: string = '607fe491958fa65f08f14d0e';
 
-  constructor() { }
+  constructor(private domSanitizer: DomSanitizer, private uploadService: UploadService) { }
 
   ngOnInit(): void {
+    this.uploadService.getPortfoliodata()
+    this.uploadService.portfolio.subscribe((artwork)=>{
+      this.portfolioList = artwork;
+
+    }, (error) => {
+      console.log("Error", error)
+    })
   }
 
   onClickOpen () {
