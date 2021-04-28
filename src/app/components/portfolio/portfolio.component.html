@@ -46,129 +46,19 @@
             <hr style="background-color:#e8e6e6">
             
             
-            <!-- ARTWORK SECTION-->
+            <!-- ARTWORK SECTION  *ngFor="let item of portfolio; let index = index"-->
             <div class="columns is-multiline is-mobile">
                 
                 <div class="column is-4">
                     <div class="card">
                         <a class="card-image">
                             <figure class="image is-3by2" (click)="onClickOpen()">
-                              <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
+                              <img src= [imageSRC] alt="">
                             </figure>
                         </a>
                         <div class="card-content">
                             <p class="text has-text-weight-bold">
                                 Artwork Name 
-                            </p>
-                            <div class="content">
-                                some description...
-                            </div>
-                        </div>
-                        <footer class="card-footer">
-                            <a (click)="onClickEditArtwork()" class="card-footer-item">Edit</a>
-                            <a (click)="onClickDelete()" class="card-footer-item" value="delete" type="delete">Delete</a>
-                        </footer>
-                    </div>
-                </div> 
-                
-                <div class="column is-4">
-                    <div class="card">
-                        <a class="card-image">
-                            <figure class="image is-3by2" (click)="onClickOpen()">
-                              <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
-                            </figure>
-                        </a>
-                        <div class="card-content">
-                            <p class="text has-text-weight-bold">
-                                Artwork Name
-                            </p>
-                            <div class="content">
-                                Lorem ipsum leo risus, porta ac consectetur ac, vestibulum at eros. Donec id elit non mi porta gravida at eget metus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras mattis consectetur purus sit amet fermentum.
-                            </div>
-                        </div>
-                        <footer class="card-footer">
-                            <a (click)="onClickEditArtwork()" class="card-footer-item">Edit</a>
-                            <a (click)="onClickDelete()" class="card-footer-item" value="delete" type="delete">Delete</a>
-                        </footer>
-                    </div>
-                </div> 
-               
-                <div class="column is-4">
-                    <div class="card">
-                        <a class="card-image">
-                            <figure class="image is-3by2" (click)="onClickOpen()">
-                              <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
-                            </figure>
-                        </a>
-                        <div class="card-content">
-                            <p class="text has-text-weight-bold">
-                                Artwork Name
-                            </p>
-                            <div class="content">
-                                some description...
-                            </div>
-                        </div>
-                        <footer class="card-footer">
-                            <a (click)="onClickEditArtwork()" class="card-footer-item">Edit</a>
-                            <a (click)="onClickDelete()" class="card-footer-item" value="delete" type="delete">Delete</a>
-                        </footer>
-                    </div>
-                </div> 
-                
-                <div class="column is-4">
-                    <div class="card">
-                        <a class="card-image">
-                            <figure class="image is-3by2" (click)="onClickOpen()">
-                              <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
-                            </figure>
-                        </a>
-                        <div class="card-content">
-                            <p class="text has-text-weight-bold">
-                                Artwork Name
-                            </p>
-                            <div class="content">
-                                some description...
-                            </div>
-                        </div>
-                        <footer class="card-footer">
-                            <a (click)="onClickEditArtwork()" class="card-footer-item">Edit</a>
-                            <a (click)="onClickDelete()" class="card-footer-item" value="delete" type="delete">Delete</a>
-                        </footer>
-                    </div>
-                </div> 
-               
-                <div class="column is-4">
-                    <div class="card">
-                        <a class="card-image">
-                            <figure class="image is-3by2" (click)="onClickOpen()">
-                              <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
-                            </figure>
-                        </a>
-                        <div class="card-content">
-                            <p class="text has-text-weight-bold">
-                                Artwork Name
-                            </p>
-                            <div class="content">
-                                some description...
-                            </div>
-                        </div>
-                        <footer class="card-footer">
-                            <a (click)="onClickEditArtwork()" class="card-footer-item">Edit</a>
-                            <a (click)="onClickDelete()" class="card-footer-item" value="delete" type="delete">Delete</a>
-                        </footer>
-                    </div>
-                </div> 
-                
-                <div class="column is-4">
-                    <div class="card">
-                        <a class="card-image">
-                            <figure class="image is-3by2" (click)="onClickOpen()">
-                              <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
-                            </figure>
-                        </a>
-                        <div class="card-content">
-                            <p class="text has-text-weight-bold">
-                                Artwork Name
                             </p>
                             <div class="content">
                                 some description...

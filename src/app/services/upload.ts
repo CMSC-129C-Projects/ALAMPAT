@@ -17,6 +17,8 @@ interface uploadResponse {
 
 export class UploadService {
     isUploaded: boolean = false;
+    userID: string = '607fe491958fa65f08f14d0e';
+    artworkID: string = '6087e77a8431c85ee8f081dc';
     uploadError: string = '';
 
     portfolio: EventEmitter<any> = new EventEmitter();
@@ -26,7 +28,7 @@ export class UploadService {
 
     uploadPortfolio = async (portfolio: Portfolio) => {
         try {
-            const response = await axios.post<uploadResponse>(`${localAPI}/portfolio/add`, portfolio);
+            const response = await axios.post<uploadResponse>(`${localAPI}/seller/${this.userID}/addportfolio`, portfolio);
             const { message, success } = response.data
             console.log(response.data)
             if (success) {
@@ -40,9 +42,10 @@ export class UploadService {
             this.uploadError = error
         }
     }
+  
     getPortfoliodata = () =>{
         try {
-            axios.get<uploadResponse>(`${localAPI}/portfolio/`)
+            axios.get<uploadResponse>(`${localAPI}/seller/${this.userID}/portfolio`)
             .then(resp => {
                 this.portfolio.emit(resp.data.portfolioData)
                 
@@ -67,7 +70,7 @@ export class UploadService {
     }
     updatePortfoliodata = async (portfolio: Portfolio ) => {
         try {
-            const response = await axios.put<uploadResponse>(`${localAPI}/portfolio/edit`, portfolio);
+            const response = await axios.put<uploadResponse>(`${localAPI}/seller/${this.userID}/editportfolio/${this.artworkID}`, portfolio);
             const { message, success } = response.data
             //console.log(response.data)
             if (success) {

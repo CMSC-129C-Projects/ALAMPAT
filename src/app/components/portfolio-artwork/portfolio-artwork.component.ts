@@ -12,6 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class PortfolioArtworkComponent implements OnInit {
   @Input() openAddArtworkModal: boolean;
   @Input() openEditArtworkModal: boolean;
+  @Input() openSuccessModal: boolean;
   saved: boolean = false;
   submitted: boolean = false;
   portfolioForm: FormGroup;
@@ -29,9 +30,7 @@ export class PortfolioArtworkComponent implements OnInit {
       this.artwork = artwork 
 
       this.initForm()
-      //replace this when frontend is integrated to backend since it will be saved in one string
       this.imageSRC = this.domSanitizer.bypassSecurityTrustUrl(this.artwork.artworkimage?.imageBase64)
-      //console.log("User image: " + JSON.stringify(this.imageSRC))
     }, (error) => {
       console.log("Error", error)
     })
@@ -85,14 +84,18 @@ export class PortfolioArtworkComponent implements OnInit {
       this.openEditArtworkModal = false;
       this.saved = false;
     }
+    if(this.openSuccessModal) {
+      this.openSuccessModal = false;
+      this.submitted = false;
+    }
     this.portfolioForm.reset();
   }
 
-  
 
   addArtwork = async () => {
     console.log(this.portfolioForm.value);
     this.submitted = true;
+    this.openSuccessModal = true;
     if(this.portfolioForm.invalid){
       return;
     }
@@ -102,6 +105,8 @@ export class PortfolioArtworkComponent implements OnInit {
       artworkdescription: this.portfolioForm.get('artworkdescription')?.value,
     }
     this.uploadService.uploadPortfolio(artwork);
+    this.openAddArtworkModal = false;
+    this.portfolioForm.reset();
   }
 
   saveArtwork = async () => {
@@ -112,7 +117,6 @@ export class PortfolioArtworkComponent implements OnInit {
       var userdata = await this.uploadService.updatePortfoliodata(this.portfolioForm.value);
       if (userdata === true) {
         this.ngOnInit()
-        //this.router.navigate(['/']) back to accounts page
       }
       else{
         this.initForm();

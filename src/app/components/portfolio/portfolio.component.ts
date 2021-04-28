@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Portfolio } from 'src/app/models/Portfolio';
+import { UploadService } from 'src/app/services/upload';
 
 @Component({
   selector: 'app-portfolio',
@@ -12,10 +14,12 @@ export class PortfolioComponent implements OnInit {
   openImageModal: boolean = false;
   showed: boolean = false;
 
+
   constructor() { }
 
   ngOnInit(): void {
   }
+
   onClickOpen () {
     this.openImageModal = true;
   }
