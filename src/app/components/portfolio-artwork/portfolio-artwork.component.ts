@@ -22,19 +22,27 @@ export class PortfolioArtworkComponent implements OnInit {
   fileName: string;
   public imageSRC : any;
 
-  constructor(private formBuilder: FormBuilder, private cd: ChangeDetectorRef, private domSanitizer: DomSanitizer, private uploadService: UploadService) { }
+  constructor(private formBuilder: FormBuilder, 
+    private cd: ChangeDetectorRef, 
+    private domSanitizer: DomSanitizer, 
+    private uploadService: UploadService) { }
 
   ngOnInit(): void {
-    this.uploadService.getPortfoliodata()
+    /*this.uploadService.getPortfoliodata()
     this.uploadService.portfolio.subscribe((artwork)=>{
       this.artwork = artwork 
-
-      
       this.imageSRC = this.domSanitizer.bypassSecurityTrustUrl(this.artwork.artworkimage?.imageBase64)
     }, (error) => {
       console.log("Error", error)
+    })*/
+    this.uploadService.getPortfoliodata()
+    this.uploadService.currArt.subscribe(currArt =>{
+      //console.log("Selected Art: " + JSON.stringify(currArt))
+      this.artwork = currArt
+      this.initForm()
     })
 
+    
     this.portfolioForm = this.formBuilder.group ({
       artworkimage: this.formBuilder.group({
         filename: [''],
@@ -46,6 +54,7 @@ export class PortfolioArtworkComponent implements OnInit {
       artworkdescription: ['', Validators.required]
     });
   }
+  
   get formControls() { return this.portfolioForm.controls; }
 
   uploadFile(event: Event) {
@@ -93,47 +102,51 @@ export class PortfolioArtworkComponent implements OnInit {
 
 
   addArtwork = async () => {
-    console.log(this.portfolioForm.value);
+    //console.log(this.portfolioForm.value);
     this.submitted = true;
     
     if(this.portfolioForm.invalid){
       return;
     }
-    else
+    else{
     this.openSuccessModal = true;
     const artwork: Portfolio = {
       artworkname: this.portfolioForm.get('artworkname')?.value,
       artworkimage: this.portfolioForm.get('artworkimage')?.value,
       artworkdescription: this.portfolioForm.get('artworkdescription')?.value,
     }
-    this.uploadService.uploadPortfolio(artwork);
+    this.uploadService.uploadPortfolio(this.portfolioForm.value);
     this.openAddArtworkModal = false;
-    this.portfolioForm.reset();
+    this.initForm();
+    }
   }
 
   saveArtwork = async () => {
+    //console.log("Artwork edited data: " + JSON.stringify(this.portfolioForm.value));
     if (this.portfolioForm.invalid) {
       this.saved = true;
       this.initForm();
     } else {
-      var userdata = await this.uploadService.updatePortfoliodata(this.portfolioForm.value);
-      if (userdata === true) {
+      const userdata = await this.uploadService.updatePortfoliodata(this.portfolioForm.value, this.artwork._id);
+      if (userdata) {
         this.ngOnInit()
+        this.openEditArtworkModal = false
       }
       else{
         this.initForm();
       }
     }
   }
-    initForm = () => {
-      this.portfolioForm.reset({
-        artworkname: this.artwork?.artworkname,
-        artworkdescription: this.artwork?.artworkdescription,
-        artworkimage:{
-          filename: this.artwork?.artworkimage.filename,
-          contentType: this.artwork?.artworkimage.contentType,
-          imageBase64: this.artwork?.artworkimage.imageBase64
-          }
-        });
-    }
+
+  initForm = () => {
+    this.portfolioForm.reset({
+      artworkname: this.artwork?.artworkname,
+      artworkdescription: this.artwork?.description,
+      artworkimage:{
+        filename: this.artwork?.images.filename,
+        contentType: this.artwork?.images.contentType,
+        imageBase64: this.artwork?.images.imageBase64.changingThisBreaksApplicationSecurity 
+        }
+      });
+  }
 }

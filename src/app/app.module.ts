@@ -16,6 +16,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { PortfolioArtworkComponent } from './components/portfolio-artwork/portfolio-artwork.component';
 import { DeletemodalComponent } from './components/deletemodal/deletemodal.component';
+import { UploadService } from './services/upload';
 
 
 @NgModule({
@@ -45,7 +46,7 @@ import { DeletemodalComponent } from './components/deletemodal/deletemodal.compo
     WelcomeComponent,
     
   ],
-  providers: [],
+  providers: [UploadService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

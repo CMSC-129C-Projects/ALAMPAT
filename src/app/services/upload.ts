@@ -2,6 +2,8 @@ import { Injectable, EventEmitter } from '@angular/core';
 import axios from 'axios'
 import { Portfolio } from '../models/Portfolio'
 import { Router, ActivatedRoute } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 const localAPI = 'http://localhost:3000'
 
@@ -16,15 +18,28 @@ interface uploadResponse {
 })
 
 export class UploadService {
+    pseudo_art: any;
     isUploaded: boolean = false;
     userID: string = '607fe491958fa65f08f14d0e';
     artworkID: string = '6087e77a8431c85ee8f081dc';
     uploadError: string = '';
 
+    private artSource = new BehaviorSubject<any>({});
+    //currArt = this.artSource.asObservable();
+    currArt: EventEmitter<any> = new EventEmitter();
+
     portfolio: EventEmitter<any> = new EventEmitter();
     error: EventEmitter<any> = new EventEmitter();
 
-    constructor(private router:Router) { }
+
+    constructor(private router:Router,
+        private domSanitizer: DomSanitizer, 
+        ) { }
+
+    selectArt(art: any) {
+        //console.log("Passed art: "+ JSON.stringify(art))
+        this.currArt.emit(art)
+    }
 
     uploadPortfolio = async (portfolio: Portfolio) => {
         console.log('in get portfolio')
@@ -44,11 +59,12 @@ export class UploadService {
         }
     }
   
+    
     getPortfoliodata = () =>{
         try {
-            axios.get<uploadResponse>(`${localAPI}/seller/${this.userID}/portfolio`)
+            axios.get(`${localAPI}/seller/${this.userID}/portfolio`)
             .then(resp => {
-                this.portfolio.emit(resp.data.portfolioData)
+                this.portfolio.emit(resp.data.portfolioArray)
                 
                 console.log(this.portfolio);
                 //return resp.data
@@ -69,16 +85,20 @@ export class UploadService {
             //return error
         }
     }
-    updatePortfoliodata = async (portfolio: Portfolio ) => {
+    updatePortfoliodata = async (portfolio: Portfolio, id: any ) => {
         try {
-            const response = await axios.put<uploadResponse>(`${localAPI}/seller/${this.userID}/editportfolio/${this.artworkID}`, portfolio);
+            const response = await axios.patch(`${localAPI}/seller/${this.userID}/editportfolio/${id}`, portfolio);
             const { message, success } = response.data
             //console.log(response.data)
             if (success) {
                 this.isUploaded = true;
-               
+                //this.pseudo_art = response.data.result
+                
+                //this.pseudo_art.images.imageBase64 =  this.domSanitizer.bypassSecurityTrustUrl(response.data.result.images.imageBase64)
+                //console.log("Pseudo_art: " + JSON.stringify(this.pseudo_art))
+                //this.currArt.emit(this.pseudo_art)
                 console.log("Artwork Updated!")
-                console.log(response.data)
+                
                 //this.router.navigate(['/registration-confirmed'])
                 return this.isUploaded
                 //
