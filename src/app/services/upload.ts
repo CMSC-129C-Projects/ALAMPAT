@@ -26,7 +26,7 @@ export class UploadService {
 
     uploadPortfolio = async (portfolio: Portfolio) => {
         try {
-            const response = await axios.post<uploadResponse>(`${localAPI}/portfolio/add`, portfolio);
+            const response = await axios.post<uploadResponse>(`${localAPI}/seller/${userId}/addportfolio`, portfolio);
             const { message, success } = response.data
             console.log(response.data)
             if (success) {
