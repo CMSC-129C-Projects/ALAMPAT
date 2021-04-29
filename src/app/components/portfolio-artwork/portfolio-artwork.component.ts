@@ -17,29 +17,24 @@ export class PortfolioArtworkComponent implements OnInit {
   saved: boolean = false;
   submitted: boolean = false;
   portfolioForm: FormGroup;
+  addPortfolio: FormGroup;
   artwork: any = {};
   blank_art: any = {};
   string64: any;
   filetype: any;
-  fileName: string;
-  public imageSRC : any;
+  fileName: string = '' ;
+  public imageSRC : any = '' ;
 
-  @ViewChild('myInput')
-  myInputVariable: ElementRef;
+
 
   constructor(private formBuilder: FormBuilder, 
     private cd: ChangeDetectorRef, 
     private domSanitizer: DomSanitizer, 
-    private uploadService: UploadService) { }
+    private uploadService: UploadService) {
+      
+     }
 
   ngOnInit(): void {
-    /*this.uploadService.getPortfoliodata()
-    this.uploadService.portfolio.subscribe((artwork)=>{
-      this.artwork = artwork 
-      this.imageSRC = this.domSanitizer.bypassSecurityTrustUrl(this.artwork.artworkimage?.imageBase64)
-    }, (error) => {
-      console.log("Error", error)
-    })*/
     this.uploadService.getPortfoliodata()
     
     /*this.uploadService.currArt.subscribe(currArt =>{
@@ -54,7 +49,21 @@ export class PortfolioArtworkComponent implements OnInit {
       this.initForm()
     })
     
+    this.fileName = ''
+    this.imageSRC = ''
+
     this.portfolioForm = this.formBuilder.group ({
+      artworkimage: this.formBuilder.group({
+        filename: [''],
+        contentType: [''],
+        imageBase64:[''],
+      }, {Validators: [Validators.required]}),
+
+      artworkname: ['', Validators.required],
+      artworkdescription: ['', Validators.required]
+    });
+
+    this.addPortfolio = this.formBuilder.group ({
       artworkimage: this.formBuilder.group({
         filename: [''],
         contentType: [''],
@@ -69,6 +78,7 @@ export class PortfolioArtworkComponent implements OnInit {
   
   get formControls() { return this.portfolioForm.controls; }
 
+  //upload function for edit forms
   uploadFile(event: Event) {
     console.log(event);
     const reader = new FileReader();
@@ -91,14 +101,46 @@ export class PortfolioArtworkComponent implements OnInit {
             imageBase64: reader.result as string
           }
         });
-        //this.cd.markForCheck();
+        this.cd.markForCheck();
       };
       
     }    
   }
 
+  //upload file function for add forms
+  uploadFileInAddForm(event: Event) {
+    console.log(event);
+    const reader = new FileReader();
+    const target= event.target as HTMLInputElement;
+
+    if(target.files && target.files.length) {
+      
+      const file: File = (target.files as FileList)[0];
+      this.fileName = file.name;
+      this.filetype = this.domSanitizer.bypassSecurityTrustUrl(file.type);
+      reader.readAsDataURL(file);
+  
+      reader.onload = () => {
+        this.string64 = reader.result
+        this.imageSRC = this.domSanitizer.bypassSecurityTrustUrl(this.string64);
+        
+        this.addPortfolio.patchValue({
+          artworkimage: {
+            filename: file.name,
+            contentType: file.type,
+            imageBase64: reader.result as string
+          }
+        });
+        this.cd.markForCheck();
+      };
+      
+    }    
+  }
+
+  //functions when the modal exits or cancels
   onClickExit = () => {
     //console.log("On Exit Art: " + JSON.stringify(this.artwork))
+    this.portfolioForm.reset();
     if(this.openAddArtworkModal) {
       this.openAddArtworkModal = false;
       this.submitted = false;
@@ -112,30 +154,38 @@ export class PortfolioArtworkComponent implements OnInit {
       this.submitted = false;
     }
     //this.myInputVariable.nativeElement.value = "";
-    this.portfolioForm.reset();
+    
   }
 
-
-  addArtwork = async () => {
+  //function for adding artwork
+  addArtwork =  () => {
     //console.log(this.portfolioForm.value);
+    //this.portfolioForm.reset();
+    
     this.submitted = true;
     
-    if(this.portfolioForm.invalid){
+    if(this.addPortfolio.invalid){
+      this.addPortfolio.reset();
+      this.fileName = ''
+      this.imageSRC = ''
       return;
     }
     else{
-    this.openSuccessModal = true;
-    const artwork: Portfolio = {
-      artworkname: this.portfolioForm.get('artworkname')?.value,
-      artworkimage: this.portfolioForm.get('artworkimage')?.value,
-      artworkdescription: this.portfolioForm.get('artworkdescription')?.value,
-    }
-    this.uploadService.uploadPortfolio(artwork);
-    this.openAddArtworkModal = false;
-    this.initForm();
+      this.openSuccessModal = true;
+      const artwork: Portfolio = {
+        artworkname: this.addPortfolio.get('artworkname')?.value,
+        artworkimage: this.addPortfolio.get('artworkimage')?.value,
+        artworkdescription: this.addPortfolio.get('artworkdescription')?.value,
+      }
+
+      this.uploadService.uploadPortfolio(artwork);
+      this.ngOnInit()
+      this.openAddArtworkModal = false;
+      this.addPortfolio.reset();
     }
   }
 
+  //function for updating artwork in edit forms
   saveArtwork = async () => {
     //console.log("Artwork edited data: " + JSON.stringify(this.portfolioForm.value));
     if (this.portfolioForm.invalid) {
@@ -145,12 +195,13 @@ export class PortfolioArtworkComponent implements OnInit {
       const userdata = await this.uploadService.updatePortfoliodata(this.portfolioForm.value, this.artwork._id);
       if (userdata) {
         console.log("On Save Art: " + JSON.stringify(this.artwork))
-        this.portfolioForm.get('artowkimage')?.reset();
+        //this.portfolioForm.get('artowkimage')?.reset();
         this.ngOnInit()
+        //this.portfolioForm.reset();
+        
         this.fileName = ''
         this.imageSRC = ''
 
-        //document.getElementById("uploadCaptureInputFile").value = "";
         this.openEditArtworkModal = false
       }
       else{
@@ -159,6 +210,7 @@ export class PortfolioArtworkComponent implements OnInit {
     }
   }
 
+  //function for initating the values in edit form based on the selected data
   initForm = () => {
     this.portfolioForm.reset({
       artworkname: this.artwork?.artworkname,

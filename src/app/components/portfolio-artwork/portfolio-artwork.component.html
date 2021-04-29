@@ -9,7 +9,7 @@
 
         <!-- CONTENT -->
         <section class="modal-card-body">
-            <form [formGroup]="portfolioForm" (ngSubmit)="addArtwork()" novalidate autocomplete="false">
+            <form [formGroup]="addPortfolio" (ngSubmit)="addArtwork()" novalidate autocomplete="false">
                 <div class="field">
                     <label class="label">Artwork Name</label>
                     <div class="control has-icons-left">  
@@ -30,7 +30,7 @@
                     <div class="control">
                         <div class="file is-primary is-fullwidth">
                             <label class="file-label">
-                                <input  class="file-input"  [ngClass]="{ 'has-error': formControls.artworkimage?.errors }" type="file" id="UploadFile" accept="image/*" (change)="uploadFile($event)" name="artworkimage" formControlName="artworkimage" required>
+                                <input  class="file-input"  [ngClass]="{ 'has-error': formControls.artworkimage?.errors }" type="file" id="UploadFile" accept="image/*" (change)="uploadFileInAddForm($event)" name="artworkimage" formControlName="artworkimage" required>
                                 <span class="file-cta">
                                     <span class="file-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
@@ -41,8 +41,11 @@
                                     </span>
                                     <span class="file-label has-text-centered">Choose a file…</span>
                                 </span>
-                                <span class="file-name" >
-                                {{fileName || "No file uploaded."}}
+                                <span *ngIf="fileName" class="file-name" >
+                                    {{fileName}}
+                                </span>
+                                <span *ngIf="!fileName" class="file-name" >
+                                    {{"No file uploaded."}}
                                 </span>
                             </label>
                         </div>
@@ -114,7 +117,7 @@
                                     <span class="file-label has-text-centered">Choose a file…</span>
                                 </span>
                                 <span class="file-name" >
-                                {{fileName}}
+                                    {{fileName}}
                                 </span>
                             </label>
                         </div>
