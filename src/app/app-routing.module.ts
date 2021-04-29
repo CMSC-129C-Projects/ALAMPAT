@@ -4,6 +4,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { ContactComponent } from '../app/components/contact/contact.component';
 import { LoginComponent } from '../app/components/login/login.component';
+import { PortfolioComponent } from './components/portfolio/portfolio.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full'},

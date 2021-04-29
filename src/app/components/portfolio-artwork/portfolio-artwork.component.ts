@@ -1,8 +1,9 @@
-import { Component, Input, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, Input, ChangeDetectorRef, OnInit, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Portfolio } from 'src/app/models/Portfolio';
 import { UploadService } from 'src/app/services/upload';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-portfolio-artwork',
@@ -16,11 +17,15 @@ export class PortfolioArtworkComponent implements OnInit {
   saved: boolean = false;
   submitted: boolean = false;
   portfolioForm: FormGroup;
-  artwork: any;
+  artwork: any = {};
+  blank_art: any = {};
   string64: any;
   filetype: any;
   fileName: string;
   public imageSRC : any;
+
+  @ViewChild('myInput')
+  myInputVariable: ElementRef;
 
   constructor(private formBuilder: FormBuilder, 
     private cd: ChangeDetectorRef, 
@@ -36,12 +41,18 @@ export class PortfolioArtworkComponent implements OnInit {
       console.log("Error", error)
     })*/
     this.uploadService.getPortfoliodata()
-    this.uploadService.currArt.subscribe(currArt =>{
-      //console.log("Selected Art: " + JSON.stringify(currArt))
+    
+    /*this.uploadService.currArt.subscribe(currArt =>{
+      console.log("Selected Art: " + JSON.stringify(currArt))
+      this.artwork = currArt
+      this.initForm()
+    })*/
+
+    this.uploadService.artSource.asObservable().subscribe(currArt =>{
+      console.log("Selected Art: " + JSON.stringify(currArt))
       this.artwork = currArt
       this.initForm()
     })
-
     
     this.portfolioForm = this.formBuilder.group ({
       artworkimage: this.formBuilder.group({
@@ -53,6 +64,7 @@ export class PortfolioArtworkComponent implements OnInit {
       artworkname: ['', Validators.required],
       artworkdescription: ['', Validators.required]
     });
+    
   }
   
   get formControls() { return this.portfolioForm.controls; }
@@ -79,12 +91,14 @@ export class PortfolioArtworkComponent implements OnInit {
             imageBase64: reader.result as string
           }
         });
-        this.cd.markForCheck();
+        //this.cd.markForCheck();
       };
+      
     }    
   }
 
   onClickExit = () => {
+    //console.log("On Exit Art: " + JSON.stringify(this.artwork))
     if(this.openAddArtworkModal) {
       this.openAddArtworkModal = false;
       this.submitted = false;
@@ -97,6 +111,7 @@ export class PortfolioArtworkComponent implements OnInit {
       this.openSuccessModal = false;
       this.submitted = false;
     }
+    //this.myInputVariable.nativeElement.value = "";
     this.portfolioForm.reset();
   }
 
@@ -115,7 +130,7 @@ export class PortfolioArtworkComponent implements OnInit {
       artworkimage: this.portfolioForm.get('artworkimage')?.value,
       artworkdescription: this.portfolioForm.get('artworkdescription')?.value,
     }
-    this.uploadService.uploadPortfolio(this.portfolioForm.value);
+    this.uploadService.uploadPortfolio(artwork);
     this.openAddArtworkModal = false;
     this.initForm();
     }
@@ -129,7 +144,10 @@ export class PortfolioArtworkComponent implements OnInit {
     } else {
       const userdata = await this.uploadService.updatePortfoliodata(this.portfolioForm.value, this.artwork._id);
       if (userdata) {
+        console.log("On Save Art: " + JSON.stringify(this.artwork))
         this.ngOnInit()
+        this.portfolioForm.get('artowkimage')?.reset();
+        //document.getElementById("uploadCaptureInputFile").value = "";
         this.openEditArtworkModal = false
       }
       else{
@@ -145,7 +163,7 @@ export class PortfolioArtworkComponent implements OnInit {
       artworkimage:{
         filename: this.artwork?.images.filename,
         contentType: this.artwork?.images.contentType,
-        imageBase64: this.artwork?.images.imageBase64.changingThisBreaksApplicationSecurity 
+        imageBase64: this.artwork?.images.imageBase64.changingThisBreaksApplicationSecurity
         }
       });
   }

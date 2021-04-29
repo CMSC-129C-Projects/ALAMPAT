@@ -2,7 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import axios from 'axios'
 import { Portfolio } from '../models/Portfolio'
 import { Router, ActivatedRoute } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 
 const localAPI = 'http://localhost:3000'
@@ -24,7 +24,7 @@ export class UploadService {
     artworkID: string = '6087e77a8431c85ee8f081dc';
     uploadError: string = '';
 
-    private artSource = new BehaviorSubject<any>({});
+     artSource = new Subject<any>();
     //currArt = this.artSource.asObservable();
     currArt: EventEmitter<any> = new EventEmitter();
 
@@ -37,8 +37,9 @@ export class UploadService {
         ) { }
 
     selectArt(art: any) {
-        //console.log("Passed art: "+ JSON.stringify(art))
-        this.currArt.emit(art)
+        console.log("Passed art: "+ JSON.stringify(art))
+        //this.currArt.emit(art)
+        this.artSource.next(art)
     }
 
     uploadPortfolio = async (portfolio: Portfolio) => {
@@ -97,7 +98,7 @@ export class UploadService {
                 //this.pseudo_art.images.imageBase64 =  this.domSanitizer.bypassSecurityTrustUrl(response.data.result.images.imageBase64)
                 //console.log("Pseudo_art: " + JSON.stringify(this.pseudo_art))
                 //this.currArt.emit(this.pseudo_art)
-                console.log("Artwork Updated!")
+                console.log("Artwork Updated!" + response.data.result)
                 
                 //this.router.navigate(['/registration-confirmed'])
                 return this.isUploaded
