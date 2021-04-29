@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Portfolio } from 'src/app/models/Portfolio';
 import { UploadService } from 'src/app/services/upload';
 import { DomSanitizer } from '@angular/platform-browser';
+
 import { ViewChild } from '@angular/core';
 
 @Component({
@@ -30,7 +31,8 @@ export class PortfolioArtworkComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, 
     private cd: ChangeDetectorRef, 
     private domSanitizer: DomSanitizer, 
-    private uploadService: UploadService) {
+    private uploadService: UploadService,
+   ) {
       
      }
 
@@ -165,9 +167,7 @@ export class PortfolioArtworkComponent implements OnInit {
     this.submitted = true;
     
     if(this.addPortfolio.invalid){
-      this.addPortfolio.reset();
-      this.fileName = ''
-      this.imageSRC = ''
+      
       return;
     }
     else{
@@ -179,6 +179,7 @@ export class PortfolioArtworkComponent implements OnInit {
       }
 
       this.uploadService.uploadPortfolio(artwork);
+      
       this.ngOnInit()
       this.openAddArtworkModal = false;
       this.addPortfolio.reset();
