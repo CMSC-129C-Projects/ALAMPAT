@@ -48,6 +48,7 @@ export class PortfolioArtworkComponent implements OnInit {
     this.uploadService.artSource.asObservable().subscribe(currArt =>{
       //console.log("Selected Art: " + JSON.stringify(currArt))
       this.artwork = currArt
+      this.imageSRC = this.artwork.images.imageBase64
       this.initForm()
     })
     
