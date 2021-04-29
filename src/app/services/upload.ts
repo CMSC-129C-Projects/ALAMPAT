@@ -37,7 +37,7 @@ export class UploadService {
         ) { }
 
     selectArt(art: any) {
-        console.log("Passed art: "+ JSON.stringify(art))
+        //console.log("Passed art: "+ JSON.stringify(art))
         //this.currArt.emit(art)
         this.artSource.next(art)
     }

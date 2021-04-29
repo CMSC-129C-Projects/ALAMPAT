@@ -49,7 +49,7 @@ export class PortfolioArtworkComponent implements OnInit {
     })*/
 
     this.uploadService.artSource.asObservable().subscribe(currArt =>{
-      console.log("Selected Art: " + JSON.stringify(currArt))
+      //console.log("Selected Art: " + JSON.stringify(currArt))
       this.artwork = currArt
       this.initForm()
     })
@@ -145,8 +145,11 @@ export class PortfolioArtworkComponent implements OnInit {
       const userdata = await this.uploadService.updatePortfoliodata(this.portfolioForm.value, this.artwork._id);
       if (userdata) {
         console.log("On Save Art: " + JSON.stringify(this.artwork))
-        this.ngOnInit()
         this.portfolioForm.get('artowkimage')?.reset();
+        this.ngOnInit()
+        this.fileName = ''
+        this.imageSRC = ''
+
         //document.getElementById("uploadCaptureInputFile").value = "";
         this.openEditArtworkModal = false
       }
