@@ -33,10 +33,6 @@ export class PortfolioComponent implements OnInit {
     this.uploadService.portfolio.subscribe((artwork)=>{
       this.portfolioList = artwork;
       //console.log("Portfolio: " + JSON.stringify(this.portfolioList))
-      for(var i in artwork){
-        this.portfolioList[i].images.imageBase64 = this.domSanitizer.bypassSecurityTrustUrl(artwork[i].images.imageBase64);
-      }
-
     }, (error) => {
       console.log("Error", error)
     })
