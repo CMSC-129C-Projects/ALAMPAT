@@ -2,8 +2,9 @@ import { Injectable, EventEmitter } from '@angular/core';
 import axios from 'axios'
 import { Portfolio } from '../models/Portfolio'
 import { Router, ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
+import { tap } from 'rxjs/operators';
 
 const localAPI = 'http://localhost:3000'
 
@@ -24,28 +25,29 @@ export class UploadService {
     artworkID: string = '6087e77a8431c85ee8f081dc';
     uploadError: string = '';
 
-     artSource = new Subject<any>();
+    artSource = new Subject<any>();
     //currArt = this.artSource.asObservable();
     currArt: EventEmitter<any> = new EventEmitter();
-
     portfolio: EventEmitter<any> = new EventEmitter();
     error: EventEmitter<any> = new EventEmitter();
-
 
     constructor(private router:Router,
         private domSanitizer: DomSanitizer, 
         ) { }
-
+    
+    refresh(): Observable<any> {
+        return this.artSource.asObservable();
+    }
     selectArt(art: any) {
         //console.log("Passed art: "+ JSON.stringify(art))
         //this.currArt.emit(art)
-        this.artSource.next(art)
+        this.artSource.next(art);
     }
 
     uploadPortfolio = async (portfolio: Portfolio) => {
         console.log('in get portfolio')
         try {
-            const response = await axios.post<uploadResponse>(`${localAPI}/seller/${this.userID}/addportfolio`, portfolio);
+            const response = await axios.post<uploadResponse>(`${localAPI}/seller/${this.userID}/addportfolio`, portfolio)
             const { message, success } = response.data
             console.log(response.data)
             if (success) {

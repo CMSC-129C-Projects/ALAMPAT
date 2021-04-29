@@ -52,8 +52,8 @@ export class PortfolioArtworkComponent implements OnInit {
       this.initForm()
     })
     
-    this.fileName = ''
-    this.imageSRC = ''
+    this.fileName = '';
+    this.imageSRC = '';
 
     this.portfolioForm = this.formBuilder.group ({
       artworkimage: this.formBuilder.group({
@@ -168,11 +168,11 @@ export class PortfolioArtworkComponent implements OnInit {
     this.submitted = true;
     
     if(this.addPortfolio.invalid){
-      
       return;
     }
     else{
       this.openSuccessModal = true;
+      this.uploadService.selectArt(this.artwork);
       const artwork: Portfolio = {
         artworkname: this.addPortfolio.get('artworkname')?.value,
         artworkimage: this.addPortfolio.get('artworkimage')?.value,
@@ -198,13 +198,13 @@ export class PortfolioArtworkComponent implements OnInit {
       if (userdata) {
         console.log("On Save Art: " + JSON.stringify(this.artwork))
         //this.portfolioForm.get('artowkimage')?.reset();
-        this.ngOnInit()
+        this.ngOnInit();
         //this.portfolioForm.reset();
         
-        this.fileName = ''
-        this.imageSRC = ''
+        this.fileName = '';
+        this.imageSRC = '';
 
-        this.openEditArtworkModal = false
+        this.openEditArtworkModal = false;
       }
       else{
         this.initForm();

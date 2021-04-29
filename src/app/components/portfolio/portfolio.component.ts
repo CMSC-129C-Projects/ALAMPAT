@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Portfolio } from 'src/app/models/Portfolio';
 import { UploadService } from 'src/app/services/upload';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-portfolio',
@@ -20,7 +21,12 @@ export class PortfolioComponent implements OnInit {
   public imageSRC: any ;
   userID: string = '607fe491958fa65f08f14d0e';
 
-  constructor(private domSanitizer: DomSanitizer, private uploadService: UploadService) { }
+  constructor(private domSanitizer: DomSanitizer, private uploadService: UploadService) { 
+    this.uploadService.refresh().subscribe((m:any) => {
+      console.log(m);
+      this.ngOnInit();
+    })
+  }
 
   ngOnInit(): void {
     this.uploadService.getPortfoliodata()
@@ -34,19 +40,17 @@ export class PortfolioComponent implements OnInit {
     }, (error) => {
       console.log("Error", error)
     })
-
-    
   }
-
+  
   onClickOpen (item:any, index:any) {
     this.openImageModal = true;
-    this.uploadService.selectArt(item);
     this.imageSRC = this.portfolioList[index].images.imageBase64;
   }
 
   onClickExit () {
     this.openImageModal = false;
     this.showed = false;
+    this.imageSRC = '';
   }
 
   onClickAddArtwork () {

@@ -38,11 +38,11 @@
             <!-- ARTWORK SECTION  -->
             <div class="columns is-multiline is-mobile">
                 
-                <div class="column is-4" *ngFor="let item of portfolioList; let index = index">
+                <div class="column is-4" *ngFor="let item of portfolioList; index as i">
                     
                     <div class="card"> 
                         <a class="card-image">
-                            <figure class="image is-3by2" (click)="onClickOpen(item,index)">
+                            <figure class="image is-3by2" (click)="onClickOpen(item, i)">
                                 <img class="object-fit_cover" [src]= "item.images.imageBase64" alt="">
                             </figure>
                         </a>
