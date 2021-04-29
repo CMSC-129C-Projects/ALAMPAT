@@ -27,7 +27,6 @@ export class PortfolioComponent implements OnInit {
     this.uploadService.portfolio.subscribe((artwork)=>{
       this.portfolioList = artwork;
       //console.log("Portfolio: " + JSON.stringify(this.portfolioList))
-      
       for(var i in artwork){
         this.portfolioList[i].images.imageBase64 = this.domSanitizer.bypassSecurityTrustUrl(artwork[i].images.imageBase64);
       }
@@ -39,8 +38,10 @@ export class PortfolioComponent implements OnInit {
     
   }
 
-  onClickOpen () {
+  onClickOpen (item:any, index:any) {
     this.openImageModal = true;
+    this.uploadService.selectArt(item);
+    this.imageSRC = this.portfolioList[index].images.imageBase64;
   }
 
   onClickExit () {
