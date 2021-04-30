@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Portfolio } from 'src/app/models/Portfolio';
 import { UploadService } from 'src/app/services/upload';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -12,12 +12,16 @@ import { BehaviorSubject } from 'rxjs';
 export class PortfolioComponent implements OnInit {
   showAddArtworkModal: boolean = false;
   showEditArtworkModal: boolean = false;
-  showDeleteModal: boolean = false;
+  openDeleteModal: boolean = false;
   openImageModal: boolean = false;
   showed: boolean = false;
+  sureDelete: boolean = false;
 
+  itemID: any;
+  item: any;
+  index: any;
   artwork: any;
-  portfolioList: any = [];
+  @Input() portfolioList: any = [];
   public imageSRC: any ;
   userID: string = '607fe491958fa65f08f14d0e';
 
@@ -44,13 +48,17 @@ export class PortfolioComponent implements OnInit {
   }
 
   onClickExit () {
-    this.openImageModal = false;
-    this.showed = false;
-    this.imageSRC = '';
+    if(this.openImageModal) {
+      this.openImageModal = false;
+      this.showed = false;
+      this.imageSRC = '';
+    }
+    if(this.openDeleteModal) {
+      this.openDeleteModal = false;
+    }
   }
 
   onClickAddArtwork () {
-   
     this.showAddArtworkModal = !this.showAddArtworkModal;
   }
   
@@ -60,9 +68,23 @@ export class PortfolioComponent implements OnInit {
     this.showEditArtworkModal = !this.showEditArtworkModal;
   }
 
-  onClickDelete () {
-    this.showDeleteModal = !this.showDeleteModal;
+  onClickDelete (item: any, index: any) {
+    this.openDeleteModal = !this.openDeleteModal;
+    this.itemID = item._id;
+    this.item = item;
+    this.index = index;
   }
+
+  onClickSureDelete () {
+    this.uploadService.selectArt(this.item);
+    this.uploadService.deletePortfoliodata(this.itemID);
+    //console.log(this.index);
+    if(this.index !== -1) {
+      this.portfolioList.splice(this.index, 1);
+    }
+    this.openDeleteModal = false;
+  }
+    
 
   onClickGoback(){
     //Code that goes back to seller shop menu

@@ -21,15 +21,16 @@ interface uploadResponse {
 export class UploadService {
     pseudo_art: any;
     isUploaded: boolean = false;
+    isDeleted: boolean = false;
     userID: string = '607fe491958fa65f08f14d0e';
     artworkID: string = '6087e77a8431c85ee8f081dc';
     uploadError: string = '';
 
     artSource = new Subject<any>();
     //currArt = this.artSource.asObservable();
-    currArt: EventEmitter<any> = new EventEmitter();
+    //currArt: EventEmitter<any> = new EventEmitter();
     portfolio: EventEmitter<any> = new EventEmitter();
-    error: EventEmitter<any> = new EventEmitter();
+    //error: EventEmitter<any> = new EventEmitter();
 
     constructor(private router:Router,
         private domSanitizer: DomSanitizer, 
@@ -63,7 +64,7 @@ export class UploadService {
     }
   
     
-    getPortfoliodata = () =>{
+    getPortfoliodata  () {
         try {
             axios.get(`${localAPI}/seller/${this.userID}/portfolio`)
             .then(resp => {
@@ -74,14 +75,14 @@ export class UploadService {
             })
             .catch(err => {
                 // Handle Error Here
-                this.error.emit(err)
+                //this.error.emit(err)
                 console.log(err);
                 //return err
             });
             
 
         } catch (error) {
-            this.error.emit(error)
+            //.error.emit(error)
             console.log(error)
             this.uploadError = error
 
@@ -118,4 +119,32 @@ export class UploadService {
             return this.isUploaded;
         }  
     }
+
+    deletePortfoliodata = async (id: any ) => {
+        try {
+            const response = await axios.delete(`${localAPI}/seller/${this.userID}/removeportfolio/${id}`,{data : { _id :id}});
+            const { message, success } = response.data
+            console.log(response.data)
+            if (success) {
+                this.isDeleted = true;
+                console.log("Artwork Deleted!" + response.data.result)
+                
+                return this.isDeleted
+            
+            } else {
+                this.isDeleted = false;
+                console.log(" Deletion failed: " + response.data)
+                
+                return this.isDeleted 
+            }
+
+        } catch (error) {
+            this.isDeleted = false
+            console.log(error)
+            console.log("faaaill")
+            return this.isDeleted;
+        }  
+    }
+
+    
 }

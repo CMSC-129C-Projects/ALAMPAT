@@ -15,7 +15,6 @@ import { LoginComponent } from './components/login/login.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { PortfolioArtworkComponent } from './components/portfolio-artwork/portfolio-artwork.component';
-import { DeletemodalComponent } from './components/deletemodal/deletemodal.component';
 import { UploadService } from './services/upload';
 
 
@@ -32,8 +31,7 @@ import { UploadService } from './services/upload';
     LoginComponent,
     LoadingComponent,
     PortfolioComponent,
-    PortfolioArtworkComponent,
-    DeletemodalComponent
+    PortfolioArtworkComponent
   ],
   imports: [
     BrowserModule,
