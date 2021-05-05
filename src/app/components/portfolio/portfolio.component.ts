@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Portfolio } from 'src/app/models/Portfolio';
 import { UploadService } from 'src/app/services/upload';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-portfolio',
@@ -25,8 +25,10 @@ export class PortfolioComponent implements OnInit {
   public imageSRC: any ;
   userID: string = '607fe491958fa65f08f14d0e';
 
+ 
+
   constructor(private domSanitizer: DomSanitizer, private uploadService: UploadService) { 
-    this.uploadService.refresh().subscribe((m:any) => {
+     this.uploadService.refresh().subscribe((m:any) => {
       console.log(m);
       this.ngOnInit();
     })

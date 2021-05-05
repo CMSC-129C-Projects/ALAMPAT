@@ -36,7 +36,7 @@
             
             
             <!-- ARTWORK SECTION  -->
-            <div class="columns is-multiline is-mobile">
+            <div class="columns is-multiline is-mobile" >
                 <!-- EACH ARTWORK -->
                 <div class="column is-4" *ngFor="let item of portfolioList; index as i">
                     <div class="card"> 
@@ -47,7 +47,7 @@
                         </a>
                         <div class="card-content">
                             <p class="text has-text-weight-bold" readonly>
-                                {{item?.artworkname}}
+                                {{item?.artworkname }}
                             </p>
                             <div class="content">
                                 {{item?.description}}

@@ -41,10 +41,10 @@
                                     </span>
                                     <span class="file-label has-text-centered">Choose a file…</span>
                                 </span>
-                                <span *ngIf="fileName" class="file-name" >
-                                    {{fileName}}
+                                <span *ngIf="addedFileName" class="file-name" >
+                                    {{addedFileName }}
                                 </span>
-                                <span *ngIf="!fileName" class="file-name" >
+                                <span *ngIf="!addedFileName" class="file-name" >
                                     {{"No file uploaded."}}
                                 </span>
                             </label>
@@ -56,7 +56,7 @@
                 </div>
                 <figure class="image">
                     <div *ngIf = "snapshot | async as snap">
-                        <img class="artworkimage" [src]= "imageSRC">
+                        <img class="artworkimage" [src]= "addedimageSRC">
                     </div>
                 </figure>
 

@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectorRef, OnInit, ElementRef } from '@angular/core';
+import { Component, Input, ChangeDetectorRef, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Portfolio } from 'src/app/models/Portfolio';
 import { UploadService } from 'src/app/services/upload';
@@ -6,7 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 import {AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask} from '@angular/fire/storage'
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 const access_token = '3taIZaHhNQ4AAAAAAAAAAepdQhfZ7Am-YbNFCjNR5tvHzXCO1TiS_MPlCwZuu4ja'
@@ -16,7 +16,7 @@ const access_token = '3taIZaHhNQ4AAAAAAAAAAepdQhfZ7Am-YbNFCjNR5tvHzXCO1TiS_MPlCw
   templateUrl: './portfolio-artwork.component.html',
   styleUrls: ['./portfolio-artwork.component.css']
 })
-export class PortfolioArtworkComponent implements OnInit {
+export class PortfolioArtworkComponent implements OnInit, OnDestroy {
   @Input() openAddArtworkModal: boolean;
   @Input() openEditArtworkModal: boolean;
   @Input() openSuccessModal: boolean;
@@ -28,11 +28,17 @@ export class PortfolioArtworkComponent implements OnInit {
  
   task: AngularFireUploadTask;
   snapshot: Observable<any>;
+  subscriptions: Subscription
 
   string64: any;
   filetype: any;
+
+  addedFileName: string = '';
   fileName: string = '' ;
+  
   filePath: any;
+
+  addedimageSRC: any = '';
   public imageSRC : any = '' ;
   url: Promise<string>;
 
@@ -55,14 +61,16 @@ export class PortfolioArtworkComponent implements OnInit {
       this.initForm()
     })*/
 
-    this.uploadService.artSource.asObservable().subscribe(currArt =>{
+    this.subscriptions = this.uploadService.artSource.asObservable().subscribe(currArt =>{
       //console.log("Selected Art: " + JSON.stringify(currArt))
       this.artwork = currArt
-      this.fileName = this.artwork.artworkname
+      this.fileName = this.artwork.images.filename
       this.imageSRC = this.artwork.images.imageBase64
       this.initForm()
     })
     
+    
+
     this.fileName = '';
     this.imageSRC = '';
 
@@ -94,35 +102,34 @@ export class PortfolioArtworkComponent implements OnInit {
 
   //upload function for edit forms
   uploadFile(event: Event) {
-    console.log(event);
-    //const dbx = new Dropbox({ accessToken: access_token });
-    const reader = new FileReader();
-    const target= event.target as HTMLInputElement;
+    const target = event.target as HTMLInputElement
 
-    if(target.files && target.files.length) {
-      const file: File = (target.files as FileList)[0];
-      this.fileName = file.name;
-      this.filetype = this.domSanitizer.bypassSecurityTrustUrl(file.type);
-      reader.readAsDataURL(file);
+    const file: File = (target.files as FileList)[0]
+    //Storage Path
+    const path =  `/Portfolio/${Date.now()}_` + file.name
+    
+    //reference to storage bucket
+    const ref = this.afStorage.ref(path)
 
-      
-
-      reader.onload = () => {
-        this.string64 = reader.result
-        this.imageSRC = this.domSanitizer.bypassSecurityTrustUrl(this.string64);
-        
+    //main task 
+    this.task = this.afStorage.upload(path, file)
+    
+    this.snapshot = this.task.snapshotChanges().pipe(
+      finalize( async() => {
+        this.url = await ref.getDownloadURL().toPromise()
         this.portfolioForm.patchValue({
           artworkimage: {
             filename: file.name,
             contentType: file.type,
-            imageBase64: this.url 
+            imageBase64: this.url
           }
         });
+        this.fileName = file.name
+        this.imageSRC = this.url
+        console.log("Here: " + JSON.stringify(this.url) );
+      })
+    )
 
-        this.cd.markForCheck();
-      };
-      
-    }    
   }
 
   //upload file function for add forms
@@ -149,8 +156,8 @@ export class PortfolioArtworkComponent implements OnInit {
             imageBase64: this.url
           }
         });
-        this.fileName = file.name
-        this.imageSRC = this.url
+        this.addedFileName = file.name
+        this.addedimageSRC = this.url
         console.log("Here: " + JSON.stringify(this.url) );
       })
     )
@@ -162,7 +169,12 @@ export class PortfolioArtworkComponent implements OnInit {
   //functions when the modal exits or cancels
   onClickExit = () => {
     //console.log("On Exit Art: " + JSON.stringify(this.artwork))
+    this.addedFileName = '';
+    this.addedimageSRC = '';
+    this.fileName = '';
+    this.imageSRC = '';
     this.portfolioForm.reset();
+    this.addPortfolio.reset();
     if(this.openAddArtworkModal) {
       this.openAddArtworkModal = false;
       this.submitted = false;
@@ -203,6 +215,8 @@ export class PortfolioArtworkComponent implements OnInit {
       this.ngOnInit()
       this.openAddArtworkModal = false;
       this.addPortfolio.reset();
+      this.addedFileName = '';
+      this.addedimageSRC = '';
     }
   }
 
@@ -243,4 +257,9 @@ export class PortfolioArtworkComponent implements OnInit {
         }
       });
   }
+
+  ngOnDestroy():void{
+    this.subscriptions.unsubscribe()
+  }
 }
+
