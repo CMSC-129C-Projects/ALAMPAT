@@ -4,7 +4,12 @@ import { Portfolio } from 'src/app/models/Portfolio';
 import { UploadService } from 'src/app/services/upload';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { ViewChild } from '@angular/core';
+import {AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask} from '@angular/fire/storage'
+
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+
+const access_token = '3taIZaHhNQ4AAAAAAAAAAepdQhfZ7Am-YbNFCjNR5tvHzXCO1TiS_MPlCwZuu4ja'
 
 @Component({
   selector: 'app-portfolio-artwork',
@@ -20,18 +25,23 @@ export class PortfolioArtworkComponent implements OnInit {
   portfolioForm: FormGroup;
   addPortfolio: FormGroup;
   artwork: any = {};
-  blank_art: any = {};
+ 
+  task: AngularFireUploadTask;
+  snapshot: Observable<any>;
+
   string64: any;
   filetype: any;
   fileName: string = '' ;
+  filePath: any;
   public imageSRC : any = '' ;
-
+  url: Promise<string>;
 
 
   constructor(private formBuilder: FormBuilder, 
     private cd: ChangeDetectorRef, 
     private domSanitizer: DomSanitizer, 
     private uploadService: UploadService,
+    private afStorage: AngularFireStorage,
    ) {
       
      }
@@ -48,6 +58,7 @@ export class PortfolioArtworkComponent implements OnInit {
     this.uploadService.artSource.asObservable().subscribe(currArt =>{
       //console.log("Selected Art: " + JSON.stringify(currArt))
       this.artwork = currArt
+      this.fileName = this.artwork.artworkname
       this.imageSRC = this.artwork.images.imageBase64
       this.initForm()
     })
@@ -84,6 +95,7 @@ export class PortfolioArtworkComponent implements OnInit {
   //upload function for edit forms
   uploadFile(event: Event) {
     console.log(event);
+    //const dbx = new Dropbox({ accessToken: access_token });
     const reader = new FileReader();
     const target= event.target as HTMLInputElement;
 
@@ -92,7 +104,9 @@ export class PortfolioArtworkComponent implements OnInit {
       this.fileName = file.name;
       this.filetype = this.domSanitizer.bypassSecurityTrustUrl(file.type);
       reader.readAsDataURL(file);
-  
+
+      
+
       reader.onload = () => {
         this.string64 = reader.result
         this.imageSRC = this.domSanitizer.bypassSecurityTrustUrl(this.string64);
@@ -101,9 +115,10 @@ export class PortfolioArtworkComponent implements OnInit {
           artworkimage: {
             filename: file.name,
             contentType: file.type,
-            imageBase64: reader.result as string
+            imageBase64: this.url 
           }
         });
+
         this.cd.markForCheck();
       };
       
@@ -111,34 +126,38 @@ export class PortfolioArtworkComponent implements OnInit {
   }
 
   //upload file function for add forms
-  uploadFileInAddForm(event: Event) {
-    console.log(event);
-    const reader = new FileReader();
-    const target= event.target as HTMLInputElement;
+  uploadFileInAddForm(event: Event ) {
+    const target = event.target as HTMLInputElement
 
-    if(target.files && target.files.length) {
-      
-      const file: File = (target.files as FileList)[0];
-      this.fileName = file.name;
-      this.filetype = this.domSanitizer.bypassSecurityTrustUrl(file.type);
-      reader.readAsDataURL(file);
-  
-      reader.onload = () => {
-        this.string64 = reader.result
-        this.imageSRC = this.domSanitizer.bypassSecurityTrustUrl(this.string64);
-        
+    const file: File = (target.files as FileList)[0]
+    //Storage Path
+    const path =  `/Portfolio/${Date.now()}_` + file.name
+    
+    //reference to storage bucket
+    const ref = this.afStorage.ref(path)
+
+    //main task 
+    this.task = this.afStorage.upload(path, file)
+    
+    this.snapshot = this.task.snapshotChanges().pipe(
+      finalize( async() => {
+        this.url = await ref.getDownloadURL().toPromise()
         this.addPortfolio.patchValue({
           artworkimage: {
             filename: file.name,
             contentType: file.type,
-            imageBase64: reader.result as string
+            imageBase64: this.url
           }
         });
-        this.cd.markForCheck();
-      };
-      
-    }    
+        this.fileName = file.name
+        this.imageSRC = this.url
+        console.log("Here: " + JSON.stringify(this.url) );
+      })
+    )
+
   }
+ 
+ 
 
   //functions when the modal exits or cancels
   onClickExit = () => {
@@ -162,7 +181,7 @@ export class PortfolioArtworkComponent implements OnInit {
 
   //function for adding artwork
   addArtwork =  () => {
-    //console.log(this.portfolioForm.value);
+    console.log(this.portfolioForm.value);
     //this.portfolioForm.reset();
     
     this.submitted = true;
@@ -220,7 +239,7 @@ export class PortfolioArtworkComponent implements OnInit {
       artworkimage:{
         filename: this.artwork?.images.filename,
         contentType: this.artwork?.images.contentType,
-        imageBase64: this.artwork?.images.imageBase64.changingThisBreaksApplicationSecurity
+        imageBase64: this.artwork?.images.imageBase64
         }
       });
   }

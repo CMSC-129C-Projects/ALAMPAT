@@ -34,7 +34,7 @@ export class PortfolioComponent implements OnInit {
 
   ngOnInit(): void {
     this.uploadService.getPortfoliodata()
-    this.uploadService.portfolio.subscribe((artwork)=>{
+    this.uploadService.portfolio.asObservable().pipe().subscribe((artwork)=>{
       this.portfolioList = artwork;
       //console.log("Portfolio: " + JSON.stringify(this.portfolioList))
     }, (error) => {

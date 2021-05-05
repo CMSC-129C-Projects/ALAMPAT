@@ -29,13 +29,15 @@ export class UploadService {
     artSource = new Subject<any>();
     //currArt = this.artSource.asObservable();
     //currArt: EventEmitter<any> = new EventEmitter();
-    portfolio: EventEmitter<any> = new EventEmitter();
+    //portfolio: EventEmitter<any> = new EventEmitter();
+    portfolio = new Subject<any>();
     //error: EventEmitter<any> = new EventEmitter();
 
     constructor(private router:Router,
         private domSanitizer: DomSanitizer, 
         ) { }
     
+
     refresh(): Observable<any> {
         return this.artSource.asObservable();
     }
@@ -64,11 +66,11 @@ export class UploadService {
     }
   
     
-    getPortfoliodata  () {
+    getPortfoliodata() {
         try {
             axios.get(`${localAPI}/seller/${this.userID}/portfolio`)
             .then(resp => {
-                this.portfolio.emit(resp.data.portfolioArray)
+                this.portfolio.next(resp.data.portfolioArray)
                 
                 console.log(this.portfolio);
                 //return resp.data

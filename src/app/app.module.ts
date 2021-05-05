@@ -17,6 +17,8 @@ import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { PortfolioArtworkComponent } from './components/portfolio-artwork/portfolio-artwork.component';
 import { UploadService } from './services/upload';
 
+import {AngularFireStorageModule} from '@angular/fire/storage'
+import {AngularFireModule} from '@angular/fire'
 
 @NgModule({
   declarations: [
@@ -37,7 +39,16 @@ import { UploadService } from './services/upload';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-  
+    AngularFireModule.initializeApp({
+      apiKey: "AIzaSyAYsXEKw9iqkrLxKgItK3_BxS94pWyLY9I",
+      authDomain: "alampat-59bb8.firebaseapp.com",
+      projectId: "alampat-59bb8",
+      storageBucket: "alampat-59bb8.appspot.com",
+      messagingSenderId: "42190675269",
+      appId: "1:42190675269:web:4d4f246a30fb3b380df22c",
+      measurementId: "G-M7VWRJ4WN7"
+    }),
+    AngularFireStorageModule
 
   ],
   exports:[

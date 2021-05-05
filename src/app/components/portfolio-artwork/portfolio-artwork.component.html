@@ -25,10 +25,10 @@
                         </div>
                     </div>      
                 </div>
-                <div class="field">
+                <div class="field" >
                     <label class="label mt-4">Artwork Image</label>
                     <div class="control">
-                        <div class="file is-primary is-fullwidth">
+                        <div class="file is-primary is-fullwidth" >
                             <label class="file-label">
                                 <input  class="file-input"  [ngClass]="{ 'has-error': formControls.artworkimage?.errors }" type="file" id="UploadFile" accept="image/*" (change)="uploadFileInAddForm($event)" name="artworkimage" formControlName="artworkimage" required>
                                 <span class="file-cta">
@@ -55,7 +55,9 @@
                     </div>
                 </div>
                 <figure class="image">
-                    <img class="artworkimage" [src]= "imageSRC">
+                    <div *ngIf = "snapshot | async as snap">
+                        <img class="artworkimage" [src]= "imageSRC">
+                    </div>
                 </figure>
 
                 <div class="field mt-4">
