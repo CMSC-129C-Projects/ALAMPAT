@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectorRef, OnInit, OnDestroy, ElementRef } from '@angular/core';
+import { Component, Input, Output, ChangeDetectorRef, OnInit, OnDestroy, EventEmitter,ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Portfolio } from 'src/app/models/Portfolio';
 import { UploadService } from 'src/app/services/upload';
@@ -8,6 +8,7 @@ import {AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask} 
 
 import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+
 
 const access_token = '3taIZaHhNQ4AAAAAAAAAAepdQhfZ7Am-YbNFCjNR5tvHzXCO1TiS_MPlCwZuu4ja'
 
@@ -42,6 +43,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
   public imageSRC : any = '' ;
   url: Promise<string>;
 
+  @Output() updatepf : EventEmitter<any> = new EventEmitter(true); 
 
   constructor(private formBuilder: FormBuilder, 
     private cd: ChangeDetectorRef, 
@@ -53,7 +55,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
      }
 
   ngOnInit(): void {
-   // this.uploadService.getPortfoliodata()
+    this.uploadService.getPortfoliodata()
     
     /*this.uploadService.currArt.subscribe(currArt =>{
       console.log("Selected Art: " + JSON.stringify(currArt))
