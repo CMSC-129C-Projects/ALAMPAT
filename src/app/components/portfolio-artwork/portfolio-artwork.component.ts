@@ -53,7 +53,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
      }
 
   ngOnInit(): void {
-    this.uploadService.getPortfoliodata()
+   // this.uploadService.getPortfoliodata()
     
     /*this.uploadService.currArt.subscribe(currArt =>{
       console.log("Selected Art: " + JSON.stringify(currArt))

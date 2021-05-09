@@ -41,6 +41,7 @@ export class UploadService {
     refresh(): Observable<any> {
         return this.artSource.asObservable();
     }
+
     selectArt(art: any) {
         //console.log("Passed art: "+ JSON.stringify(art))
         //this.currArt.emit(art)
@@ -124,12 +125,12 @@ export class UploadService {
 
     deletePortfoliodata = async (id: any ) => {
         try {
-            const response = await axios.delete(`${localAPI}/seller/${this.userID}/removeportfolio/${id}`,{data : { _id :id}});
+            const response = await axios.delete(`${localAPI}/seller/${this.userID}/removeportfolio/`,{data : { _id :id}});
             const { message, success } = response.data
             console.log(response.data)
             if (success) {
                 this.isDeleted = true;
-                console.log("Artwork Deleted!" + response.data.result)
+                console.log("Artwork Deleted!" + JSON.stringify(response.data))
                 
                 return this.isDeleted
             
