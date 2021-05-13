@@ -32,6 +32,9 @@ export class PortfolioComponent implements OnInit {
       console.log(m);
       this.ngOnInit();
     })
+    this.uploadService.showEdit.subscribe((x)=>{
+      this.showAddArtworkModal = x
+    })
   }
 
   ngOnInit(): void {
@@ -61,7 +64,8 @@ export class PortfolioComponent implements OnInit {
   }
 
   onClickAddArtwork () {
-    this.showAddArtworkModal = !this.showAddArtworkModal;
+    this.uploadService.addswitch(true)
+    //this.showAddArtworkModal = !this.showAddArtworkModal;
   }
   
   onClickEditArtwork (item: any) {

@@ -178,8 +178,10 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
     this.portfolioForm.reset();
     this.addPortfolio.reset();
     if(this.openAddArtworkModal) {
+      this.uploadService.addswitch(false)
       this.openAddArtworkModal = false;
       this.submitted = false;
+
     }
     if(this.openEditArtworkModal) {
       this.openEditArtworkModal = false;
