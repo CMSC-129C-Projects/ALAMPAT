@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { User } from 'src/app/models/User';
 import { UserService } from 'src/app/services/auth';
-
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-contact',
@@ -12,18 +11,22 @@ import { UserService } from 'src/app/services/auth';
 export class ContactComponent implements OnInit {
   @Input() openRegisterModal: boolean;
 
-  constructor(private userService: UserService) {
+  constructor(public userService: UserService, private router: Router, private route: ActivatedRoute) {
     this.openRegisterModal = false;
   }
 
-  createForm = new FormGroup({});
-  submitted: boolean = false;
+
+  submitted = false;
+  regSuccess = false;
+  createForm: FormGroup;
+  registeredUser: boolean = false;
+
 
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   phonePattern = "^((\\+91-?)|0)?[0-9]{10}$";
   passwordPattern = "^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.createForm = new FormGroup({
       name: new FormControl('', [
         Validators.required
@@ -36,9 +39,7 @@ export class ContactComponent implements OnInit {
         Validators.required,
         Validators.pattern(this.phonePattern)
       ]),
-      address: new FormControl('', [
-        Validators.required
-      ]),
+
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
@@ -47,37 +48,45 @@ export class ContactComponent implements OnInit {
       userType: new FormControl('', [
         Validators.required,
       ]),
-      agreeBox: new FormControl('', [
-        Validators.required
-      ])
+
     });
   }
 
   get name() { return this.createForm.get('name'); }
   get email() { return this.createForm.get('email'); }
   get phoneNumber() { return this.createForm.get('phoneNumber'); }
-  get address() { return this.createForm.get('address'); }
   get password() { return this.createForm.get('password'); }
   get userType() { return this.createForm.get('userType'); }
 
-  onSubmit = () => {
-    const regUser: User = {
-      name: this.createForm.get('name')?.value,
-      email: this.createForm.get('email')?.value,
-      phoneNumber: this.createForm.get('phoneNumber')?.value,
-      address: this.createForm.get('address')?.value,
-      password: this.createForm.get('password')?.value,
-      userType: this.createForm.get('userType')?.value,
+  onSubmit = async () => {
+    if (this.createForm.invalid) {
+      this.submitted = true;
+      console.log("Input all the required fields");
+      this.createForm.reset();
+    } else {
+      var reguser = await this.userService.registerUser(this.createForm.value);
+      if (reguser === true) {
+        this.registeredUser = false
+        this.regSuccess = true;
+        //this.router.navigate(['/loading'])
+      }
+      else {
+        this.registeredUser = true
+        this.submitted = true
+        this.openRegisterModal = true
+        this.regSuccess = false;
+      }
     }
-    this.userService.registerUser(regUser);
   }
-
   onReset() {
     this.submitted = false;
     this.createForm.reset();
   }
 
   onClickExit = () => {
+    this.regSuccess = false;
+    this.registeredUser = false
     this.openRegisterModal = false;
+    this.onReset();
   }
 }
