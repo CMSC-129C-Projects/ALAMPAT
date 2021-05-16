@@ -1,6 +1,5 @@
 const User = require('../models/user')
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
 const userController = require('./UserController')
 const ObjectId = require("mongodb").ObjectID
 require("dotenv/config")
@@ -36,8 +35,12 @@ const register = async (req, res, next) => {
                 userType: req.body.userType,
                 password: hashedPass,
                 description: '',
+                portfolio: [null],
+                cart: [null],
+                reservation: [null],
+                orders: [null]
             })
-            //try{}
+            
             user.save(function(err,user){
                 if(err){
                     res.json({
@@ -87,6 +90,7 @@ const login = (req, res, next) => {
                         
                         res.json({
                             message: 'Login Successful!',
+                            userdata: user,
                             token: token,
                             loggedin: true
                         })
@@ -108,5 +112,5 @@ const login = (req, res, next) => {
 }
 
 module.exports = {
-    register, login
+    register
 }

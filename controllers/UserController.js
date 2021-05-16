@@ -1,3 +1,4 @@
+const { deleteOne } = require('../models/user');
 const User = require('../models/user')
 const ObjectId = require("mongodb").ObjectID
 const bcrypt = require('bcryptjs')
@@ -87,6 +88,7 @@ const updateAccount = async(req, res, next) => {
         bcrypt.hash(req.body.password, 10, function (err, hashedPass) {
             if (err) {
                 res.json({
+                    message: "Failed hashing the password",
                     error: err
                 })
             }
@@ -148,3 +150,4 @@ const updateAccount = async(req, res, next) => {
 module.exports = { 
     getUserByEmail, getUserList, getUserByID, updateAccount, upload 
 }
+

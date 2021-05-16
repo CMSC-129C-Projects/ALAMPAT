@@ -87,12 +87,13 @@ const getArtworkList = async(req, res, next) => {
                 success: false,
             })
         }
-            
+         
     } catch(error){
         console.log(error)
         res.status(404).json({ 
             error,
             success: false, })
+       
     }
 }
 
@@ -103,7 +104,7 @@ const updateArtwork = async(req, res, next) => {
             let art = new Portfolio ({
                 artworkname: req.body.artworkname, 
                 images: {
-                    filename: hashedfile,
+                    filename: req.body.artworkimage.filename,
                     contentType: req.body.artworkimage.contentType,
                     imageBase64: req.body.artworkimage.imageBase64
                 },
@@ -147,8 +148,8 @@ const deleteArtwork = async(req, res, next) => {
             //creates a new user object together with the final image object
            
         //updates the user object data to the database 
-        Portfolio.findByIdAndRemove(req.body._id, function(err, result){
-            if(!err){
+        Portfolio.findByIdAndRemove(req.body._id)
+            .then((result)=>{
                 User.findByIdAndUpdate( req.params.id , { $pull: { portfolio: result._id } })
                 .then((data)=>{
                     res.json({
@@ -164,9 +165,12 @@ const deleteArtwork = async(req, res, next) => {
                         success: false,
                     })
                 })
-            }
-        })
-
+            }).catch((error)=>{
+                res.status(400).json({ 
+                    message: 'Artwork  data to be removed not found',
+                    error: error,
+                    success: false, })
+            })
         
     }
     catch (error) {
@@ -179,6 +183,31 @@ const deleteArtwork = async(req, res, next) => {
 }
 
 
+const getArtByID = (req, res, next) =>{
+    Portfolio.findById(req.params.id)
+        .then((art)=>{
+            if (!art) {
+                console.log()
+                return res.status(404).json({
+                    message: "Art Data Retrieving Failed",
+                    success: false,
+                    
+                });
+            }
+            return res.status(200).json({
+                message: "Art Data Retrieved successfully",
+                success: true,
+                artData: art});
+        })
+        .catch(error => 
+            res.status(400).json({
+                message: "Data Retrieviing Failed!!",
+                error: error,
+                success: false
+            })
+        );
+}
+
 module.exports = { 
-    addArtwork, getArtworkList, updateArtwork,deleteArtwork
+    addArtwork, getArtworkList, updateArtwork,deleteArtwork, getArtByID
 }
