@@ -179,12 +179,13 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
     this.addPortfolio.reset();
     if(this.openAddArtworkModal) {
       this.uploadService.addswitch(false)
-      this.openAddArtworkModal = false;
+      
       this.submitted = false;
 
     }
     if(this.openEditArtworkModal) {
-      this.openEditArtworkModal = false;
+      this.uploadService.editswitch(false)
+      
       this.saved = false;
     }
     if(this.openSuccessModal) {
@@ -215,9 +216,10 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
       }
 
       this.uploadService.uploadPortfolio(artwork);
-      
+      this.uploadService.getPortfoliodata()
       this.ngOnInit()
-      this.openAddArtworkModal = false;
+      this.uploadService.addswitch(false)
+      
       this.addPortfolio.reset();
       this.addedFileName = '';
       this.addedimageSRC = '';
@@ -240,8 +242,8 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
         
         this.fileName = '';
         this.imageSRC = '';
-
-        this.openEditArtworkModal = false;
+        this.uploadService.editswitch(false)
+        
       }
       else{
         this.initForm();

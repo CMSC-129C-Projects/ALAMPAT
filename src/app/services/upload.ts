@@ -30,6 +30,7 @@ export class UploadService {
     //currArt = this.artSource.asObservable();
     //currArt: EventEmitter<any> = new EventEmitter();
     //portfolio: EventEmitter<any> = new EventEmitter();
+    showAdd: EventEmitter<boolean> = new EventEmitter();
     showEdit: EventEmitter<boolean> = new EventEmitter();
     portfolio = new Subject<any>();
     //error: EventEmitter<any> = new EventEmitter();
@@ -44,6 +45,10 @@ export class UploadService {
     }
 
     addswitch(resp: boolean){
+        this.showAdd.emit(resp)
+    }
+
+    editswitch(resp: boolean){
         this.showEdit.emit(resp)
     }
 
