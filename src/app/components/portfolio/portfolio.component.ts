@@ -3,6 +3,7 @@ import { Portfolio } from 'src/app/models/Portfolio';
 import { UploadService } from 'src/app/services/upload';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
+import {AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask} from '@angular/fire/storage'
 
 @Component({
   selector: 'app-portfolio',
@@ -25,16 +26,18 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   @Input() portfolioList: any = [];
-  public imageSRC: any ;
+   imageSRC: any ;
   userID: string = '607fe491958fa65f08f14d0e';
 
  
 
-  constructor(private domSanitizer: DomSanitizer, private uploadService: UploadService) { 
-    this.uploadService.getPortfoliodata()
+  constructor(private domSanitizer: DomSanitizer, 
+    private uploadService: UploadService,
+    private afStorage: AngularFireStorage,) { 
+    
      this.subscriptions.push(
        this.uploadService.refresh().subscribe((m:any) => {
-        
+        this.uploadService.getPortfoliodata()
         console.log(m);
         this.ngOnInit();
     })
@@ -101,9 +104,11 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.itemID = item._id;
     this.item = item;
     this.index = index;
+    this.imageSRC = this.portfolioList[index].images.imageBase64;
   }
 
   onClickSureDelete () {
+    this.afStorage.storage.refFromURL(this.imageSRC).delete();
     this.uploadService.selectArt(this.item);
     this.uploadService.deletePortfoliodata(this.itemID);
     //console.log(this.index);

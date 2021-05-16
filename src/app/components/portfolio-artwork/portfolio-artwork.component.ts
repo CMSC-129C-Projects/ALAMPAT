@@ -40,7 +40,8 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
   filePath: any;
 
   addedimageSRC: any = '';
-  public imageSRC : any = '' ;
+  imageSRC : any = '' ;
+  prev_image: any = '' ;
   url: Promise<string>;
 
   @Output() updatepf : EventEmitter<any> = new EventEmitter(true); 
@@ -127,6 +128,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
           }
         });
         this.fileName = file.name
+        this.prev_image = this.imageSRC
         this.imageSRC = this.url
         console.log("Here: " + JSON.stringify(this.url) );
       })
@@ -239,11 +241,10 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
         //this.portfolioForm.get('artowkimage')?.reset();
         this.ngOnInit();
         //this.portfolioForm.reset();
-        
+        this.afStorage.storage.refFromURL(this.prev_image).delete();
         this.fileName = '';
         this.imageSRC = '';
         this.uploadService.editswitch(false)
-        
       }
       else{
         this.initForm();
