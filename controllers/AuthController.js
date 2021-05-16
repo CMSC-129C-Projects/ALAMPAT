@@ -1,6 +1,5 @@
 const User = require('../models/user')
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
 const userController = require('./UserController')
 const ObjectId = require("mongodb").ObjectID
 require("dotenv/config")
@@ -113,5 +112,5 @@ const login = (req, res, next) => {
 }
 
 module.exports = {
-    register, login
+    register
 }

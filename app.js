@@ -39,8 +39,8 @@ app.use(express.json({limit: '50mb'}))
 app.use(morgan('dev'))
 //app.use('/profileUploads', express.static('profileUploads'));
 //app.use(bodyParser.urlencoded({extended: false}))
-//app.use(bodyParser.json())
 
+//app.use(bodyParser.json())
 
 
 app.use((req, res, next) => {
@@ -78,6 +78,7 @@ app.use((req, res, next) => {
       }
     });
   });
+
 
 app.listen(3000, () => {
     console.log("Listening to 3000");

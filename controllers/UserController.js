@@ -1,3 +1,4 @@
+const { deleteOne } = require('../models/user');
 const User = require('../models/user')
 const ObjectId = require("mongodb").ObjectID
 const bcrypt = require('bcryptjs')
@@ -149,3 +150,4 @@ const updateAccount = async(req, res, next) => {
 module.exports = { 
     getUserByEmail, getUserList, getUserByID, updateAccount, upload 
 }
+
