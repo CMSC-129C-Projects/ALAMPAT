@@ -26,7 +26,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   @Input() portfolioList: any = [];
-   imageSRC: any ;
+  imageSRC: any;
   userID: string = '607fe491958fa65f08f14d0e';
 
  

@@ -1,0 +1,123 @@
+<app-headerseller></app-headerseller>
+
+<div class="container">
+    <nav class="breadcrumb is-small" aria-label="breadcrumbs">
+        <li><a (click)="onClickGoback()">
+            <span class="icon is-small">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                    <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+                  </svg>
+                  <i class="bi bi-caret-left-fill" aria-hidden="true"></i>
+              </span>
+              <span>Back to Seller Shop</span> 
+          </a></li>
+    </nav>
+</div>
+
+<div class="hero-body">
+    <div class="columns is-mobile">
+        <div class="column is-10 is-offset-1">
+            <div class="card-container">
+                <span class="span-spaces">
+                    <div class="title is-family-primary has-icons-left">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" fill="currentColor" class="bi bi-palette" viewBox="0 0 16 16">
+                            <path d="M8 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm4 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM5.5 7a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                            <path d="M16 8c0 3.15-1.866 2.585-3.567 2.07C11.42 9.763 10.465 9.473 10 10c-.603.683-.475 1.819-.351 2.92C9.826 14.495 9.996 16 8 16a8 8 0 1 1 8-8zm-8 7c.611 0 .654-.171.655-.176.078-.146.124-.464.07-1.119-.014-.168-.037-.37-.061-.591-.052-.464-.112-1.005-.118-1.462-.01-.707.083-1.61.704-2.314.369-.417.845-.578 1.272-.618.404-.038.812.026 1.16.104.343.077.702.186 1.025.284l.028.008c.346.105.658.199.953.266.653.148.904.083.991.024C14.717 9.38 15 9.161 15 8a7 7 0 1 0-7 7z"/>
+                        </svg>
+                        <i class="bi bi-palette"></i>
+                        My Services
+                    </div>
+                </span>
+                <div class="container">
+                    <div class="buttons is-right">
+                        <button (click)= "onClickAddService()" class="button is-danger is-small"> <strong>ADD COMMISSION</strong></button>
+                    </div>
+                </div>
+            </div>
+            <hr style="background-color:#e8e6e6">
+            
+            
+            <!-- SERVICE SECTION  -->
+            <div class="columns is-multiline is-mobile" >
+                <!-- EACH SERVICE -->
+                <div class="column is-4" *ngFor="let item of serviceList; index as i">
+                    <div class="card"> 
+                        <a class="card-image">
+                            <figure class="image is-3by2" (click)="onClickOpen(item, i)">
+                                <img class="object-fit_cover" [src]= "item.images.imageBase64" alt="">
+                            </figure>
+                        </a>
+                        <div class="card-content">
+                            <p class="text has-text-weight-bold" readonly>
+                                {{item?.servicename }}
+                            </p>
+                            <div class="content">
+                                {{item?.description}}
+                            </div>
+                        </div>
+                        <footer class="card-footer">
+                            <a (click)="onClickEditService(item)" class="card-footer-item">Edit</a>
+                            <a (click)="onClickDelete(item, i)" class="card-footer-item" value="delete" type="delete">Delete</a>
+                        </footer>
+                    </div>
+                </div> 
+
+            </div>
+            <div class="tabs is-centered">
+                <ul>
+                    <li class="is-active">
+                        <a>
+                        <span class="icon is-small">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hourglass" viewBox="0 0 16 16">
+                                <path d="M2 1.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1h-11a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1-.5-.5zm2.5.5v1a3.5 3.5 0 0 0 1.989 3.158c.533.256 1.011.791 1.011 1.491v.702c0 .7-.478 1.235-1.011 1.491A3.5 3.5 0 0 0 4.5 13v1h7v-1a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351v-.702c0-.7.478-1.235 1.011-1.491A3.5 3.5 0 0 0 11.5 3V2h-7z"/>
+                            </svg>
+                            <i class="bi bi-hourglass" aria-hidden="true"></i>
+                        </span>
+                        <span>Live (On Stock)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                        <span class="icon is-small">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-diamond" viewBox="0 0 16 16">
+                                <path d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"/>
+                                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                            </svg>
+                            <i class="bi bi-exclamation-diamond" aria-hidden="true"></i>
+                            </span>
+                        <span>Sold Out</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div> 
+    </div>
+</div>
+
+<!-- IMAGE MODAL 
+<div class="modal" [ngClass]="openImageModal ? 'is-active' : ''">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <p class="image">
+            <img [src]="imageSRC" alt="">
+        </p>
+    </div>
+    <button class="modal-close is-large" aria-label="close" (click)="onClickExit()"></button>
+</div>
+
+ DELETE MODAL 
+<div class="modal" [ngClass]="openDeleteModal ? 'is-active' : '' ">
+    <div class="modal-background"></div>
+    <div class="notification is-outline">
+        <button (click)="onClickExit()" class="delete"></button>
+        <p class="mt-4">Are you sure you want to delete this item?</p>
+        <footer class="px-3 py-2 mt-4">
+            <div class="buttons is-centered px-4 mx-5 ">
+                <button (click)="onClickExit()" class="button is-danger is-outlined">Cancel</button>
+                <button (click)="onClickSureDelete()" class="button is-success is-outlined"> <strong>Yes</strong></button>
+            </div>    
+        </footer>  
+    </div>   
+</div>
+
+-->
