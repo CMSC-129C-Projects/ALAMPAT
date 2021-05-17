@@ -29,7 +29,9 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
  
   task: AngularFireUploadTask;
   snapshot: Observable<any>;
-  subscriptions: Subscription
+  subscriptions: Subscription;
+  subper: Subscription;
+  percentage: Observable<number|undefined> = new Observable();
 
   string64: any;
   filetype: any;
@@ -43,6 +45,8 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
   imageSRC : any = '' ;
   prev_image: any = '' ;
   url: Promise<string>;
+  
+  pic_switched: boolean;
 
   @Output() updatepf : EventEmitter<any> = new EventEmitter(true); 
 
@@ -56,18 +60,13 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
      }
 
   ngOnInit(): void {
+
     this.uploadService.getPortfoliodata()
-    
-    /*this.uploadService.currArt.subscribe(currArt =>{
-      console.log("Selected Art: " + JSON.stringify(currArt))
-      this.artwork = currArt
-      this.initForm()
-    })*/
 
     this.subscriptions = this.uploadService.artSource.asObservable().subscribe(currArt =>{
       //console.log("Selected Art: " + JSON.stringify(currArt))
       this.artwork = currArt
-      this.fileName = this.artwork.images.filename
+      //this.fileName = this.artwork.images.filename
       this.imageSRC = this.artwork.images.imageBase64
       this.initForm()
     })
@@ -116,7 +115,11 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
 
     //main task 
     this.task = this.afStorage.upload(path, file)
+
+    //upload progress monitoring
+    this.percentage = this.task.percentageChanges() ;
     
+
     this.snapshot = this.task.snapshotChanges().pipe(
       finalize( async() => {
         this.url = await ref.getDownloadURL().toPromise()
@@ -150,6 +153,9 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
     //main task 
     this.task = this.afStorage.upload(path, file)
     
+    //upload progress monitoring
+    this.percentage = this.task.percentageChanges() ;
+    
     this.snapshot = this.task.snapshotChanges().pipe(
       finalize( async() => {
         this.url = await ref.getDownloadURL().toPromise()
@@ -173,29 +179,32 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
   //functions when the modal exits or cancels
   onClickExit = () => {
     //console.log("On Exit Art: " + JSON.stringify(this.artwork))
+
     this.addedFileName = '';
-    this.addedimageSRC = '';
+    
     this.fileName = '';
-    this.imageSRC = '';
+    this.percentage;
+    this.prev_image = '';
     this.portfolioForm.reset();
     this.addPortfolio.reset();
     if(this.openAddArtworkModal) {
       this.uploadService.addswitch(false)
-      
+      this.percentage = new Observable()
+      this.addedimageSRC = '';
       this.submitted = false;
 
     }
     if(this.openEditArtworkModal) {
       this.uploadService.editswitch(false)
-      
+      this.imageSRC = '';
+      this.percentage = new Observable()
       this.saved = false;
     }
     if(this.openSuccessModal) {
       this.openSuccessModal = false;
       this.submitted = false;
     }
-    //this.myInputVariable.nativeElement.value = "";
-    
+
   }
 
   //function for adding artwork
@@ -221,7 +230,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
       this.uploadService.getPortfoliodata()
       this.ngOnInit()
       this.uploadService.addswitch(false)
-      
+      this.percentage = new Observable()
       this.addPortfolio.reset();
       this.addedFileName = '';
       this.addedimageSRC = '';
@@ -242,13 +251,16 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
         this.ngOnInit();
         //this.portfolioForm.reset();
         this.afStorage.storage.refFromURL(this.prev_image).delete();
+        this.percentage = new Observable()
         this.fileName = '';
         this.imageSRC = '';
         this.uploadService.editswitch(false)
+        
       }
       else{
         this.initForm();
       }
+      
     }
   }
 
@@ -267,6 +279,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
 
   ngOnDestroy():void{
     this.subscriptions.unsubscribe()
+    
   }
 }
 
