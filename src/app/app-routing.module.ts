@@ -31,7 +31,7 @@ export class AppRoutingModule { }
 
 export const routingComponents = [
   PortfolioArtworkComponent,
-  ContactComponent,
+  
   PortfolioComponent,
   RegisterLoadingComponent,
   NoPageFoundComponent,
@@ -40,5 +40,5 @@ export const routingComponents = [
   MyaccountbuyerComponent,
   MyaccountsellerComponent,
   LoginComponent,
-  UploadService
+  
 ]

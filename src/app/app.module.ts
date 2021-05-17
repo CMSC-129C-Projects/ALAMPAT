@@ -37,7 +37,7 @@ import {AngularFireModule} from '@angular/fire'
   exports:[
     WelcomeComponent,
   ],
-  providers: [UploadService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
