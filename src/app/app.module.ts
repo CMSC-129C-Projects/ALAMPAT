@@ -8,7 +8,8 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ContactComponent } from './components/contact/contact.component';
 import {AngularFireStorageModule} from '@angular/fire/storage'
-import {AngularFireModule} from '@angular/fire'
+import {AngularFireModule} from '@angular/fire';
+import { MarketplaceComponent } from './components/marketplace/marketplace.component'
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {AngularFireModule} from '@angular/fire'
     WelcomeComponent,
     FooterComponent,
     ContactComponent,
-    routingComponents
+    routingComponents,
+    MarketplaceComponent
 
   ],
   imports: [
