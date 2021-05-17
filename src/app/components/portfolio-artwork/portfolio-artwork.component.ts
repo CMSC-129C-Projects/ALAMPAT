@@ -250,7 +250,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
         //this.portfolioForm.get('artowkimage')?.reset();
         this.ngOnInit();
         //this.portfolioForm.reset();
-        this.afStorage.storage.refFromURL(this.prev_image).delete();
+        //this.afStorage.storage.refFromURL(this.prev_image).delete();
         this.percentage = new Observable()
         this.fileName = '';
         this.imageSRC = '';
