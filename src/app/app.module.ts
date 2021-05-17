@@ -9,7 +9,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ContactComponent } from './components/contact/contact.component';
 import {AngularFireStorageModule} from '@angular/fire/storage'
 import {AngularFireModule} from '@angular/fire'
-
+import { UploadService } from './services/upload';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +37,7 @@ import {AngularFireModule} from '@angular/fire'
   exports:[
     WelcomeComponent,
   ],
-  providers: [],
+  providers: [UploadService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
