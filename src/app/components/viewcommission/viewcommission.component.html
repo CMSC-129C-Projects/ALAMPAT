@@ -4,8 +4,8 @@
         margin-top: 20px;
         position: relative;
         background: 50% 50% no-repeat;
-        width: 400px;
-        height: 400px;
+        width: 414px;
+        height: 414px;
         padding-bottom: 60%;
     }
 
@@ -31,8 +31,6 @@
         top: 47%;
         z-index: 99;
         cursor: pointer;
-        
-
     }
 
     .prev {
@@ -79,6 +77,10 @@
     #i9:checked ~ #nine, 
     #i10:checked ~ #ten { 
         z-index: 9;
+    }
+
+    .starchecked {
+        color: orange;
     }
 
 </style>
@@ -331,12 +333,33 @@
         <div class="column is-5">
             <div class="box">
                 <p class="text is-size-2 has-text-weight-bold" readonly>
-                    Date with Carl David
+                    Date with Mr. Gwapito
                 </p>
                 <p class="text has-text-primary is-size-3 has-text-weight-bold" readonly>
-                    ₱ 150.69
+                    ₱ 150.00
                 </p>
                 &nbsp;
+                <div class="block">
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                    <div class="text is-size-5" readonly>
+                        Ave. Rating: &nbsp;
+                            <!-- starchecked makes star orange-->
+                            <!-- star rating must be based on a value-->
+                            <span class="fa fa-star starchecked"></span>
+                            <span class="fa fa-star "></span>
+                            <span class="fa fa-star "></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            &nbsp;
+                            <!-- Number of People who have rated this item -->
+                            <div class="tag is-warning is-medium has-text-weight-semibold">
+                                69&nbsp;
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                  </svg>
+                            </div>
+                    </div>
+                </div>
                 <div class="block">
                     <div class="text is-size-6" readonly>
                         Category: 
@@ -376,7 +399,26 @@
                           </svg>
                     </button>
                 </div>
-                
+                <div class="block">
+                    <div class="text is-size-6" readonly>
+                        Seller Information: 
+                        <a class="tag is-white is-light has-text-weight-bold is-medium">
+                            Carl David Reyes
+                        </a>
+                    </div>
+                    <div class="text is-size-6" readonly>
+                        Shop Rating: &nbsp;
+                        <!-- starchecked makes star orange-->
+                        <!-- star rating must be based on a value-->
+                        <span class="fa fa-star starchecked"></span>
+                        <span class="fa fa-star starchecked "></span>
+                        <span class="fa fa-star starchecked "></span>
+                        <span class="fa fa-star starchecked"></span>
+                        <span class="fa fa-star starchecked"></span>
+                        &nbsp;
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
