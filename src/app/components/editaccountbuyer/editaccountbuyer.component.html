@@ -19,7 +19,9 @@
             <form [formGroup]="BuyerForm" (ngSubmit)="onClickSave" novalidate autocomplete="false">
                 <div class="field is-grouped is-grouped-centered">
                     <figure class="image">
-                        <img class="profileImage" [src]= "imageSRC">
+                        <div *ngIf = " snapshot | async as snap">
+                            <img class="profileImage" [src]= "imageSRC">
+                        </div>
                     </figure>
                 </div>
                 <div class="field is-centered">

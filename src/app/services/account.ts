@@ -2,7 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import axios from 'axios'
 import { User } from '../models/User'
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { Observable, Subject } from 'rxjs';
 const localAPI = 'http://localhost:3000'
 
 
@@ -22,30 +22,37 @@ export class AccountService {
     userID: string = '607fe491958fa65f08f14d0e';
     isUpdated: boolean = false;
 
-    user: EventEmitter<any> = new EventEmitter();
-    error: EventEmitter<any> = new EventEmitter();
+    //user: EventEmitter<any> = new EventEmitter();
+    //error: EventEmitter<any> = new EventEmitter();
+    error: Subject<any> = new Subject();
+    user: Subject<any> = new Subject();
 
+    showEdit: EventEmitter<any> = new EventEmitter();
     constructor(private router:Router,) { }
+
+    editswitch(resp: boolean){
+        this.showEdit.emit(resp)
+    }
 
     getUserdata = () =>{
         try {
             axios.get<getUserResponse>(`${localAPI}/users/profile/` + this.userID)
             .then(resp => {
-                this.user.emit(resp.data.userData)
+                this.user.next(resp.data.userData)
                 
                 console.log(this.user);
                 //return resp.data
             })
             .catch(err => {
                 // Handle Error Here
-                this.error.emit(err)
+                this.error.next(err)
                 console.log(err);
                 //return err
             });
             
 
         } catch (error) {
-            this.error.emit(error)
+            this.error.next(error)
             console.log(error)
             this.getUserError = error
 

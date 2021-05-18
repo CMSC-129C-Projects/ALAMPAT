@@ -16,6 +16,8 @@ import { HeadersellerComponent } from './components/accounts/seller/headerseller
 import { EditaccountbuyerComponent } from './components/editaccountbuyer/editaccountbuyer.component';
 import { EditaccountsellerComponent } from './components/editaccountseller/editaccountseller.component';
 
+import {AngularFireStorageModule} from '@angular/fire/storage'
+import {AngularFireModule} from '@angular/fire'
 
 @NgModule({
   declarations: [
@@ -44,10 +46,12 @@ import { EditaccountsellerComponent } from './components/editaccountseller/edita
       appId: "1:42190675269:web:4d4f246a30fb3b380df22c",
       measurementId: "G-M7VWRJ4WN7"
     }),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+
   ],
   exports: [
     WelcomeComponent,
+    
   ],
   providers: [UploadService],
   bootstrap: [AppComponent]

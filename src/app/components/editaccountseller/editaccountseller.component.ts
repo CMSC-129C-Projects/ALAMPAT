@@ -7,6 +7,11 @@ import { User } from '../../models/User'
 import { AccountService } from 'src/app/services/account';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import {AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask} from '@angular/fire/storage';
+
+import { Observable, Subscription } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+
 
 const localAPI = 'http://localhost:3000'
 
@@ -24,13 +29,17 @@ export class EditaccountsellerComponent implements OnInit {
   user: any; // = new User;
   string64: any;
   filetype: any;
-  public imageSRC : any
+  imageSRC : any;
   userID: string = '607fe491958fa65f08f14d0e';
 
+  prev_img: any;
+
+  task: AngularFireUploadTask;
+  snapshot: Observable<any>;
+
   constructor(
-    private router: Router,
-    private formBuilder: FormBuilder, 
-    private cd: ChangeDetectorRef, 
+    private formBuilder: FormBuilder,
+    private afStorage: AngularFireStorage,
     private domSanitizer: DomSanitizer,
     private accountService: AccountService) { 
     
@@ -46,8 +55,8 @@ export class EditaccountsellerComponent implements OnInit {
       this.initForm()
       
       //sanitizes the URL to be safe to avoid warnings
-      this.imageSRC = this.domSanitizer.bypassSecurityTrustUrl(this.user.profileImage?.imageBase64)
-      
+      this.imageSRC = user.profileImage?.imageBase64
+      this.prev_img = this.imageSRC
       //console.log("User image: " + JSON.stringify(this.imageSRC))
   
     }, (error) => {
@@ -74,33 +83,38 @@ export class EditaccountsellerComponent implements OnInit {
   get formControls() { return this.SellerForm.controls; }
 
   onClickChangePhoto = (event: Event) => {
-    const reader = new FileReader();
-    const target= event.target as HTMLInputElement;
+    //insert code here to open file explorer
+    const target = event.target as HTMLInputElement
 
-    if(target.files && target.files.length) {
-      
-      const file: File = (target.files as FileList)[0];
-      this.filetype =this.domSanitizer.bypassSecurityTrustUrl(file.type)
-      reader.readAsDataURL(file);
-  
-      reader.onload = () => {
-        this.string64 = reader.result
-        this.imageSRC = this.domSanitizer.bypassSecurityTrustUrl(this.string64);
-        
-        //console.log("Hello" + reader.result)
-        
+    const file: File = (target.files as FileList)[0]
+    //Storage Path
+    const path =  `/Account/${Date.now()}_` + file.name
+    
+    //reference to storage bucket
+    const ref = this.afStorage.ref(path)
+
+    //main task 
+    this.task = this.afStorage.upload(path, file)
+    
+    //copying the url from the prev image for deleting
+    //this.prev_img = this.imageSRC
+
+    this.snapshot = this.task.snapshotChanges().pipe(
+      finalize( async() => {
+        this.imageSRC = await ref.getDownloadURL().toPromise()
         this.SellerForm.patchValue({
-          profileImage:{
-          filename: file.name,
-          contentType: file.type,
-          imageBase64: reader.result as string
+          profileImage: {
+            filename: file.name,
+            contentType: file.type,
+            imageBase64: this.imageSRC
           }
-       });
-      
-        // need to run CD since file load runs outside of zone
-        this.cd.markForCheck();
-      };
-    }
+        });
+        
+        
+        console.log("Here: " + JSON.stringify(this.imageSRC) );
+      })
+    )
+
   }
 
   onClickSave = async () => {
@@ -112,6 +126,10 @@ export class EditaccountsellerComponent implements OnInit {
       var userdata = await this.accountService.updateUserdata(this.SellerForm.value);
       if (userdata === true) {
         this.ngOnInit()
+        this.afStorage.storage.refFromURL(this.prev_img).delete();
+        this.accountService.editswitch(false)
+        this.imageSRC = ''
+        //this.openEditAccountSellerModal = false;
         //this.router.navigate(['/']) //back to accounts page
       }
       else {
@@ -124,7 +142,8 @@ export class EditaccountsellerComponent implements OnInit {
   }
 
   onClickExit = () => {
-    this.openEditAccountSellerModal = false;
+    this.accountService.editswitch(false)
+    //this.openEditAccountSellerModal = false;
     this.submitted = false;
     this.initForm()
   }
