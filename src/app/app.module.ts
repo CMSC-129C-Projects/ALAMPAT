@@ -9,6 +9,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire';
 import { UploadService } from './services/upload';
+import { AccountService } from './services/account';
 import { MyaccountbuyerComponent } from './components/accounts/buyer/myaccountbuyer/myaccountbuyer.component';
 import { MyaccountsellerComponent } from './components/accounts/seller/myaccountseller/myaccountseller.component';
 import { HeaderbuyerComponent } from './components/accounts/buyer/headerbuyer/headerbuyer.component';
@@ -16,8 +17,7 @@ import { HeadersellerComponent } from './components/accounts/seller/headerseller
 import { EditaccountbuyerComponent } from './components/editaccountbuyer/editaccountbuyer.component';
 import { EditaccountsellerComponent } from './components/editaccountseller/editaccountseller.component';
 
-import {AngularFireStorageModule} from '@angular/fire/storage'
-import {AngularFireModule} from '@angular/fire'
+
 
 @NgModule({
   declarations: [
@@ -53,7 +53,11 @@ import {AngularFireModule} from '@angular/fire'
     WelcomeComponent,
     
   ],
-  providers: [UploadService],
+  providers: [
+    UploadService,
+    AccountService
+  
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
