@@ -18,7 +18,6 @@ import { EditaccountbuyerComponent } from './components/editaccountbuyer/editacc
 import { EditaccountsellerComponent } from './components/editaccountseller/editaccountseller.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
