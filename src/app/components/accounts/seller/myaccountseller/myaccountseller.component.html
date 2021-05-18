@@ -1,3 +1,28 @@
+<style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 30px;
+    }
+  
+    .span-spaces {
+      padding-left: 5px;
+      padding-right: 10px;
+    }
+
+    .profileImage {
+        height:64px;
+        width:64px;
+        object-fit:cover;
+        border-radius: 50%;
+    }
+</style>
+
 <app-headerseller></app-headerseller>
 
 <!-- PROFILE PICTURE and NAME-->
@@ -5,39 +30,30 @@
     <div class="container">
         <div class="tile is-ancestor ">
             <div class="tile is-8 is-parent">
+                <div class="tile is-3 is-child"><!--EMPTY SPACE--></div>
                 <div class="tile is-1 is-child">
-                    <!--EMPTY SPACE-->
-                </div>
-                <div class="tile is-1 is-child  pl-5">
-                    <figure class="image is-64x64">
-                        <img class="is-rounded"
-                            src="https://akns-images.eonline.com/eol_images/Entire_Site/20181118/rs_600x600-181218181759-e-asia-catriona-gray-beauty-icon-thumbnail.jpg?fit=around%7C1080:1080&output-quality=90&crop=1080:1080;center,top">
+                    <figure class="image">
+                        <img class="profileImage" [src]= "imageSRC">
                     </figure>
                 </div>
-                <div class="tile is-1 is-child">
-                    <!--EMPTY SPACE-->
-                </div>
-                <div class="tile is-7 is-child pl-1">
+                <span>&nbsp;&nbsp;&nbsp;</span>
+                <div class="tile is-5 is-child">
                     <p class="title">
-                        Aileen Joan Vicente
+                        {{user?.name}}
                     </p>
                     <p class="subtitle">
                         <button class="button is-small is-rounded is-static"><strong>Seller Account</strong></button>
                     </p>
                 </div>
-                <!-- EDIT, SAVE, CANCEL BUTTONS -->
 
-                <div class="tile is-4 is-child">
-                    <!--EMPTY SPACE-->
-                </div>
-
-                <div class="tile child pl-5">
+                <!-- EDIT BUTTON -->
+                <div class="tile is-5 is-child"><!--EMPTY SPACE--></div>
+                <div class="tile is-5 is child">
                     <div class="buttons is-right">
-                        &nbsp; &nbsp;&nbsp;&nbsp;
-                        <button class="button is-warning is-light is-small is-outlined level-right">
+                        &nbsp; &nbsp;
+                        <button (click)="onClickEditAccountSeller();" class="button is-warning is-small is-light is-outlined">
                             <strong>Edit</strong>
                         </button>
-
                     </div>
                 </div>
             </div>
@@ -53,22 +69,19 @@
             <div class="field">
                 <label class="label ">Email Address</label>
                 <div class="control has-icons-left">
-                    <textarea class="textarea has-fixed-size" rows="1" readonly
-                        placeholder="Example: missaileengray@gmail.com"></textarea>
+                    <textarea class="textarea has-fixed-size" rows="1" readonly>{{user?.email}}</textarea>
                 </div>
             </div>
             <div class="field">
-                <label class="label ">Password</label>
+                <label class="label " >Password</label>
                 <div class="control has-icons-left">
-                    <textarea class="textarea has-fixed-size" rows="1" readonly
-                        placeholder="***************"></textarea>
+                    <input class="textarea has-fixed-size" rows="1" type="password"  maxlength="8" value="{{user?.password}}" readonly/>
                 </div>
             </div>
             <div class="field">
                 <label class="label ">Phone Number</label>
                 <div class="control">
-                    <textarea class="textarea has-fixed-size" rows="1" readonly
-                        placeholder="Example: 0912 345 6789"></textarea>
+                    <textarea class="textarea has-fixed-size" rows="1" maxlength ="10"readonly>{{user?.phoneNumber}}</textarea>
                 </div>
             </div>
             <div class="field">
@@ -76,12 +89,16 @@
                 <div class="control has-icons-left">
                     <div class="field">
                         <div class="control has-icons-left">
-                            <textarea class="textarea" rows="1" readonly
-                                placeholder="Example: I make artistic replicas of Minecraft objects."></textarea>
+                            <textarea class="textarea" rows="1" readonly>{{user?.description}}</textarea>
                         </div>
-                    </div>
+                    </div>  
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<app-footer></app-footer>
+
+<!-- links to other pages and modals -->
+<app-editaccountseller [openEditAccountSellerModal] = 'showEditAccountSellerModal'></app-editaccountseller>

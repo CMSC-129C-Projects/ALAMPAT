@@ -1,0 +1,89 @@
+<style>
+    .profileImage {
+        height:128px;
+        width:128px;
+        object-fit:cover;
+        border-radius: 50%;
+    }
+</style>
+
+<div class="modal" [ngClass]="openEditAccountBuyerModal ? 'is-active' : ''"> <!--insert "is-active" to view modal-->
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title"><strong>Edit Account</strong></p>
+            <button (click)="onClickExit()" class="delete" aria-label="close"></button>
+        </header>
+        <!-- Modal Content -->
+        <section class="modal-card-body">
+            <form [formGroup]="BuyerForm" (ngSubmit)="onClickSave" novalidate autocomplete="false">
+                <div class="field is-grouped is-grouped-centered">
+                    <figure class="image">
+                        <img class="profileImage" [src]= "imageSRC">
+                    </figure>
+                </div>
+                <div class="field is-centered">
+                    <div class="file is-small is-centered">
+                        <label class="file-label">
+                            <input [ngClass]="{ 'has-error': formControls.profileImage?.errors }" class="file-input" (change)="onClickChangePhoto($event)" type="file" name="resume">
+                            <span class="file-cta">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                                  </svg>
+                                <span class="file-label">
+                                    &nbsp; Change Photo
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            
+                <!-- Placeholders should be linked with the actual data from database -->
+                <div class="field">
+                    <label class="label ">Name</label>
+                    <div class="control">
+                        <input [ngClass]="{ 'has-error': formControls.name?.errors }" class="input" formControlName="name" placeholder="Unchanged">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label ">Email</label>
+                    <div class="control">
+                        <input [ngClass]="{ 'has-error': formControls.email?.errors }" class="input" type="email" formControlName="email" placeholder="Unchanged">
+                        <div class="subtitle is-size-7 has-text-danger" *ngIf="formControls.email?.errors?.pattern">Email is invalid</div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label ">Password</label>
+                    <div class="control">
+                        <input [ngClass]="{ 'has-error': formControls.password?.errors }" class="input" type="password" formControlName="password" placeholder="Unchanged">
+                        <div class="subtitle is-size-7 has-text-danger" *ngIf="formControls.password?.errors?.pattern">Password is invalid</div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label ">Phone Number</label>
+                    <div class="control">
+                        <input [ngClass]="{ 'has-error': formControls.phoneNumber?.errors }" class="input" type="phone number" formControlName="phoneNumber" placeholder="Unchanged">
+                        <div class="subtitle is-size-7 has-text-danger" *ngIf="formControls.phoneNumber?.errors?.pattern">Phone Number is invalid</div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label ">Shipping Address</label>
+                    <div class="control">
+                        <input [ngClass]="{ 'has-error': formControls.address?.errors }" class="input" formControlName="address" placeholder="Unchanged">
+                    </div>
+                </div>
+            </form>
+        </section>
+        <!-- Footer Buttons -->
+        <footer class="modal-card-foot">
+            <div class="tile"></div>
+            <button (click)="onClickSave()" class="button is-small is-success is-outlined">Save</button>
+            <button (click)="onClickExit()" class="button is-small is-danger is-outlined">Cancel</button>
+        </footer>
+    </div>
+</div>
