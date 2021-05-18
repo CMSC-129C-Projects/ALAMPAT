@@ -1,6 +1,6 @@
 export enum Category {
     PRODUCT = 'product',
-    COMMISSION = 'commission',
+    SERVICE = 'service',
     UNKNOWN = '',
 }
 export class Commission {
