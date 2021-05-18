@@ -23,13 +23,21 @@
                             BUYER
                         </label>
                         <label class="radio">
+<<<<<<< HEAD
+                            
+=======
 
+>>>>>>> routed-alampat
                             <input type="radio" name="userType" value="seller" formControlName="userType">
                             SELLER
                         </label>
 
                         <div *ngIf="  createForm.get('userType')?.invalid" class="älert alert-danger">
+<<<<<<< HEAD
+                            <span class="has-text-danger is-size-7">Please choose an account type.</span>                
+=======
                             <span class="has-text-danger is-size-7">Please choose an account type.</span>
+>>>>>>> routed-alampat
                         </div>
                     </div>
                 </div>
@@ -148,7 +156,16 @@
         <footer class="modal-card-foot buttons is-right">
             <button (click)="onClickExit()" (click)="onReset()"
                 class="button is-small is-danger is-outlined">Cancel</button>
+<<<<<<< HEAD
+
+            <button (click)="onSubmit()" 
+                class="button is-small is-success is-outlined">Register</button>
+            <div *ngIf="regSuccess" class="notification is-success is-light has-text-centered" routerLink = "/registration-confirmed">
+                    Registration Successful!
+            </div>
+=======
             <button (click)="onSubmit()" class="button is-small is-success is-outlined">Register</button>
+>>>>>>> routed-alampat
         </footer>
     </div>
 </div>

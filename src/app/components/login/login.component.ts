@@ -12,7 +12,6 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
 
-
   constructor(private formBuilder: FormBuilder, public userService: UserService )  {
   }
 

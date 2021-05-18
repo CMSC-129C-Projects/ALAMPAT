@@ -45,10 +45,10 @@ export class UserService {
                 //
             } else {
                 this.isRegistered = false;
-                this.showRegistrationError = true;
+                this.showRegistrationError=true;
                 this.registrationError = 'Something went wrong'
                 console.log(this.registrationError)
-                return this.isRegistered
+                return this.isRegistered 
             }
 
         } catch (error) {

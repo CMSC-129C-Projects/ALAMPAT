@@ -48,8 +48,6 @@ export class ContactComponent implements OnInit {
       userType: new FormControl('', [
         Validators.required,
       ]),
-     
-      
     });
   }
 
