@@ -10,13 +10,15 @@ import { ContactComponent } from './components/contact/contact.component';
 import {AngularFireStorageModule} from '@angular/fire/storage'
 import {AngularFireModule} from '@angular/fire'
 import { UploadService } from './services/upload';
+import { ViewcommissionComponent } from './components/viewcommission/viewcommission.component';
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
     FooterComponent,
     ContactComponent,
-    routingComponents
+    routingComponents,
+    ViewcommissionComponent
 
   ],
   imports: [
