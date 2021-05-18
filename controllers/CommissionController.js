@@ -1,37 +1,41 @@
 const User = require('../models/user')
 const ObjectId = require("mongodb").ObjectID
 const bcrypt = require('bcryptjs')
-const Portfolio = require('../models/portfolio')
+const Commission = require('../models/commissions')
 
-const addArtwork = async(req, res, next) => {
+const addCommission = async(req, res, next) => {
     try{
 
-            let art = new Portfolio ({
+            let commission = new Commission ({
                 _id: new ObjectId(),
-                artworkname: req.body.artworkname, 
+                commissionname: req.body.commissionname, 
                 images: {
-                    filename: req.body.artworkimage.filename, //hashedfile,
-                    contentType: req.body.artworkimage.contentType,
-                    imageBase64: req.body.artworkimage.imageBase64
+                    filename: req.body.commissionimage.filename, //hashedfile,
+                    contentType: req.body.commissionimage.contentType,
+                    imageBase64: req.body.commissionimage.imageBase64
                 },
-                description:req.body.artworkdescription,
+                description:req.body.commissiondescription,
+                slot:req.body.slot,
+                price:req.body.price
             })
+            if (commission.length <= 0){
+                return res.send('You must select atleast 1 file.')
+            }
 
-            
-            art.save(function(err, result){
+            commission.save(function(err, result){
                 if(!err){
                 
-                User.findByIdAndUpdate( req.params.id , { $push: { portfolio: result._id } })
+                User.findByIdAndUpdate( req.params.id , { $push: { Commissions: result._id } })
                     .then((result) => {
                         //console.log(result)
                         res.json({
-                            message: "Artwork Id added to User's Portfolio and saved succesfully! ",
+                            message: "Commission Id added to User's Commissions and saved succesfully! ",
                             success: true,
                         })
                         
                     }).catch((error)=>{
                         res.status(400).json({
-                            message: "Artwork Id adding failed to User's Portfolio!",
+                            message: "Commission Id adding failed to User's commissions!",
                             error: error,
                             success: false,
                         })
@@ -40,7 +44,7 @@ const addArtwork = async(req, res, next) => {
     
                 }else{
                     res.json({
-                        message: 'Artwork Save Failed! Image file name already existed!',
+                        message: 'Commission Save Failed! Image file name already existed!',
                         success: false,
                         err
                     })
@@ -55,6 +59,7 @@ const addArtwork = async(req, res, next) => {
         console.log(error)
         res.status(404).json({ 
             error,
+            message: "duh",
             success: false, })
     
     }
@@ -62,20 +67,20 @@ const addArtwork = async(req, res, next) => {
     
 }
 
-const getArtworkList = async(req, res, next) => {
+const getCommissionList = async(req, res, next) => {
     try{
         const user = await User.findById(req.params.id)
-            .populate( 'portfolio')
+            .populate( 'commissions')
             
         if(user){
         //console.log(results);
         res.status(200).json({
-            portfolioArray: user.portfolio
+            commissionsArray: user.commissions
         })
 
         }else{
             res.status(400).json({
-                message: "Can't get portfolio data",
+                message: "Can't get commission data",
                 error: err,
                 success: false,
             })
@@ -89,32 +94,32 @@ const getArtworkList = async(req, res, next) => {
     }
 }
 
-const updateArtwork = async(req, res, next) => {
+const updateCommission = async(req, res, next) => {
     try {
         
             //creates a new user object together with the final image object
-            let art = new Portfolio ({
-                artworkname: req.body.artworkname, 
+            let commission = new Commissions ({
+                commissionname: req.body.commissionname, 
                 images: {
                     filename: hashedfile,
-                    contentType: req.body.artworkimage.contentType,
-                    imageBase64: req.body.artworkimage.imageBase64
+                    contentType: req.body.commissionimage.contentType,
+                    imageBase64: req.body.commissionimage.imageBase64
                 },
-                description:req.body.artworkdescription,
+                description:req.body.commissiondescription,
             })
         //updates the user object data to the database 
-            Portfolio.findByIdAndUpdate( req.params.artid , art)
+            Commissions.findByIdAndUpdate( req.params.commissionid , commission)
                 .then((result) => {
                     //console.log(result)
                     res.json({
-                        message: 'Artwork data updated successfully!',
+                        message: 'Commission data updated successfully!',
                         result,
                         success: true,
                     })
                     
                 }).catch((error)=>{
                     res.status(400).json({
-                        message: 'Artwork data update failed!',
+                        message: 'Commission data update failed!',
                         error:error,
                         user,
                         success: false,
@@ -127,31 +132,31 @@ const updateArtwork = async(req, res, next) => {
     catch (error) {
         console.log(error)
         res.status(400).json({ 
-            message: 'Artwork update process failed',
+            message: 'Commission update process failed',
             error,
             success: false, })
     }
 }
 
 
-const deleteArtwork = async(req, res, next) => {
+const deleteCommission = async(req, res, next) => {
     try {
         
             //creates a new user object together with the final image object
            
         //updates the user object data to the database 
-        Portfolio.findByIdAndRemove(req.body._id, function(err, result){
+        Commissions.findByIdAndRemove(req.body._id, function(err, result){
             if(!err){
-                User.findByIdAndUpdate( req.params.id , { $pull: { portfolio: result._id } })
+                User.findByIdAndUpdate( req.params.id , { $pull: { commissions: result._id } })
                 .then((data)=>{
                     res.json({
-                        message: 'Artwork data removed successfully!',
+                        message: 'Commission data removed successfully!',
                         data: data,
                         success: true,
                     })
                 }).catch((error)=>{
                     res.status(400).json({
-                        message: 'Artwork data removing failed!',
+                        message: 'Commission data removing failed!',
                         error:error,
                         user,
                         success: false,
@@ -165,7 +170,7 @@ const deleteArtwork = async(req, res, next) => {
     catch (error) {
         console.log(error)
         res.status(400).json({ 
-            message: 'Artwork  data removing process failed',
+            message: 'Commission  data removing process failed',
             error,
             success: false, })
     }
@@ -173,5 +178,5 @@ const deleteArtwork = async(req, res, next) => {
 
 
 module.exports = { 
-    addArtwork, getArtworkList, updateArtwork,deleteArtwork
+    addCommission, getCommissionList, updateCommission,deleteCommission
 }
