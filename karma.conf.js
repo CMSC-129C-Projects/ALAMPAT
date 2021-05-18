@@ -40,11 +40,11 @@ module.exports = function (config) {
     browsers: ['Chrome'],
     singleRun: false,
     restartOnFileChange: true,
-    customLaunchers:{
-      chromeHeadLessPuppeteer:{
-        base: 'ChromeHeadless',
-        flags: ['--no-sandbox', '--disable-gpu']
-      }
-    }
+    // customLaunchers:{
+    //   chromeHeadLessPuppeteer:{
+    //     base: 'ChromeHeadless',
+    //     flags: ['--no-sandbox', '--disable-gpu']
+    //   }
+    // }
   });
 };
