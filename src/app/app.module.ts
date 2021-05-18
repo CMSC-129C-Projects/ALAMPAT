@@ -16,8 +16,6 @@ import { HeadersellerComponent } from './components/accounts/seller/headerseller
 import { EditaccountbuyerComponent } from './components/editaccountbuyer/editaccountbuyer.component';
 import { EditaccountsellerComponent } from './components/editaccountseller/editaccountseller.component';
 
-import {AngularFireStorageModule} from '@angular/fire/storage'
-import {AngularFireModule} from '@angular/fire'
 
 @NgModule({
   declarations: [
