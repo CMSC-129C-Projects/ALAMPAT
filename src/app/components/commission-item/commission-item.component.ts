@@ -64,26 +64,26 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
     this.imageSRC = '';
 
     this.serviceForm = this.formBuilder.group ({
-      serviceimage: this.formBuilder.group({
+      commissionimage: this.formBuilder.group({
         filename: [''],
         contentType: [''],
         imageBase64:[''],
       }, {Validators: [Validators.required]} ),
-      servicename: ['', Validators.required],
-      servicedescription: ['', Validators.required],
+      commissionname: ['', Validators.required],
+      commissiondescription: ['', Validators.required],
       category: ['', Validators.required],
       slot: ['', Validators.required],
       price: ['', Validators.required]
     });
 
     this.addService = this.formBuilder.group ({
-      serviceimage: this.formBuilder.group({
+      commissionimage: this.formBuilder.group({
         filename: [''],
         contentType: [''],
         imageBase64:[''],
       }, {Validators: [Validators.required]} ),
-      servicename: ['', Validators.required],
-      servicedescription: ['', Validators.required],
+      commissionname: ['', Validators.required],
+      commissiondescription: ['', Validators.required],
       category: ['', Validators.required],
       slot: ['', Validators.required],
       price: ['', Validators.required]
@@ -118,7 +118,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
       finalize( async() => {
         this.url = await ref.getDownloadURL().toPromise()
         this.serviceForm.patchValue({
-          serviceimage: {
+          commissionimage: {
             filename: file.name,
             contentType: file.type,
             imageBase64: this.url
@@ -153,7 +153,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
       finalize( async() => {
         this.url = await ref.getDownloadURL().toPromise()
         this.addService.patchValue({
-          artworkimage: {
+          commissionimage: {
             filename: file.name,
             contentType: file.type,
             imageBase64: this.url
@@ -206,9 +206,9 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
       this.openSuccessModal = true;
       this.commissionService.selectItem(this.service);
       const service: Commission = {
-        servicename: this.addService.get('artworkname')?.value,
-        serviceimage: this.addService.get('artworkimage')?.value,
-        servicedescription: this.addService.get('artworkdescription')?.value,
+        commissionname: this.addService.get('commissionname')?.value,
+        commissionimage: this.addService.get('commissionimage')?.value,
+        commissiondescription: this.addService.get('commissiondescription')?.value,
         category: this.addService.get('category')?.value,
         slot: this.addService.get('slot')?.value,
         price: this.addService.get('price')?.value
@@ -250,12 +250,12 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
   //function for initating the values in edit form based on the selected data
   initForm = () => {
     this.serviceForm.reset({
-      servicename: this.service?.servicename,
-      servicedescription: this.service?.description,
-      category: this.service?.description,
+      commissionname: this.service?.commissionname,
+      commissiondescription: this.service?.commissiondescription,
+      category: this.service?.category,
       slot: this.service?.slot,
       price: this.service?.price,
-      serviceimage:{
+      commissionimage:{
         filename: this.service?.images.filename,
         contentType: this.service?.images.contentType,
         imageBase64: this.service?.images.imageBase64
