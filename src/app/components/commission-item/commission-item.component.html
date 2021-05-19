@@ -66,11 +66,11 @@
                 </figure>
 
                 <div class="field mt-4">
-                    <label class="label">Slot</label>
+                    <label class="label">Category</label>
                     <div class="control">
-                        <textarea class="textarea" [ngClass]="{'has-error': formControls.slot.errors }" class="input" placeholder="Number of slots you can accommodate" formControlName="servicedescription" required></textarea> 
-                        <div *ngIf="submitted || (formControls.slot.touched || formControls.slot.dirty) && formControls.slot.errors" class="help is-danger">
-                            <div *ngIf="formControls.slot.errors?.required">number of slots is required</div>
+                        <textarea class="textarea" [ngClass]="{'has-error': formControls.category.errors }" class="input" placeholder="category" formControlName="category" required></textarea> 
+                        <div *ngIf="submitted || (formControls.category.touched || formControls.category.dirty) && formControls.category.errors" class="help is-danger">
+                            <div *ngIf="formControls.category.errors?.required">Category is required</div>
                         </div>
                     </div>
                 </div>

@@ -94,7 +94,10 @@
     </div>
 </div>
 
-<!-- IMAGE MODAL 
+<app-commission-item [openAddServiceModal] = 'showAddServiceModal'></app-commission-item>
+<app-commission-tem [openEditServiceModal] = 'showEditServiceModal'></app-commission-tem>
+
+<!-- IMAGE MODAL -->
 <div class="modal" [ngClass]="openImageModal ? 'is-active' : ''">
     <div class="modal-background"></div>
     <div class="modal-content">
@@ -105,7 +108,7 @@
     <button class="modal-close is-large" aria-label="close" (click)="onClickExit()"></button>
 </div>
 
- DELETE MODAL 
+<!-- DELETE MODAL -->
 <div class="modal" [ngClass]="openDeleteModal ? 'is-active' : '' ">
     <div class="modal-background"></div>
     <div class="notification is-outline">
@@ -120,4 +123,4 @@
     </div>   
 </div>
 
--->
+

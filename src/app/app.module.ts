@@ -11,6 +11,7 @@ import {AngularFireStorageModule} from '@angular/fire/storage'
 import {AngularFireModule} from '@angular/fire'
 import { UploadService } from './services/upload';
 import { CommissionComponent } from './components/commission/commission.component';
+import { CommissionItemComponent } from './components/commission-item/commission-item.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +19,8 @@ import { CommissionComponent } from './components/commission/commission.componen
     FooterComponent,
     ContactComponent,
     routingComponents,
-    CommissionComponent
+    CommissionComponent,
+    CommissionItemComponent
 
   ],
   imports: [
