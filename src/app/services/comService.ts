@@ -52,7 +52,7 @@ export class CommissionService {
     uploadItem = async (commission: Commission) => {
         console.log('in get commission service')
         try {
-            const response = await axios.post<uploadResponse>(`${localAPI}/seller/${this.userID}/addservice`, commission)
+            const response = await axios.post<uploadResponse>(`${localAPI}/seller/${this.userID}/addcommission`, commission)
             const { message, success } = response.data
             console.log(response.data)
             if (success) {
@@ -69,7 +69,7 @@ export class CommissionService {
     
     getItemdata() {
         try {
-            axios.get(`${localAPI}/seller/${this.userID}/myservices`)
+            axios.get(`${localAPI}/seller/${this.userID}/commission`)
             .then(resp => {
                 this.commission.next(resp.data.commissionArray)
                 

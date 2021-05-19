@@ -6,8 +6,8 @@ export enum Category {
 export class Commission {
     commissionname: string;
     commissiondescription: string;
-    slot: string;
-    price: string;
+    slot: number;
+    price: number;
     category: Category.UNKNOWN;
 
     commissionimage: {
@@ -19,8 +19,8 @@ export class Commission {
     constructor() {
         this.commissionname = '';
         this.commissiondescription = '';
-        this.slot = '';
-        this.price = '';
+        this.slot = 0;
+        this.price = 0 ;
         this.commissionimage = {
             filename : '',
             contentType : '',

@@ -46,8 +46,6 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
   @Output() updatepf : EventEmitter<any> = new EventEmitter(true); 
 
   constructor(private formBuilder: FormBuilder,
-    private cd: ChangeDetectorRef,
-    private domSanitizer: DomSanitizer,
     private commissionService: CommissionService,
     private afStorage: AngularFireStorage) { }
 
