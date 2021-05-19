@@ -10,6 +10,7 @@ import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 
+
 const access_token = '3taIZaHhNQ4AAAAAAAAAAepdQhfZ7Am-YbNFCjNR5tvHzXCO1TiS_MPlCwZuu4ja'
 
 interface portfolio {
@@ -54,7 +55,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
 
   addedimageSRC: any = '';
   imageSRC : any = '' ;
-  prev_image: any = '' ;
+  prev_image: string = '' ;
   url: Promise<string>;
   
   pic_switched: boolean;
@@ -242,6 +243,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
       this.ngOnInit()
       this.uploadService.addswitch(false)
       this.percentage = new Observable()
+      this.snapshot = new Observable()
       this.addPortfolio.reset();
       this.addedFileName = '';
       this.addedimageSRC = '';
@@ -259,10 +261,13 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
       if (userdata) {
         console.log("On Save Art: " + JSON.stringify(this.artwork))
         //this.portfolioForm.get('artowkimage')?.reset();
+        //this.afStorage.storage.refFromURL(this.prev_image).delete();
+        this.prev_image = '';
         this.ngOnInit();
         //this.portfolioForm.reset();
-        //this.afStorage.storage.refFromURL(this.prev_image).delete();
+        
         this.percentage = new Observable()
+        this.snapshot = new Observable()
         this.fileName = '';
         this.imageSRC = '';
         this.uploadService.editswitch(false)
