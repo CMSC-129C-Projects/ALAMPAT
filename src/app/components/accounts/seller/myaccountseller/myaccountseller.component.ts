@@ -6,6 +6,22 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 const localAPI = 'http://localhost:3000'
 
+interface User {
+  name: string;
+    profileImage:{
+        filename: string,
+        contentType: string, 
+        imageBase64: string
+    }
+    email: string;
+    phoneNumber: string;
+    address: string;
+    password: string;
+    userType: string;
+    description: string;
+}
+
+
 @Component({
   selector: 'app-myaccountseller',
   templateUrl: './myaccountseller.component.html',
@@ -14,7 +30,7 @@ const localAPI = 'http://localhost:3000'
 
 export class MyaccountsellerComponent implements OnInit, OnDestroy {
   showEditAccountSellerModal: boolean = false;
-  user:  any;
+  user:  User;
   public imageSRC: any;
   userID: string = '607fe491958fa65f08f14d0e';
   

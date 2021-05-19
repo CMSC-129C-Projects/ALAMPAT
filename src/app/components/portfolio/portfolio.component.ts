@@ -1,15 +1,28 @@
 import { Component, Input, OnInit,OnDestroy } from '@angular/core';
-import { Portfolio } from 'src/app/models/Portfolio';
+//import { Portfolio } from 'src/app/models/Portfolio';
 import { UploadService } from 'src/app/services/upload';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
-import {AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask} from '@angular/fire/storage'
+import {AngularFireStorage} from '@angular/fire/storage'
+
+interface Portfolio {
+  _id?: string;
+  artworkname: string;
+  description: string;
+  images: {
+      filename: string,
+      contentType: string, 
+      imageBase64: string
+  }
+}
 
 @Component({
   selector: 'app-portfolio',
   templateUrl: './portfolio.component.html',
   styleUrls: ['./portfolio.component.css']
 })
+
+
 export class PortfolioComponent implements OnInit, OnDestroy {
   showAddArtworkModal: boolean = false;
   showEditArtworkModal: boolean = false;
@@ -25,8 +38,8 @@ export class PortfolioComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  @Input() portfolioList: any = [];
-   imageSRC: any ;
+  @Input() portfolioList: Portfolio[] = [];
+  imageSRC: any ;
   userID: string = '607fe491958fa65f08f14d0e';
 
  

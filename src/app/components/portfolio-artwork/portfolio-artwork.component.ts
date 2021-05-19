@@ -4,13 +4,24 @@ import { Portfolio } from 'src/app/models/Portfolio';
 import { UploadService } from 'src/app/services/upload';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import {AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask} from '@angular/fire/storage'
+import {AngularFireStorage, AngularFireUploadTask} from '@angular/fire/storage'
 
 import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 
 const access_token = '3taIZaHhNQ4AAAAAAAAAAepdQhfZ7Am-YbNFCjNR5tvHzXCO1TiS_MPlCwZuu4ja'
+
+interface portfolio {
+  _id?: string;
+  artworkname: string;
+  description: string;
+  images: {
+      filename: string,
+      contentType: string, 
+      imageBase64: string
+  }
+}
 
 @Component({
   selector: 'app-portfolio-artwork',
@@ -25,7 +36,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
   submitted: boolean = false;
   portfolioForm: FormGroup;
   addPortfolio: FormGroup;
-  artwork: any = {};
+  artwork: portfolio;
  
   task: AngularFireUploadTask;
   snapshot: Observable<any>;
