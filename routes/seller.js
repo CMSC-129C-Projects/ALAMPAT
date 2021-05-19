@@ -15,13 +15,13 @@ router.delete('/:id/removeportfolio/', portfolioController.deleteArtwork)
 
 router.post('/:id/addproduct', productController.addProduct)
 router.get('/:id/product', productController.getProductList)
-router.patch('/:id/editproduct/:artid', productController.updateProduct)
+router.patch('/:id/editproduct/:productid', productController.updateProduct)
 router.delete('/:id/removeproduct/', productController.deleteProduct)
 
 
 router.post('/:id/addcommission', commissionController.addCommission)
 router.get('/:id/commission', commissionController.getCommissionList)
-router.patch('/:id/editcommission/:artid', commissionController.updateCommission)
+router.patch('/:id/editcommission/:commissionid', commissionController.updateCommission)
 router.delete('/:id/removecommission/', commissionController.deleteCommission)
 
 module.exports = router;
