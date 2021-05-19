@@ -16,7 +16,8 @@ import { HeaderbuyerComponent } from './components/accounts/buyer/headerbuyer/he
 import { HeadersellerComponent } from './components/accounts/seller/headerseller/headerseller.component';
 import { EditaccountbuyerComponent } from './components/editaccountbuyer/editaccountbuyer.component';
 import { EditaccountsellerComponent } from './components/editaccountseller/editaccountseller.component';
-
+import { PortfolioComponent } from './components/portfolio/portfolio.component';
+import { PortfolioArtworkComponent } from './components/portfolio-artwork/portfolio-artwork.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,8 @@ import { EditaccountsellerComponent } from './components/editaccountseller/edita
     HeadersellerComponent,
     EditaccountbuyerComponent,
     EditaccountsellerComponent,
+    PortfolioComponent,
+    PortfolioArtworkComponent,
     routingComponents,
   ],
   imports: [
