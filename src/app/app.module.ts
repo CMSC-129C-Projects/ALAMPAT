@@ -2,14 +2,18 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
+
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireModule } from '@angular/fire';
+
+import { UploadService } from './services/upload';
+import { AccountService } from './services/account';
+import { ProductService } from './services/productServ';
+
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ContactComponent } from './components/contact/contact.component';
-import { AngularFireStorageModule } from '@angular/fire/storage';
-import { AngularFireModule } from '@angular/fire';
-import { UploadService } from './services/upload';
-import { AccountService } from './services/account';
 import { MyaccountbuyerComponent } from './components/accounts/buyer/myaccountbuyer/myaccountbuyer.component';
 import { MyaccountsellerComponent } from './components/accounts/seller/myaccountseller/myaccountseller.component';
 import { HeaderbuyerComponent } from './components/accounts/buyer/headerbuyer/headerbuyer.component';
@@ -18,6 +22,9 @@ import { EditaccountbuyerComponent } from './components/editaccountbuyer/editacc
 import { EditaccountsellerComponent } from './components/editaccountseller/editaccountseller.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { PortfolioArtworkComponent } from './components/portfolio-artwork/portfolio-artwork.component';
+import { ProductsComponent } from './components/accounts/seller/products/products.component';
+import { AddProductComponent } from './components/accounts/seller/add-product/add-product.component';
+
 
 @NgModule({
   declarations: [
@@ -33,6 +40,8 @@ import { PortfolioArtworkComponent } from './components/portfolio-artwork/portfo
     EditaccountsellerComponent,
     PortfolioComponent,
     PortfolioArtworkComponent,
+    ProductsComponent,
+    AddProductComponent,
     routingComponents,
   ],
   imports: [
@@ -57,7 +66,8 @@ import { PortfolioArtworkComponent } from './components/portfolio-artwork/portfo
   ],
   providers: [
     UploadService,
-    AccountService
+    AccountService,
+    
   
   ],
   bootstrap: [AppComponent]

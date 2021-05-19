@@ -58,14 +58,13 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     
     this.subscriptions.push(
       this.uploadService.showAdd.subscribe((x)=>{
-        
-      this.showAddArtworkModal = x
-    })
+        this.showAddArtworkModal = x
+      })
     )
     this.subscriptions.push(
-    this.uploadService.showEdit.subscribe((x)=>{
-      this.showEditArtworkModal = x
-    })
+      this.uploadService.showEdit.subscribe((x)=>{
+        this.showEditArtworkModal = x
+      })
     )
   }
 

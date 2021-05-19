@@ -53,8 +53,7 @@ export class UploadService {
     }
 
     selectArt(art: any) {
-        //console.log("Passed art: "+ JSON.stringify(art))
-        //this.currArt.emit(art)
+  
         this.artSource.next(art);
     }
 
@@ -83,25 +82,18 @@ export class UploadService {
             .then(resp => {
                 this.portfolio.next(resp.data.portfolioArray)
                 
-                console.log(this.portfolio);
-                //return resp.data
+                console.log(this.portfolio);  
             })
-            .catch(err => {
-                // Handle Error Here
-                //this.error.emit(err)
+            .catch(err => { 
                 console.log(err);
-                //return err
             });
-            
 
         } catch (error) {
-            //.error.emit(error)
             console.log(error)
             this.uploadError = error
-
-            //return error
         }
     }
+
     updatePortfoliodata = async (portfolio: Portfolio, id: any ) => {
         try {
             const response = await axios.patch(`${localAPI}/seller/${this.userID}/editportfolio/${id}`, portfolio);
@@ -109,16 +101,11 @@ export class UploadService {
             //console.log(response.data)
             if (success) {
                 this.isUploaded = true;
-                //this.pseudo_art = response.data.result
-                
-                //this.pseudo_art.images.imageBase64 =  this.domSanitizer.bypassSecurityTrustUrl(response.data.result.images.imageBase64)
-                //console.log("Pseudo_art: " + JSON.stringify(this.pseudo_art))
-                //this.currArt.emit(this.pseudo_art)
+            
                 console.log("Artwork Updated!" + response.data.result)
                 
-                //this.router.navigate(['/registration-confirmed'])
                 return this.isUploaded
-                //
+               
             } else {
                 this.isUploaded = false;
                 

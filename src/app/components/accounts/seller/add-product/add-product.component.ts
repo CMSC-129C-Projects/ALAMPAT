@@ -1,20 +1,21 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Products } from 'src/app/models/products';
-import { UploadService } from 'src/app/services/uploadProduct';
+import { ProductService } from 'src/app/services/productServ';
 
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.css']
 })
+
 export class AddProductComponent implements OnInit {
   @Input() openAddProductModal: boolean;
   submitted: boolean = false;
   productForm: FormGroup;
   file: File;
 
-  constructor(private formBuilder: FormBuilder, public uploadService: UploadService) { }
+  constructor(private formBuilder: FormBuilder, private prodServ: ProductService) { }
 
   ngOnInit(): void {
     this.productForm = this.formBuilder.group({
@@ -35,7 +36,8 @@ export class AddProductComponent implements OnInit {
   }
 
   onClickExit = () => {
-    this.openAddProductModal = false;
+    this.prodServ.addswitch(false)
+    //this.openAddProductModal = false;
     this.submitted = false;
     this.productForm.reset();
   }
@@ -56,7 +58,7 @@ export class AddProductComponent implements OnInit {
       productImage: formData.get('productImage')?.value,
       productDescription: formData.get('productDescription')?.value,
     }
-    this.uploadService.uploadProduct(artwork);
+    this.prodServ.uploadProduct(artwork);
     //this.userService.login(this.loginForm.value);
   }
 
