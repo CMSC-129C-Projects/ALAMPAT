@@ -71,7 +71,7 @@ export class CommissionService {
         try {
             axios.get(`${localAPI}/seller/${this.userID}/commission`)
             .then(resp => {
-                this.commission.next(resp.data.commissionArray)
+                this.commission.next(resp.data.commissionsArray)
                 
                 console.log(this.commission);
             })
@@ -85,6 +85,7 @@ export class CommissionService {
             this.uploadError = error
         }
     }
+    
     updateItemdata = async (commission: Commission, id: any ) => {
         try {
             const response = await axios.patch(`${localAPI}/seller/${this.userID}/editcommission/${id}`, commission);

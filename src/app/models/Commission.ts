@@ -8,7 +8,7 @@ export class Commission {
     commissiondescription: string;
     slot: number;
     price: number;
-    category: Category.UNKNOWN;
+    category: Category;
 
     commissionimage: {
         filename: string,
@@ -26,5 +26,6 @@ export class Commission {
             contentType : '',
             imageBase64 : ''
         };
+        this.category = Category.UNKNOWN;
     }
 }

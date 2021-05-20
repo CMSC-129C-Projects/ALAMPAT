@@ -7,11 +7,27 @@ import {AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask} 
 import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
+interface commission {
+  _id?: string;
+  commissionname: string;
+  description: string;
+  images: {
+      filename: string,
+      contentType: string, 
+      imageBase64: string
+  };
+  slot: number,
+  price: number, 
+  category: string,
+}
+
+
 @Component({
   selector: 'app-commission-item',
   templateUrl: './commission-item.component.html',
   styleUrls: ['./commission-item.component.css']
 })
+
 export class CommissionItemComponent implements OnInit, OnDestroy {
   @Input() openAddServiceModal: boolean;
   @Input() openEditServiceModal: boolean;
@@ -20,7 +36,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
   submitted: boolean = false;
   serviceForm: FormGroup;
   addService: FormGroup;
-  service: any = {};
+  service: commission;
 
   task: AngularFireUploadTask;
   snapshot: Observable<any>;
@@ -198,7 +214,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
 
   //function for adding commission item
   addCommission =  () => {
-    console.log(this.serviceForm.value);
+    console.log(this.addService.value);
     this.submitted = true;
     
     if(this.addService.invalid){
@@ -221,6 +237,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
       this.ngOnInit()
       this.commissionService.addswitch(false)
       this.percentage = new Observable()
+      this.snapshot = new Observable()
       this.addService.reset();
       this.addedFileName = '';
       this.addedimageSRC = '';
@@ -236,9 +253,10 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
       const userdata = await this.commissionService.updateItemdata(this.serviceForm.value, this.service._id);
       if (userdata) {
         console.log("On Save Commission item: " + JSON.stringify(this.service))
-      
+        
         this.ngOnInit();
         this.percentage = new Observable()
+        this.snapshot = new Observable()
         this.fileName = '';
         this.imageSRC = '';
         this.commissionService.editswitch(false)
@@ -253,7 +271,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
   initForm = () => {
     this.serviceForm.reset({
       commissionname: this.service?.commissionname,
-      commissiondescription: this.service?.commissiondescription,
+      commissiondescription: this.service?.description,
       category: this.service?.category,
       slot: this.service?.slot,
       price: this.service?.price,

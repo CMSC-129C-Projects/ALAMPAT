@@ -4,11 +4,26 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import {AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask} from '@angular/fire/storage';
 
+interface commission {
+  _id?: string;
+  commissionname: string;
+  description: string;
+  images: {
+      filename: string,
+      contentType: string, 
+      imageBase64: string
+  };
+  slot: number,
+  price: number, 
+  category: string,
+}
+
 @Component({
   selector: 'app-commission',
   templateUrl: './commission.component.html',
   styleUrls: ['./commission.component.css']
 })
+
 export class CommissionComponent implements OnInit, OnDestroy {
   showAddServiceModal: boolean = false;
   showEditServiceModal: boolean = false;
@@ -24,7 +39,7 @@ export class CommissionComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  @Input() serviceList: any = [];
+  @Input() serviceList: commission[] = [];
   imageSRC: any;
   userID: string = '607fe491958fa65f08f14d0e';
 
@@ -58,6 +73,7 @@ export class CommissionComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.commissionService.commission.asObservable().pipe().subscribe((service)=>{
         this.serviceList = service;
+        console.log("Service List " + JSON.stringify(service));
       }, (error) => {
         console.log("Error", error)
       })
