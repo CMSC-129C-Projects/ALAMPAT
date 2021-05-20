@@ -73,7 +73,17 @@ const userSchema = new Schema({
     orders: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'orders'
-    }]
+    }],
+
+    commissions: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'commissions'
+    }],
+    
+    products: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'products'
+    }],
 
 
 
