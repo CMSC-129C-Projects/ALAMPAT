@@ -9,6 +9,8 @@ import { MyaccountsellerComponent } from './components/accounts/seller/myaccount
 import { ProductsComponent } from './components/accounts/seller/products/products.component';
 import { LoginComponent } from './components/login/login.component';
 import { AddProductComponent } from './components/accounts/seller/add-product/add-product.component';
+import { PortfolioComponent } from './components/portfolio/portfolio.component';
+import { PortfolioArtworkComponent } from './components/portfolio-artwork/portfolio-artwork.component';
 import { AuthGuard } from './auth.guard';
 
 
@@ -18,6 +20,7 @@ const routes: Routes = [
   { path: 'my-accounts-seller', component: MyaccountsellerComponent },
   { path: 'my-accounts-buyer', component: MyaccountbuyerComponent },
   { path: 'seller-products', component: ProductsComponent },
+  { path: 'seller-portfolio', component: PortfolioComponent },
   { path: 'notfound', component: NoPageFoundComponent},
   { path: '**', redirectTo:'notfound' }
 ];
@@ -30,6 +33,8 @@ const routes: Routes = [
 export class AppRoutingModule { }
 
 export const routingComponents = [
+  PortfolioComponent,
+  PortfolioArtworkComponent,
   NoPageFoundComponent,
   HeaderbuyerComponent,
   HeadersellerComponent,

@@ -23,6 +23,9 @@ interface product{
 
 export class ProductsComponent implements OnInit, OnDestroy {
   showAddProductModal: boolean = false;
+  showEditProductModal: boolean = false;
+  openImageModal: boolean = false;
+  showDeleteModal: boolean = false;
 
   productList: product[] = []
 
@@ -53,11 +56,27 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.subs.forEach( sub => sub.unsubscribe())
   }
 
+  // onClickOpen (item:any, index:any) {
+  //   this.openImageModal = true;
+  //   this.imageSRC = this.productList[index].images.imageBase64;
+  // }
   onClickAddProduct = () => {
     this.showAddProductModal = !this.showAddProductModal;
   }
-  // onClickDelete = () => {
-  //   this.showDeleteModal = !this.showDeleteModal;
-  // }
+  onClickEditProduct = () => {
+    this.showEditProductModal = !this.showEditProductModal;
+  }
+  onClickDelete () {
+    this.showDeleteModal = !this.showDeleteModal;
+    // this.itemID = item._id;
+    // this.item = item;
+    // this.index = index;
+    // this.imageSRC = this.portfolioList[index].images.imageBase64;
+  }
+  onExit = () => {
+    if(this.showDeleteModal) {
+      this.showDeleteModal = false;
+    }
+  }
 
 }
