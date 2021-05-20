@@ -12,6 +12,7 @@ interface RegistrationResponse {
 
 interface LoginResponse {
     message: string;
+    userdata: any;
     loggedin: boolean;
 }
 
@@ -27,6 +28,7 @@ export class UserService {
     isLoggedin: boolean = false;
     loginError: string = '';
     showErrorMessage: boolean = false;
+    userID: string;
 
     constructor(private router: Router) { }
 
@@ -64,11 +66,19 @@ export class UserService {
         this.showErrorMessage = false;
         try {
             const response = await axios.post<LoginResponse>(`${localAPI}/auth/login`, userInfo);
-            const { message, loggedin } = response.data
+            const { message, userdata, loggedin } = response.data
             if (loggedin) {
                 this.isLoggedin = true;
-                console.log(message)
-                this.router.navigate(['/my-accounts-seller'])
+                this.userID = userdata._id
+                console.log(message + JSON.stringify(userdata.userType))
+                
+                if(userdata.userType === "buyer"){
+                    this.router.navigate(['/my-accounts-buyer'])
+                    
+                }
+                if(userdata.userType === "seller"){
+                    this.router.navigate(['/my-accounts-seller'])
+                }
             } else {
                 this.showErrorMessage = true;
                 this.loginError = message;

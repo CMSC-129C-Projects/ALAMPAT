@@ -9,6 +9,9 @@ import { AngularFireModule } from '@angular/fire';
 import { UploadService } from './services/upload';
 import { AccountService } from './services/account';
 import { ProductService } from './services/productServ';
+import { UserService } from './services/auth';
+
+import { AuthGuard } from './auth.guard';
 
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
@@ -65,9 +68,10 @@ import { AddProductComponent } from './components/accounts/seller/add-product/ad
     
   ],
   providers: [
+    UserService,
     UploadService,
     AccountService,
-    
+    AuthGuard
   
   ],
   bootstrap: [AppComponent]

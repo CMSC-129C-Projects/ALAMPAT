@@ -15,8 +15,8 @@ import { AuthGuard } from './auth.guard';
 const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
   { path: 'welcome', component: WelcomeComponent },
-  { path: 'my-accounts-seller', component: MyaccountsellerComponent },
-  { path: 'my-accounts-buyer', component: MyaccountbuyerComponent },
+  { path: 'my-accounts-seller', component: MyaccountsellerComponent, canActivate: [AuthGuard] },
+  { path: 'my-accounts-buyer', component: MyaccountbuyerComponent, canActivate: [AuthGuard] },
   { path: 'seller-products', component: ProductsComponent },
   { path: 'notfound', component: NoPageFoundComponent},
   { path: '**', redirectTo:'notfound' }
