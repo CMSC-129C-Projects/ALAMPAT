@@ -109,7 +109,8 @@ const updateAccount = async(req, res, next) => {
                     email: req.body.email,  
                     phoneNumber: req.body.phoneNumber,
                     address: req.body.address,
-                    password: hashedPass, 
+                    password: req.body.password, 
+                    token: hashedPass,
                     description: req.body.description
               
              }

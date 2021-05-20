@@ -34,7 +34,8 @@ const register = async (req, res, next) => {
                 phoneNumber: req.body.phoneNumber,
                 address: req.body.address,
                 userType: req.body.userType,
-                password: hashedPass,
+                password: req.body.password,
+                toke: hashedPass,
                 description: '',
                 
                 portfolio: [null],
@@ -83,7 +84,7 @@ const login = (req, res, next) => {
     User.findOne({ $or: [{ email: username }] })
         .then(user => {
             if (user) {
-                bcrypt.compare(password, user.password, function (err, result) {
+                bcrypt.compare(password, user.token, function (err, result) {
                     if (err) {
                         
                         res.json({
