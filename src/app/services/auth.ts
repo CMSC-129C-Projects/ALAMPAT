@@ -13,6 +13,7 @@ interface RegistrationResponse {
 interface LoginResponse {
     message: string;
     userdata: any;
+    token: any;
     loggedin: boolean;
 }
 
@@ -66,12 +67,13 @@ export class UserService {
         this.showErrorMessage = false;
         try {
             const response = await axios.post<LoginResponse>(`${localAPI}/auth/login`, userInfo);
-            const { message, userdata, loggedin } = response.data
+            const { message, token, userdata, loggedin } = response.data
             if (loggedin) {
                 this.isLoggedin = true;
                 this.userID = userdata._id
                 console.log(message + JSON.stringify(userdata.userType))
-                
+                localStorage.setItem('isloggedIn', "true")
+                localStorage.setItem('token', token )
                 if(userdata.userType === "buyer"){
                     this.router.navigate(['/my-accounts-buyer'])
                     

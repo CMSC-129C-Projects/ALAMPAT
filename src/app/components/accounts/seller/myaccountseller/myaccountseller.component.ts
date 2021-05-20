@@ -7,7 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 const localAPI = 'http://localhost:3000'
 
 interface User {
-  name: string;
+    name: string;
     profileImage:{
         filename: string,
         contentType: string, 
