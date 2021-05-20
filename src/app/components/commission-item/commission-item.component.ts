@@ -69,7 +69,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
       }, {Validators: [Validators.required]} ),
       commissionname: ['', Validators.required],
       commissiondescription: ['', Validators.required],
-      category: ['', Validators.required],
+      category: ['commission', Validators.required],
       slot: ['', Validators.required],
       price: ['', Validators.required]
     });
@@ -82,7 +82,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
       }, {Validators: [Validators.required]} ),
       commissionname: ['', Validators.required],
       commissiondescription: ['', Validators.required],
-      category: ['', Validators.required],
+      category: ['commission', Validators.required],
       slot: ['', Validators.required],
       price: ['', Validators.required]
     });
@@ -92,7 +92,11 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe()
   }
 
-  get formControls() {return this.serviceForm.controls; }
+  get commissionname() { return this.serviceForm.get('commissionname'); }
+  get commissiondescription() { return this.serviceForm.get('commissiondescription'); }
+  get commissionimage() { return this.serviceForm.get('commissionimage'); }
+  get price() { return this.serviceForm.get('price'); }
+  get slot() { return this.serviceForm.get('slot'); }
 
   //upload function for edit forms
   uploadFile(event: Event) {
