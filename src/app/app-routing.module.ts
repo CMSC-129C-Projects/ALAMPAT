@@ -13,7 +13,7 @@ import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { PortfolioArtworkComponent } from './components/portfolio-artwork/portfolio-artwork.component';
 import { AuthGuard } from './auth.guard';
 import { SellershopComponent } from './components/sellershop/sellershop.component';
-import { PortfolioComponent } from './components/portfolio/portfolio.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },

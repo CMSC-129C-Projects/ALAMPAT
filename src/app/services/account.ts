@@ -19,7 +19,7 @@ interface getUserResponse {
 
 export class AccountService {
     getUserError: string = '';
-    userID: string|null = '607fe491958fa65f08f14d0e';
+    userID: string|null ;
     isUpdated: boolean = false;
 
     //user: EventEmitter<any> = new EventEmitter();
@@ -28,6 +28,7 @@ export class AccountService {
     user: Subject<any> = new Subject();
 
     showEdit: EventEmitter<any> = new EventEmitter();
+
     constructor(private router:Router,){
         this.userID = localStorage.getItem('id')
     }
@@ -38,6 +39,7 @@ export class AccountService {
 
     getUserdata = () =>{
         try {
+            this.userID = localStorage.getItem('id')
             axios.get<getUserResponse>(`${localAPI}/users/profile/` + this.userID)
             .then(resp => {
                 this.user.next(resp.data.userData)
