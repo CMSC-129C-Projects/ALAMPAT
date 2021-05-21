@@ -109,8 +109,7 @@ export class EditaccountsellerComponent implements OnInit {
             imageBase64: this.imageSRC
           }
         });
-        
-        
+
         console.log("Here: " + JSON.stringify(this.imageSRC) );
       })
     )
@@ -126,7 +125,10 @@ export class EditaccountsellerComponent implements OnInit {
       var userdata = await this.accountService.updateUserdata(this.SellerForm.value);
       if (userdata === true) {
         this.ngOnInit()
-        this.afStorage.storage.refFromURL(this.prev_img).delete();
+        if(this.prev_img != this.imageSRC){
+          this.afStorage.storage.refFromURL(this.prev_img).delete();
+        }
+        
         this.accountService.editswitch(false)
         this.imageSRC = ''
         //this.openEditAccountSellerModal = false;
