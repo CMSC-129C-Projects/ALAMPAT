@@ -49,9 +49,10 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
   
   filePath: any;
 
+  insertedimg: any = '';
   addedimageSRC: any = '';
   imageSRC : any = '' ;
-  prev_image: string = '' ;
+  prev_image: any = '' ;
   url: Promise<string>;
   
   pic_switched: boolean;
@@ -140,8 +141,9 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
           }
         });
         this.fileName = file.name
-        this.prev_image = this.imageSRC
+        
         this.imageSRC = this.url
+        
         console.log("Here: " + JSON.stringify(this.url) );
       })
     )
@@ -192,8 +194,9 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
     this.addedFileName = '';
     
     this.fileName = '';
-    this.percentage;
-    this.prev_image = '';
+    this.percentage = new Observable()
+    this.snapshot = new Observable()
+    
     this.portfolioForm.reset();
     this.addPortfolio.reset();
     if(this.openAddArtworkModal) {
@@ -201,22 +204,22 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
       if(this.addedimageSRC){
         this.afStorage.storage.refFromURL(this.addedimageSRC).delete();
       }
-      this.percentage = new Observable()
-      this.snapshot = new Observable()
       this.addedimageSRC = '';
 
-      this.submitted = false;
-
     }
+
     if(this.openEditArtworkModal) {
-      this.uploadService.editswitch(false)
-      if(this.imageSRC != this.prev_image){
+      
+      //console.log("prev_image " + JSON.stringify(this.prev_image))
+      //console.log("imageSRC " + JSON.stringify(this.imageSRC))
+      if(this.imageSRC !== this.prev_image){
         this.afStorage.storage.refFromURL(this.imageSRC).delete();
       }
       this.imageSRC = '';
-      this.percentage = new Observable()
-      this.snapshot = new Observable()
+      this.prev_image = '';
+
       this.saved = false;
+      this.uploadService.editswitch(false)
     }
     if(this.openSuccessModal) {
       this.openSuccessModal = false;
@@ -274,7 +277,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
         this.prev_image = '';
         this.ngOnInit();
         //this.portfolioForm.reset();
-        
+        this.saved = true
         this.percentage = new Observable()
         this.snapshot = new Observable()
         this.fileName = '';
