@@ -62,6 +62,7 @@ export class UploadService {
     uploadPortfolio = async (portfolio: Portfolio) => {
         console.log('in get portfolio')
         try {
+            this.userID = localStorage.getItem('id')
             const response = await axios.post<uploadResponse>(`${localAPI}/seller/${this.userID}/addportfolio`, portfolio)
             const { message, success } = response.data
             console.log(response.data)
@@ -99,6 +100,7 @@ export class UploadService {
 
     updatePortfoliodata = async (portfolio: Portfolio, id: any ) => {
         try {
+            this.userID = localStorage.getItem('id')
             const response = await axios.patch(`${localAPI}/seller/${this.userID}/editportfolio/${id}`, portfolio);
             const { message, success } = response.data
             //console.log(response.data)
@@ -125,6 +127,7 @@ export class UploadService {
 
     deletePortfoliodata = async (id: any ) => {
         try {
+            this.userID = localStorage.getItem('id')
             const response = await axios.delete(`${localAPI}/seller/${this.userID}/removeportfolio/`,{data : { _id :id}});
             const { message, success } = response.data
             console.log(response.data)

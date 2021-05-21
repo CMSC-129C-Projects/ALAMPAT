@@ -76,6 +76,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
       this.artwork = currArt
       //this.fileName = this.artwork.images.filename
       this.imageSRC = this.artwork.images.imageBase64
+      this.prev_image = this.artwork.images.imageBase64
       this.initForm()
     })
     
@@ -139,7 +140,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
           }
         });
         this.fileName = file.name
-        this.prev_image = this.imageSRC
+        
         this.imageSRC = this.url
         console.log("Here: " + JSON.stringify(this.url) );
       })
@@ -197,15 +198,22 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
     this.addPortfolio.reset();
     if(this.openAddArtworkModal) {
       this.uploadService.addswitch(false)
+      if(this.imageSRC != this.prev_image){
+        this.afStorage.storage.refFromURL(this.prev_image).delete();
+      }
       this.percentage = new Observable()
+      this.snapshot = new Observable()
       this.addedimageSRC = '';
+
       this.submitted = false;
 
     }
     if(this.openEditArtworkModal) {
       this.uploadService.editswitch(false)
+      this.afStorage.storage.refFromURL(this.addedimageSRC).delete();
       this.imageSRC = '';
       this.percentage = new Observable()
+      this.snapshot = new Observable()
       this.saved = false;
     }
     if(this.openSuccessModal) {
@@ -257,6 +265,9 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
       if (userdata) {
         console.log("On Save Art: " + JSON.stringify(this.artwork))
         //this.portfolioForm.get('artowkimage')?.reset();
+        if(this.imageSRC != this.prev_image){
+          this.afStorage.storage.refFromURL(this.prev_image).delete();
+        }
         //this.afStorage.storage.refFromURL(this.prev_image).delete();
         this.prev_image = '';
         this.ngOnInit();
