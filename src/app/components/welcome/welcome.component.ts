@@ -19,16 +19,18 @@ export class WelcomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.isloggedIn){
+    if(this.isloggedIn ==='true' ){
       if(this.userType === 'buyer'){
-        this.router.navigate(['/my-account-buyer'])
+        this.router.navigate(['/my-accounts-buyer'])
       }
-      if(this.userType === 'seller'){
-        this.router.navigate(['/my-account-seller'])
+      else if(this.userType === 'seller'){
+        this.router.navigate(['/my-accounts-seller'])
       }
-      this.router.navigate(['/'])
+      else{
+        this.router.navigate(['/welcome'])
+      }
     }else{
-      this.router.navigate(['/'])
+      this.router.navigate(['/welcome'])
     }
     
   }
