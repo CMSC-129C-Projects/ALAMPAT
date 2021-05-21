@@ -104,7 +104,7 @@ export class UserService {
     public logout() {
         localStorage.removeItem('id')
         localStorage.removeItem('token');
-        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('isloggedIn');
         localStorage.removeItem('userType');
     }
 }
