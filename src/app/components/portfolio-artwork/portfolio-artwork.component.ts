@@ -9,10 +9,6 @@ import {AngularFireStorage, AngularFireUploadTask} from '@angular/fire/storage'
 import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-
-
-const access_token = '3taIZaHhNQ4AAAAAAAAAAepdQhfZ7Am-YbNFCjNR5tvHzXCO1TiS_MPlCwZuu4ja'
-
 interface portfolio {
   _id?: string;
   artworkname: string;
@@ -76,7 +72,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
     this.uploadService.getPortfoliodata()
 
     this.subscriptions = this.uploadService.artSource.asObservable().subscribe(currArt =>{
-      //console.log("Selected Art: " + JSON.stringify(currArt))
+      console.log("Selected Art: " + JSON.stringify(currArt))
       this.artwork = currArt
       //this.fileName = this.artwork.images.filename
       this.imageSRC = this.artwork.images.imageBase64

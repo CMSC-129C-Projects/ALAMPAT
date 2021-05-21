@@ -74,6 +74,8 @@ export class UserService {
                 console.log(message + JSON.stringify(userdata.userType))
                 localStorage.setItem('isloggedIn', "true")
                 localStorage.setItem('token', token )
+                localStorage.setItem('id', userdata._id )
+                localStorage.setItem('userType', userdata.userType)
                 if(userdata.userType === "buyer"){
                     this.router.navigate(['/my-accounts-buyer'])
                     
@@ -100,7 +102,9 @@ export class UserService {
     //}
 
     public logout() {
+        localStorage.removeItem('id')
         localStorage.removeItem('token');
         localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('userType');
     }
 }

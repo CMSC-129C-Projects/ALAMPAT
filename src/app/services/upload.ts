@@ -22,7 +22,7 @@ export class UploadService {
     pseudo_art: any;
     isUploaded: boolean = false;
     isDeleted: boolean = false;
-    userID: string = '607fe491958fa65f08f14d0e';
+    userID: string | null = '607fe491958fa65f08f14d0e';
     artworkID: string = '6087e77a8431c85ee8f081dc';
     uploadError: string = '';
 
@@ -37,7 +37,9 @@ export class UploadService {
 
     constructor(private router:Router,
         private domSanitizer: DomSanitizer, 
-        ) { }
+        ) {
+            this.userID = localStorage.getItem('id')
+         }
     
 
     refresh(): Observable<any> {

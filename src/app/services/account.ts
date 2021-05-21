@@ -19,7 +19,7 @@ interface getUserResponse {
 
 export class AccountService {
     getUserError: string = '';
-    userID: string = '607fe491958fa65f08f14d0e';
+    userID: string|null = '607fe491958fa65f08f14d0e';
     isUpdated: boolean = false;
 
     //user: EventEmitter<any> = new EventEmitter();
@@ -28,7 +28,9 @@ export class AccountService {
     user: Subject<any> = new Subject();
 
     showEdit: EventEmitter<any> = new EventEmitter();
-    constructor(private router:Router,) { }
+    constructor(private router:Router,){
+        this.userID = localStorage.getItem('id')
+    }
 
     editswitch(resp: boolean){
         this.showEdit.emit(resp)
