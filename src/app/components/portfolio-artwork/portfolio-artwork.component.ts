@@ -51,7 +51,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
 
   insertedimg: any = '';
   addedimageSRC: any = '';
-  imageSRC : any = '' ;
+  imageSRC : any = '' ; 
   prev_image: any = '' ;
   url: Promise<string>;
   
@@ -64,9 +64,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
     private domSanitizer: DomSanitizer, 
     private uploadService: UploadService,
     private afStorage: AngularFireStorage,
-   ) {
-      
-     }
+   ) { }
 
   ngOnInit(): void {
 
@@ -80,8 +78,6 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
       this.prev_image = this.artwork.images.imageBase64
       this.initForm()
     })
-    
-    
 
     this.fileName = '';
     this.imageSRC = '';
@@ -91,7 +87,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
         filename: [''],
         contentType: [''],
         imageBase64:[''],
-      }, {Validators: [Validators.required]}),
+      }, {Validators: [Validators.required]} ),
 
       artworkname: ['', Validators.required],
       artworkdescription: ['', Validators.required]
@@ -110,7 +106,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
     
   }
   
-  get formControls() { return this.portfolioForm.controls; }
+  get formControls() { return this.addPortfolio.controls; }
 
   //upload function for edit forms
   uploadFile(event: Event) {
@@ -190,26 +186,28 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
   //functions when the modal exits or cancels
   onClickExit = () => {
     //console.log("On Exit Art: " + JSON.stringify(this.artwork))
-
-    this.addedFileName = '';
+    console.log(this.portfolioForm.value);
+    console.log(this.addPortfolio.value);
     
+    this.addedFileName = '';
     this.fileName = '';
     this.percentage = new Observable()
     this.snapshot = new Observable()
+   
+    this.submitted = false;
     
-    this.portfolioForm.reset();
-    this.addPortfolio.reset();
+    
     if(this.openAddArtworkModal) {
+      this.addPortfolio.reset();
       this.uploadService.addswitch(false)
       if(this.addedimageSRC){
         this.afStorage.storage.refFromURL(this.addedimageSRC).delete();
       }
       this.addedimageSRC = '';
-
     }
 
     if(this.openEditArtworkModal) {
-      
+      this.portfolioForm.reset();
       //console.log("prev_image " + JSON.stringify(this.prev_image))
       //console.log("imageSRC " + JSON.stringify(this.imageSRC))
       if(this.imageSRC !== this.prev_image){
@@ -223,15 +221,12 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
     }
     if(this.openSuccessModal) {
       this.openSuccessModal = false;
-      this.submitted = false;
     }
-
   }
 
   //function for adding artwork
   addArtwork =  () => {
-    console.log(this.portfolioForm.value);
-    //this.portfolioForm.reset();
+    console.log(this.addPortfolio.value);
     
     this.submitted = true;
     
@@ -246,13 +241,12 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
         artworkimage: this.addPortfolio.get('artworkimage')?.value,
         artworkdescription: this.addPortfolio.get('artworkdescription')?.value,
       }
-
       this.uploadService.uploadPortfolio(artwork);
-      this.uploadService.getPortfoliodata()
-      this.ngOnInit()
-      this.uploadService.addswitch(false)
-      this.percentage = new Observable()
-      this.snapshot = new Observable()
+      this.uploadService.getPortfoliodata();
+      this.ngOnInit();
+      this.uploadService.addswitch(false);
+      this.percentage = new Observable();
+      this.snapshot = new Observable();
       this.addPortfolio.reset();
       this.addedFileName = '';
       this.addedimageSRC = '';

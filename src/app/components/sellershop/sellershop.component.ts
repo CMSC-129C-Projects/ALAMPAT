@@ -24,4 +24,8 @@ export class SellershopComponent implements OnInit {
   GoToServices(){
 
   }
+
+  GotoShopRating() {
+    
+  }
 }
