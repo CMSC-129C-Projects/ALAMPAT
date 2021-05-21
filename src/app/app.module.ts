@@ -28,6 +28,7 @@ import { PortfolioArtworkComponent } from './components/portfolio-artwork/portfo
 import { ProductsComponent } from './components/accounts/seller/products/products.component';
 import { AddProductComponent } from './components/accounts/seller/add-product/add-product.component';
 
+import { SellershopComponent } from './components/sellershop/sellershop.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,8 @@ import { AddProductComponent } from './components/accounts/seller/add-product/ad
     ProductsComponent,
     AddProductComponent,
     routingComponents,
+  
+    SellershopComponent
   ],
   imports: [
     BrowserModule,
