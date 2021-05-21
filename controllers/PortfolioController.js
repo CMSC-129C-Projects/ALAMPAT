@@ -96,7 +96,7 @@ const updateArtwork = async(req, res, next) => {
             let art = new Portfolio ({
                 artworkname: req.body.artworkname, 
                 images: {
-                    filename: hashedfile,
+                    filename: req.body.artworkimage.filename,
                     contentType: req.body.artworkimage.contentType,
                     imageBase64: req.body.artworkimage.imageBase64
                 },
