@@ -100,6 +100,7 @@ export class UserService {
     //}
 
     public logout() {
-        localStorage.removeItem('ACCESS_TOKEN');
+        localStorage.removeItem('token');
+        localStorage.removeItem('isLoggedIn');
     }
 }
