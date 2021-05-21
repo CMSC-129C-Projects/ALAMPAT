@@ -23,9 +23,11 @@ export class ProductService {
     showAddmodal: EventEmitter<boolean> = new EventEmitter();
     showEditmodal: EventEmitter<boolean> = new EventEmitter();
 
-    userID: string = '607fe491958fa65f08f14d0e';
+    userID: string|null = '607fe491958fa65f08f14d0e';
 
-    constructor(private router: Router) { }
+    constructor(private router: Router){
+        this.userID = localStorage.getItem('id')
+    }
 
     addswitch(resp: boolean){
         this.showAddmodal.emit(resp)

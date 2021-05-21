@@ -9,6 +9,9 @@ import { AngularFireModule } from '@angular/fire';
 import { UploadService } from './services/upload';
 import { AccountService } from './services/account';
 import { ProductService } from './services/productServ';
+import { UserService } from './services/auth';
+
+import { AuthGuard } from './auth.guard';
 
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
@@ -25,6 +28,7 @@ import { PortfolioArtworkComponent } from './components/portfolio-artwork/portfo
 import { ProductsComponent } from './components/accounts/seller/products/products.component';
 import { AddProductComponent } from './components/accounts/seller/add-product/add-product.component';
 
+import { SellershopComponent } from './components/sellershop/sellershop.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +47,8 @@ import { AddProductComponent } from './components/accounts/seller/add-product/ad
     ProductsComponent,
     AddProductComponent,
     routingComponents,
+  
+    SellershopComponent
   ],
   imports: [
     BrowserModule,
@@ -65,9 +71,10 @@ import { AddProductComponent } from './components/accounts/seller/add-product/ad
     
   ],
   providers: [
+    UserService,
     UploadService,
     AccountService,
-    
+    AuthGuard
   
   ],
   bootstrap: [AppComponent]

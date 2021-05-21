@@ -12,6 +12,8 @@ interface RegistrationResponse {
 
 interface LoginResponse {
     message: string;
+    userdata: any;
+    token: any;
     loggedin: boolean;
 }
 
@@ -27,6 +29,7 @@ export class UserService {
     isLoggedin: boolean = false;
     loginError: string = '';
     showErrorMessage: boolean = false;
+    userID: string;
 
     constructor(private router: Router) { }
 
@@ -64,11 +67,22 @@ export class UserService {
         this.showErrorMessage = false;
         try {
             const response = await axios.post<LoginResponse>(`${localAPI}/auth/login`, userInfo);
-            const { message, loggedin } = response.data
+            const { message, token, userdata, loggedin } = response.data
             if (loggedin) {
                 this.isLoggedin = true;
-                console.log(message)
-                this.router.navigate(['/my-accounts-seller'])
+                this.userID = userdata._id
+                console.log(message + JSON.stringify(userdata.userType))
+                localStorage.setItem('isloggedIn', "true")
+                localStorage.setItem('token', token )
+                localStorage.setItem('id', userdata._id )
+                localStorage.setItem('userType', userdata.userType)
+                if(userdata.userType === "buyer"){
+                    this.router.navigate(['/my-accounts-buyer'])
+                    
+                }
+                if(userdata.userType === "seller"){
+                    this.router.navigate(['/my-accounts-seller'])
+                }
             } else {
                 this.showErrorMessage = true;
                 this.loginError = message;
@@ -88,6 +102,9 @@ export class UserService {
     //}
 
     public logout() {
-        localStorage.removeItem('ACCESS_TOKEN');
+        localStorage.removeItem('id')
+        localStorage.removeItem('token');
+        localStorage.removeItem('isloggedIn');
+        localStorage.removeItem('userType');
     }
 }
