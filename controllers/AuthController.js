@@ -35,7 +35,7 @@ const register = async (req, res, next) => {
                 address: req.body.address,
                 userType: req.body.userType,
                 password: req.body.password,
-                toke: hashedPass,
+                token: hashedPass,
                 description: '',
                 
                 portfolio: [null],
