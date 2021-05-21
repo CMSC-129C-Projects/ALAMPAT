@@ -11,9 +11,13 @@ import { ProductService } from 'src/app/services/productServ';
 
 export class AddProductComponent implements OnInit {
   @Input() openAddProductModal: boolean;
+  @Input() openEditProductModal: boolean;
+  @Input() openDeleteModal: boolean;
+
   submitted: boolean = false;
   productForm: FormGroup;
   file: File;
+  addedFileName: string = '';
 
   constructor(private formBuilder: FormBuilder, private prodServ: ProductService) { }
 
@@ -37,10 +41,22 @@ export class AddProductComponent implements OnInit {
 
   onClickExit = () => {
     this.prodServ.addswitch(false)
-    //this.openAddProductModal = false;
     this.submitted = false;
     this.productForm.reset();
+    if(this.openEditProductModal) {
+      this.openEditProductModal = !this.openEditProductModal;
+    }
+    if(this.openDeleteModal) {
+      this.openDeleteModal = !this.openDeleteModal;
+    }
   }
+  
+
+  // onClickEditArtwork (item: any) {
+  //   //console.log("Passed Item: "+ JSON.stringify(item))
+  //   this.uploadService.selectArt(item)
+  //   this.showEditArtworkModal = !this.showEditArtworkModal;
+  // }
 
   addProduct = async () => {
     console.log(this.productForm.value);
@@ -61,5 +77,22 @@ export class AddProductComponent implements OnInit {
     this.prodServ.uploadProduct(artwork);
     //this.userService.login(this.loginForm.value);
   }
+  // onClickDelete (item: any, index: any) {
+  //   this.openDeleteModal = !this.openDeleteModal;
+  //   this.itemID = item._id;
+  //   this.item = item;
+  //   this.index = index;
+  //   this.imageSRC = this.portfolioList[index].images.imageBase64;
+  // }
 
+  // onClickSureDelete () {
+  //   this.afStorage.storage.refFromURL(this.imageSRC).delete();
+  //   this.uploadService.selectArt(this.item);
+  //   this.uploadService.deletePortfoliodata(this.itemID);
+  //   //console.log(this.index);
+  //   if(this.index !== -1) {
+  //     this.portfolioList.splice(this.index, 1);
+  //   }
+  //   this.openDeleteModal = false;
+  // }
 }

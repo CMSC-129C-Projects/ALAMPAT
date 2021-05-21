@@ -23,6 +23,10 @@ interface product{
 
 export class ProductsComponent implements OnInit, OnDestroy {
   showAddProductModal: boolean = false;
+  showEditProductModal: boolean = false;
+  openImageModal: boolean = false;
+  openDeleteModal: boolean = false;
+  sureDeleteModal: boolean = false;
 
   productList: product[] = []
 
@@ -53,11 +57,43 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.subs.forEach( sub => sub.unsubscribe())
   }
 
+  // onClickOpen (item:any, index:any) {
+  //   this.openImageModal = true;
+  //   this.imageSRC = this.productList[index].images.imageBase64;
+  // }
   onClickAddProduct = () => {
     this.showAddProductModal = !this.showAddProductModal;
   }
-  // onClickDelete = () => {
-  //   this.showDeleteModal = !this.showDeleteModal;
-  // }
+  onClickEditProduct = () => {
+    this.showEditProductModal = !this.showEditProductModal;
+  }
+  onClickExit () {
+    if(this.openImageModal) {
+      this.openImageModal = false;
+      // this.showed = false;
+      // this.imageSRC = '';
+    }
+    if(this.openDeleteModal) {
+      this.openDeleteModal = false;
+    }
+  }
+  onClickDelete () {
+    this.openDeleteModal = !this.openDeleteModal;
+    // this.itemID = item._id;
+    // this.item = item;
+    // this.index = index;
+    // this.imageSRC = this.portfolioList[index].images.imageBase64;
+  }
+
+  onClickSureDelete () {
+    // this.afStorage.storage.refFromURL(this.imageSRC).delete();
+    // this.uploadService.selectArt(this.item);
+    // this.uploadService.deletePortfoliodata(this.itemID);
+    // //console.log(this.index);
+    // if(this.index !== -1) {
+    //   this.portfolioList.splice(this.index, 1);
+    // }
+    this.openDeleteModal = false;
+  }
 
 }

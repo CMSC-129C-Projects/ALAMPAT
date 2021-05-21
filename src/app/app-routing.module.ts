@@ -9,6 +9,8 @@ import { MyaccountsellerComponent } from './components/accounts/seller/myaccount
 import { ProductsComponent } from './components/accounts/seller/products/products.component';
 import { LoginComponent } from './components/login/login.component';
 import { AddProductComponent } from './components/accounts/seller/add-product/add-product.component';
+import { PortfolioComponent } from './components/portfolio/portfolio.component';
+import { PortfolioArtworkComponent } from './components/portfolio-artwork/portfolio-artwork.component';
 import { AuthGuard } from './auth.guard';
 import { SellershopComponent } from './components/sellershop/sellershop.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
@@ -34,6 +36,8 @@ const routes: Routes = [
 export class AppRoutingModule { }
 
 export const routingComponents = [
+  PortfolioComponent,
+  PortfolioArtworkComponent,
   NoPageFoundComponent,
   HeaderbuyerComponent,
   HeadersellerComponent,
