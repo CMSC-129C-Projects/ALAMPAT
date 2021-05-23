@@ -89,22 +89,19 @@
                     <!-- ARTWORK SECTION-->
                     <div class="columns is-multiline is-mobile">
 
-                        <div class="column is-4">
+                        <div class="column is-4" *ngFor="let item of productList">
                             <div class="card">
                                 <a class="card-image">
                                     <figure class="image is-3by2">
-                                        <img src="https://unsplash.it/300/200/?random&pic=1" alt="">
+                                        <img class="object-fit_cover" [src]= "item.images?.imageBase64" alt="">
                                     </figure>
                                 </a>
                                 <div class="card-content">
-                                    <p class="text has-text-weight-bold">
-                                        Product Name
+                                    <p class="text has-text-weight-bold" readonly>
+                                        {{item?.productname}} 
                                     </p>
                                     <div class="content">
-                                        Lorem ipsum leo risus, porta ac consectetur ac, vestibulum at eros. Donec id
-                                        elit non mi porta gravida at eget metus. Cum sociis natoque penatibus et magnis
-                                        dis parturient montes, nascetur ridiculus mus. Cras mattis consectetur purus sit
-                                        amet fermentum.
+                                        {{item?.description}}
                                     </div>
                                 </div>
                                 <footer class="card-footer">

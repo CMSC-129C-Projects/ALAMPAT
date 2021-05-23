@@ -39,6 +39,7 @@ export class ProductService {
 
     uploadProduct = async (product: Products) => {
         try {
+            this.userID = localStorage.getItem('id')
             const response = await axios.post<uploadResponse>(`${localAPI}/seller/${this.userID}/addproduct`, product);
             const { message, success } = response.data
             console.log(JSON.stringify(response.data))
@@ -56,11 +57,12 @@ export class ProductService {
 
     getProductdata() {
         try {
+            this.userID = localStorage.getItem('id')
             axios.get(`${localAPI}/seller/${this.userID}/product`)
             .then(resp => {
-                this.productlist.next(resp.data.portfolioArray)
+                this.productlist.next(resp.data.productsArray)
                 
-                console.log(this.productlist);  
+                console.log("Get prodlist " + this.productlist);  
             })
             .catch(err => { 
                 console.log(err);

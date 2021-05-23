@@ -74,6 +74,7 @@ import { SellershopComponent } from './components/sellershop/sellershop.componen
     UserService,
     UploadService,
     AccountService,
+    ProductService,
     AuthGuard
   
   ],

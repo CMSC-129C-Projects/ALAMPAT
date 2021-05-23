@@ -73,7 +73,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.uploadService.portfolio.asObservable().pipe().subscribe((artwork)=>{
       this.portfolioList = artwork;
-      //console.log("Portfolio: " + JSON.stringify(this.portfolioList))
+      console.log("Portfolio: " + JSON.stringify(this.portfolioList))
     }, (error) => {
       console.log("Error", error)
     })

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component,Input, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from 'src/app/services/productServ';
 import { Subscription } from 'rxjs';
 
@@ -9,7 +9,7 @@ interface product{
     filename: string;
     contentType: string;
     imageBase64: string;
-  }
+  };
   description: string;
   stock: number;
   price: number;
@@ -33,8 +33,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   subs: Subscription[] = []
   // showDeleteModal: boolean = false;
   constructor(private prodServ: ProductService){ 
-    this.prodServ.getProductdata()
     
+
     this.subs.push(
       this.prodServ.showAddmodal.subscribe( x =>
         this.showAddProductModal = x
@@ -43,10 +43,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.prodServ.getProductdata()
     this.subs.push(
       this.prodServ.productlist.asObservable().pipe().subscribe((products)=>{
         this.productList = products;
-        //console.log("Portfolio: " + JSON.stringify(this.portfolioList))
+        console.log("Products: " + JSON.stringify(this.productList))
       }, (error) => {
         console.log("Error", error)
       })
@@ -62,10 +63,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
   //   this.imageSRC = this.productList[index].images.imageBase64;
   // }
   onClickAddProduct = () => {
-    this.showAddProductModal = !this.showAddProductModal;
+    this.prodServ.addswitch(true)
+    //this.showAddProductModal = !this.showAddProductModal;
   }
   onClickEditProduct = () => {
-    this.showEditProductModal = !this.showEditProductModal;
+    this.prodServ.editswitch(true)
+    //this.showEditProductModal = !this.showEditProductModal;
   }
   onClickExit () {
     if(this.openImageModal) {
