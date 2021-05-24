@@ -1,5 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { CommissionService } from 'src/app/services/comService';
+import { SortService } from 'src/app/services/sortingService';
+
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import {AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask} from '@angular/fire/storage';
@@ -15,9 +17,9 @@ interface commission {
   };
   slot: number,
   price: number, 
-  category: string,
+  category: string, 
+  createdAt: Date
 }
-
 @Component({
   selector: 'app-commission',
   templateUrl: './commission.component.html',
@@ -31,12 +33,13 @@ export class CommissionComponent implements OnInit, OnDestroy {
   openImageModal: boolean = false;
   showed: boolean = false;
   sureDelete: boolean = false;
-  tab = 1;
 
   itemID: any;
   item: any;
   index: any;
   service: any;
+
+  
 
   subscriptions: Subscription[] = [];
 
@@ -47,7 +50,9 @@ export class CommissionComponent implements OnInit, OnDestroy {
 
   constructor(private domSanitizer: DomSanitizer,
     private commissionService: CommissionService,
-    private afStorage: AngularFireStorage) { 
+    private afStorage: AngularFireStorage,
+    private sortserv: SortService,
+    ) { 
       
       this.subscriptions.push(
         this.commissionService.refresh().subscribe((m:any) => {
@@ -85,12 +90,19 @@ export class CommissionComponent implements OnInit, OnDestroy {
             this.serviceList.push(item);
           }
         })
+
+        //Sorting
+        //this.serviceList.sort(this.sortserv.getStrAscendingSortOrder("commissionname"))
+        this.serviceList.sort(this.sortserv.getNumAscendingSortOrder("price"))
+        //this.serviceList.sort(this.sortserv.getTimeDescendingSortOrder("createdAt"))
         //this.serviceList = service;
         console.log("Service List " + JSON.stringify(service));
       }, (error) => {
         console.log("Error", error)
       })
     )
+    
+
     //For tabs
     const tabs = document.querySelectorAll('.tabs li');
     const tabContentBoxes = document.querySelectorAll('#tab-content > div');
@@ -132,6 +144,8 @@ export class CommissionComponent implements OnInit, OnDestroy {
       this.openDeleteModal = false;
     }
   }
+
+
 
   onClickAddService () {
     this.commissionService.addswitch(true);
