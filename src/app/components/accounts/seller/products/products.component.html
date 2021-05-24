@@ -103,6 +103,18 @@
                                     <div class="content">
                                         {{product.description}}
                                     </div>
+                                    <p class="text has-text-weight-bold" readonly>
+                                        Stock:
+                                    </p>
+                                    <div class="content">
+                                        {{product.stock}}
+                                    </div>
+                                    <p class="text has-text-weight-bold" readonly>
+                                        Price:
+                                    </p>
+                                    <div class="content">
+                                        {{product.price}}
+                                    </div>
                                 </div>
                                 <footer class="card-footer">
                                     <a (click)="onClickEditProduct()" class="card-footer-item">Edit</a>

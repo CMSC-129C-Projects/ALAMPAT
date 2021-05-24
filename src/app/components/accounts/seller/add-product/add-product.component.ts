@@ -30,6 +30,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
   subper: Subscription;
   percentage: Observable<number|undefined> = new Observable();
 
+
   url: any;
   constructor(
     private formBuilder: FormBuilder, 
@@ -48,8 +49,8 @@ export class AddProductComponent implements OnInit, OnDestroy {
 
       productName: ['', Validators.required],
       productDescription: ['', Validators.required],
-      stock: [0, Validators.required],
-      price: [0, Validators.required],
+      stock: ['', Validators.required, Validators.min(1), Validators.max(100)],
+      price: ['', Validators.required],
     });
   }
   get formControls() { return this.productForm.controls; }

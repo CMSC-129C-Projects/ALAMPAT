@@ -14,7 +14,7 @@
                     <label class="label">Product Name</label>
                     <div class="control has-icons-left">
                         <input [ngClass]="{ 'has-error': formControls.productName?.errors }" class="input"
-                            formControlName="productName" required>
+                            placeholder="Input name of product here" formControlName="productName" required>
                         <span class="icon is-small is-left">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="26" fill="currentColor"
                                 class="bi bi-box-seam" viewBox="0 0 16 16">
@@ -27,6 +27,7 @@
                             class="help is-danger">
                             <div *ngIf="formControls.productName?.errors?.required">Product name is required</div>
                         </div>
+
                     </div>
                 </div>
                 <div class="field">
@@ -34,27 +35,35 @@
                     <div class="control">
                         <div class="file is-primary is-fullwidth">
                             <label class="file-label">
-                                <input class="file-input" type="file" accept="image/*" (change)="uploadFile($event)" name="productImage" formControlName="productImage" required>
+                                <input class="file-input" type="file" accept="image/*" (change)="uploadFile($event)"
+                                    name="productImage" formControlName="productImage" placeholder="No file uploaded."
+                                    required>
                                 <span class="file-cta">
                                     <span class="file-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
-                                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                                            <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+                                            <path
+                                                d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                            <path
+                                                d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
                                         </svg>
                                         <i class="bi bi-upload"></i>
                                     </span>
-                                    <span class="file-label has-text-centered">Change file…</span>
+                                    <span class="file-label has-text-centered">Choose a file...</span>
                                 </span>
-                                <span class="file-name" >
+                                <span *ngIf="addedFileName" class="file-name">
                                     {{addedFileName}}
+                                </span>
+                                <span *ngIf="!addedFileName" class="file-name">
+                                    {{"No File Uploaded."}}
                                 </span>
                             </label>
                         </div>
-                    </div>
-                    <div *ngIf="submitted || (formControls.productImage.touched || formControls.productImage?.dirty) && formControls.productImage?.errors"
-                        class="help is-danger">
-                        <div *ngIf="formControls.productImage?.errors?.required">Image of product is
-                            required</div>
+                        <div *ngIf="submitted || (formControls.productImage.touched || formControls.productImage?.dirty) && formControls.productImage?.errors"
+                            class="help is-danger">
+                            <div *ngIf="formControls.productImage?.errors?.required">Image of product is
+                                required</div>
+                        </div>
                     </div>
                 </div>
                 <figure class="image">
@@ -81,7 +90,32 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="field mt-4">
+                    <label class="label">Stock</label>
+                    <div class="control">
+                        <input class="textarea" [ngClass]="{'has-error': formControls.stock?.errors }" class="input"
+                            placeholder="Input stocks of the product here" formControlName="stock" type="number" min="1"
+                            max="100" required>
+                        <div *ngIf="submitted || (formControls.stock?.touched || formControls.stock?.dirty) && formControls.stock?.errors"
+                            class="help is-danger">
+                            <div *ngIf="formControls.stock?.errors?.required">Stock for the product is required.</div>
+                        </div>
+                        <div *ngIf="formControls.stock?.errors?.min">Stock cannot be less than 1.</div>
+                        <div *ngIf="formControls.stock?.errors?.max">Stock cannot be more than 100.</div>
+                    </div>
+                </div>
+                <div class="field mt-4">
+                    <label class="label">Price</label>
+                    <div class="control">
+                        <input class="textarea" [ngClass]="{'has-error': formControls.price?.errors }" class="input"
+                            placeholder="Input the price of the product here" formControlName="price" type="number"
+                            min="1" required>
+                        <div *ngIf="submitted || (formControls.price?.touched || formControls.price?.dirty) && formControls.price?.errors"
+                            class="help is-danger">
+                            <div *ngIf="formControls.price?.errors?.required">Price for the product is required.</div>
+                        </div>
+                    </div>
+                </div>
             </form>
         </section>
         <footer class="modal-card-foot buttons is-right">
@@ -104,8 +138,8 @@
             <form [formGroup]="productForm" (ngSubmit)="addProduct()" novalidate autocomplete="false">
                 <div class="field">
                     <label class="label">Product Name</label>
-                    <div class="control has-icons-left">  
-                        <input class="input" formControlName="productname" required> 
+                    <div class="control has-icons-left">
+                        <input class="input" formControlName="productname" required>
                         <span class="icon is-small is-left">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="26" fill="currentColor"
                                 class="bi bi-box-seam" viewBox="0 0 16 16">
@@ -114,19 +148,24 @@
                             </svg>
                             <i class="bi bi-box-seam"></i>
                         </span>
-                    </div>      
+                    </div>
+
                 </div>
                 <div class="field">
                     <label class="label mt-4">Product Image</label>
                     <div class="control">
                         <div class="file is-primary is-fullwidth">
                             <label class="file-label">
-                                <input class="file-input" type="file" accept="image/*" (change)="uploadFile($event)" name="artworkimage" formControlName="artworkimage" required>
+                                <input class="file-input" type="file" accept="image/*" (change)="uploadFile($event)"
+                                    name="productImage" formControlName="productImage" required>
                                 <span class="file-cta">
                                     <span class="file-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
-                                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                                            <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+                                            <path
+                                                d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                            <path
+                                                d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
                                         </svg>
                                         <i class="bi bi-upload"></i>
                                     </span>
@@ -154,7 +193,8 @@
                 <div class="field mt-4">
                     <label class="label">Description</label>
                     <div class="control">
-                        <textarea class="textarea" class="input" placeholder="Input description of artwork here" formControlName="artworkdescription" required></textarea> 
+                        <textarea class="textarea" class="input" placeholder="Input description of product here"
+                            formControlName="artworkdescription" required></textarea>
                     </div>
                 </div>
 
@@ -166,4 +206,3 @@
         </footer>
     </div>
 </div>
-
