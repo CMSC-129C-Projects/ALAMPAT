@@ -1,8 +1,10 @@
-import { Injectable, EventEmitter,  } from '@angular/core';
+import { Injectable, EventEmitter, } from '@angular/core';
 import axios from 'axios'
 import { Products } from '../models/products'
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 const localAPI = 'http://localhost:3000'
 
@@ -23,17 +25,21 @@ export class ProductService {
     showAddmodal: EventEmitter<boolean> = new EventEmitter();
     showEditmodal: EventEmitter<boolean> = new EventEmitter();
 
-    userID: string|null = '607fe491958fa65f08f14d0e';
+    userID: string | null = '607fe491958fa65f08f14d0e';
 
-    constructor(private router: Router){
-        
+    constructor(private router: Router, private domSanitizer: DomSanitizer) {
+
     }
 
-    addswitch(resp: boolean){
+    // refresh(): Observable<any> {
+    //     return this.artSource.asObservable();
+    // }
+
+    addswitch(resp: boolean) {
         this.showAddmodal.emit(resp)
     }
 
-    editswitch(resp: boolean){
+    editswitch(resp: boolean) {
         this.showEditmodal.emit(resp)
     }
 
@@ -59,14 +65,14 @@ export class ProductService {
         try {
             this.userID = localStorage.getItem('id')
             axios.get(`${localAPI}/seller/${this.userID}/product`)
-            .then(resp => {
-                this.productlist.next(resp.data)
-                
-                console.log("Get prodlist " + JSON.stringify(resp.data));  
-            })
-            .catch(err => { 
-                console.log(err);
-            });
+                .then(resp => {
+                    this.productlist.next(resp.data)
+
+                    console.log("Get prodlist " + JSON.stringify(resp.data));
+                })
+                .catch(err => {
+                    console.log(err);
+                });
 
         } catch (error) {
             console.log(error)

@@ -46,7 +46,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
         contentType: [''],
         imageBase64:[''],
       }, {Validators: [Validators.required]} ),
-
+      category: ['Product'],
       productName: ['', Validators.required],
       productDescription: ['', Validators.required],
       stock: ['', Validators.required, Validators.min(1), Validators.max(100)],

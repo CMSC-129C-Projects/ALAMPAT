@@ -1,19 +1,19 @@
-import { Component,Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from 'src/app/services/productServ';
 import { Subscription } from 'rxjs';
 
-interface product{
+interface product {
   _id?: string;
   productname: string;
   description: string;
   stock: number;
   price: number;
-  images:{
+  images: {
     filename: string;
     contentType: string;
     imageBase64: string;
   };
-  
+
 }
 
 @Component({
@@ -30,14 +30,16 @@ export class ProductsComponent implements OnInit, OnDestroy {
   sureDeleteModal: boolean = false;
 
   productList: product[] = []
-
+  imageSRC: any;
+  itemID: any;
+  item: any;
   subs: Subscription[] = []
   // showDeleteModal: boolean = false;
-  constructor(private prodServ: ProductService){ 
-    
+  constructor(private prodServ: ProductService) {
+
     this.ngOnInit()
     this.subs.push(
-      this.prodServ.showAddmodal.subscribe( x =>
+      this.prodServ.showAddmodal.subscribe(x =>
         this.showAddProductModal = x
       )
     )
@@ -46,7 +48,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.prodServ.getProductdata()
     this.subs.push(
-      this.prodServ.productlist.asObservable().subscribe(products=>{
+      this.prodServ.productlist.asObservable().subscribe(products => {
         this.productList = products.productsArray
         console.log("Products: " + JSON.stringify(this.productList))
       }, (error) => {
@@ -56,13 +58,14 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subs.forEach( sub => sub.unsubscribe())
+    this.subs.forEach(sub => sub.unsubscribe())
   }
 
-  // onClickOpen (item:any, index:any) {
-  //   this.openImageModal = true;
-  //   this.imageSRC = this.productList[index].images.imageBase64;
-  // }
+  onClickOpen(item: any, index: any) {
+    this.openImageModal = true;
+    this.imageSRC = this.productList[index].images.imageBase64;
+  }
+
   onClickAddProduct = () => {
     this.prodServ.addswitch(true)
     //this.showAddProductModal = !this.showAddProductModal;
@@ -71,17 +74,17 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.prodServ.editswitch(true)
     //this.showEditProductModal = !this.showEditProductModal;
   }
-  onClickExit () {
-    if(this.openImageModal) {
+  onClickExit() {
+    if (this.openImageModal) {
       this.openImageModal = false;
       // this.showed = false;
       // this.imageSRC = '';
     }
-    if(this.openDeleteModal) {
+    if (this.openDeleteModal) {
       this.openDeleteModal = false;
     }
   }
-  onClickDelete () {
+  onClickDelete() {
     this.openDeleteModal = !this.openDeleteModal;
     // this.itemID = item._id;
     // this.item = item;
@@ -89,7 +92,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     // this.imageSRC = this.portfolioList[index].images.imageBase64;
   }
 
-  onClickSureDelete () {
+  onClickSureDelete() {
     // this.afStorage.storage.refFromURL(this.imageSRC).delete();
     // this.uploadService.selectArt(this.item);
     // this.uploadService.deletePortfoliodata(this.itemID);

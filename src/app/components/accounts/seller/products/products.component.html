@@ -33,7 +33,7 @@
         </div>
         <div class="hero-body">
             <div class="columns is-mobile">
-                <div class="column is-10 is-offset-1" >
+                <div class="column is-10 is-offset-1">
                     <div class="card-container">
                         <span class="span-spaces">
                             <div class="title is-family-primary has-icons-left">
@@ -49,11 +49,12 @@
                         </span>
                         <div class="container">
                             <div class="buttons is-right">
-                                <button (click)= "onClickAddProduct()" class="button is-small is-danger"> <strong>ADD PRODUCT</strong></button>
+                                <button (click)="onClickAddProduct()" class="button is-small is-danger"> <strong>ADD
+                                        PRODUCT</strong></button>
                             </div>
+                        </div>
                     </div>
-                </div>
-               
+
                     <hr style="background-color:#e8e6e6">
                     <div class="tabs is-centered is-boxed">
                         <ul>
@@ -86,43 +87,37 @@
                         </ul>
                     </div>
 
-                    <!-- ARTWORK SECTION-->
-                    <div class="columns is-multiline is-mobile" >
-                        <div *ngFor = "let product of productList" > 
-                        <div class="column is-4" >
-                            <div class="card" >
+                    <!-- PRODUCT SECTION-->
+                    <div class="columns is-multiline is-mobile">
+                        <div class="column is-4" *ngFor="let product of productList; index as i">
+                            <div class="card">
                                 <a class="card-image">
-                                    <figure class="image is-3by2">
-                                        <img  [src]= "product.images?.imageBase64" alt="">
+                                    <figure class="image is-3by2" (click)="onClickOpen(item, i)">
+                                        <img [src]="product.images?.imageBase64" alt="">
                                     </figure>
                                 </a>
                                 <div class="card-content">
                                     <p class="text has-text-weight-bold" readonly>
-                                        {{product.productname}} 
+                                        {{product.productname}}
                                     </p>
                                     <div class="content">
                                         {{product.description}}
                                     </div>
-                                    <p class="text has-text-weight-bold" readonly>
-                                        Stock:
-                                    </p>
-                                    <div class="content">
-                                        {{product.stock}}
+                                    <div>
+                                        <span class="tag is-warning is-light has-text-weight-bold is-medium">Stock:
+                                            {{product.stock}}</span>
                                     </div>
-                                    <p class="text has-text-weight-bold" readonly>
-                                        Price:
-                                    </p>
-                                    <div class="content">
-                                        {{product.price}}
+                                    <div>
+                                        <span class="tag is-primary is-light has-text-weight-bold is-medium mt-2">Price:
+                                            {{product.price}}</span>
                                     </div>
                                 </div>
                                 <footer class="card-footer">
-                                    <a (click)="onClickEditProduct()" class="card-footer-item">Edit</a>
-                                    <!-- <a (click)="onClickDelete()" class="card-footer-item" value="delete" type="delete">Delete</a> -->
-                                    <a (click)="onClickDelete()" class="card-footer-item" value="delete" type="delete">Delete</a>
+                                    <a (click)="onClickEditProduct()" class="card-footer-item" value="edit">Edit</a>
+                                    <a (click)="onClickDelete()" class="card-footer-item" value="delete"
+                                        type="delete">Delete</a>
                                 </footer>
                             </div>
-                        </div>
                         </div>
 
 
@@ -133,18 +128,19 @@
 
     </div>
 </section>
-<app-add-product [openAddProductModal] = 'showAddProductModal' ></app-add-product>
-<app-add-product [openEditProductModal] = 'showEditProductModal' ></app-add-product>
+<app-add-product [openAddProductModal]='showAddProductModal'></app-add-product>
+<app-add-product [openEditProductModal]='showEditProductModal'></app-add-product>
 
-<!-- <div class="modal" [ngClass]="openImageModal ? 'is-active' : ''">
-    <div class="modal-background"></div>
+<!-- IMAGE MODAL -->
+<div class="modal" [ngClass]="openImageModal ? 'is-active' : ''">
+    <div class="modal-background" (click)="onClickExit()"></div>
     <div class="modal-content">
         <p class="image">
             <img [src]="imageSRC" alt="">
         </p>
     </div>
     <button class="modal-close is-large" aria-label="close" (click)="onClickExit()"></button>
-</div> -->
+</div>
 
 <!--DELETE MODAL-->
 <div class="modal" [ngClass]="openDeleteModal ? 'is-active' : '' ">
@@ -155,10 +151,11 @@
         <footer class="px-3 py-2 mt-4">
             <div class="buttons is-centered px-4 mx-5 ">
                 <button (click)="onClickExit()" class="button is-danger is-outlined">Cancel</button>
-                <button (click)="onClickSureDelete()" class="button is-success is-outlined"> <strong>Yes</strong></button>
-            </div>    
-        </footer>  
-    </div>   
+                <button (click)="onClickSureDelete()" class="button is-success is-outlined">
+                    <strong>Yes</strong></button>
+            </div>
+        </footer>
+    </div>
 </div>
 
 
