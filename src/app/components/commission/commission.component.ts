@@ -54,7 +54,7 @@ export class CommissionComponent implements OnInit, OnDestroy {
         this.commissionService.getItemdata()
         console.log(m);
         this.ngOnInit();
-        this.soldoutList = [];
+        
         })
       )
 
@@ -75,12 +75,17 @@ export class CommissionComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.commissionService.commission.asObservable().pipe().subscribe((service)=>{
         //put items to sold out array
+        this.soldoutList = [];
+        this.serviceList = [];
         service.forEach((item:commission) => {
           if (item.slot == 0) {
             this.soldoutList.push(item);
           }
+          if(item.slot > 0){
+            this.serviceList.push(item);
+          }
         })
-        this.serviceList = service;
+        //this.serviceList = service;
         console.log("Service List " + JSON.stringify(service));
       }, (error) => {
         console.log("Error", error)
