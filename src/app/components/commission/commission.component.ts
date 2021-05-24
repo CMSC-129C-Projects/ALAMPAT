@@ -48,12 +48,13 @@ export class CommissionComponent implements OnInit, OnDestroy {
   constructor(private domSanitizer: DomSanitizer,
     private commissionService: CommissionService,
     private afStorage: AngularFireStorage) { 
-
+      
       this.subscriptions.push(
         this.commissionService.refresh().subscribe((m:any) => {
         this.commissionService.getItemdata()
         console.log(m);
         this.ngOnInit();
+        this.soldoutList = [];
         })
       )
 
@@ -71,9 +72,14 @@ export class CommissionComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit(): void {
-
     this.subscriptions.push(
       this.commissionService.commission.asObservable().pipe().subscribe((service)=>{
+        //put items to sold out array
+        service.forEach((item:commission) => {
+          if (item.slot == 0) {
+            this.soldoutList.push(item);
+          }
+        })
         this.serviceList = service;
         console.log("Service List " + JSON.stringify(service));
       }, (error) => {

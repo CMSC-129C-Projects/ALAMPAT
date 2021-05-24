@@ -70,26 +70,28 @@
                 <div class="columns is-multiline is-mobile" id="commission-live">
                     <!-- EACH SERVICE -->
                     <div class="column is-4" *ngFor="let item of serviceList; index as i">
-                        <div class="card"> 
-                            <a class="card-image">
-                                <figure class="image is-3by2" (click)="onClickOpen(item, i)">
-                                    <img class="object-fit_cover" [src]= "item.images.imageBase64" alt="">
-                                </figure>
-                            </a>
-                            <div class="card-content">
-                                <p class="text has-text-weight-bold" readonly>
-                                    {{item?.commissionname}}
-                                </p>
-                                <div class="content">
-                                    {{item?.description}}
-                                    <p class="text has-text-weight-medium is-italic pt-3" readonly> Price: ₱{{item?.price}} 
-                                    <br> Slot: {{item?.slot}} </p>
+                        <div *ngIf="item.slot != 0">
+                            <div class="card"> 
+                                <a class="card-image">
+                                    <figure class="image is-3by2" (click)="onClickOpen(item, i)">
+                                        <img class="object-fit_cover" [src]= "item.images.imageBase64" alt="">
+                                    </figure>
+                                </a>
+                                <div class="card-content">
+                                    <p class="text has-text-weight-bold" readonly>
+                                        {{item?.commissionname}}
+                                    </p>
+                                    <div class="content">
+                                        {{item?.description}}
+                                        <p class="text has-text-weight-medium is-italic pt-3" readonly> Price: ₱{{item?.price}} 
+                                        <br> Slot: {{item?.slot}} </p>
+                                    </div>
                                 </div>
+                                <footer class="card-footer">
+                                    <a (click)="onClickEditService(item)" class="card-footer-item">Edit</a>
+                                    <a (click)="onClickDelete(item, i)" class="card-footer-item" value="delete" type="delete">Delete</a>
+                                </footer>
                             </div>
-                            <footer class="card-footer">
-                                <a (click)="onClickEditService(item)" class="card-footer-item">Edit</a>
-                                <a (click)="onClickDelete(item, i)" class="card-footer-item" value="delete" type="delete">Delete</a>
-                            </footer>
                         </div>
                     </div> 
                 </div>

@@ -1,6 +1,6 @@
 <!------------------ ADD COMMISSION MODAL --------------------->
 <div class="modal" [ngClass]="openAddServiceModal ? 'is-active' : ''">
-    <div class="modal-background"></div>
+    <div class="modal-background" (click)="onClickExit()"></div>
     <div class="modal-card">
         <header class="modal-card-head is-light">
             <p class="modal-card-title has-text-centered">Add Commission</p>
@@ -66,50 +66,36 @@
                     </div>
                 </figure>
                 <!------------------ PRICE and SLOT --------------------->
-                <div class="level">
-                    <div class="level-left">
-                        <div class="level-item">
-                            <div class="field">
-                                <!------------------ CATEGORY --------------------->
-                                <div class="field mt-4">
-                                    <label class="label">Category</label>
-                                    <div class="control">
-                                        <a class="button is-static">Commission</a>
-                                        <!---<input class="input" type="text" value="Commission"  readonly>
-                                        <input [ngClass]="{'has-error': category.errors }" class="input" placeholder="category" formControlName="category" required>
-                                        <div *ngIf="submitted || (category.touched || category.dirty) && category.errors" class="help is-danger">
-                                            <div *ngIf="category.errors?.required">Category is required</div>
-                                        </div> -->
-                                    </div>
-                                </div>
+                <div class="columns">
+                    <div class="column is-one-fifth">
+                        <!------------------ CATEGORY --------------------->
+                        <div class="field mt-4">
+                            <label class="label">Category</label>
+                            <div class="control" value="Commission">
+                                <a class="button is-static">Commission</a>
                             </div>
                         </div>
-                        <div class="level-item">
-                            <div class="field">
-                                <div class="field mt-4">
-                                    <label class="label">Price</label>
-                                    <div class="control field has-addons">
-                                        <a class="button is-static">₱</a>
-                                        <p class="control">
-                                            <input [ngClass]="{ 'has-error': formControls.price?.errors }" class="input" placeholder="Input price" formControlName="price" type="number" min="1" required>
-                                        
-                                    </div>
-                                    <div *ngIf="submitted || (formControls.price?.touched || formControls.price?.dirty) && formControls.price?.errors" class="help is-danger">
-                                        <div *ngIf="formControls.price?.errors?.required">Price is required</div>
-                                    </div>
-                                </div>
+                    </div>
+                    <div class="column">
+                        <div class="field mt-4">
+                            <label class="label">Price</label>
+                            <div class="control field has-addons">
+                                <a class="button is-static">₱</a>
+                                <p class="control">
+                                    <input [ngClass]="{ 'has-error': formControls.price?.errors }" class="input" placeholder="Input price" formControlName="price" type="number" min="1" required>
+                            </div>
+                            <div *ngIf="submitted || (formControls.price?.touched || formControls.price?.dirty) && formControls.price?.errors" class="help is-danger">
+                                <div *ngIf="formControls.price?.errors?.required">Price is required</div>
                             </div>
                         </div>
-                        <div class="level-item">
-                            <div class="field">
-                                <div class="field mt-4">
-                                    <label class="label">Slot</label>
-                                    <div class="control">
-                                        <input [ngClass]="{ 'has-error': formControls.slot?.errors }" class="input" placeholder="Input no. of slots" formControlName="slot" type="number" min="1" required>
-                                        <div *ngIf="submitted || (formControls.slot?.touched || formControls.slot?.dirty) && formControls.slot?.errors" class="help is-danger pt-2">
-                                            <div *ngIf="formControls.slot?.errors?.required">Number of slots is required</div>
-                                        </div>
-                                    </div>
+                    </div>
+                    <div class="column">
+                        <div class="field mt-4">
+                            <label class="label">Slot</label>
+                            <div class="control">
+                                <input [ngClass]="{ 'has-error': formControls.slot?.errors }" class="input" placeholder="Input no. of slots" formControlName="slot" type="number" min="1" required>
+                                <div *ngIf="submitted || (formControls.slot?.touched || formControls.slot?.dirty) && formControls.slot?.errors" class="help is-danger pt-2">
+                                    <div *ngIf="formControls.slot?.errors?.required">Number of slots is required</div>
                                 </div>
                             </div>
                         </div>
@@ -136,7 +122,7 @@
 
 <!------------------------------ EDIT SERVICE MODAL ----------------------------------------------------->
 <div class="modal" [ngClass]="openEditServiceModal ? 'is-active' : ''">
-    <div class="modal-background"></div>
+    <div class="modal-background" (click)="onClickExit()"></div>
     <div class="modal-card">
         <header class="modal-card-head is-light">
             <p class="modal-card-title has-text-centered">Edit Commission</p>
@@ -193,47 +179,32 @@
                         </div>
                     </div>
                 </figure>
-                
-               <!------------------ PRICE and SLOT --------------------->
-               <div class="level">
-                    <div class="level-left">
-                        <div class="level-item">
-                            <div class="field">
-                                <!------------------ CATEGORY --------------------->
-                                <div class="field mt-4">
-                                    <label class="label">Category</label>
-                                    <div class="control">
-                                        <a class="button is-static">Commission</a>
-                                        <!---<input class="input" type="text" value="Commission"  readonly>
-                                        <input [ngClass]="{'has-error': category.errors }" class="input" placeholder="category" formControlName="category" required>
-                                        <div *ngIf="submitted || (category.touched || category.dirty) && category.errors" class="help is-danger">
-                                            <div *ngIf="category.errors?.required">Category is required</div>
-                                        </div> -->
-                                    </div>
-                                </div>
+                <!------------------ PRICE and SLOT --------------------->
+                <div class="columns">
+                    <div class="column is-one-fifth">
+                        <!------------------ CATEGORY --------------------->
+                        <div class="field mt-4">
+                            <label class="label">Category</label>
+                            <div class="control">
+                                <a class="button is-static">Commission</a>
                             </div>
                         </div>
-                        <div class="level-item">
-                            <div class="field">
-                                <div class="field mt-4">
-                                    <label class="label">Price</label>
-                                    <div class="control field has-addons">
-                                        <a class="button is-static">₱</a>
-                                        <p class="control">
-                                            <input class="input" placeholder="Input price" formControlName="price" type="number" min ="1" required>
-                                        </p>
-                                    </div>
-                                </div>
+                    </div>
+                    <div class="column">
+                        <div class="field mt-4">
+                            <label class="label">Price</label>
+                            <div class="control field has-addons">
+                                <a class="button is-static">₱</a>
+                                <p class="control">
+                                    <input class="input" placeholder="Input price" formControlName="price" type="number" min="1" required>
                             </div>
                         </div>
-                        <div class="level-item">
-                            <div class="field">
-                                <div class="field mt-4">
-                                    <label class="label">Slot</label>
-                                    <div class="control">
-                                        <input class="input" placeholder="Input no. of slots" formControlName="slot" type="number" min="0" required>
-                                    </div>
-                                </div>
+                    </div>
+                    <div class="column">
+                        <div class="field mt-4">
+                            <label class="label">Slot</label>
+                            <div class="control">
+                                <input class="input" placeholder="Input no. of slots" formControlName="slot" type="number" min="0" required>
                             </div>
                         </div>
                     </div>
