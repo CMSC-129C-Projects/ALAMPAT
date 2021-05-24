@@ -85,7 +85,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
       }, {Validators: [Validators.required]} ),
       commissionname: ['', Validators.required],
       commissiondescription: ['', Validators.required],
-      category: ['commission', Validators.required],
+      category: ['Commission', Validators.required],
       slot: ['', Validators.required],
       price: ['', Validators.required]
     });
@@ -98,7 +98,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
       }, {Validators: [Validators.required]} ),
       commissionname: ['', Validators.required],
       commissiondescription: ['', Validators.required],
-      category: ['commission', Validators.required],
+      category: ['Commission', Validators.required],
       slot: ['', Validators.required],
       price: ['', Validators.required]
     });
@@ -210,9 +210,9 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
 
   //function for adding commission item
   addCommission =  () => {
-    console.log(this.addService.value);
     this.submitted = true;
-    
+    this.addService.patchValue({"category": 'Commission'});
+    console.log(this.addService.value);
     if(this.addService.invalid){
       return;
     }
@@ -234,7 +234,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
       this.commissionService.addswitch(false)
       this.percentage = new Observable()
       this.snapshot = new Observable()
-      this.addService.reset();
+      //this.addService.reset();
       this.addedFileName = '';
       this.addedimageSRC = '';
     }

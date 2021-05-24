@@ -117,9 +117,13 @@ export class CommissionComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe())
   }
   
-  onClickOpen (item:any, index:any) {
+  onClickOpen (item:any, index:any, tabId:any) {
     this.openImageModal = true;
-    this.imageSRC = this.serviceList[index].images.imageBase64;
+    if(tabId == 0) {
+      this.imageSRC = this.serviceList[index].images.imageBase64;
+    } else {
+      this.imageSRC = this.soldoutList[index].images.imageBase64;
+    }
   }
 
   onClickExit () {

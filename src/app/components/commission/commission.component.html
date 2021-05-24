@@ -73,7 +73,7 @@
                         <div *ngIf="item.slot != 0">
                             <div class="card"> 
                                 <a class="card-image">
-                                    <figure class="image is-3by2" (click)="onClickOpen(item, i)">
+                                    <figure class="image is-3by2" (click)="onClickOpen(item, i, 0)">
                                         <img class="object-fit_cover" [src]= "item.images.imageBase64" alt="">
                                     </figure>
                                 </a>
@@ -83,9 +83,11 @@
                                     </p>
                                     <div class="content">
                                         {{item?.description}}
-                                        <p class="text has-text-weight-medium is-italic pt-3" readonly> Price: ₱{{item?.price}} 
-                                        <br> Slot: {{item?.slot}} </p>
-                                    </div>
+                                        <!--<p class="text has-text-weight-medium is-italic pt-3" readonly> Price: ₱{{item?.price}} 
+                                        <br> Slot: {{item?.slot}} </p> -->
+                                    </div> 
+                                    <div> <span class="tag is-warning is-light has-text-weight-bold is-medium">Slot: {{item?.slot}}</span></div>
+                                    <div> <span class="tag is-primary is-light has-text-weight-bold is-medium">Price: ₱{{item?.price}}</span></div>
                                 </div>
                                 <footer class="card-footer">
                                     <a (click)="onClickEditService(item)" class="card-footer-item">Edit</a>
@@ -103,7 +105,7 @@
                     <div class="column is-4" *ngFor="let item of soldoutList; index as i">
                         <div class="card"> 
                             <a class="card-image">
-                                <figure class="image is-3by2" (click)="onClickOpen(item, i)">
+                                <figure class="image is-3by2" (click)="onClickOpen(item, i, 1)">
                                     <img class="object-fit_cover" [src]= "item.images.imageBase64" alt="">
                                 </figure>
                             </a>
@@ -113,9 +115,11 @@
                                 </p>
                                 <div class="content">
                                     {{item?.description}}
-                                    <p class="text has-text-weight-medium is-italic pt-3" readonly> Price: ₱{{item?.price}} 
-                                    <br> Slot: {{item?.slot}} </p>
-                                </div>
+                                    <!--<p class="text has-text-weight-medium is-italic pt-3" readonly> Price: ₱{{item?.price}} 
+                                        <br> Slot: {{item?.slot}} </p> -->
+                                </div> 
+                                <div> <span class="tag is-warning is-light has-text-weight-bold is-medium">Slot: {{item?.slot}}</span></div>
+                                <div> <span class="tag is-primary is-light has-text-weight-bold is-medium">Price: ₱{{item?.price}}</span></div>
                             </div>
                             <footer class="card-footer">
                                 <a (click)="onClickEditService(item)" class="card-footer-item">Edit</a>
@@ -125,7 +129,6 @@
                     </div> 
                 </div>
             </div>
-
         </div> 
     </div>
 </div>
