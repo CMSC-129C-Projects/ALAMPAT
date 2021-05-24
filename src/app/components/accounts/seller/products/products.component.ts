@@ -5,14 +5,15 @@ import { Subscription } from 'rxjs';
 interface product{
   _id?: string;
   productname: string;
+  description: string;
+  stock: number;
+  price: number;
   images:{
     filename: string;
     contentType: string;
     imageBase64: string;
   };
-  description: string;
-  stock: number;
-  price: number;
+  
 }
 
 @Component({
@@ -34,7 +35,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   // showDeleteModal: boolean = false;
   constructor(private prodServ: ProductService){ 
     
-
+    this.ngOnInit()
     this.subs.push(
       this.prodServ.showAddmodal.subscribe( x =>
         this.showAddProductModal = x
@@ -45,8 +46,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.prodServ.getProductdata()
     this.subs.push(
-      this.prodServ.productlist.asObservable().pipe().subscribe((products)=>{
-        this.productList = products;
+      this.prodServ.productlist.asObservable().subscribe(products=>{
+        this.productList = products.productsArray
         console.log("Products: " + JSON.stringify(this.productList))
       }, (error) => {
         console.log("Error", error)

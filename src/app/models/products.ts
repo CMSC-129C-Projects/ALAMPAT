@@ -1,12 +1,21 @@
 export class Products {
     productName: string;
     productDescription: string;
-    productImage: HTMLImageElement;
-
+    productImage:{
+        filename: string,
+        contentType: string, 
+        imageBase64: string
+    }
+    stock: number;
+    price: number;
     constructor() {
-        var img = new Image();
+        
         this.productName = '';
         this. productDescription = '';
-        this.productImage = img;
+        this.productImage.filename = '';
+        this.productImage.contentType = '';
+        this.productImage.imageBase64 = '';
+        this.stock = 0;
+        this.price = 0;
     }
 }

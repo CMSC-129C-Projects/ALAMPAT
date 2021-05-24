@@ -26,7 +26,7 @@ export class ProductService {
     userID: string|null = '607fe491958fa65f08f14d0e';
 
     constructor(private router: Router){
-        this.userID = localStorage.getItem('id')
+        
     }
 
     addswitch(resp: boolean){
@@ -60,9 +60,9 @@ export class ProductService {
             this.userID = localStorage.getItem('id')
             axios.get(`${localAPI}/seller/${this.userID}/product`)
             .then(resp => {
-                this.productlist.next(resp.data.productsArray)
+                this.productlist.next(resp.data)
                 
-                console.log("Get prodlist " + this.productlist);  
+                console.log("Get prodlist " + JSON.stringify(resp.data));  
             })
             .catch(err => { 
                 console.log(err);

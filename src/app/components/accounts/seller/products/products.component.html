@@ -18,7 +18,7 @@
         </div>
         <div class="container">
             <nav class="breadcrumb is-small" aria-label="breadcrumbs">
-                <li><a href="#">
+                <li><a routerLink="/seller-shop">
                         <span class="icon is-small">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-caret-left-fill" viewBox="0 0 16 16">
@@ -33,7 +33,7 @@
         </div>
         <div class="hero-body">
             <div class="columns is-mobile">
-                <div class="column is-10 is-offset-1">
+                <div class="column is-10 is-offset-1" >
                     <div class="card-container">
                         <span class="span-spaces">
                             <div class="title is-family-primary has-icons-left">
@@ -87,21 +87,21 @@
                     </div>
 
                     <!-- ARTWORK SECTION-->
-                    <div class="columns is-multiline is-mobile">
-
-                        <div class="column is-4" *ngFor="let item of productList">
-                            <div class="card">
+                    <div class="columns is-multiline is-mobile" >
+                        <div *ngFor = "let product of productList" > 
+                        <div class="column is-4" >
+                            <div class="card" >
                                 <a class="card-image">
                                     <figure class="image is-3by2">
-                                        <img class="object-fit_cover" [src]= "item.images?.imageBase64" alt="">
+                                        <img  [src]= "product.images?.imageBase64" alt="">
                                     </figure>
                                 </a>
                                 <div class="card-content">
                                     <p class="text has-text-weight-bold" readonly>
-                                        {{item?.productname}} 
+                                        {{product.productname}} 
                                     </p>
                                     <div class="content">
-                                        {{item?.description}}
+                                        {{product.description}}
                                     </div>
                                 </div>
                                 <footer class="card-footer">
@@ -110,6 +110,7 @@
                                     <a (click)="onClickDelete()" class="card-footer-item" value="delete" type="delete">Delete</a>
                                 </footer>
                             </div>
+                        </div>
                         </div>
 
 

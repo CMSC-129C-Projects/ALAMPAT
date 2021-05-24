@@ -38,7 +38,6 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
   task: AngularFireUploadTask;
   snapshot: Observable<any>;
   subscriptions: Subscription;
-  subper: Subscription;
   percentage: Observable<number|undefined> = new Observable();
 
   string64: any;

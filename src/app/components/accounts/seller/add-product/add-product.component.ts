@@ -1,7 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit,OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Products } from 'src/app/models/products';
 import { ProductService } from 'src/app/services/productServ';
+import {AngularFireStorage, AngularFireUploadTask} from '@angular/fire/storage'
+
+import { Observable, Subscription } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-product',
@@ -9,7 +13,7 @@ import { ProductService } from 'src/app/services/productServ';
   styleUrls: ['./add-product.component.css']
 })
 
-export class AddProductComponent implements OnInit {
+export class AddProductComponent implements OnInit, OnDestroy {
   @Input() openAddProductModal: boolean;
   @Input() openEditProductModal: boolean;
   @Input() openDeleteModal: boolean;
@@ -18,25 +22,76 @@ export class AddProductComponent implements OnInit {
   productForm: FormGroup;
   file: File;
   addedFileName: string = '';
+  addedimagesrc: any;
 
-  constructor(private formBuilder: FormBuilder, private prodServ: ProductService) { }
+  task: AngularFireUploadTask;
+  snapshot: Observable<any>;
+  subs: Subscription;
+  subper: Subscription;
+  percentage: Observable<number|undefined> = new Observable();
+
+  url: any;
+  constructor(
+    private formBuilder: FormBuilder, 
+    private prodServ: ProductService,
+    private afStorage: AngularFireStorage,
+    ) { }
 
   ngOnInit(): void {
     this.productForm = this.formBuilder.group({
+      productImage: this.formBuilder.group({
+        filename: [''],
+        contentType: [''],
+        imageBase64:[''],
+      }, {Validators: [Validators.required]} ),
+
       productName: ['', Validators.required],
-      productImage: [null, Validators.required],
-      productDescription: ['', Validators.required]
+      productDescription: ['', Validators.required],
+      stock: [0, Validators.required],
+      price: [0, Validators.required],
     });
   }
   get formControls() { return this.productForm.controls; }
 
-  uploadFile(event: any) {
-    console.log(event);
-    this.file = <File>event.target.files[0];
-    this.productForm.patchValue({
-      artworkimage: this.file
-    });
-    this.productForm.get('productimage')?.updateValueAndValidity()
+  ngOnDestroy(): void {
+
+  }
+
+  uploadFile(event: Event) {
+    const target = event.target as HTMLInputElement
+
+    const file: File = (target.files as FileList)[0]
+    //Storage Path
+    const path =  `/Products/${Date.now()}_` + file.name
+    
+    //reference to storage bucket
+    const ref = this.afStorage.ref(path)
+
+    //main task 
+    this.task = this.afStorage.upload(path, file)
+
+    //upload progress monitoring
+    this.percentage = this.task.percentageChanges() ;
+    
+
+    this.snapshot = this.task.snapshotChanges().pipe(
+      finalize( async() => {
+        this.url = await ref.getDownloadURL().toPromise()
+        this.productForm.patchValue({
+          productImage: {
+            filename: file.name,
+            contentType: file.type,
+            imageBase64: this.url
+          }
+        });
+        this.addedFileName = file.name
+        
+        this.addedimagesrc = this.url
+        
+        console.log("Here: " + JSON.stringify(this.url) );
+      })
+    )
+
   }
 
   onClickExit = () => {
@@ -64,17 +119,20 @@ export class AddProductComponent implements OnInit {
     if (this.productForm.invalid) {
       return;
     }
-    var formData: any = new FormData();
-    formData.append("productName", this.productForm.get('productName')?.value);
-    formData.append("productImage", this.productForm.get('productImage')?.value);
-    formData.append("productDescription", this.productForm.get('productDescription')?.value);
-
     const artwork: Products = {
-      productName: formData.get('productName')?.value,
-      productImage: formData.get('productImage')?.value,
-      productDescription: formData.get('productDescription')?.value,
+      productName: this.productForm.get('productName')?.value,
+      productImage: this.productForm.get('productImage')?.value,
+      productDescription: this.productForm.get('productDescription')?.value,
+      stock: this.productForm.get('stock')?.value,
+      price: this.productForm.get('price')?.value,
     }
     this.prodServ.uploadProduct(artwork);
+    this.prodServ.addswitch(false)
+    this.productForm.reset();
+    this.percentage = new Observable();
+    this.snapshot = new Observable();
+    this.addedFileName = '';
+    this.addedimagesrc = '';
     //this.userService.login(this.loginForm.value);
   }
   // onClickDelete (item: any, index: any) {
