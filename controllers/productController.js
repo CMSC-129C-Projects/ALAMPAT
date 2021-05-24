@@ -8,13 +8,13 @@ const addProduct = async(req, res, next) => {
 
             let product = new Product ({
                 _id: new ObjectId(),
-                productname: req.body.productname, 
+                productname: req.body.productName, 
                 images: {
-                    filename: req.body.productimage.filename, //hashedfile,
-                    contentType: req.body.productimage.contentType,
-                    imageBase64: req.body.productimage.imageBase64
+                    filename: req.body.productImage.filename, //hashedfile,
+                    contentType: req.body.productImage.contentType,
+                    imageBase64: req.body.productImage.imageBase64
                 },
-                description:req.body.productdescription,
+                description:req.body.productDescription,
                 stock:req.body.stock,
                 price:req.body.price
             })
@@ -25,7 +25,7 @@ const addProduct = async(req, res, next) => {
             product.save(function(err, result){
                 if(!err){
                 
-                User.findByIdAndUpdate( req.params.id , { $push: { Products: result._id } })
+                User.findByIdAndUpdate( req.params.id , { $push: { products: result._id } })
                     .then((result) => {
                         //console.log(result)
                         res.json({
