@@ -38,6 +38,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
     ) { }
 
   ngOnInit(): void {
+    this.prodServ.getProductdata()
     this.productForm = this.formBuilder.group({
       productImage: this.formBuilder.group({
         filename: [''],
@@ -95,9 +96,18 @@ export class AddProductComponent implements OnInit, OnDestroy {
   }
 
   onClickExit = () => {
-    this.prodServ.addswitch(false)
+    
     this.submitted = false;
     this.productForm.reset();
+    this.percentage = new Observable()
+    this.snapshot = new Observable()
+    if(this.openAddProductModal){
+      this.prodServ.addswitch(false)
+      this.addedFileName = ''
+      if(this.addedimagesrc){
+        this.afStorage.storage.refFromURL(this.addedimagesrc).delete();
+      }
+    }
     if(this.openEditProductModal) {
       this.openEditProductModal = !this.openEditProductModal;
     }
@@ -129,6 +139,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
     this.prodServ.uploadProduct(artwork);
     this.prodServ.addswitch(false)
     this.productForm.reset();
+    this.ngOnInit()
     this.percentage = new Observable();
     this.snapshot = new Observable();
     this.addedFileName = '';
