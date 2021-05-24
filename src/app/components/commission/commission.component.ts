@@ -31,6 +31,7 @@ export class CommissionComponent implements OnInit, OnDestroy {
   openImageModal: boolean = false;
   showed: boolean = false;
   sureDelete: boolean = false;
+  tab = 1;
 
   itemID: any;
   item: any;
@@ -40,6 +41,7 @@ export class CommissionComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   @Input() serviceList: commission[] = [];
+  @Input() soldoutList: commission[] = [];
   imageSRC: any;
   userID: string = '607fe491958fa65f08f14d0e';
 
@@ -78,12 +80,32 @@ export class CommissionComponent implements OnInit, OnDestroy {
         console.log("Error", error)
       })
     )
+    //For tabs
+    const tabs = document.querySelectorAll('.tabs li');
+    const tabContentBoxes = document.querySelectorAll('#tab-content > div');
+
+    tabs.forEach((tab: any) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(item => item.classList.remove('is-active'))
+        tab.classList.add('is-active');
+
+        const target = tab.dataset.target;
+        tabContentBoxes.forEach( box => {
+          console.log(target);
+          if (box.getAttribute('id') == target) {
+            box.classList.remove('is-hidden');
+          } else {
+            box.classList.add('is-hidden');
+          }
+        });
+      })
+    })
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe())
   }
-
+  
   onClickOpen (item:any, index:any) {
     this.openImageModal = true;
     this.imageSRC = this.serviceList[index].images.imageBase64;
