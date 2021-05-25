@@ -87,6 +87,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
       productDescription: ['', Validators.required],
       stock: ['', [Validators.required, Validators.min(1), Validators.max(100)]],
       price: ['', Validators.required],
+      button: ['']
     });
 
     this.editForm = this.formBuilder.group({
