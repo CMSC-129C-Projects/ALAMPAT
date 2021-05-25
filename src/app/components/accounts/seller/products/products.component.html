@@ -309,9 +309,9 @@
     </div>
   </div>
 </section>
-<app-add-product [openAddProductModal]="showAddProductModal"></app-add-product>
+<app-add-product [openAddProductModal]="showAddProductModal" (reload)= "reloadPage($event)"></app-add-product>
 <app-add-product
-  [openEditProductModal]="showEditProductModal"
+  [openEditProductModal]="showEditProductModal" 
 ></app-add-product>
 
 <!-- IMAGE MODAL -->

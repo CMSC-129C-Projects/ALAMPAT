@@ -1,4 +1,4 @@
-import { Component, Input, OnInit,OnDestroy } from '@angular/core';
+import { Component, Input, OnInit,OnDestroy, Output,EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Products } from 'src/app/models/products';
 import { ProductService } from 'src/app/services/productServ';
@@ -30,7 +30,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
   @Input() openAddProductModal: boolean;
   @Input() openEditProductModal: boolean;
   @Input() openSuccessModal: boolean;
-
+  @Output() reload: EventEmitter<boolean> = new EventEmitter(false)
   submitted: boolean = false;
   productForm: FormGroup;
   editForm: FormGroup;
@@ -192,7 +192,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
     
     this.percentage = new Observable()
     this.snapshot = new Observable()
-
+    this.reload.emit(true)
     if(this.openAddProductModal){
       this.productForm.reset()
       this.prodServ.addswitch(false)
@@ -241,6 +241,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
     this.snapshot = new Observable();
     this.addedFileName = '';
     this.addedimagesrc = '';
+    this.reload.emit(true)
     //this.userService.login(this.loginForm.value);
   }
   
@@ -268,7 +269,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
         this.filename = '';
         this.imagesrc = '';
         this.prodServ.editswitch(false)
-        
+        this.reload.emit(true)
       }
       else{
         this.initForm();

@@ -47,7 +47,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     //Refresh
     this.subs.push(
       this.prodServ.refresh().subscribe((m:any) => {
-      //this.prodServ.getProductdata()
+      this.prodServ.getProductdata()
       console.log(m);
       this.ngOnInit();
       })
@@ -67,7 +67,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.prodServ.getProductdata()
+    // /this.prodServ.getProductdata()
     this.subs.push(
       this.prodServ.productlist.asObservable().subscribe((prod) => {
         //put items to sold out array dugay kaayo mu load ssksksk
@@ -155,7 +155,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   onClickSureDelete() {
-    this.afStorage.storage.refFromURL(this.imageSRC).delete();
+    if(this.imageSRC){
+      this.afStorage.storage.refFromURL(this.imageSRC).delete().catch(error=> {
+        console.error(error)
+      });
+    }
+    
     this.prodServ.selectProduct(this.item);
     this.prodServ.deleteProductdata(this.itemID);
     this.ngOnInit()
@@ -165,4 +170,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.openDeleteModal = false;
   }
 
+  reloadPage(refresh: boolean){
+    
+    if(refresh == true){
+      this.prodServ.getProductdata()
+      this.ngOnInit()
+    }
+  }
 }
