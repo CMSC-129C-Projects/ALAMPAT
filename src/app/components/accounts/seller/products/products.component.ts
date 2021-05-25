@@ -158,7 +158,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.afStorage.storage.refFromURL(this.imageSRC).delete();
     this.prodServ.selectProduct(this.item);
     this.prodServ.deleteProductdata(this.itemID);
-    
+    this.ngOnInit()
     if(this.index !== -1) {
       this.productList.splice(this.index, 1);
     }

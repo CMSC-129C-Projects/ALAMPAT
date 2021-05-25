@@ -85,7 +85,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
       category: ['Product'],
       productName: ['', Validators.required],
       productDescription: ['', Validators.required],
-      stock: ['', Validators.required, Validators.min(1), Validators.max(100)],
+      stock: ['', [Validators.required, Validators.min(1), Validators.max(100)]],
       price: ['', Validators.required],
     });
 
@@ -98,7 +98,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
       category: ['Product'],
       productName: ['', Validators.required],
       productDescription: ['', Validators.required],
-      stock: ['', Validators.required, Validators.min(1), Validators.max(100)],
+      stock: ['', [Validators.required, Validators.min(1), Validators.max(100)]],
       price: ['', Validators.required],
     });
   }
