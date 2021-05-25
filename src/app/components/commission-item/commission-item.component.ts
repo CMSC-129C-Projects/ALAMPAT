@@ -32,6 +32,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
   @Input() openAddServiceModal: boolean;
   @Input() openEditServiceModal: boolean;
   @Input() openSuccessModal: boolean;
+  @Output() reload: EventEmitter<boolean> = new EventEmitter(false)
   @ViewChild('image') image: ElementRef
 
   saved: boolean = false;
@@ -193,6 +194,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
     this.prev_image = '';
     this.serviceForm.reset();
     this.addService.reset();
+    this.reload.emit(true)
     if(this.openAddServiceModal) {
       this.commissionService.addswitch(false)
       if(this.addedimageSRC){

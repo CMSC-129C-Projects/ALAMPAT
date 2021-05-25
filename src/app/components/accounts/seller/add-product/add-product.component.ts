@@ -190,9 +190,6 @@ export class AddProductComponent implements OnInit, OnDestroy {
   }
 
   onClickExit = () => {
-    
-    this.submitted = false;
-    
     this.percentage = new Observable()
     this.snapshot = new Observable()
     this.reload.emit(true)
@@ -217,6 +214,10 @@ export class AddProductComponent implements OnInit, OnDestroy {
       this.saved = false;
       this.prodServ.editswitch(false)
     }
+    if(this.openSuccessModal) {
+      this.openSuccessModal = false;
+      this.submitted = false;
+    }
   }
   
 
@@ -228,6 +229,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
     if (this.productForm.invalid) {
       return;
     }
+    this.openSuccessModal = true;
     const product: Products = {
       productName: this.productForm.get('productName')?.value,
       productImage: this.productForm.get('productImage')?.value,
