@@ -38,12 +38,12 @@ const productSchema = new Schema({
     },
 
     stock: {
-        type: String,
+        type: Number,
         required: 'Stock can\'t be empty',
     },
 
     price:{
-        type: String,
+        type: Number,
         required: 'Price can\'t be empty'
     },
 

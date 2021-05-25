@@ -6,14 +6,6 @@ const Portfolio = require('../models/portfolio')
 const addArtwork = async(req, res, next) => {
     try{
 
-       /* bcrypt.hash(req.body.artworkimage.filename, 10, function (err, hashedfile){
-            if(err){
-                res.json({
-                    message: "Error in hashing artwork image filename",
-                    error: err
-                })
-            }*/
-
             let art = new Portfolio ({
                 _id: new ObjectId(),
                 artworkname: req.body.artworkname, 
@@ -24,6 +16,7 @@ const addArtwork = async(req, res, next) => {
                 },
                 description:req.body.artworkdescription,
             })
+
             
             art.save(function(err, result){
                 if(!err){
@@ -87,13 +80,12 @@ const getArtworkList = async(req, res, next) => {
                 success: false,
             })
         }
-         
+            
     } catch(error){
         console.log(error)
         res.status(404).json({ 
             error,
             success: false, })
-       
     }
 }
 
@@ -148,8 +140,8 @@ const deleteArtwork = async(req, res, next) => {
             //creates a new user object together with the final image object
            
         //updates the user object data to the database 
-        Portfolio.findByIdAndRemove(req.body._id)
-            .then((result)=>{
+        Portfolio.findByIdAndRemove(req.body._id, function(err, result){
+            if(!err){
                 User.findByIdAndUpdate( req.params.id , { $pull: { portfolio: result._id } })
                 .then((data)=>{
                     res.json({
@@ -165,12 +157,9 @@ const deleteArtwork = async(req, res, next) => {
                         success: false,
                     })
                 })
-            }).catch((error)=>{
-                res.status(400).json({ 
-                    message: 'Artwork  data to be removed not found',
-                    error: error,
-                    success: false, })
-            })
+            }
+        })
+
         
     }
     catch (error) {
@@ -183,31 +172,6 @@ const deleteArtwork = async(req, res, next) => {
 }
 
 
-const getArtByID = (req, res, next) =>{
-    Portfolio.findById(req.params.id)
-        .then((art)=>{
-            if (!art) {
-                console.log()
-                return res.status(404).json({
-                    message: "Art Data Retrieving Failed",
-                    success: false,
-                    
-                });
-            }
-            return res.status(200).json({
-                message: "Art Data Retrieved successfully",
-                success: true,
-                artData: art});
-        })
-        .catch(error => 
-            res.status(400).json({
-                message: "Data Retrieviing Failed!!",
-                error: error,
-                success: false
-            })
-        );
-}
-
 module.exports = { 
-    addArtwork, getArtworkList, updateArtwork,deleteArtwork, getArtByID
+    addArtwork, getArtworkList, updateArtwork,deleteArtwork
 }

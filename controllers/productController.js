@@ -6,31 +6,26 @@ const Product = require('../models/products')
 const addProduct = async(req, res, next) => {
     try{
 
-       /* bcrypt.hash(req.body.artworkimage.filename, 10, function (err, hashedfile){
-            if(err){
-                res.json({
-                    message: "Error in hashing artwork image filename",
-                    error: err
-                })
-            }*/
-
             let product = new Product ({
                 _id: new ObjectId(),
-                productname: req.body.productname, 
+                productname: req.body.productName, 
                 images: {
-                    filename: req.body.productimage.filename, //hashedfile,
-                    contentType: req.body.productimage.contentType,
-                    imageBase64: req.body.productimage.imageBase64
+                    filename: req.body.productImage.filename, //hashedfile,
+                    contentType: req.body.productImage.contentType,
+                    imageBase64: req.body.productImage.imageBase64
                 },
-                description:req.body.productdescription,
+                description:req.body.productDescription,
                 stock:req.body.stock,
                 price:req.body.price
             })
-            
+            if (product.length <= 0){
+                return res.send('You must select atleast 1 file.')
+            }
+
             product.save(function(err, result){
                 if(!err){
                 
-                User.findByIdAndUpdate( req.params.id , { $push: { Products: result._id } })
+                User.findByIdAndUpdate( req.params.id , { $push: { products: result._id } })
                     .then((result) => {
                         //console.log(result)
                         res.json({
@@ -103,17 +98,20 @@ const updateProduct = async(req, res, next) => {
     try {
         
             //creates a new user object together with the final image object
-            let product = new Products ({
-                productname: req.body.productname, 
+            let product = ({
+                productname: req.body.productName, 
                 images: {
-                    filename: hashedfile,
-                    contentType: req.body.productimage.contentType,
-                    imageBase64: req.body.productimage.imageBase64
+                    filename: req.body.productImage.filename,
+                    contentType: req.body.productImage.contentType,
+                    imageBase64: req.body.productImage.imageBase64
                 },
-                description:req.body.productdescription,
+                description:req.body.productDescription,
+                stock:req.body.stock ,
+                price: req.body.price,
+                category: req.body.category,
             })
         //updates the user object data to the database 
-            Products.findByIdAndUpdate( req.params.productid , product)
+            Product.findByIdAndUpdate( req.params.productid , { $set: product})
                 .then((result) => {
                     //console.log(result)
                     res.json({
@@ -150,7 +148,7 @@ const deleteProduct = async(req, res, next) => {
             //creates a new user object together with the final image object
            
         //updates the user object data to the database 
-        Products.findByIdAndRemove(req.body._id, function(err, result){
+        Product.findByIdAndRemove(req.body._id, function(err, result){
             if(!err){
                 User.findByIdAndUpdate( req.params.id , { $pull: { products: result._id } })
                 .then((data)=>{

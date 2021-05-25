@@ -14,6 +14,7 @@ const addCommission = async(req, res, next) => {
                     contentType: req.body.commissionimage.contentType,
                     imageBase64: req.body.commissionimage.imageBase64
                 },
+                category: req.body.category,
                 description:req.body.commissiondescription,
                 slot:req.body.slot,
                 price:req.body.price
@@ -25,7 +26,7 @@ const addCommission = async(req, res, next) => {
             commission.save(function(err, result){
                 if(!err){
                 
-                User.findByIdAndUpdate( req.params.id , { $push: { Commissions: result._id } })
+                User.findByIdAndUpdate( req.params.id , { $push: { commissions: result._id } })
                     .then((result) => {
                         //console.log(result)
                         res.json({
@@ -80,7 +81,7 @@ const getCommissionList = async(req, res, next) => {
 
         }else{
             res.status(400).json({
-                message: "Can't get product data",
+                message: "Can't get commission data",
                 error: err,
                 success: false,
             })
@@ -98,17 +99,20 @@ const updateCommission = async(req, res, next) => {
     try {
         
             //creates a new user object together with the final image object
-            let commission = new Commissions ({
-                productname: req.body.productname, 
+            let commission = new Commission ({
+                commissionname: req.body.commissionname, 
                 images: {
-                    filename: hashedfile,
-                    contentType: req.body.productimage.contentType,
-                    imageBase64: req.body.productimage.imageBase64
+                    filename: req.body.commissionimage.filename,
+                    contentType: req.body.commissionimage.contentType,
+                    imageBase64: req.body.commissionimage.imageBase64
                 },
-                description:req.body.productdescription,
+                description:req.body.commissiondescription,
+                slot:req.body.slot,
+                price: req.body.price,
+                category: req.body.category
             })
         //updates the user object data to the database 
-            Commissions.findByIdAndUpdate( req.params.productid , commission)
+            Commission.findByIdAndUpdate( req.params.commissionid , commission)
                 .then((result) => {
                     //console.log(result)
                     res.json({
@@ -145,7 +149,7 @@ const deleteCommission = async(req, res, next) => {
             //creates a new user object together with the final image object
            
         //updates the user object data to the database 
-        Commissions.findByIdAndRemove(req.body._id, function(err, result){
+        Commission.findByIdAndRemove(req.body._id, function(err, result){
             if(!err){
                 User.findByIdAndUpdate( req.params.id , { $pull: { commissions: result._id } })
                 .then((data)=>{
@@ -178,5 +182,5 @@ const deleteCommission = async(req, res, next) => {
 
 
 module.exports = { 
-    addCommission, getCommissionList, updateCommission, deleteCommission
+    addCommission, getCommissionList, updateCommission,deleteCommission
 }

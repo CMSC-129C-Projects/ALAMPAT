@@ -38,12 +38,12 @@ const commissionSchema = new Schema({
     },
 
     slot: {
-        type: String,
+        type: Number,
         required: 'Slot can\'t be empty',
     },
 
     price:{
-        type: String,
+        type: Number,
         required: 'Price can\'t be empty'
     },
 
