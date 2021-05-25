@@ -198,7 +198,7 @@
                                     <span class="file-label has-text-centered">Change file...</span>
                                 </span>
                                 <span class="file-name">
-                                    {{addedFileName}}
+                                    {{filename}}
                                 </span>
                                
                             </label>
@@ -217,7 +217,7 @@
 
                     </div>
                     <div *ngIf="snapshot | async as snap">
-                        <img class="productImage" [src]="addedimagesrc">
+                        <img class="productImage" [src]="imagesrc">
                     </div>
                 </figure>
 

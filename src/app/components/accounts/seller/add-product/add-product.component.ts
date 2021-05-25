@@ -70,7 +70,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
 
       this.prod = currProd
       //this.fileName = this.artwork.images.filename
-      this.imagesrc = this.prod.images.imageBase64
+      //this.imagesrc = this.prod.images.imageBase64
       this.prev_image = this.prod.images.imageBase64
       this.initForm()
       console.log("Selected Product: " + JSON.stringify(this.prod))
@@ -205,7 +205,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
     }
     if(this.openEditProductModal) {
       this.editForm.reset()
-      if(this.imagesrc!== this.prev_image){
+      if(this.imagesrc!== this.prev_image && this.imagesrc){
         this.afStorage.storage.refFromURL(this.imagesrc).delete();
       }
       this.imagesrc = '';
@@ -249,11 +249,13 @@ export class AddProductComponent implements OnInit, OnDestroy {
       this.saved = true;
       this.initForm();
     } else {
+      
+
       const proddata = await this.prodServ.updateProductdata(this.editForm.value, this.prod._id);
       if (proddata) {
-        console.log("On Save Art: " + JSON.stringify(this.editForm))
+        //console.log("On Save Art: " + JSON.stringify(this.editForm))
         //this.portfolioForm.get('artowkimage')?.reset();
-        if(this.imagesrc != this.prev_image ){
+        if(this.imagesrc != this.prev_image && this.prev_image){
           this.afStorage.storage.refFromURL(this.prev_image).delete();
         }
         //this.afStorage.storage.refFromURL(this.prev_image).delete();
