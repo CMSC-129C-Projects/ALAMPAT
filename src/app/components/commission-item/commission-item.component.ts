@@ -1,4 +1,4 @@
-import { Component, Input, Output, ChangeDetectorRef, OnInit, OnDestroy, EventEmitter,ElementRef } from '@angular/core';
+import { Component, Input, Output, OnInit, OnDestroy, EventEmitter,ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Commission } from 'src/app/models/Commission';
 import { CommissionService } from 'src/app/services/comService';
@@ -32,6 +32,8 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
   @Input() openAddServiceModal: boolean;
   @Input() openEditServiceModal: boolean;
   @Input() openSuccessModal: boolean;
+  @ViewChild('image') image: ElementRef
+
   saved: boolean = false;
   submitted: boolean = false;
   serviceForm: FormGroup;
@@ -144,6 +146,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
         console.log("Here: " + JSON.stringify(this.url) );
       })
     )
+    this.image.nativeElement.value = null
   } 
   
   //upload file function for add forms
@@ -178,6 +181,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
         console.log("Here: " + JSON.stringify(this.url) );
       })
     )
+    this.image.nativeElement.value = null
   }
 
   //functions when the modal exits or cancels

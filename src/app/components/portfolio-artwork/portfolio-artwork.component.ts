@@ -1,4 +1,4 @@
-import { Component, Input, Output, ChangeDetectorRef, OnInit, OnDestroy, EventEmitter,ElementRef } from '@angular/core';
+import { Component, Input, Output, ChangeDetectorRef, OnInit, OnDestroy, EventEmitter,ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Portfolio } from 'src/app/models/Portfolio';
 import { UploadService } from 'src/app/services/upload';
@@ -27,6 +27,8 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
   @Input() openAddArtworkModal: boolean;
   @Input() openEditArtworkModal: boolean;
   @Input() openSuccessModal: boolean;
+  @ViewChild('image') image:ElementRef
+
   saved: boolean = false;
   submitted: boolean = false;
   portfolioForm: FormGroup;
@@ -140,7 +142,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
         console.log("Here: " + JSON.stringify(this.url) );
       })
     )
-
+    this.image.nativeElement.value = null
   }
 
   //upload file function for add forms
@@ -175,7 +177,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
         console.log("Here: " + JSON.stringify(this.url) );
       })
     )
-
+    this.image.nativeElement.value = null
   }
  
  

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit,OnDestroy, Output,EventEmitter } from '@angular/core';
+import { Component, Input, OnInit,OnDestroy, Output,EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Products } from 'src/app/models/products';
 import { ProductService } from 'src/app/services/productServ';
@@ -31,6 +31,8 @@ export class AddProductComponent implements OnInit, OnDestroy {
   @Input() openEditProductModal: boolean;
   @Input() openSuccessModal: boolean;
   @Output() reload: EventEmitter<boolean> = new EventEmitter(false)
+  @ViewChild('image') image: ElementRef
+
   submitted: boolean = false;
   productForm: FormGroup;
   editForm: FormGroup;
@@ -146,7 +148,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
         console.log("Here: " + JSON.stringify(this.url) );
       })
     )
-
+    this.image.nativeElement.value = null
   }
 
   //upload file function for editing product
@@ -184,7 +186,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
         console.log("Here: " + JSON.stringify(this.url) );
       })
     )
-
+    this.image.nativeElement.value = null
   }
 
   onClickExit = () => {
@@ -211,7 +213,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
       }
       this.imagesrc = '';
       this.prev_image = '';
-
+      this.filename=""
       this.saved = false;
       this.prodServ.editswitch(false)
     }
