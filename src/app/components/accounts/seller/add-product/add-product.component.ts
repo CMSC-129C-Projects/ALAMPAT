@@ -60,7 +60,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
     private prodServ: ProductService,
     private afStorage: AngularFireStorage,
     ) {
-      
+      this.imagesrc = ""
      }
 
   ngOnInit(): void {
