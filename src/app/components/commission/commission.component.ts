@@ -91,19 +91,13 @@ export class CommissionComponent implements OnInit, OnDestroy {
           }
         })
         this.selectSortOption(this.option);
-        //Sorting
-        //this.serviceList.sort(this.sortserv.getStrAscendingSortOrder("commissionname"))
-        //this.serviceList.sort(this.sortserv.getNumAscendingSortOrder("price"))
-        //this.serviceList.sort(this.sortserv.getTimeDescendingSortOrder("createdAt"))
-        //this.serviceList = service;
-        //console.log("Service List " + JSON.stringify(service));
       }, (error) => {
         console.log("Error", error)
       })
     )
     //for Sort Form
     this.sortForm = this.formBuilder.group ({
-      button: ['--select Choice--']
+      button: ['--Select Choice--']
     });
     
     //For tabs
@@ -201,6 +195,7 @@ export class CommissionComponent implements OnInit, OnDestroy {
   Orderby(event: Event){
     const option = event.target as HTMLInputElement
     this.option = option.value
+    console.log("Sort Option")
     this.commissionService.getItemdata()
     this.subscriptions.push(
       this.commissionService.commission.asObservable().subscribe((service) => {
