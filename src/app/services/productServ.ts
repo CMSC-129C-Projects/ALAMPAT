@@ -19,9 +19,10 @@ interface uploadResponse {
 
 export class ProductService {
     selectArt(item: any) {
-      throw new Error('Method not implemented.');
+        throw new Error('Method not implemented.');
     }
     isUploaded: boolean = false;
+    isDeleted: boolean = false;
     uploadError: string = '';
     productSource = new Subject<any>();
     productlist = new Subject<any>();
@@ -42,7 +43,7 @@ export class ProductService {
         this.showAddmodal.emit(resp)
     }
     selectProduct(product: any) {
-  
+
         this.productSource.next(product);
     }
     editswitch(resp: boolean) {
@@ -66,6 +67,32 @@ export class ProductService {
             this.uploadError = error
         }
     }
+    updateProductdata = async (product: Products, id: any) => {
+        try {
+            this.userID = localStorage.getItem('id')
+            const response = await axios.patch(`${localAPI}/seller/${this.userID}/editproduct/${id}`, product);
+            const { message, success } = response.data
+            //console.log(response.data)
+            if (success) {
+                this.isUploaded = true;
+
+                console.log("Product Updated!" + response.data.result)
+
+                return this.isUploaded
+
+            } else {
+                this.isUploaded = false;
+
+                console.log(" Update failed: " + response.data)
+                return this.isUploaded
+            }
+
+        } catch (error) {
+            this.isUploaded = false
+            console.log(error)
+            return this.isUploaded;
+        }
+    }
 
     getProductdata() {
         try {
@@ -83,6 +110,32 @@ export class ProductService {
         } catch (error) {
             console.log(error)
             this.uploadError = error
+        }
+    }
+    deleteProductdata = async (id: any) => {
+        try {
+            this.userID = localStorage.getItem('id')
+            const response = await axios.delete(`${localAPI}/seller/${this.userID}/removeportfolio/`, { data: { _id: id } });
+            const { message, success } = response.data
+            console.log(response.data)
+            if (success) {
+                this.isDeleted = true;
+                console.log("Product Deleted!" + JSON.stringify(response.data))
+
+                return this.isDeleted
+
+            } else {
+                this.isDeleted = false;
+                console.log(" Deletion failed: " + response.data)
+
+                return this.isDeleted
+            }
+
+        } catch (error) {
+            this.isDeleted = false
+            console.log(error)
+            console.log("faaaill")
+            return this.isDeleted;
         }
     }
 }
