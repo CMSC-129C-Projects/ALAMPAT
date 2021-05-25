@@ -170,7 +170,9 @@ export class CommissionComponent implements OnInit, OnDestroy {
 
   onClickSureDelete () {
     if(this.imageSRC){
-      this.afStorage.storage.refFromURL(this.imageSRC).delete();
+      this.afStorage.storage.refFromURL(this.imageSRC).delete().catch(error => {
+        console.error("Image not found from cloud storage")
+      });
     }
     
     this.commissionService.selectItem(this.item);
