@@ -198,7 +198,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
       this.productForm.reset()
       this.prodServ.addswitch(false)
       this.addedFileName = ''
-      if(this.addedimagesrc){
+      if(this.addedimagesrc!=""){
         this.afStorage.storage.refFromURL(this.addedimagesrc).delete();
       }
       this.addedFileName = ''
@@ -206,7 +206,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
     }
     if(this.openEditProductModal) {
       this.editForm.reset()
-      if(this.imagesrc!== this.prev_image){
+      if(this.imagesrc!== this.prev_image && this.imagesrc!=""){
         this.afStorage.storage.refFromURL(this.imagesrc).delete();
       }
       this.imagesrc = '';
@@ -257,13 +257,13 @@ export class AddProductComponent implements OnInit, OnDestroy {
       if (proddata) {
         //console.log("On Save Art: " + JSON.stringify(this.editForm))
         //this.portfolioForm.get('artowkimage')?.reset();
-        if(this.imagesrc != this.prev_image ){
+        if(this.imagesrc != this.prev_image && this.imagesrc!=""){
           this.afStorage.storage.refFromURL(this.prev_image).delete();
         }
         //this.afStorage.storage.refFromURL(this.prev_image).delete();
         this.prev_image = '';
         this.ngOnInit();
-        //this.portfolioForm.reset();
+        //this.portfolioForm.reset(); 
         this.saved = true
         this.percentage = new Observable()
         this.snapshot = new Observable()
