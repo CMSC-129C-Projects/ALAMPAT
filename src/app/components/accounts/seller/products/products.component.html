@@ -108,13 +108,13 @@
                                             {{product.stock}}</span>
                                     </div>
                                     <div>
-                                        <span class="tag is-primary is-light has-text-weight-bold is-medium mt-2">Price:
+                                        <span class="tag is-primary is-light has-text-weight-bold is-medium mt-2">Price: ₱
                                             {{product.price}}</span>
                                     </div>
                                 </div>
                                 <footer class="card-footer">
                                     <a (click)="onClickEditProduct()" class="card-footer-item" value="edit">Edit</a>
-                                    <a (click)="onClickDelete()" class="card-footer-item" value="delete"
+                                    <a (click)="onClickDelete(item, i)" class="card-footer-item" value="delete"
                                         type="delete">Delete</a>
                                 </footer>
                             </div>

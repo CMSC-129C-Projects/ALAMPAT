@@ -146,7 +146,7 @@
 </div>
 
 <!------------------------------ EDIT PRODUCT MODAL ----------------------------------------------------->
-<div class="modal" [ngClass]="openEditProductModal ? 'is-active' : ''">
+<div class="modal" [ngClass]="openEditProductModal ? 'is-active' : '' ">
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head is-light">
@@ -155,11 +155,12 @@
         </header>
         <!-- CONTENT -->
         <section class="modal-card-body">
-            <form [formGroup]="productForm" (ngSubmit)="addProduct()" novalidate autocomplete="false">
+            <form [formGroup]="productForm" (ngSubmit)="editProduct()" novalidate autocomplete="false">
                 <div class="field">
                     <label class="label">Product Name</label>
                     <div class="control has-icons-left">
-                        <input class="input" formControlName="productname" required>
+                        <input [ngClass]="{ 'has-error': formControls.productName?.errors }" class="input"
+                            placeholder="Input new product name here" formControlName="productName" required>
                         <span class="icon is-small is-left">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="26" fill="currentColor"
                                 class="bi bi-box-seam" viewBox="0 0 16 16">
@@ -168,16 +169,21 @@
                             </svg>
                             <i class="bi bi-box-seam"></i>
                         </span>
-                    </div>
+                        <div *ngIf="submitted || (formControls.productName?.touched || formControls.productName?.dirty) && formControls.productName?.errors"
+                            class="help is-danger">
+                            <div *ngIf="formControls.productName?.errors?.required">Product name is required</div>
+                        </div>
 
+                    </div>
                 </div>
                 <div class="field">
-                    <label class="label mt-4">Product Image</label>
+                    <label class="label">Product Image</label>
                     <div class="control">
                         <div class="file is-primary is-fullwidth">
                             <label class="file-label">
                                 <input class="file-input" type="file" accept="image/*" (change)="uploadFile($event)"
-                                    name="productImage" formControlName="productImage" required>
+                                    name="productImage" formControlName="productImage" placeholder="No file uploaded."
+                                    required>
                                 <span class="file-cta">
                                     <span class="file-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -189,32 +195,89 @@
                                         </svg>
                                         <i class="bi bi-upload"></i>
                                     </span>
-                                    <span class="file-label has-text-centered">Change file…</span>
+                                    <span class="file-label has-text-centered">Change file...</span>
                                 </span>
-                                <!-- <span class="file-name" >
-                                    {{fileName}}
-                                </span> -->
+                                <span class="file-name">
+                                    {{addedFileName}}
+                                </span>
+                               
                             </label>
+                        </div>
+                        <div *ngIf="submitted || (formControls.productImage.touched || formControls.productImage?.dirty) && formControls.productImage?.errors"
+                            class="help is-danger">
+                            <div *ngIf="formControls.productImage?.errors?.required">Image of product is
+                                required</div>
                         </div>
                     </div>
                 </div>
-                <!-- <figure class="image">
-                    <div *ngIf = "percentage | async as pct">
-                        <progress [value] = "pct" max = "100"></progress>
+                <figure class="image">
+                    <div *ngIf="percentage | async as pct">
+                        <progress [value]="pct" max="100"></progress>
                         {{pct | number}} %
+
                     </div>
-                    <div *ngIf = "snapshot | async as snap">
-                        <div *ngIf = "fileName">
-                        <img class="artworkimage" [src]= "imageSRC">
+                    <div *ngIf="snapshot | async as snap">
+                        <img class="productImage" [src]="addedimagesrc">
+                    </div>
+                </figure>
+
+                
+                <div class="columns">
+                    <div class="column is-one-fifth">
+                        <div class="field mt-4">
+                            <label class="label">Category</label>
+                            <div class="control">
+                                <a class="button is-static" value="Product">
+                                    Product
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </figure> -->
+                    <div class="column">
+                        <div class="field mt-4">
+                            <label class="label">Price</label>
+                            <div class="control">
+                                <input class="textarea" [ngClass]="{'has-error': formControls.price?.errors }"
+                                    class="input" placeholder="Input new product price"
+                                    formControlName="price" type="number" min="1" required>
+                                <div *ngIf="submitted || (formControls.price?.touched || formControls.price?.dirty) && formControls.price?.errors"
+                                    class="help is-danger">
+                                    <div *ngIf="formControls.price?.errors?.required">Price for the product is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field mt-4">
+                            <label class="label">Stock</label>
+                            <div class="control">
+                                <input class="textarea" [ngClass]="{'has-error': formControls.stock?.errors }"
+                                    class="input" placeholder="Input new product stocks" formControlName="stock"
+                                    type="number" min="1" max="100" required>
+                                <div *ngIf="submitted || (formControls.stock?.touched || formControls.stock?.dirty) && formControls.stock?.errors"
+                                    class="help is-danger">
+                                    <div *ngIf="formControls.stock?.errors?.required">Stock for the product is required.
+                                    </div>
+                                </div>
+                                <div *ngIf="formControls.stock?.errors?.min">Stock cannot be less than 1.</div>
+                                <div *ngIf="formControls.stock?.errors?.max">Stock cannot be more than 100.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="field mt-4">
                     <label class="label">Description</label>
                     <div class="control">
-                        <textarea class="textarea" class="input" placeholder="Input description of product here"
-                            formControlName="artworkdescription" required></textarea>
+                        <textarea class="textarea" [ngClass]="{'has-error': formControls.productDescription?.errors }"
+                            class="input" placeholder="Input description of product here"
+                            formControlName="productDescription" required></textarea>
+                        <div *ngIf="submitted || (formControls.productDescription?.touched || formControls.productDescription?.dirty) && formControls.productDescription?.errors"
+                            class="help is-danger">
+                            <div *ngIf="formControls.productDescription?.errors?.required">Description of product is
+                                required</div>
+                        </div>
                     </div>
                 </div>
 
@@ -225,4 +288,21 @@
             <button (click)="addProduct()" class="button is-success">Save</button>
         </footer>
     </div>
+</div>
+
+<!-- SUCCESSFUL MODAL-->
+<div class="modal" [ngClass]="openSuccessModal ? 'is-active' : ''">
+    <div class="notification is-success" >
+        <button (click)="onClickExit()" class="delete"></button>
+        <div class="container has-text-centered"> 
+            <span class="icon is-inline-block is-centered">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                </svg>
+                <i class="bi bi-check-circle"></i>
+            </span>
+            <p class="my-4 size-4"><strong>Successfully</strong> added product!</p>
+        </div>      
+    </div> 
 </div>

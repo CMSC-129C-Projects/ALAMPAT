@@ -18,9 +18,12 @@ interface uploadResponse {
 })
 
 export class ProductService {
+    selectArt(item: any) {
+      throw new Error('Method not implemented.');
+    }
     isUploaded: boolean = false;
     uploadError: string = '';
-
+    productSource = new Subject<any>();
     productlist = new Subject<any>();
     showAddmodal: EventEmitter<boolean> = new EventEmitter();
     showEditmodal: EventEmitter<boolean> = new EventEmitter();
@@ -31,14 +34,17 @@ export class ProductService {
 
     }
 
-    // refresh(): Observable<any> {
-    //     return this.artSource.asObservable();
-    // }
+    refresh(): Observable<any> {
+        return this.productSource.asObservable();
+    }
 
     addswitch(resp: boolean) {
         this.showAddmodal.emit(resp)
     }
-
+    selectProduct(product: any) {
+  
+        this.productSource.next(product);
+    }
     editswitch(resp: boolean) {
         this.showEditmodal.emit(resp)
     }

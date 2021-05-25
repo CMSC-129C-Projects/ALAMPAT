@@ -28,12 +28,18 @@ export class ProductsComponent implements OnInit, OnDestroy {
   openImageModal: boolean = false;
   openDeleteModal: boolean = false;
   sureDeleteModal: boolean = false;
+  showed: boolean = false;
 
   productList: product[] = []
   imageSRC: any;
   itemID: any;
   item: any;
+  index: any;
+  product: any;
   subs: Subscription[] = []
+  afStorage: any;
+  uploadService: any;
+  portfolioList: any;
   // showDeleteModal: boolean = false;
   constructor(private prodServ: ProductService) {
 
@@ -68,11 +74,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   onClickAddProduct = () => {
     this.prodServ.addswitch(true)
-    //this.showAddProductModal = !this.showAddProductModal;
+    this.showAddProductModal = !this.showAddProductModal;
   }
   onClickEditProduct = () => {
     this.prodServ.editswitch(true)
-    //this.showEditProductModal = !this.showEditProductModal;
+    this.showEditProductModal = !this.showEditProductModal;
   }
   onClickExit() {
     if (this.openImageModal) {
@@ -84,22 +90,22 @@ export class ProductsComponent implements OnInit, OnDestroy {
       this.openDeleteModal = false;
     }
   }
-  onClickDelete() {
+  onClickDelete(item:any, index:any) {
     this.openDeleteModal = !this.openDeleteModal;
-    // this.itemID = item._id;
-    // this.item = item;
-    // this.index = index;
-    // this.imageSRC = this.portfolioList[index].images.imageBase64;
+    this.itemID = item._id;
+    this.item = item;
+    this.index = index;
+    this.imageSRC = this.productList[index].images.imageBase64;
   }
 
   onClickSureDelete() {
-    // this.afStorage.storage.refFromURL(this.imageSRC).delete();
-    // this.uploadService.selectArt(this.item);
-    // this.uploadService.deletePortfoliodata(this.itemID);
-    // //console.log(this.index);
-    // if(this.index !== -1) {
-    //   this.portfolioList.splice(this.index, 1);
-    // }
+    this.afStorage.storage.refFromURL(this.imageSRC).delete();
+    this.prodServ.selectArt(this.item);
+    this.uploadService.deletePortfoliodata(this.itemID);
+    //console.log(this.index);
+    if(this.index !== -1) {
+      this.portfolioList.splice(this.index, 1);
+    }
     this.openDeleteModal = false;
   }
 

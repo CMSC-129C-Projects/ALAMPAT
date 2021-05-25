@@ -16,10 +16,11 @@ import { finalize } from 'rxjs/operators';
 export class AddProductComponent implements OnInit, OnDestroy {
   @Input() openAddProductModal: boolean;
   @Input() openEditProductModal: boolean;
-  @Input() openDeleteModal: boolean;
+  @Input() openSuccessModal: boolean;
 
   submitted: boolean = false;
   productForm: FormGroup;
+  editForm: FormGroup;
   file: File;
   addedFileName: string = '';
   addedimagesrc: any;
@@ -32,6 +33,8 @@ export class AddProductComponent implements OnInit, OnDestroy {
 
 
   url: any;
+  productServ: any;
+  showEditArtworkModal: boolean;
   constructor(
     private formBuilder: FormBuilder, 
     private prodServ: ProductService,
@@ -41,6 +44,18 @@ export class AddProductComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.prodServ.getProductdata()
     this.productForm = this.formBuilder.group({
+      productImage: this.formBuilder.group({
+        filename: [''],
+        contentType: [''],
+        imageBase64:[''],
+      }, {Validators: [Validators.required]} ),
+      category: ['Product'],
+      productName: ['', Validators.required],
+      productDescription: ['', Validators.required],
+      stock: ['', Validators.required, Validators.min(1), Validators.max(100)],
+      price: ['', Validators.required],
+    });
+    this.editForm = this.formBuilder.group({
       productImage: this.formBuilder.group({
         filename: [''],
         contentType: [''],
@@ -112,17 +127,14 @@ export class AddProductComponent implements OnInit, OnDestroy {
     if(this.openEditProductModal) {
       this.openEditProductModal = !this.openEditProductModal;
     }
-    if(this.openDeleteModal) {
-      this.openDeleteModal = !this.openDeleteModal;
-    }
   }
   
 
-  // onClickEditArtwork (item: any) {
-  //   //console.log("Passed Item: "+ JSON.stringify(item))
-  //   this.uploadService.selectArt(item)
-  //   this.showEditArtworkModal = !this.showEditArtworkModal;
-  // }
+  onClickEditProduct (item: any) {
+    //console.log("Passed Item: "+ JSON.stringify(item))
+    this.productServ.selectArt(item)
+    this.openEditProductModal = !this.openEditProductModal;
+  }
 
   addProduct = async () => {
     console.log(this.productForm.value);
@@ -147,22 +159,5 @@ export class AddProductComponent implements OnInit, OnDestroy {
     this.addedimagesrc = '';
     //this.userService.login(this.loginForm.value);
   }
-  // onClickDelete (item: any, index: any) {
-  //   this.openDeleteModal = !this.openDeleteModal;
-  //   this.itemID = item._id;
-  //   this.item = item;
-  //   this.index = index;
-  //   this.imageSRC = this.portfolioList[index].images.imageBase64;
-  // }
-
-  // onClickSureDelete () {
-  //   this.afStorage.storage.refFromURL(this.imageSRC).delete();
-  //   this.uploadService.selectArt(this.item);
-  //   this.uploadService.deletePortfoliodata(this.itemID);
-  //   //console.log(this.index);
-  //   if(this.index !== -1) {
-  //     this.portfolioList.splice(this.index, 1);
-  //   }
-  //   this.openDeleteModal = false;
-  // }
+  
 }
