@@ -155,7 +155,7 @@
         </header>
         <!-- CONTENT -->
         <section class="modal-card-body">
-            <form [formGroup]="productForm" (ngSubmit)="editProduct()" novalidate autocomplete="false">
+            <form [formGroup]="editForm" (ngSubmit)="save_ProductChanges()" novalidate autocomplete="false">
                 <div class="field">
                     <label class="label">Product Name</label>
                     <div class="control has-icons-left">
@@ -181,7 +181,7 @@
                     <div class="control">
                         <div class="file is-primary is-fullwidth">
                             <label class="file-label">
-                                <input class="file-input" type="file" accept="image/*" (change)="uploadFile($event)"
+                                <input class="file-input" type="file" accept="image/*" (change)="uploadFile_edit($event)"
                                     name="productImage" formControlName="productImage" placeholder="No file uploaded."
                                     required>
                                 <span class="file-cta">
@@ -285,7 +285,7 @@
         </section>
         <footer class="modal-card-foot buttons is-right">
             <button (click)="onClickExit()" class="button is-danger is-outlined">Cancel</button>
-            <button (click)="addProduct()" class="button is-success">Save</button>
+            <button (click)="save_ProductChanges()" class="button is-success">Save</button>
         </footer>
     </div>
 </div>

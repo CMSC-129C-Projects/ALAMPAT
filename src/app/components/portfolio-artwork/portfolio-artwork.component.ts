@@ -261,7 +261,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
     } else {
       const userdata = await this.uploadService.updatePortfoliodata(this.portfolioForm.value, this.artwork._id);
       if (userdata) {
-        console.log("On Save Art: " + JSON.stringify(this.artwork))
+        console.log("On Save Art: " + JSON.stringify(this.portfolioForm))
         //this.portfolioForm.get('artowkimage')?.reset();
         if(this.imageSRC != this.prev_image ){
           this.afStorage.storage.refFromURL(this.prev_image).delete();

@@ -18,7 +18,7 @@ interface uploadResponse {
 })
 
 export class ProductService {
-    selectArt(item: any) {
+    selectArt(item: any) { //unsa ni?
         throw new Error('Method not implemented.');
     }
     isUploaded: boolean = false;
@@ -43,7 +43,6 @@ export class ProductService {
         this.showAddmodal.emit(resp)
     }
     selectProduct(product: any) {
-
         this.productSource.next(product);
     }
     editswitch(resp: boolean) {
@@ -73,7 +72,7 @@ export class ProductService {
             const response = await axios.patch(`${localAPI}/seller/${this.userID}/editproduct/${id}`, product);
             const { message, success } = response.data
             //console.log(response.data)
-            if (success) {
+                if (success) {
                 this.isUploaded = true;
 
                 console.log("Product Updated!" + response.data.result)
@@ -99,9 +98,9 @@ export class ProductService {
             this.userID = localStorage.getItem('id')
             axios.get(`${localAPI}/seller/${this.userID}/product`)
                 .then(resp => {
-                    this.productlist.next(resp.data)
+                    this.productlist.next(resp.data.productsArray)
 
-                    console.log("Get prodlist " + JSON.stringify(resp.data));
+                    //console.log("Get prodlist " + JSON.stringify(resp.data.productsArray));
                 })
                 .catch(err => {
                     console.log(err);
@@ -115,7 +114,7 @@ export class ProductService {
     deleteProductdata = async (id: any) => {
         try {
             this.userID = localStorage.getItem('id')
-            const response = await axios.delete(`${localAPI}/seller/${this.userID}/removeportfolio/`, { data: { _id: id } });
+            const response = await axios.delete(`${localAPI}/seller/${this.userID}/removeproduct/`, { data: { _id: id } });
             const { message, success } = response.data
             console.log(response.data)
             if (success) {
