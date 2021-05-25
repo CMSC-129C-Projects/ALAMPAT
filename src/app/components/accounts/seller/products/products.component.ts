@@ -33,6 +33,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   sureDeleteModal: boolean = false;
   showed: boolean = false;
 
+  option: string = "" ;
   sortForm: FormGroup
 
   @Input() productList: product[] = [];
@@ -90,6 +91,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
             this.productList.push(item);
           }
         })
+        this.selectSortOption(this.option)
         //this.productList = products.productsArray
         //console.log("Products: " + JSON.stringify(this.productList))
       }, (error) => {
@@ -195,8 +197,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
   }
 
-  Orderby(event: Event["target"]){
-    const option = event as HTMLInputElement
+  Orderby(event: Event){
+    const option = event.target as HTMLInputElement
+    this.option = option.value
     this.prodServ.getProductdata()
     this.subs.push(
       this.prodServ.productlist.asObservable().subscribe((prod) => {
@@ -211,23 +214,27 @@ export class ProductsComponent implements OnInit, OnDestroy {
             this.productList.push(item);
           }
         })
-        if(option.value == "Alphabetical"){
-          this.productList.sort(this.sortserv.getStrAscendingSortOrder("productname"))
-          this.soldoutList.sort(this.sortserv.getStrAscendingSortOrder("productname"))
-        }
-        if(option.value == "Date Created"){
-          this.productList.sort(this.sortserv.getTimeAscendingSortOrder("createdAt"))
-          this.soldoutList.sort(this.sortserv.getTimeAscendingSortOrder("createdAt"))
-        }
-        if(option.value == "Date Modified"){
-          this.productList.sort(this.sortserv.getTimeDescendingSortOrder("updatedAt"))
-          this.soldoutList.sort(this.sortserv.getTimeDescendingSortOrder("updatedAt"))
-        }
-        
+
+        this.selectSortOption(option.value)
       }, (error) => {
         console.log("Error", error)
       })
     )
    
+  }
+
+  selectSortOption(option:string){
+    if(option == "Alphabetical"){
+      this.productList.sort(this.sortserv.getStrAscendingSortOrder("productname"))
+      this.soldoutList.sort(this.sortserv.getStrAscendingSortOrder("productname"))
+    }
+    if(option == "Date Created"){
+      this.productList.sort(this.sortserv.getTimeAscendingSortOrder("createdAt"))
+      this.soldoutList.sort(this.sortserv.getTimeAscendingSortOrder("createdAt"))
+    }
+    if(option == "Date Modified"){
+      this.productList.sort(this.sortserv.getTimeDescendingSortOrder("updatedAt"))
+      this.soldoutList.sort(this.sortserv.getTimeDescendingSortOrder("updatedAt"))
+    }
   }
 }
