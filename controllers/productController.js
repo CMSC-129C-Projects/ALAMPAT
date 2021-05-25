@@ -145,7 +145,7 @@ const deleteProduct = async(req, res, next) => {
             //creates a new user object together with the final image object
            
         //updates the user object data to the database 
-        Products.findByIdAndRemove(req.body._id, function(err, result){
+        Product.findByIdAndRemove(req.body._id, function(err, result){
             if(!err){
                 User.findByIdAndUpdate( req.params.id , { $pull: { products: result._id } })
                 .then((data)=>{
