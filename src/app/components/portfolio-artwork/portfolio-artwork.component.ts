@@ -197,7 +197,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
     if(this.openAddArtworkModal) {
       this.addPortfolio.reset();
       this.uploadService.addswitch(false)
-      if(this.addedimageSRC){
+      if(this.addedimageSRC!=""){
         this.afStorage.storage.refFromURL(this.addedimageSRC).delete();
       }
       this.addedimageSRC = '';
@@ -207,7 +207,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
       this.portfolioForm.reset();
       //console.log("prev_image " + JSON.stringify(this.prev_image))
       //console.log("imageSRC " + JSON.stringify(this.imageSRC))
-      if(this.imageSRC !== this.prev_image && this.imageSRC){
+      if(this.imageSRC !== this.prev_image && this.imageSRC !=""){
         this.afStorage.storage.refFromURL(this.imageSRC).delete();
       }
       this.imageSRC = '';
@@ -261,7 +261,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
       if (userdata) {
         console.log("On Save Art: " + JSON.stringify(this.portfolioForm))
         //this.portfolioForm.get('artowkimage')?.reset();
-        if(this.imageSRC != this.prev_image && this.prev_image ){
+        if(this.imageSRC != this.prev_image && this.prev_image!="" ){
           this.afStorage.storage.refFromURL(this.prev_image).delete();
         }
         //this.afStorage.storage.refFromURL(this.prev_image).delete();
