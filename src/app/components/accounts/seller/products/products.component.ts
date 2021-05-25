@@ -2,6 +2,7 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from 'src/app/services/productServ';
 import { Subscription } from 'rxjs';
 import {AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask} from '@angular/fire/storage';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 interface product {
   _id?: string;
@@ -31,6 +32,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   sureDeleteModal: boolean = false;
   showed: boolean = false;
 
+  sortForm: FormGroup
+
   @Input() productList: product[] = [];
   @Input() soldoutList: product[] = [];
   subs: Subscription[] = [];
@@ -42,8 +45,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
   products: any;
 
   // showDeleteModal: boolean = false;
-  constructor(private prodServ: ProductService,
-    private afStorage: AngularFireStorage) {
+  constructor(
+    private prodServ: ProductService,
+    private afStorage: AngularFireStorage,
+    private formBuilder: FormBuilder,
+    ) {
     //Refresh
     this.subs.push(
       this.prodServ.refresh().subscribe((m:any) => {
@@ -90,6 +96,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
         console.log("Error", error)
       })
     )
+      //for sort Form
+    this.sortForm = this.formBuilder.group({
+      button: ['Sort According to']
+    });
+
     //For Tabs
     const tabs = document.querySelectorAll('.tabs li');
     const tabContentBoxes = document.querySelectorAll('#tab-content > div');
@@ -111,6 +122,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
       })
     })
   }
+
+  get formControls() { return this.sortForm.controls; }
 
   ngOnDestroy(): void {
     this.subs.forEach(sub => sub.unsubscribe())
