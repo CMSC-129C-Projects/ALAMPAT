@@ -114,17 +114,17 @@
           <div class="level-left mb-4">
             <div class="level-item">
               <p>
-                <strong>Select Choice: </strong>
+                <strong>Sort By: </strong>
               </p>
             </div>
             <form [formGroup]="sortForm">
               <div class="form-group">
-                <select formControlName="button" class="form-control">
+                <select formControlName="button" class="form-control" (change)="Orderby($event)">
                   <!-- <option disabled>Select Choice</option> -->
-                  <option>Sort According to</option>
-                  <option>Alphabetical</option>
-                  <option>Date Created</option>
-                  <option>Date Modified</option>
+                  <option  value="">--Select Choice--</option>
+                  <option  value="Alphabetical">Alphabetical</option>
+                  <option  value="Date Created">Date Created</option>
+                  <option  value="Date Modified">Date Modified</option>
 
                   <!-- <option *ngFor="let choice of Choices">{{ choice }}</option> -->
                 </select>

@@ -3,9 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Portfolio } from 'src/app/models/Portfolio';
 import { UploadService } from 'src/app/services/upload';
 import { DomSanitizer } from '@angular/platform-browser';
-
-import {AngularFireStorage, AngularFireUploadTask} from '@angular/fire/storage'
-
+import {AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask} from '@angular/fire/storage';
 import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
@@ -300,7 +298,6 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
 
   ngOnDestroy():void{
     this.subscriptions.unsubscribe()
-    
   }
 }
 

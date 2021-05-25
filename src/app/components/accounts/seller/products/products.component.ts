@@ -3,6 +3,7 @@ import { ProductService } from 'src/app/services/productServ';
 import { Subscription } from 'rxjs';
 import {AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask} from '@angular/fire/storage';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SortService } from 'src/app/services/sortingService';
 
 interface product {
   _id?: string;
@@ -49,6 +50,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     private prodServ: ProductService,
     private afStorage: AngularFireStorage,
     private formBuilder: FormBuilder,
+    private sortserv: SortService,
     ) {
     //Refresh
     this.subs.push(
@@ -74,12 +76,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // /this.prodServ.getProductdata()
+    
     this.subs.push(
       this.prodServ.productlist.asObservable().subscribe((prod) => {
-        //put items to sold out array dugay kaayo mu load ssksksk
-        //lagi maglisod sad ko build balik, nihinay guro internet ni casey 
-        //hakdog ng forEach
-        //anu raw what is wrong
+
         this.soldoutList = [];
         this.productList = []; 
         prod.forEach((item:product) => {
@@ -98,7 +98,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     )
       //for sort Form
     this.sortForm = this.formBuilder.group({
-      button: ['Sort According to']
+      button: ['--Select Choice--']
     });
 
     //For Tabs
@@ -124,6 +124,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   get formControls() { return this.sortForm.controls; }
+
+  loadPage(option:string){
+    
+  }
 
   ngOnDestroy(): void {
     this.subs.forEach(sub => sub.unsubscribe())
@@ -189,5 +193,41 @@ export class ProductsComponent implements OnInit, OnDestroy {
       this.prodServ.getProductdata()
       this.ngOnInit()
     }
+  }
+
+  Orderby(event: Event){
+    const option = event.target as HTMLInputElement
+    this.prodServ.getProductdata()
+    this.subs.push(
+      this.prodServ.productlist.asObservable().subscribe((prod) => {
+
+        this.soldoutList = [];
+        this.productList = []; 
+        prod.forEach((item:product) => {
+          if (item.stock == 0) {
+            this.soldoutList.push(item);
+          }
+          if(item.stock > 0) {
+            this.productList.push(item);
+          }
+        })
+        if(option.value == "Alphabetical"){
+          this.productList.sort(this.sortserv.getStrAscendingSortOrder("productname"))
+          this.soldoutList.sort(this.sortserv.getStrAscendingSortOrder("productname"))
+        }
+        if(option.value == "Date Created"){
+          this.productList.sort(this.sortserv.getTimeAscendingSortOrder("createdAt"))
+          this.soldoutList.sort(this.sortserv.getTimeAscendingSortOrder("createdAt"))
+        }
+        if(option.value == "Date Modified"){
+          this.productList.sort(this.sortserv.getTimeDescendingSortOrder("updatedAt"))
+          this.soldoutList.sort(this.sortserv.getTimeDescendingSortOrder("updatedAt"))
+        }
+        
+      }, (error) => {
+        console.log("Error", error)
+      })
+    )
+   
   }
 }

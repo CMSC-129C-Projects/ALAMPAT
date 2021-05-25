@@ -42,8 +42,6 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   imageSRC: any ;
   userID: string = '607fe491958fa65f08f14d0e';
 
- 
-
   constructor(private domSanitizer: DomSanitizer, 
     private uploadService: UploadService,
     private afStorage: AngularFireStorage,) { 
@@ -53,7 +51,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
         this.uploadService.getPortfoliodata()
         console.log(m);
         this.ngOnInit();
-    })
+      })
      )
     
     this.subscriptions.push(

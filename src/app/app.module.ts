@@ -30,6 +30,8 @@ import { AddProductComponent } from './components/accounts/seller/add-product/ad
 
 import { SellershopComponent } from './components/sellershop/sellershop.component';
 
+import { CommissionComponent } from './components/commission/commission.component';
+import { CommissionItemComponent } from './components/commission-item/commission-item.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,10 +47,12 @@ import { SellershopComponent } from './components/sellershop/sellershop.componen
     PortfolioComponent,
     PortfolioArtworkComponent,
     ProductsComponent,
-    AddProductComponent,
+    AddProductComponent,  
+    SellershopComponent,
     routingComponents,
-  
-    SellershopComponent
+    CommissionComponent,
+    CommissionItemComponent
+
   ],
   imports: [
     BrowserModule,
