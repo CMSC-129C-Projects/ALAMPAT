@@ -13,6 +13,7 @@ import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { PortfolioArtworkComponent } from './components/portfolio-artwork/portfolio-artwork.component';
 import { AuthGuard } from './auth.guard';
 import { SellershopComponent } from './components/sellershop/sellershop.component';
+import { CommissionComponent } from './components/commission/commission.component';
 
 
 const routes: Routes = [
@@ -22,7 +23,7 @@ const routes: Routes = [
   { path: 'my-accounts-buyer', component: MyaccountbuyerComponent, canActivate: [AuthGuard] },
   { path: 'seller-shop', component: SellershopComponent, canActivate: [AuthGuard]  },
   { path: 'seller-portfolio', component: PortfolioComponent, canActivate: [AuthGuard]  },
-  //{ path: 'seller-commission', component: ProductsComponent, canActivate: [AuthGuard]  },
+  { path: 'seller-commission', component: CommissionComponent, canActivate: [AuthGuard]  },
   { path: 'seller-products', component: ProductsComponent, canActivate: [AuthGuard]  },
   { path: 'notfound', component: NoPageFoundComponent},
   { path: '**', redirectTo:'notfound' }

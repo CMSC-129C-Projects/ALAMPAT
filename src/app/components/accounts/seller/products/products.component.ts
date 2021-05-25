@@ -195,8 +195,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
   }
 
-  Orderby(event: Event){
-    const option = event.target as HTMLInputElement
+  Orderby(event: Event["target"]){
+    const option = event as HTMLInputElement
     this.prodServ.getProductdata()
     this.subs.push(
       this.prodServ.productlist.asObservable().subscribe((prod) => {

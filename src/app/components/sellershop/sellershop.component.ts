@@ -22,7 +22,7 @@ export class SellershopComponent implements OnInit {
   }
 
   GoToServices(){
-
+    this.router.navigate(['/seller-commission'])
   }
 
   GotoShopRating() {
