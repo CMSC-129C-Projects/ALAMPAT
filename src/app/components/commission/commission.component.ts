@@ -1,10 +1,10 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { CommissionService } from 'src/app/services/comService';
 import { SortService } from 'src/app/services/sortingService';
-
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import {AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask} from '@angular/fire/storage';
+import { Form, FormGroup, FormBuilder } from '@angular/forms';
 
 interface commission {
   _id?: string;
@@ -38,20 +38,20 @@ export class CommissionComponent implements OnInit, OnDestroy {
   item: any;
   index: any;
   service: any;
+  imageSRC: any;
 
-  
+  option: string= "";
+  sortForm: FormGroup;
 
   subscriptions: Subscription[] = [];
-
   @Input() serviceList: commission[] = [];
   @Input() soldoutList: commission[] = [];
-  imageSRC: any;
-  userID: string = '607fe491958fa65f08f14d0e';
 
   constructor(private domSanitizer: DomSanitizer,
     private commissionService: CommissionService,
     private afStorage: AngularFireStorage,
     private sortserv: SortService,
+    private formBuilder: FormBuilder,
     ) { 
       
       this.subscriptions.push(
@@ -90,19 +90,22 @@ export class CommissionComponent implements OnInit, OnDestroy {
             this.serviceList.push(item);
           }
         })
-
+        this.selectSortOption(this.option);
         //Sorting
         //this.serviceList.sort(this.sortserv.getStrAscendingSortOrder("commissionname"))
-        this.serviceList.sort(this.sortserv.getNumAscendingSortOrder("price"))
+        //this.serviceList.sort(this.sortserv.getNumAscendingSortOrder("price"))
         //this.serviceList.sort(this.sortserv.getTimeDescendingSortOrder("createdAt"))
         //this.serviceList = service;
-        console.log("Service List " + JSON.stringify(service));
+        //console.log("Service List " + JSON.stringify(service));
       }, (error) => {
         console.log("Error", error)
       })
     )
+    //for Sort Form
+    this.sortForm = this.formBuilder.group ({
+      button: ['--select Choice--']
+    });
     
-
     //For tabs
     const tabs = document.querySelectorAll('.tabs li');
     const tabContentBoxes = document.querySelectorAll('#tab-content > div');
@@ -125,10 +128,16 @@ export class CommissionComponent implements OnInit, OnDestroy {
     })
   }
 
+  get formControls() { return this.sortForm.controls; }
+
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe())
   }
-  
+
+  loadPage(option:string){
+    
+  }
+
   onClickOpen (item:any, index:any, tabId:any) {
     this.openImageModal = true;
     if(tabId == 0) {
@@ -149,15 +158,13 @@ export class CommissionComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
   onClickAddService () {
     this.commissionService.addswitch(true);
   }
 
   onClickEditService (item: any) {
     this.commissionService.selectItem(item);
-    this.showEditServiceModal = !this.showEditServiceModal;
+    this.commissionService.editswitch(true);
   }
 
   onClickDelete (item: any, index: any) {
@@ -182,6 +189,53 @@ export class CommissionComponent implements OnInit, OnDestroy {
       this.serviceList.splice(this.index, 1);
     }
     this.openDeleteModal = false;
+  }
+
+  reloadPage(refresh: boolean){
+    if(refresh == true){
+      this.commissionService.getItemdata()
+      this.ngOnInit()
+    }
+  }
+
+  Orderby(event: Event){
+    const option = event.target as HTMLInputElement
+    this.option = option.value
+    this.commissionService.getItemdata()
+    this.subscriptions.push(
+      this.commissionService.commission.asObservable().subscribe((service) => {
+
+        this.soldoutList = [];
+        this.serviceList = []; 
+        service.forEach((item:commission) => {
+          if (item.slot == 0) {
+            this.soldoutList.push(item);
+          }
+          if(item.slot > 0) {
+            this.serviceList.push(item);
+          }
+        })
+
+        this.selectSortOption(option.value)
+      }, (error) => {
+        console.log("Error", error)
+      })
+    )
+  }
+
+  selectSortOption(option:string){
+    if(option == "Alphabetical"){
+      this.serviceList.sort(this.sortserv.getStrAscendingSortOrder("commissionname"))
+      this.soldoutList.sort(this.sortserv.getStrAscendingSortOrder("commissionname"))
+    }
+    if(option == "Date Created"){
+      this.serviceList.sort(this.sortserv.getTimeAscendingSortOrder("createdAt"))
+      this.soldoutList.sort(this.sortserv.getTimeAscendingSortOrder("createdAt"))
+    }
+    if(option == "Date Modified"){
+      this.serviceList.sort(this.sortserv.getTimeDescendingSortOrder("updatedAt"))
+      this.soldoutList.sort(this.sortserv.getTimeDescendingSortOrder("updatedAt"))
+    }
   }
 
   onClickGoback(){

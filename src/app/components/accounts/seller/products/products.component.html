@@ -1,287 +1,285 @@
 <app-headerseller></app-headerseller>
 
-<section>
-  <div class="container">
-    <div class="container">
-      <nav class="breadcrumb is-small" aria-label="breadcrumbs">
-        <li>
-          <a routerLink="/seller-shop">
-            <span class="icon is-small">
+
+<div class="container">
+  <nav class="breadcrumb is-small" aria-label="breadcrumbs">
+    <li>
+      <a routerLink="/seller-shop">
+        <span class="icon is-small">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-caret-left-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"
+            />
+          </svg>
+          <i class="bi bi-caret-left-fill" aria-hidden="true"></i>
+        </span>
+        <span>Back to Seller Shop</span>
+      </a>
+    </li>
+  </nav>
+</div>
+<div class="hero-body">
+  <div class="columns is-mobile">
+    <div class="column is-10 is-offset-1">
+      <div class="card-container">
+        <span class="span-spaces">
+          <div class="title is-family-primary has-icons-left">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="26"
+              fill="currentColor"
+              class="bi bi-box-seam"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"
+              />
+            </svg>
+            <i class="bi bi-box-seam"></i>
+            Products
+          </div>
+        </span>
+        <div class="container">
+          <div class="buttons is-right">
+            <button
+              (click)="onClickAddProduct()"
+              class="button is-small is-danger"
+            >
+              <strong>ADD PRODUCT</strong>
+            </button>
+          </div>
+        </div>
+      </div>
+      <hr style="background-color: #e8e6e6" />
+      <!--------------- TABS ------------------->
+      <div class="tabs is-centered is-boxed">
+        <ul>
+          <li class="is-active" data-target="product-live">
+            <a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
                 height="16"
                 fill="currentColor"
-                class="bi bi-caret-left-fill"
+                class="bi bi-hourglass"
                 viewBox="0 0 16 16"
               >
                 <path
-                  d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"
+                  d="M2 1.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1h-11a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1-.5-.5zm2.5.5v1a3.5 3.5 0 0 0 1.989 3.158c.533.256 1.011.791 1.011 1.491v.702c0 .7-.478 1.235-1.011 1.491A3.5 3.5 0 0 0 4.5 13v1h7v-1a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351v-.702c0-.7.478-1.235 1.011-1.491A3.5 3.5 0 0 0 11.5 3V2h-7z"
                 />
               </svg>
-              <i class="bi bi-caret-left-fill" aria-hidden="true"></i>
-            </span>
-            <span>Back to Seller Shop</span>
-          </a>
-        </li>
-      </nav>
-    </div>
-    <div class="hero-body">
-      <div class="columns is-mobile">
-        <div class="column is-10 is-offset-1">
-          <div class="card-container">
-            <span class="span-spaces">
-              <div class="title is-family-primary has-icons-left">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="26"
-                  fill="currentColor"
-                  class="bi bi-box-seam"
-                  viewBox="0 0 16 16"
+              <i class="bi bi-hourglass"></i>
+              <span class="icon is-small"
+                ><i class="fas fa-image" aria-hidden="true"></i
+              ></span>
+              <span>Live (On Stock)</span>
+            </a>
+          </li>
+          <li data-target="product-soldout">
+            <a>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-exclamation-diamond"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"
+                />
+                <path
+                  d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"
+                />
+              </svg>
+              <i class="bi bi-exclamation-diamond"></i>
+              <span class="icon is-small"
+                ><i class="fas fa-film" aria-hidden="true"></i
+              ></span>
+              <span>Sold Out</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- SORT BY SECTION -->
+      <div class="level-left mb-4">
+        <div class="level-item">
+          <p>
+            <strong>Sort By: </strong>
+          </p>
+        </div>
+        <form [formGroup]="sortForm">
+          <div class="form-group">
+            <select formControlName="button" class="form-control" (change)="Orderby($event)">
+              <!-- <option disabled>Select Choice</option> -->
+              <option  value="">--Select Choice--</option>
+              <option  value="Alphabetical">Alphabetical</option>
+              <option  value="Date Created">Date Created</option>
+              <option  value="Date Modified">Date Modified</option>
+
+              <!-- <option *ngFor="let choice of Choices">{{ choice }}</option> -->
+            </select>
+          </div>
+        </form>
+      </div>
+
+      <!------------ PRODUCT SECTION | LIVE (ON STOCK) ----------------->
+      <div class="px-2" id="tab-content">
+        <div class="columns is-multiline is-mobile" id="product-live">
+          <div
+            class="column is-4"
+            *ngFor="let product of productList; index as i"
+          >
+            <div *ngIf="product.stock != 0">
+              <div class="card">
+                <a class="card-image">
+                  <figure
+                    class="image is-3by2"
+                    (click)="onClickOpen(product, i, 0)"
+                  >
+                    <img
+                      class="object-fit_cover"
+                      [src]="product.images?.imageBase64"
+                      alt=""
+                    />
+                  </figure>
+                </a>
+                <div class="card-content">
+                  <p class="text has-text-weight-bold" readonly>
+                    {{ product.productname }}
+                  </p>
+                  <div class="content">
+                    {{ product.description }}
+                  </div>
+                  <div>
+                    <span
+                      class="
+                        tag
+                        is-warning is-light
+                        has-text-weight-bold
+                        is-medium
+                      "
+                      >Stock: {{ product.stock }}</span
+                    >
+                  </div>
+                  <div>
+                    <span
+                      class="
+                        tag
+                        is-primary is-light
+                        has-text-weight-bold
+                        is-medium
+                        mt-2
+                      "
+                      >Price: ₱ {{ product.price }}</span
+                    >
+                  </div>
+                </div>
+                <footer class="card-footer">
+                  <a
+                    (click)="onClickEditProduct(product)"
+                    class="card-footer-item"
+                    value="edit"
+                    >Edit</a
+                  >
+                  <a
+                    (click)="onClickDelete(product, i)"
+                    class="card-footer-item"
+                    value="delete"
+                    type="delete"
+                    >Delete</a
+                  >
+                </footer>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!------------ PRODUCT SECTION | SOLD OUT ----------------->
+      <div class="px-2" id="tab-content">
+        <div
+          class="columns is-multiline is-mobile is-hidden"
+          id="product-soldout"
+        >
+          <div
+            class="column is-4"
+            *ngFor="let product of soldoutList; index as i"
+          >
+            <div class="card">
+              <a class="card-image">
+                <figure
+                  class="image is-3by2"
+                  (click)="onClickOpen(product, i, 1)"
                 >
-                  <path
-                    d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"
+                  <img
+                    class="object-fit_cover"
+                    [src]="product.images?.imageBase64"
+                    alt=""
                   />
-                </svg>
-                <i class="bi bi-box-seam"></i>
-                Products
+                </figure>
+              </a>
+              <div class="card-content">
+                <p class="text has-text-weight-bold" readonly>
+                  {{ product.productname }}
+                </p>
+                <div class="content">
+                  {{ product.description }}
+                </div>
+                <div>
+                  <span
+                    class="
+                      tag
+                      is-warning is-light
+                      has-text-weight-bold
+                      is-medium
+                    "
+                    >Stock: {{ product.stock }}</span
+                  >
+                </div>
+                <div>
+                  <span
+                    class="
+                      tag
+                      is-primary is-light
+                      has-text-weight-bold
+                      is-medium
+                      mt-2
+                    "
+                    >Price: ₱ {{ product.price }}</span
+                  >
+                </div>
               </div>
-            </span>
-            <div class="container">
-              <div class="buttons is-right">
-                <button
-                  (click)="onClickAddProduct()"
-                  class="button is-small is-danger"
+              <footer class="card-footer">
+                <a
+                  (click)="onClickEditProduct(product)"
+                  class="card-footer-item"
+                  value="edit"
+                  >Edit</a
                 >
-                  <strong>ADD PRODUCT</strong>
-                </button>
-              </div>
-            </div>
-          </div>
-          <hr style="background-color: #e8e6e6" />
-          <!--------------- TABS ------------------->
-          <div class="tabs is-centered is-boxed">
-            <ul>
-              <li class="is-active" data-target="product-live">
-                <a>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-hourglass"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M2 1.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1h-11a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1-.5-.5zm2.5.5v1a3.5 3.5 0 0 0 1.989 3.158c.533.256 1.011.791 1.011 1.491v.702c0 .7-.478 1.235-1.011 1.491A3.5 3.5 0 0 0 4.5 13v1h7v-1a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351v-.702c0-.7.478-1.235 1.011-1.491A3.5 3.5 0 0 0 11.5 3V2h-7z"
-                    />
-                  </svg>
-                  <i class="bi bi-hourglass"></i>
-                  <span class="icon is-small"
-                    ><i class="fas fa-image" aria-hidden="true"></i
-                  ></span>
-                  <span>Live (On Stock)</span>
-                </a>
-              </li>
-              <li data-target="product-soldout">
-                <a>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-exclamation-diamond"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"
-                    />
-                    <path
-                      d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"
-                    />
-                  </svg>
-                  <i class="bi bi-exclamation-diamond"></i>
-                  <span class="icon is-small"
-                    ><i class="fas fa-film" aria-hidden="true"></i
-                  ></span>
-                  <span>Sold Out</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <!-- SORT BY SECTION -->
-          <div class="level-left mb-4">
-            <div class="level-item">
-              <p>
-                <strong>Sort By: </strong>
-              </p>
-            </div>
-            <form [formGroup]="sortForm">
-              <div class="form-group">
-                <select formControlName="button" class="form-control" (change)="Orderby($event)">
-                  <!-- <option disabled>Select Choice</option> -->
-                  <option  value="">--Select Choice--</option>
-                  <option  value="Alphabetical">Alphabetical</option>
-                  <option  value="Date Created">Date Created</option>
-                  <option  value="Date Modified">Date Modified</option>
-
-                  <!-- <option *ngFor="let choice of Choices">{{ choice }}</option> -->
-                </select>
-              </div>
-            </form>
-          </div>
-
-          <!------------ PRODUCT SECTION | LIVE (ON STOCK) ----------------->
-          <div class="px-2" id="tab-content">
-            <div class="columns is-multiline is-mobile" id="product-live">
-              <div
-                class="column is-4"
-                *ngFor="let product of productList; index as i"
-              >
-                <div *ngIf="product.stock != 0">
-                  <div class="card">
-                    <a class="card-image">
-                      <figure
-                        class="image is-3by2"
-                        (click)="onClickOpen(product, i, 0)"
-                      >
-                        <img
-                          class="object-fit_cover"
-                          [src]="product.images?.imageBase64"
-                          alt=""
-                        />
-                      </figure>
-                    </a>
-                    <div class="card-content">
-                      <p class="text has-text-weight-bold" readonly>
-                        {{ product.productname }}
-                      </p>
-                      <div class="content">
-                        {{ product.description }}
-                      </div>
-                      <div>
-                        <span
-                          class="
-                            tag
-                            is-warning is-light
-                            has-text-weight-bold
-                            is-medium
-                          "
-                          >Stock: {{ product.stock }}</span
-                        >
-                      </div>
-                      <div>
-                        <span
-                          class="
-                            tag
-                            is-primary is-light
-                            has-text-weight-bold
-                            is-medium
-                            mt-2
-                          "
-                          >Price: ₱ {{ product.price }}</span
-                        >
-                      </div>
-                    </div>
-                    <footer class="card-footer">
-                      <a
-                        (click)="onClickEditProduct(product)"
-                        class="card-footer-item"
-                        value="edit"
-                        >Edit</a
-                      >
-                      <a
-                        (click)="onClickDelete(product, i)"
-                        class="card-footer-item"
-                        value="delete"
-                        type="delete"
-                        >Delete</a
-                      >
-                    </footer>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!------------ PRODUCT SECTION | SOLD OUT ----------------->
-          <div class="px-2" id="tab-content">
-            <div
-              class="columns is-multiline is-mobile is-hidden"
-              id="product-soldout"
-            >
-              <div
-                class="column is-4"
-                *ngFor="let product of soldoutList; index as i"
-              >
-                <div class="card">
-                  <a class="card-image">
-                    <figure
-                      class="image is-3by2"
-                      (click)="onClickOpen(product, i, 1)"
-                    >
-                      <img
-                        class="object-fit_cover"
-                        [src]="product.images?.imageBase64"
-                        alt=""
-                      />
-                    </figure>
-                  </a>
-                  <div class="card-content">
-                    <p class="text has-text-weight-bold" readonly>
-                      {{ product.productname }}
-                    </p>
-                    <div class="content">
-                      {{ product.description }}
-                    </div>
-                    <div>
-                      <span
-                        class="
-                          tag
-                          is-warning is-light
-                          has-text-weight-bold
-                          is-medium
-                        "
-                        >Stock: {{ product.stock }}</span
-                      >
-                    </div>
-                    <div>
-                      <span
-                        class="
-                          tag
-                          is-primary is-light
-                          has-text-weight-bold
-                          is-medium
-                          mt-2
-                        "
-                        >Price: ₱ {{ product.price }}</span
-                      >
-                    </div>
-                  </div>
-                  <footer class="card-footer">
-                    <a
-                      (click)="onClickEditProduct(product)"
-                      class="card-footer-item"
-                      value="edit"
-                      >Edit</a
-                    >
-                    <a
-                      (click)="onClickDelete(product, i)"
-                      class="card-footer-item"
-                      value="delete"
-                      type="delete"
-                      >Delete</a
-                    >
-                  </footer>
-                </div>
-              </div>
+                <a
+                  (click)="onClickDelete(product, i)"
+                  class="card-footer-item"
+                  value="delete"
+                  type="delete"
+                  >Delete</a
+                >
+              </footer>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>
+ 
 <app-add-product [openAddProductModal]="showAddProductModal" (reload)= "reloadPage($event)"></app-add-product>
 <app-add-product
   [openEditProductModal]="showEditProductModal" 
@@ -317,7 +315,7 @@
           (click)="onClickSureDelete()"
           class="button is-success is-outlined"
         >
-          <strong>Yes</strong>
+          Delete
         </button>
       </div>
     </footer>
