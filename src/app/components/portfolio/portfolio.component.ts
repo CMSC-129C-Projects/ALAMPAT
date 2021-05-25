@@ -4,6 +4,7 @@ import { UploadService } from 'src/app/services/upload';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import {AngularFireStorage} from '@angular/fire/storage'
+import { max } from 'rxjs/operators';
 
 interface Portfolio {
   _id?: string;
@@ -28,9 +29,11 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   showEditArtworkModal: boolean = false;
   openDeleteModal: boolean = false;
   openImageModal: boolean = false;
+  openMaxModal: boolean = false;
   showed: boolean = false;
   sureDelete: boolean = false;
 
+  maxItems: number = 12;
   itemID: any;
   item: any;
   index: any;
@@ -96,10 +99,18 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     if(this.openDeleteModal) {
       this.openDeleteModal = false;
     }
+    if(this.openMaxModal) {
+      this.openMaxModal = false;
+    }
   }
 
   onClickAddArtwork () {
-    this.uploadService.addswitch(true)
+    if (this.portfolioList.length == this.maxItems) {
+      this.openMaxModal = !this.openMaxModal;
+    }
+    if (this.portfolioList.length < this.maxItems) {
+      this.uploadService.addswitch(true)
+    }
     //this.showAddArtworkModal = !this.showAddArtworkModal;
   }
   
