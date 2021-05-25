@@ -120,43 +120,19 @@
                 <strong>Sort by: </strong>
               </p>
             </div>
-            <div class="level-item">
-              <div class="dropdown is-active">
-                <div class="dropdown-trigger">
-                  <button
-                    class="button"
-                    aria-haspopup="true"
-                    aria-controls="dropdown-menu"
-                  >
-                    <span>Select</span>
-                    <span class="icon is-small">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="12"
-                        height="13"
-                        fill="currentColor"
-                        class="bi bi-chevron-down"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                        />
-                      </svg>
-                      <i class="bi bi-chevron-down"></i>
-                    </span>
-                  </button>
-                </div>
-                <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                  <div class="dropdown-content">
-                    <a class="dropdown-item"> Alphabetical </a>
-                    <a class="dropdown-item"> Date Created </a>
-                    <a class="dropdown-item"> Date Modified </a>
-                    
-                  </div>
-                </div>
+            <form [formGroup]="productForm">
+              <div class="form-group">
+                <select formControlName="button" class="form-control">
+                  <option disabled>Select Choice</option>
+                  <option>Sort According to</option>
+                  <option>Alphabetical</option>
+                  <option>Date Created</option>
+                  <option>Date Modified</option>
+
+                  <!-- <option *ngFor="let choice of Choices">{{ choice }}</option> -->
+                </select>
               </div>
-            </div>
+            </form>
           </div>
 
           <!------------ PRODUCT SECTION | LIVE (ON STOCK) ----------------->
