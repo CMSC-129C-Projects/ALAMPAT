@@ -169,7 +169,10 @@ export class CommissionComponent implements OnInit, OnDestroy {
   }
 
   onClickSureDelete () {
-    this.afStorage.storage.refFromURL(this.imageSRC).delete();
+    if(this.imageSRC){
+      this.afStorage.storage.refFromURL(this.imageSRC).delete();
+    }
+    
     this.commissionService.selectItem(this.item);
     this.commissionService.deleteItemdata(this.itemID);
 

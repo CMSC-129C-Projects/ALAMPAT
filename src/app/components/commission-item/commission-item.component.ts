@@ -191,6 +191,9 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
     this.addService.reset();
     if(this.openAddServiceModal) {
       this.commissionService.addswitch(false)
+      if(this.addedimageSRC){
+        this.afStorage.storage.refFromURL(this.addedimageSRC).delete();
+      }
       this.percentage = new Observable()
       this.addedimageSRC = '';
       this.submitted = false;
@@ -198,6 +201,9 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
     }
     if(this.openEditServiceModal) {
       this.commissionService.editswitch(false)
+      if(this.imageSRC != this.prev_image && this.prev_image){
+        this.afStorage.storage.refFromURL(this.imageSRC).delete();
+      }
       this.imageSRC = '';
       this.percentage = new Observable()
       this.saved = false;
@@ -249,7 +255,9 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
       const userdata = await this.commissionService.updateItemdata(this.serviceForm.value, this.service._id);
       if (userdata) {
         console.log("On Save Commission item: " + JSON.stringify(this.service))
-        
+        if(this.imageSRC != this.prev_image && this.prev_image){
+          this.afStorage.storage.refFromURL(this.prev_image).delete();
+        }
         this.ngOnInit();
         this.percentage = new Observable()
         this.snapshot = new Observable()
