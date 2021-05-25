@@ -98,17 +98,20 @@ const updateProduct = async(req, res, next) => {
     try {
         
             //creates a new user object together with the final image object
-            let product = new Products ({
-                productname: req.body.productname, 
+            let product = ({
+                productname: req.body.productName, 
                 images: {
-                    filename: hashedfile,
-                    contentType: req.body.productimage.contentType,
-                    imageBase64: req.body.productimage.imageBase64
+                    filename: req.body.productImage.filename,
+                    contentType: req.body.productImage.contentType,
+                    imageBase64: req.body.productImage.imageBase64
                 },
-                description:req.body.productdescription,
+                description:req.body.productDescription,
+                stock:req.body.stock ,
+                price: req.body.price,
+                category: req.body.category,
             })
         //updates the user object data to the database 
-            Products.findByIdAndUpdate( req.params.productid , product)
+            Product.findByIdAndUpdate( req.params.productid , { $set: product})
                 .then((result) => {
                     //console.log(result)
                     res.json({
