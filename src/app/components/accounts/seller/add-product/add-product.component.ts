@@ -206,7 +206,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
     }
     if(this.openEditProductModal) {
       this.editForm.reset()
-      if(this.imagesrc!== this.prev_image && this.imagesrc){
+      if(this.imagesrc!== this.prev_image){
         this.afStorage.storage.refFromURL(this.imagesrc).delete();
       }
       this.imagesrc = '';
@@ -257,7 +257,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
       if (proddata) {
         //console.log("On Save Art: " + JSON.stringify(this.editForm))
         //this.portfolioForm.get('artowkimage')?.reset();
-        if(this.imagesrc != this.prev_image && this.prev_image){
+        if(this.imagesrc != this.prev_image ){
           this.afStorage.storage.refFromURL(this.prev_image).delete();
         }
         //this.afStorage.storage.refFromURL(this.prev_image).delete();

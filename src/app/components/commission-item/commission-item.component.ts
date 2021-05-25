@@ -201,7 +201,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
     }
     if(this.openEditServiceModal) {
       this.commissionService.editswitch(false)
-      if(this.imageSRC != this.prev_image && this.prev_image){
+      if(this.imageSRC != this.prev_image){
         this.afStorage.storage.refFromURL(this.imageSRC).delete();
       }
       this.imageSRC = '';
@@ -255,7 +255,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
       const userdata = await this.commissionService.updateItemdata(this.serviceForm.value, this.service._id);
       if (userdata) {
         console.log("On Save Commission item: " + JSON.stringify(this.service))
-        if(this.imageSRC != this.prev_image && this.prev_image){
+        if(this.imageSRC != this.prev_image ){
           this.afStorage.storage.refFromURL(this.prev_image).delete();
         }
         this.ngOnInit();
