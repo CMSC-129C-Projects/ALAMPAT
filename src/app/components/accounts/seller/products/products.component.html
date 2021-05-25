@@ -2,9 +2,6 @@
 
 <section>
   <div class="container">
-    <div class="tile is-4 is-child">
-      <!--EMPTY SPACE-->
-    </div>
     <div class="container">
       <nav class="breadcrumb is-small" aria-label="breadcrumbs">
         <li>
@@ -117,13 +114,13 @@
           <div class="level-left mb-4">
             <div class="level-item">
               <p>
-                <strong>Sort by: </strong>
+                <strong>Select Choice: </strong>
               </p>
             </div>
             <form [formGroup]="sortForm">
               <div class="form-group">
                 <select formControlName="button" class="form-control">
-                  <option disabled>Select Choice</option>
+                  <!-- <option disabled>Select Choice</option> -->
                   <option>Sort According to</option>
                   <option>Alphabetical</option>
                   <option>Date Created</option>
