@@ -6,10 +6,12 @@ import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 
 interface item {
   _id?: string;
-  productname?: string;
-  commissioname?:string;
+  // productname?: string;
+  // commissioname?:string;
+  itemname:string;
   description: string;
-  stock: number;
+  stock?: number;
+  slot?: number;
   price: number;
   images: {
     filename: string;
@@ -153,15 +155,23 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     //console.log("Inside data : " + JSON.stringify(this.temp_list.value))
     if( min != undefined || max!= undefined  || (min > 0 || max > 0)){
       this.temp_list.value.forEach((item,index) => {
-        if(item.price >= min  && item.price <= max  ){
-          this.marketdata.push(item)
-          console.log("Inside data : " + JSON.stringify(item))
+        if(min <= max){
+          if(item.price >= min  && item.price <= max  ){
+            this.marketdata.push(item)
+            console.log("Inside data : " + JSON.stringify(item))
+          }
         }
-      })
+        if(min > max){
+          if(item.price <= min  && item.price >= max  ){
+            this.marketdata.push(item)
+            console.log("Inside data : " + JSON.stringify(item))
+          }
+        }
+        })
     }
     
     //console.log("Market data : " + JSON.stringify(this.marketdata))
-    this.temp_list.next(this.marketdata)
+    //this.temp_list.next(this.marketdata)
     //this.marketdata = this.temp_list.value
     // this.subs.forEach((x)=>{
     //   x.unsubscribe()
@@ -175,11 +185,21 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     
     this.marketdata.sort(this.sortserv.getNumAscendingSortOrder("price"))
     //console.log("Inside data : " + JSON.stringify(this.temp_list))
-    this.temp_list.next(this.marketdata)
+    //this.temp_list.next(this.marketdata)
 
   }
 
-  Resetfilter(){
-
+  searchItem(word: string){
+    console.log("Search the word : " + word)
+    this.categorizeData(this.curr_category.value) 
+    this.marketdata = this.marketdata.filter(function(ele, i, array){
+      let arrayelement = ele.itemname.toLowerCase()
+      console.log("Array element "+arrayelement)
+      return arrayelement.includes(word.toLowerCase())
+    })
+    this.subs.forEach((x)=>{
+        x.unsubscribe()
+      })
+    console.log("Searched Items: " + JSON.stringify(this.marketdata))
   }
 }

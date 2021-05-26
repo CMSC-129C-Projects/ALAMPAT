@@ -36,7 +36,7 @@
             <div class="field has-addons">
                 <div class="control">
                     <div class="select is-fullwidth">
-                        <select name="category" (change) = "Categorizeby($event); minfield.value =''; maxfield.value =''">
+                        <select name="category" (change) = "Categorizeby($event); minfield.value =''; maxfield.value ='';searchword.value=''">
                             <option value="All">All Items</option>
                             <option value="Product">Products Only</option>
                             <option value="Commission">Commissions Only</option>
@@ -53,10 +53,10 @@
         <div class="column is-4">
             <div class="field has-addons">
                 <p class="control is-expanded">
-                <input class="input" type="text" placeholder="What are you looking for?">
+                <input class="input" #searchword type="text" placeholder="What are you looking for?">
                 </p>
                 <p class="control">
-                    <a class="button is-warning has-text-weight-bold">
+                    <a class="button is-warning has-text-weight-bold" (click) = "searchItem(searchword.value);minfield.value =''; maxfield.value ='' ">
                         Search
                     </a>
                 </p>
@@ -133,7 +133,7 @@
             </div>
         </div>
         <div class="column is-narrow">
-            <button class="button is-small is-danger has-text-weight-bold" (click)="minfield.value =''; maxfield.value ='';load_wholemarket(); " id="reset">
+            <button class="button is-small is-danger has-text-weight-bold" (click)="minfield.value =''; maxfield.value ='';searchword.value='';load_wholemarket(); " id="reset">
                 Reset All Filters
             </button>
         </div>
@@ -170,7 +170,7 @@
                         ₱ {{item.price}}
                     </p>
                     <p class="text has-text-weight-bold" readonly>
-                        {{item.productname}}
+                        {{item.itemname}}
                     </p>
                     <div class="content">
                         {{item.description}}
