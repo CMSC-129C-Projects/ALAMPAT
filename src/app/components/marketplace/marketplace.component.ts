@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MarketService } from 'src/app/services/market';
 import { SortService } from 'src/app/services/sortingService';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
-
+import { Router } from '@angular/router';
 
 interface item {
   _id?: string;
@@ -39,7 +39,8 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
 
   constructor(
     private marketserv: MarketService,
-    private sortserv: SortService
+    private sortserv: SortService,
+    private router: Router,
   ) {
     this.curr_category = new BehaviorSubject<string>('All')
     this.temp_list = new BehaviorSubject<item[]>([])
@@ -158,13 +159,13 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
         if(min <= max){
           if(item.price >= min  && item.price <= max  ){
             this.marketdata.push(item)
-            console.log("Inside data : " + JSON.stringify(item))
+            //console.log("Inside data : " + JSON.stringify(item))
           }
         }
         if(min > max){
           if(item.price <= min  && item.price >= max  ){
             this.marketdata.push(item)
-            console.log("Inside data : " + JSON.stringify(item))
+            //console.log("Inside data : " + JSON.stringify(item))
           }
         }
         })
@@ -202,5 +203,14 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
       })
     this.temp_list.next(this.marketdata)
     console.log("Searched Items: " + JSON.stringify(this.marketdata))
+  }
+
+  ViewItem(item: item){
+    const _id = item ? item._id : null;
+    console.log("View Item: " + JSON.stringify(_id))
+    if(item.category == "Commission"){
+      this.router.navigate(['/commission-item/', {id: _id} ])
+    }
+    
   }
 }

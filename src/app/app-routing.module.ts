@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'my-accounts-seller', component: MyaccountsellerComponent },
   { path: 'my-accounts-buyer', component: MyaccountbuyerComponent },
   { path: 'marketplace', component: MarketplaceComponent },
-  { path: 'commission', component: ViewcommissionComponent },
+  { path: 'commission-item', component: ViewcommissionComponent },
   { path: '**', component: NoPageFoundComponent }
 ];
 

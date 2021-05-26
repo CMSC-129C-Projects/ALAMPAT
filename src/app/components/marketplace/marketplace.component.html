@@ -146,7 +146,7 @@
         
         <div class="column is-3" *ngFor = "let item of marketdata; index as i">
             <div class="card">
-                <a class="card-image">
+                <a (click)="ViewItem(item)" class="card-image">
                     <figure class="image is-3by2">
                         <img class="object-fit_cover" [src]="item.images.imageBase64">
                     </figure>
