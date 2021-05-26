@@ -144,33 +144,36 @@
   <!-- SUGGESSTION: -->
   <!-- Item Name adn Description should only be limited to a number of characters -->
   <!-- to preserve the length of the item card, so it would look clean -->
-    <div class="columns is-multiline is-mobile is-centered">
-        <div class="column is-3">
+    <div class="columns is-multiline is-mobile is-centered" *ngFor = "let item of marketdata">
+        <div class="column is-3" >
             <div class="card">
                 <a class="card-image">
                     <figure class="image is-3by2">
-                        <img class="object-fit_cover" src="https://i.guim.co.uk/img/media/0a838a60858888aa6fbd752570941ffeb1aa27b1/0_94_3500_2100/master/3500.jpg?width=1200&quality=85&auto=format&fit=max&s=3ca8a0f66b5f9af9f2a233cd958858af" alt="">
+                        <img class="object-fit_cover" [src]="item.images.imageBase64" alt="">
                     </figure>
                 </a>
                 <div class="card-footer">
                     <div class="tags has-addons">
-                        <div class="tag is-link is-light has-text-weight-bold is-small">
+                        <div class="tag is-link is-light has-text-weight-bold is-small" *ngIf = "item.category == 'Product'">
                             Product
                         </div>
+                        <div class="tag is-danger is-light has-text-weight-bold is-small"*ngIf = "item.category == 'Commission'">
+                            Commission
+                        </div>
                         <a class="tag is-light has-text-weight-bold is-small">
-                            Seller Name
+                            {{item.sellername}}
                         </a>
                     </div>
                 </div>
                 <div class="card-content" style="padding: .5rem 1.5rem 1.5rem">
                     <p class="text has-text-primary is-size-5 has-text-weight-bold" readonly>
-                        ₱ 1770.36
+                        ₱ {{item.price}}
                     </p>
                     <p class="text has-text-weight-bold" readonly>
-                        Product Name
+                        {{item.productname}}
                     </p>
                     <div class="content">
-                        Product Description
+                        {{item.description}}
                     </div>
                     <div class="content is-size-5 has-text-centered" readonly>
                             <!-- starchecked makes star orange-->
@@ -192,54 +195,8 @@
                 </div>
             </div>
         </div>
-        <div class="column is-3">
-            <div class="card"> 
-                <a class="card-image">
-                    <figure class="image is-3by2">
-                        <img class="object-fit_cover" src="https://www.wingingtheworld.com/wp-content/uploads/2018/05/thai-massage-4800867_1280-scaled.jpg" alt="">
-                    </figure>
-                </a>
-                <div class="card-footer">
-                    <div class="tags has-addons">
-                        <div class="tag is-danger is-light has-text-weight-bold is-small">
-                            Commission
-                        </div>
-                        <a class="tag is-light has-text-weight-bold is-small">
-                            Seller Name
-                        </a>
-                    </div>
-                </div>
-                <div class="card-content" style="padding: .5rem 1.5rem 1.5rem">
-                    <p class="text has-text-primary is-size-5 has-text-weight-bold" readonly>
-                        ₱ 1105.67
-                    </p>
-                    <p class="text has-text-weight-bold" readonly>
-                        Commission Name
-                    </p>
-                    <div class="content">
-                        Commission Description
-                    </div>
-                    <div class="content is-size-5 has-text-centered" readonly>
-                        <!-- starchecked makes star orange-->
-                        <!-- star rating must be based on a value-->
-                        <span class="fa fa-star starchecked"></span>
-                        <span class="fa fa-star starchecked "></span>
-                        <span class="fa fa-star starchecked "></span>
-                        <span class="fa fa-star starchecked"></span>
-                        <span class="fa fa-star starchecked"></span>
-                        &nbsp;
-                        <!-- Number of People who have rated this item -->
-                        <div class="tag is-warning is-medium has-text-weight-semibold">
-                            69&nbsp;
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                              </svg>
-                        </div>
-                </div>
-                </div>
-            </div>
-        </div> 
-        <div class="column is-3">
+        
+        <!--<div class="column is-3">
             <div class="card"> 
                 <a class="card-image">
                     <figure class="image is-3by2">
@@ -267,15 +224,14 @@
                         Product Description
                     </div>
                     <div class="content is-size-5 has-text-centered" readonly>
-                        <!-- starchecked makes star orange-->
-                        <!-- star rating must be based on a value-->
+                        
                         <span class="fa fa-star starchecked"></span>
                         <span class="fa fa-star starchecked "></span>
                         <span class="fa fa-star starchecked "></span>
                         <span class="fa fa-star"></span>
                         <span class="fa fa-star"></span>
                         &nbsp;
-                        <!-- Number of People who have rated this item -->
+                        
                         <div class="tag is-warning is-medium has-text-weight-semibold">
                             0&nbsp;
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
@@ -285,7 +241,7 @@
                 </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
 </div>
 
