@@ -6,14 +6,14 @@ import { HeaderbuyerComponent } from './components/accounts/buyer/headerbuyer/he
 import { HeadersellerComponent } from './components/accounts/seller/headerseller/headerseller.component';
 import { MyaccountbuyerComponent } from './components/accounts/buyer/myaccountbuyer/myaccountbuyer.component';
 import { MyaccountsellerComponent } from './components/accounts/seller/myaccountseller/myaccountseller.component';
-import { ProductsComponent } from './components/accounts/seller/products/products.component';
+import { ProductsComponent } from './components/accounts/seller/product/products/products.component';
 import { LoginComponent } from './components/login/login.component';
-import { AddProductComponent } from './components/accounts/seller/add-product/add-product.component';
-import { PortfolioComponent } from './components/portfolio/portfolio.component';
-import { PortfolioArtworkComponent } from './components/portfolio-artwork/portfolio-artwork.component';
+import { AddProductComponent } from './components/accounts/seller/product/add-product/add-product.component';
+import { PortfolioComponent } from './components/accounts/seller/portfolios/portfolio/portfolio.component';
+import { PortfolioArtworkComponent } from './components/accounts/seller/portfolios/portfolio-artwork/portfolio-artwork.component';
 import { AuthGuard } from './auth.guard';
-import { SellershopComponent } from './components/sellershop/sellershop.component';
-import { CommissionComponent } from './components/commission/commission.component';
+import { SellershopComponent } from './components/accounts/seller/sellershop/sellershop.component';
+import { CommissionComponent } from './components/accounts/seller/commissions/commission/commission.component';
 
 
 const routes: Routes = [

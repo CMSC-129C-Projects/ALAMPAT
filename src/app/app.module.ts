@@ -23,15 +23,15 @@ import { HeaderbuyerComponent } from './components/accounts/buyer/headerbuyer/he
 import { HeadersellerComponent } from './components/accounts/seller/headerseller/headerseller.component';
 import { EditaccountbuyerComponent } from './components/editaccountbuyer/editaccountbuyer.component';
 import { EditaccountsellerComponent } from './components/editaccountseller/editaccountseller.component';
-import { PortfolioComponent } from './components/portfolio/portfolio.component';
-import { PortfolioArtworkComponent } from './components/portfolio-artwork/portfolio-artwork.component';
-import { ProductsComponent } from './components/accounts/seller/products/products.component';
-import { AddProductComponent } from './components/accounts/seller/add-product/add-product.component';
+import { PortfolioComponent } from './components/accounts/seller/portfolios/portfolio/portfolio.component';
+import { PortfolioArtworkComponent } from './components/accounts/seller/portfolios/portfolio-artwork/portfolio-artwork.component';
+import { ProductsComponent } from './components/accounts/seller/product/products/products.component';
+import { AddProductComponent } from './components/accounts/seller/product/add-product/add-product.component';
 
-import { SellershopComponent } from './components/sellershop/sellershop.component';
+import { SellershopComponent } from './components/accounts/seller/sellershop/sellershop.component';
 
-import { CommissionComponent } from './components/commission/commission.component';
-import { CommissionItemComponent } from './components/commission-item/commission-item.component';
+import { CommissionComponent } from './components/accounts/seller/commissions/commission/commission.component';
+import { CommissionItemComponent } from './components/accounts/seller/commissions/commission-item/commission-item.component';
 @NgModule({
   declarations: [
     AppComponent,
