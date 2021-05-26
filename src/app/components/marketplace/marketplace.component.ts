@@ -200,6 +200,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     this.subs.forEach((x)=>{
         x.unsubscribe()
       })
+    this.temp_list.next(this.marketdata)
     console.log("Searched Items: " + JSON.stringify(this.marketdata))
   }
 }
