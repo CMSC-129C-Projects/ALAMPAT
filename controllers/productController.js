@@ -70,7 +70,7 @@ const addProduct = async(req, res, next) => {
 const getProductList = async(req, res, next) => {
     try{
         const user = await User.findById(req.params.id)
-            .populate( 'products')
+            .populate('products')
             
         if(user){
         //console.log(results);
@@ -98,7 +98,7 @@ const updateProduct = async(req, res, next) => {
     try {
         
             //creates a new user object together with the final image object
-            let product = ({
+            let product =  ({
                 productname: req.body.productName, 
                 images: {
                     filename: req.body.productImage.filename,
@@ -145,8 +145,7 @@ const updateProduct = async(req, res, next) => {
 const deleteProduct = async(req, res, next) => {
     try {
         
-            //creates a new user object together with the final image object
-           
+
         //updates the user object data to the database 
         Product.findByIdAndRemove(req.body._id, function(err, result){
             if(!err){
