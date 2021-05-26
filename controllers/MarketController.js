@@ -41,7 +41,7 @@ const getCommissionList = (req, res, next) => {
                 itemname:allCommissions[i].commissionname , 
                 images: allCommissions[i].images,
                 description:allCommissions[i].description,
-                stock:allCommissions[i].stock,
+                slot:allCommissions[i].slot,
                 price:allCommissions[i].price,
                 category:allCommissions[i].category,
                 sellername: user.name
@@ -89,7 +89,7 @@ const getAll =  (req, res, next) => {
               itemname:allCommissions[i].commissionname , 
               images: allCommissions[i].images,
               description:allCommissions[i].description,
-              stock:allCommissions[i].stock,
+              slot:allCommissions[i].slot,
               price:allCommissions[i].price,
               category:allCommissions[i].category,
               sellername: user.name
