@@ -1,0 +1,7 @@
+.starchecked {
+    color: orange;
+}
+
+.object-fit_cover {
+    object-fit: contain
+}  

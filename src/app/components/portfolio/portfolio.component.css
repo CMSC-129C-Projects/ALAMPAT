@@ -9,5 +9,5 @@
 }
 
   .object-fit_cover {
-    object-fit: cover
+    object-fit: contain
   }  

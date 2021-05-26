@@ -42,7 +42,7 @@
                     <div class="card"> 
                         <a class="card-image">
                             <figure class="image is-3by2" (click)="onClickOpen(item, i)">
-                                <img class="object-fit_cover" [src]= "item.images.imageBase64" alt="">
+                                <img class="object-fit_cover" [src]= "item.images.imageBase64">
                             </figure>
                         </a>
                         <div class="card-content">
@@ -88,7 +88,7 @@
         <footer class="px-3 py-2 mt-4">
             <div class="buttons is-centered px-4 mx-5 ">
                 <button (click)="onClickExit()" class="button is-danger is-outlined">Cancel</button>
-                <button (click)="onClickSureDelete()" class="button is-success is-outlined"> <strong>Yes</strong></button>
+                <button (click)="onClickSureDelete()" class="button is-success is-outlined">Delete</button>
             </div>    
         </footer>  
     </div>   
