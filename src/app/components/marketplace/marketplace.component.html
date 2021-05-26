@@ -37,7 +37,7 @@
                 </div> -->
                 <div class="control">
                     <div class="select is-fullwidth">
-                        <select name="category" (change) = "Categorizeby($event); minfield.value =''; maxfield.value ='';searchword.value=''">
+                        <select name="category"  id= "category"(change) = "Categorizeby($event); minfield.value =''; maxfield.value ='';searchword.value=''" [value]="curr_category.value">
                             <option value="All">All Items</option>
                             <option value="Product">Products Only</option>
                             <option value="Commission">Commissions Only</option>
