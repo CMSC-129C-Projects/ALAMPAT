@@ -36,10 +36,10 @@
             <div class="field has-addons">
                 <div class="control">
                     <div class="select is-fullwidth">
-                        <select name="category">
+                        <select name="category" (change) = "Categorizeby($event)">
                             <option value="All">All Items</option>
-                            <option value="Products">Products Only</option>
-                            <option value="Commissions">Commissions Only</option>
+                            <option value="Product">Products Only</option>
+                            <option value="Commission">Commissions Only</option>
                         </select>
                     </div>
                 </div>
@@ -99,18 +99,18 @@
         <div class="column has-text-centered is-2">
             <div class="field has-addons">
                 <p class="control is-expanded">
-                <input class="input is-small" type="text" placeholder="Min Price">
+                <input (input)="price_min =$event.target"  class="form-control" class="input is-small" type="number" placeholder="Min Price">
                 </p>
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
                   </svg>
                 <p class="control is-expanded">
-                    <input class="input is-small" type="text" placeholder="Max Price">
+                    <input  (input)="price_max=$event.target" class="form-control" class="input is-small" type="number" placeholder="Max Price">
                 </p>
             </div>
         </div>
         <div class="column is-narrow">
-            <button class="button is-link is-light is-outlined is-small has-text-weight-bold">
+            <button class="button is-link is-light is-outlined is-small has-text-weight-bold"  (click)="ApplyPrice()">
                 Apply
             </button>
         </div>
@@ -160,7 +160,7 @@
                         <div class="tag is-danger is-light has-text-weight-bold is-small"*ngIf = "item.category == 'Commission'">
                             Commission
                         </div>
-                        <a class="tag is-light has-text-weight-bold is-small">
+                        <a class="tag is-light has-text-weight-bold is-small" >
                             {{item.sellername}}
                         </a>
                     </div>

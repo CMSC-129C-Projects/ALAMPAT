@@ -11,6 +11,10 @@ import {AngularFireStorageModule} from '@angular/fire/storage'
 import {AngularFireModule} from '@angular/fire';
 import { MarketplaceComponent } from './components/marketplace/marketplace.component'
 
+
+import { UploadService } from './services/upload';
+import { MarketService } from './services/market';
+import { ViewcommissionComponent } from './components/viewcommission/viewcommission.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +22,8 @@ import { MarketplaceComponent } from './components/marketplace/marketplace.compo
     FooterComponent,
     ContactComponent,
     routingComponents,
-    MarketplaceComponent
+    MarketplaceComponent,
+    ViewcommissionComponent
 
   ],
   imports: [
@@ -39,7 +44,10 @@ import { MarketplaceComponent } from './components/marketplace/marketplace.compo
   exports:[
     WelcomeComponent,
   ],
-  providers: [],
+  providers: [
+    UploadService,
+    MarketService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

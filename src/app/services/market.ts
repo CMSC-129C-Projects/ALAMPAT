@@ -14,7 +14,7 @@ const localAPI = 'http://localhost:3000'
 })
 
 export class MarketService {
-    market = new Subject<any>();
+    market: BehaviorSubject<any> ;
     // artSource = new Subject<any>();
     // //currArt = this.artSource.asObservable();
     // //currArt: EventEmitter<any> = new EventEmitter();
@@ -25,28 +25,37 @@ export class MarketService {
     // //error: EventEmitter<any> = new EventEmitter();
 
     constructor(
-        ) { }
+        ) {
+           this.market = new BehaviorSubject<any>([])
+           //this.getMarketdata()
+         }
+    
+    public get marketValue(): any {
+        
+        return this.market.value;
+    }
 
     getMarket(): Observable<any>{
         this.getMarketdata()
         return this.market.asObservable()
-    }    
+    }   
+
     getMarketdata() {
-       
-            axios.get(`${localAPI}/buyer/market`)
-            .then(resp => {
-                this.market.next(resp.data.all)
-                
-                console.log("Market data: " + JSON.stringify(resp.data.all));
-                //return resp.data
-            })
-            .catch(err => {
-                // Handle Error Here
-                //this.error.emit(err)
-                console.log(err);
-                //return err
-            });
-        
+    
+        axios.get(`${localAPI}/buyer/market`)
+        .then(resp => {
+            this.market.next(resp.data.all)
+            // /console.log("market value: " + JSON.stringify(this.market))
+            // /console.log("Market data: " + JSON.stringify(resp.data.all));
+            //return resp.data
+        })
+        .catch(err => {
+            // Handle Error Here
+            //this.error.emit(err)
+            console.log(err);
+            //return err
+        });
+    
     }
    
     

@@ -12,13 +12,17 @@ import { MyaccountbuyerComponent } from './components/myaccountbuyer/myaccountbu
 import { MyaccountsellerComponent } from './components/myaccountseller/myaccountseller.component';
 import { LoginComponent } from './components/login/login.component'
 import { UploadService } from './services/upload';
+import { ViewcommissionComponent } from './components/viewcommission/viewcommission.component';
+import { MarketplaceComponent } from './components/marketplace/marketplace.component'
 
 const routes: Routes = [
-  { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+  { path: '', redirectTo: 'marketplace', pathMatch: 'full' },
   { path: 'registration-confirmed', component: RegisterLoadingComponent },
   { path: 'welcome', component: WelcomeComponent },
   { path: 'my-accounts-seller', component: MyaccountsellerComponent },
   { path: 'my-accounts-buyer', component: MyaccountbuyerComponent },
+  { path: 'marketplace', component: MarketplaceComponent },
+  { path: 'commission', component: ViewcommissionComponent },
   { path: '**', component: NoPageFoundComponent }
 ];
 

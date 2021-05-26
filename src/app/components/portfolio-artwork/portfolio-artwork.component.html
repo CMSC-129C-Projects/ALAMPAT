@@ -55,6 +55,11 @@
                     </div>
                 </div>
                 <figure class="image">
+                    <div *ngIf = "percentage | async as pct">
+                        <progress [value] = "pct" max = "100"></progress>
+                        {{pct | number}} %
+                        
+                    </div>
                     <div *ngIf = "snapshot | async as snap">
                         <img class="artworkimage" [src]= "addedimageSRC">
                     </div>
@@ -126,7 +131,15 @@
                     </div>
                 </div>
                 <figure class="image">
-                    <img class="artworkimage" [src]= "imageSRC">
+                    <div *ngIf = "percentage | async as pct">
+                        <progress [value] = "pct" max = "100"></progress>
+                        {{pct | number}} %
+                    </div>
+                    <div *ngIf = "snapshot | async as snap">
+                        <div *ngIf = "fileName">
+                        <img class="artworkimage" [src]= "imageSRC">
+                        </div>
+                    </div>
                 </figure>
 
                 <div class="field mt-4">
