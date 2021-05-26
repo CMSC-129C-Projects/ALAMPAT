@@ -22,8 +22,9 @@ const getAll =  (req, res, next) => {
     Commission.find({}, async function (err, allCommissions){
       if(err) throw err;
       var all = [];
+
       for(var i in allProducts){
-        if(allProducts[i].stock > 0){
+        //if(allProducts[i].stock > 0){
           const user = await User.findOne({products: allProducts[i]._id } , 'name').exec()
           if(user){
             let prod = {
@@ -41,11 +42,11 @@ const getAll =  (req, res, next) => {
             all.push(prod)
           }
           
-        }
+        //}
         
       }
       for( var i in allCommissions){
-        if(allCommissions[i].slot > 0){
+        //if(allCommissions[i].slot > 0){
           const user = await User.findOne({commissions: allCommissions[i]._id } , 'name').exec()
           if(user){
             let com = {
@@ -62,7 +63,7 @@ const getAll =  (req, res, next) => {
             // /allProducts[i]['sellername'] = user.name;
             all.push(com)
           }
-        }
+        //}
        
       }
       return res.json({
