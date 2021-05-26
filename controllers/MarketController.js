@@ -8,7 +8,7 @@ const getProductList = (req, res, next) => {
       var all = [];
 
       for(var i in allProducts){
-        //if(allProducts[i].stock > 0){
+        
           const user = await User.findOne({products: allProducts[i]._id } , 'name').exec()
           if(user){
             let prod = {
@@ -21,13 +21,9 @@ const getProductList = (req, res, next) => {
               category:allProducts[i].category,
               sellername: user.name
             } 
-            //console.log("prod: " + JSON.stringify(prod))
-            // /allProducts[i]['sellername'] = user.name;
             all.push(prod)
           }
-          
-        //}
-        
+
       }
       return res.json({ all: all})
   })
@@ -38,7 +34,6 @@ const getCommissionList = (req, res, next) => {
         if(err) throw err;
         var all = [];
         for( var i in allCommissions){
-          //if(allCommissions[i].slot > 0){
             const user = await User.findOne({commissions: allCommissions[i]._id } , 'name').exec()
             if(user){
               let com = {
@@ -51,12 +46,9 @@ const getCommissionList = (req, res, next) => {
                 category:allCommissions[i].category,
                 sellername: user.name
               }
-              //console.log("prod: " + JSON.stringify(prod))
-              // /allProducts[i]['sellername'] = user.name;
+
               all.push(com)
             }
-          //}
-         
         }
 
         return res.json({
@@ -73,7 +65,6 @@ const getAll =  (req, res, next) => {
       var all = [];
 
       for(var i in allProducts){
-        //if(allProducts[i].stock > 0){
           const user = await User.findOne({products: allProducts[i]._id } , 'name').exec()
           if(user){
             let prod = {
@@ -86,16 +77,11 @@ const getAll =  (req, res, next) => {
               category:allProducts[i].category,
               sellername: user.name
             } 
-            //console.log("prod: " + JSON.stringify(prod))
-            // /allProducts[i]['sellername'] = user.name;
             all.push(prod)
           }
-          
-        //}
-        
+
       }
       for( var i in allCommissions){
-        //if(allCommissions[i].slot > 0){
           const user = await User.findOne({commissions: allCommissions[i]._id } , 'name').exec()
           if(user){
             let com = {
@@ -108,12 +94,9 @@ const getAll =  (req, res, next) => {
               category:allCommissions[i].category,
               sellername: user.name
             }
-            //console.log("prod: " + JSON.stringify(prod))
-            // /allProducts[i]['sellername'] = user.name;
             all.push(com)
           }
-        //}
-       
+
       }
       return res.json({
         all : all,
