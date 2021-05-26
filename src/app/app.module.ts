@@ -21,8 +21,8 @@ import { MyaccountbuyerComponent } from './components/accounts/buyer/myaccountbu
 import { MyaccountsellerComponent } from './components/accounts/seller/myaccountseller/myaccountseller.component';
 import { HeaderbuyerComponent } from './components/accounts/buyer/headerbuyer/headerbuyer.component';
 import { HeadersellerComponent } from './components/accounts/seller/headerseller/headerseller.component';
-import { EditaccountbuyerComponent } from './components/editaccountbuyer/editaccountbuyer.component';
-import { EditaccountsellerComponent } from './components/editaccountseller/editaccountseller.component';
+import { EditaccountbuyerComponent } from './components/accounts/buyer/editaccountbuyer/editaccountbuyer.component';
+import { EditaccountsellerComponent } from './components/accounts/seller/editaccountseller/editaccountseller.component';
 import { PortfolioComponent } from './components/accounts/seller/portfolios/portfolio/portfolio.component';
 import { PortfolioArtworkComponent } from './components/accounts/seller/portfolios/portfolio-artwork/portfolio-artwork.component';
 import { ProductsComponent } from './components/accounts/seller/product/products/products.component';
