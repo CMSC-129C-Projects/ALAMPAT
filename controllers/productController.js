@@ -16,7 +16,8 @@ const addProduct = async(req, res, next) => {
                 },
                 description:req.body.productDescription,
                 stock:req.body.stock,
-                price:req.body.price
+                price:req.body.price,
+                category: req.body.category
             })
             if (product.length <= 0){
                 return res.send('You must select atleast 1 file.')
