@@ -60,6 +60,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     console.log("Category choice:" + JSON.stringify(category.value))  
     
     this.curr_category.next(cat_choice)
+    this.ApplyPrice()
     this.categorizeData(cat_choice)
     
   }
@@ -104,28 +105,31 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   ApplyPrice(){
     var p_min = this.price_min as HTMLInputElement
     var p_max = this.price_max as HTMLInputElement
-
+    //console.log( "Value : " + p_min + "  " + p_max )
+    if(p_max == undefined || p_min == undefined ){
+      return
+    }
     const min:number = Number(p_min.value)
     const max:number = Number(p_max.value)
     console.log( "Value : " + min + "  " + max )
     
     this.load_wholemarket()
-      
-    
 
     //this.categorizeData(this.curr_category.value) 
     this.selectSortOption()
 
     this.marketdata = []
-    console.log("Inside data : " + JSON.stringify(this.temp_list.value))
-
-    this.temp_list.value.forEach((item,index) => {
-      if(item.price >= min  && item.price <= max  ){
-        this.marketdata.push(item)
-        console.log("Inside data : " + JSON.stringify(item))
-      }
-    })
-    console.log("Market data : " + JSON.stringify(this.marketdata))
+    //console.log("Inside data : " + JSON.stringify(this.temp_list.value))
+    if( min != undefined || max!= undefined  || (min >= 0 || max >=0)){
+      this.temp_list.value.forEach((item,index) => {
+        if(item.price >= min  && item.price <= max  ){
+          this.marketdata.push(item)
+          console.log("Inside data : " + JSON.stringify(item))
+        }
+      })
+    }
+    
+    //console.log("Market data : " + JSON.stringify(this.marketdata))
     this.temp_list.next(this.marketdata)
     //this.marketdata = this.temp_list.value
     this.subs.forEach((x)=>{
@@ -141,18 +145,6 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     this.marketdata.sort(this.sortserv.getNumAscendingSortOrder("price"))
     //console.log("Inside data : " + JSON.stringify(this.temp_list))
     this.temp_list.next(this.marketdata)
-    
-    // if(option == "Alphabetical"){
-    //   this.marketdata.sort(this.sortserv.getStrAscendingSortOrder("productname"))
-    //   //this.soldoutList.sort(this.sortserv.getStrAscendingSortOrder("productname"))
-    // }
-    // if(option == "Date Created"){
-    //   this.marketdata.sort(this.sortserv.getTimeAscendingSortOrder("createdAt"))
-    //   //this.soldoutList.sort(this.sortserv.getTimeAscendingSortOrder("createdAt"))
-    // }
-    // if(option == "Date Modified"){
-    //   this.marketdata.sort(this.sortserv.getTimeDescendingSortOrder("updatedAt"))
-    //   //this.soldoutList.sort(this.sortserv.getTimeDescendingSortOrder("updatedAt"))
-    // }
+
   }
 }
