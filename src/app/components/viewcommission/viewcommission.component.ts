@@ -36,13 +36,14 @@ export class ViewcommissionComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const com_id = this.route.snapshot.paramMap.get('id');
     //console.log("Item : " + JSON.stringify(com_id))
-    this.marketserv.getcommission(com_id).subscribe((com)=>{
+    this.subs.push(this.marketserv.getcommission(com_id).subscribe((com)=>{
       this.comm_item = com
       console.log("Item : " + JSON.stringify(this.comm_item))
     })
+    )
   }
 
   ngOnDestroy(): void{
-
+    this.subs.forEach((x)=> x.unsubscribe())
   }
 }
