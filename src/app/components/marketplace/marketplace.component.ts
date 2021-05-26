@@ -138,7 +138,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     var p_min = this.price_min as HTMLInputElement
     var p_max = this.price_max as HTMLInputElement
    
-    if(p_max == undefined || p_min == undefined ){
+    if(p_max == undefined || p_min == undefined || p_min.value == '' || p_max.value == ''){
       return
     }
 
@@ -151,7 +151,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
 
     this.marketdata = []
     //console.log("Inside data : " + JSON.stringify(this.temp_list.value))
-    if( min != undefined || max!= undefined  || (min > 0 || max >0)){
+    if( min != undefined || max!= undefined  || (min > 0 || max > 0)){
       this.temp_list.value.forEach((item,index) => {
         if(item.price >= min  && item.price <= max  ){
           this.marketdata.push(item)
