@@ -6,7 +6,6 @@ const portfolioController = require('../controllers/PortfolioController');
 const productController = require('../controllers/productController');
 const commissionController = require('../controllers/CommissionController');
 
-
 router.post('/:id/addportfolio', portfolioController.addArtwork)
 router.get('/:id/portfolio', portfolioController.getArtworkList)
 router.patch('/:id/editportfolio/:artid', portfolioController.updateArtwork)
