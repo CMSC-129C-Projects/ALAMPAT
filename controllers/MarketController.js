@@ -27,7 +27,13 @@ const getAll =  (req, res, next) => {
           const user = await User.findOne({products: allProducts[i]._id } , 'name').exec()
           if(user){
             let prod = {
-              item: allProducts[i],
+              _id: allProducts[i]._id,
+              productname: allProducts[i].productname, 
+              images: allProducts[i].images,
+              description:allProducts[i].description,
+              stock:allProducts[i].stock,
+              price:allProducts[i].price,
+              category:allProducts[i].category,
               sellername: user.name
             } 
             //console.log("prod: " + JSON.stringify(prod))
@@ -43,7 +49,13 @@ const getAll =  (req, res, next) => {
           const user = await User.findOne({commissions: allCommissions[i]._id } , 'name').exec()
           if(user){
             let com = {
-              item: allCommissions[i],
+              _id:allCommissions[i] ,
+              commissionname:allCommissions[i].commissionname , 
+              images: allCommissions[i].images,
+              description:allCommissions[i].description,
+              stock:allCommissions[i].stock,
+              price:allCommissions[i].price,
+              category:allCommissions[i].category,
               sellername: user.name
             }
             //console.log("prod: " + JSON.stringify(prod))
