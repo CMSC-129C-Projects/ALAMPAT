@@ -13,7 +13,7 @@ const getProductList = (req, res, next) => {
           if(user){
             let prod = {
               _id: allProducts[i]._id,
-              productname: allProducts[i].productname, 
+              itemname: allProducts[i].productname, 
               images: allProducts[i].images,
               description:allProducts[i].description,
               stock:allProducts[i].stock,
@@ -43,7 +43,7 @@ const getCommissionList = (req, res, next) => {
             if(user){
               let com = {
                 _id:allCommissions[i] ,
-                commissionname:allCommissions[i].commissionname , 
+                itemname:allCommissions[i].commissionname , 
                 images: allCommissions[i].images,
                 description:allCommissions[i].description,
                 stock:allCommissions[i].stock,
@@ -78,7 +78,7 @@ const getAll =  (req, res, next) => {
           if(user){
             let prod = {
               _id: allProducts[i]._id,
-              productname: allProducts[i].productname, 
+              itemname: allProducts[i].productname, 
               images: allProducts[i].images,
               description:allProducts[i].description,
               stock:allProducts[i].stock,
@@ -100,7 +100,7 @@ const getAll =  (req, res, next) => {
           if(user){
             let com = {
               _id:allCommissions[i] ,
-              commissionname:allCommissions[i].commissionname , 
+              itemname:allCommissions[i].commissionname , 
               images: allCommissions[i].images,
               description:allCommissions[i].description,
               stock:allCommissions[i].stock,
