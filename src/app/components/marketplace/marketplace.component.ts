@@ -39,14 +39,14 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     private marketserv: MarketService,
     private sortserv: SortService
   ) {
-    this.curr_category = new BehaviorSubject<string>('')
+    this.curr_category = new BehaviorSubject<string>('All')
     this.temp_list = new BehaviorSubject<item[]>([])
    }
 
   ngOnInit(): void {
     console.log("I am here")
     this.load_wholemarket()
-    //this.ngOnDestroy()
+    //this.ngOnDestroy
   }
 
   ngOnDestroy(): void {
@@ -60,44 +60,76 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     console.log("Category choice:" + JSON.stringify(category.value))  
     
     this.curr_category.next(cat_choice)
-    this.ApplyPrice()
+    //this.ApplyPrice()
     this.categorizeData(cat_choice)
-    
+    //this.selectSortOption()
   }
 
   categorizeData(cat_choice: string){
     console.log("I am here 3")
+
     this.marketdata = []
-    this.temp_list.value.forEach((item,index) => {
-      if(item.category == "Product" && cat_choice == "Product"){
-        this.marketdata.push(item)
-      }
-      else if(item.category == "Commission" && cat_choice == "Commission"){
-        this.marketdata.push(item)
-        //console.log("I am here")
-      }
-      else if(cat_choice == ''|| cat_choice == 'All' ){
-        this.marketdata.push(item)
-      }
-    })
-    //this.temp_list.next(this.marketdata)
-    
+    if(cat_choice == "Product"){
+      this.subs.push(
+        this.marketserv.getproductMarket().subscribe( (items: any[]) => {
+        //this.marketdata = items
+       this.marketdata = items 
+        this.temp_list.next(this.marketdata)
+      })
+      )
+      //this.marketdata.push(item)
+    }
+    else if( cat_choice == "Commission"){
+      this.subs.push(
+        this.marketserv.getcommissionMarket().subscribe( (items: any[]) => {
+        //this.marketdata = items
+        this.marketdata = items 
+        this.temp_list.next(this.marketdata)
+      })
+      )
+      //this.marketdata.push(item)
+      //console.log("I am here")
+    }
+    else if(cat_choice == ''|| cat_choice == 'All' ){
+      this.subs.push(
+        this.marketserv.getallMarket().subscribe( (items: any[]) => {
+        //this.marketdata = items
+       this.marketdata = items 
+        this.temp_list.next(this.marketdata)
+      })
+      )
+      //this.marketdata.push(item)
+    }
+
+    // this.temp_list.value.forEach((item,index) => {
+    //   if(item.category == "Product" && cat_choice == "Product"){
+    //     this.marketdata.push(item)
+    //   }
+    //   else if(item.category == "Commission" && cat_choice == "Commission"){
+    //     this.marketdata.push(item)
+    //     //console.log("I am here")
+    //   }
+    //   else if(cat_choice == ''|| cat_choice == 'All' ){
+    //     this.marketdata.push(item)
+    //   }
+    // })
+
   }
   
   load_wholemarket(){
     console.log("I am here 4")
-    this.subs.push(
-      this.marketserv.getMarket().subscribe( (items: any[]) => {
-      //this.marketdata = items
-      this.marketdata = items
-      
-      this.temp_list.next(this.marketdata)
-      
-      // this.marketdata.forEach((item, index)=>{
-      //  console.log("Updated Market data: " + JSON.stringify(item))
-      //  })
+    this.subs.forEach((x)=>{
+      x.unsubscribe()
     })
-    )
+    // this.subs.push(
+    //   this.marketserv.getallMarket().subscribe( (items: any[]) => {
+    //   //this.marketdata = items
+    //   this.marketdata = items
+      
+    //   this.temp_list.next(this.marketdata)
+ 
+    // })
+    // )
     this.categorizeData(this.curr_category.value)
     
   }
@@ -105,22 +137,21 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   ApplyPrice(){
     var p_min = this.price_min as HTMLInputElement
     var p_max = this.price_max as HTMLInputElement
-    //console.log( "Value : " + p_min + "  " + p_max )
+   
     if(p_max == undefined || p_min == undefined ){
       return
     }
+
     const min:number = Number(p_min.value)
     const max:number = Number(p_max.value)
     console.log( "Value : " + min + "  " + max )
     
-    this.load_wholemarket()
-
     //this.categorizeData(this.curr_category.value) 
     this.selectSortOption()
 
     this.marketdata = []
     //console.log("Inside data : " + JSON.stringify(this.temp_list.value))
-    if( min != undefined || max!= undefined  || (min >= 0 || max >=0)){
+    if( min != undefined || max!= undefined  || (min > 0 || max >0)){
       this.temp_list.value.forEach((item,index) => {
         if(item.price >= min  && item.price <= max  ){
           this.marketdata.push(item)
@@ -132,9 +163,9 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     //console.log("Market data : " + JSON.stringify(this.marketdata))
     this.temp_list.next(this.marketdata)
     //this.marketdata = this.temp_list.value
-    this.subs.forEach((x)=>{
-      x.unsubscribe()
-    })
+    // this.subs.forEach((x)=>{
+    //   x.unsubscribe()
+    // })
     console.log("I am here 5")
   }
 
@@ -145,6 +176,10 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     this.marketdata.sort(this.sortserv.getNumAscendingSortOrder("price"))
     //console.log("Inside data : " + JSON.stringify(this.temp_list))
     this.temp_list.next(this.marketdata)
+
+  }
+
+  Resetfilter(){
 
   }
 }

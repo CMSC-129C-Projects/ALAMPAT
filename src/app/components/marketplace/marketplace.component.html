@@ -36,7 +36,7 @@
             <div class="field has-addons">
                 <div class="control">
                     <div class="select is-fullwidth">
-                        <select name="category" (change) = "Categorizeby($event)">
+                        <select name="category" (change) = "Categorizeby($event); minfield.value =''; maxfield.value =''">
                             <option value="All">All Items</option>
                             <option value="Product">Products Only</option>
                             <option value="Commission">Commissions Only</option>
@@ -99,13 +99,13 @@
         <div class="column has-text-centered is-2">
             <div class="field has-addons">
                 <p class="control is-expanded">
-                <input (input)="price_min =$event.target"  class="form-control" class="input is-small" type="number" placeholder="Min Price">
+                <input (input)="price_min =$event.target"  #minfield class="form-control" class="input is-small" type="number" placeholder="Min Price">
                 </p>
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
                   </svg>
                 <p class="control is-expanded">
-                    <input  (input)="price_max=$event.target" class="form-control" class="input is-small" type="number" placeholder="Max Price">
+                    <input  (input)="price_max=$event.target" #maxfield class="form-control" class="input is-small" type="number" placeholder="Max Price">
                 </p>
             </div>
         </div>
@@ -133,7 +133,7 @@
             </div>
         </div>
         <div class="column is-narrow">
-            <button class="button is-small is-danger has-text-weight-bold">
+            <button class="button is-small is-danger has-text-weight-bold" (click)="minfield.value =''; maxfield.value ='';load_wholemarket(); ngOnDestroy()" id="reset">
                 Reset All Filters
             </button>
         </div>
@@ -145,7 +145,7 @@
   <!-- Item Name adn Description should only be limited to a number of characters -->
   <!-- to preserve the length of the item card, so it would look clean -->
     <div class="columns is-multiline is-mobile is-centered" *ngFor = "let item of marketdata">
-        <div class="column is-3" >
+        <div class="column is-3" style="display: inline-block;">
             <div class="card">
                 <a class="card-image">
                     <figure class="image is-3by2">

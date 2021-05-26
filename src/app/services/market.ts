@@ -35,12 +35,22 @@ export class MarketService {
         return this.market.value;
     }
 
-    getMarket(): Observable<any>{
-        this.getMarketdata()
+    getallMarket(): Observable<any>{
+        this.getallMarketdata()
         return this.market.asObservable()
     }   
 
-    getMarketdata() {
+    getproductMarket(): Observable<any>{
+        this.getProductMarketdata()
+        return this.market.asObservable()
+    }  
+
+    getcommissionMarket(): Observable<any>{
+        this.getCommissionMarketdata()
+        return this.market.asObservable()
+    }  
+
+    getallMarketdata() {
     
         axios.get(`${localAPI}/buyer/market`)
         .then(resp => {
@@ -57,6 +67,43 @@ export class MarketService {
         });
     
     }
+
+    getProductMarketdata() {
+    
+        axios.get(`${localAPI}/buyer/productmarket`)
+        .then(resp => {
+            this.market.next(resp.data.all)
+            // /console.log("market value: " + JSON.stringify(this.market))
+            // /console.log("Market data: " + JSON.stringify(resp.data.all));
+            //return resp.data
+        })
+        .catch(err => {
+            // Handle Error Here
+            //this.error.emit(err)
+            console.log(err);
+            //return err
+        });
+    
+    }
+
+    getCommissionMarketdata() {
+    
+        axios.get(`${localAPI}/buyer/commissionmarket`)
+        .then(resp => {
+            this.market.next(resp.data.all)
+            // /console.log("market value: " + JSON.stringify(this.market))
+            // /console.log("Market data: " + JSON.stringify(resp.data.all));
+            //return resp.data
+        })
+        .catch(err => {
+            // Handle Error Here
+            //this.error.emit(err)
+            console.log(err);
+            //return err
+        });
+    
+    }
+
    
     
 }
