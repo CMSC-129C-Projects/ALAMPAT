@@ -26,7 +26,7 @@ interface commission {
 })
 export class ViewcommissionComponent implements OnInit, OnDestroy {
 
-  comm_item:  commission
+  comm_item:  commission|null
   subs : Subscription[] = []
   constructor(
     private route:ActivatedRoute,
@@ -35,15 +35,18 @@ export class ViewcommissionComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const com_id = this.route.snapshot.paramMap.get('id');
-    //console.log("Item : " + JSON.stringify(com_id))
+    console.log("Item : " + JSON.stringify(com_id))
     this.subs.push(this.marketserv.getcommission(com_id).subscribe((com)=>{
       this.comm_item = com
-      console.log("Item : " + JSON.stringify(this.comm_item))
+      //console.log("Item : " + JSON.stringify(this.comm_item))
     })
     )
   }
 
   ngOnDestroy(): void{
+    localStorage.setItem('reload', "false")
+    this.comm_item = null
+    //this.marketserv.editReload(false)
     this.subs.forEach((x)=> x.unsubscribe())
   }
 }

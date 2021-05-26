@@ -24,12 +24,16 @@ export class MarketService {
     // showEdit: EventEmitter<boolean> = new EventEmitter();
     // portfolio = new Subject<any>();
     // //error: EventEmitter<any> = new EventEmitter();
+    reload: EventEmitter<boolean> ;
 
     constructor(
         ) {
            this.market = new BehaviorSubject<any>([])
            this.item = new BehaviorSubject<any>(null)
+           this.reload = new EventEmitter<boolean>(true)
            //this.getMarketdata()
+           localStorage.setItem('reload', "true")
+           localStorage.setItem('curr_category', "All")
          }
     
     public get marketValue(): any {
@@ -37,6 +41,11 @@ export class MarketService {
         return this.market.value;
     }
 
+    
+    editReload(reload:boolean){
+        this.reload.emit(reload)
+    }
+    
     getallMarket(): Observable<any>{
         this.getallMarketdata()
         return this.market.asObservable()
@@ -53,6 +62,7 @@ export class MarketService {
     }  
 
     getcommission(_id: string|null): Observable<any>{
+        this.item = new BehaviorSubject<any>(null)
         this.getCommission(_id)
         return this.item.asObservable()
     }  

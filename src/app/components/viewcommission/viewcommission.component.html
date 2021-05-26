@@ -82,13 +82,19 @@
         color: orange;
     }
 
+    .profileImage {
+        height:64px;
+        width:64px;
+        object-fit:cover;
+        border-radius: 50%;
+    }
 </style>
 
 <app-headerbuyer></app-headerbuyer>
 
 <div class="container">
     <nav class="breadcrumb is-small" aria-label="breadcrumbs">
-        <li><a>
+        <li><a [routerLink]="['/marketplace']">
             <span class="icon is-small">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
                     <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
@@ -99,10 +105,10 @@
           </a></li>
     </nav>
 </div>
-
+<!---
 <div class="hero">
 
-    <!-- Category, Search Bar, Cart -->
+    
     <div class="columns is-centered">
         <div class="column is-one-fifth">
             <div class="field has-addons">
@@ -134,7 +140,7 @@
                 </p>
             </div>
         </div>
-        <!-- CART and RESERVATIONS -->
+        
         <div class="column is-narrow has-text-centered">
             <a title="Cart">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
@@ -152,7 +158,7 @@
         </div>
     </div>
 </div> 
-
+-->
 <div class="hero-body">
     <div class="columns is-centered is-multiline">
         <div class="column is-one-third has-text-centered">
@@ -406,7 +412,7 @@
                 <div class="columns">
                     <div class="column is-2 ">
                         <figure class="image is-64x64">
-                            <img class="is-rounded"
+                            <img class="profileImage"
                                 [src]="comm_item.profileImage">
                         </figure>
                     </div>

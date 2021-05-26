@@ -4,6 +4,7 @@ import { SortService } from 'src/app/services/sortingService';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 
+
 interface item {
   _id?: string;
   // productname?: string;
@@ -26,16 +27,18 @@ interface item {
   templateUrl: './marketplace.component.html',
   styleUrls: ['./marketplace.component.css']
 })
-export class MarketplaceComponent implements OnInit, OnDestroy {
+export class MarketplaceComponent implements OnInit {
   
   marketdata: item[];
   temp_list: BehaviorSubject<item[]>;
 
   subs: Subscription[] = [];
+  re_sub:Subscription[] = []
   price_min: EventTarget | null ;
   price_max: EventTarget | null ;
+  reload: boolean
 
-  curr_category: BehaviorSubject<string> 
+  curr_category: BehaviorSubject<any> 
 
   constructor(
     private marketserv: MarketService,
@@ -44,11 +47,29 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   ) {
     this.curr_category = new BehaviorSubject<string>('All')
     this.temp_list = new BehaviorSubject<item[]>([])
-   }
+
+    
+    this.re_sub.push(this.marketserv.reload.subscribe((x)=>{
+        this.reload = x
+   }))
+  }
 
   ngOnInit(): void {
-    console.log("I am here")
-    this.load_wholemarket()
+    console.log("I am here " + JSON.stringify(this.marketdata))
+    if(localStorage.getItem('reload') != "false"){
+      this.load_wholemarket()
+    }
+    else{
+      const cat = localStorage.getItem('curr_category') ? localStorage.getItem('curr_category') : null
+      this.curr_category.next(cat)
+      this.categorizeData(this.curr_category.value)
+      if(localStorage.getItem("searched_item")){
+        this.searchItem(localStorage.getItem("searched_item"))
+      }
+      // if(localStorage.getItem("p_min")&&(localStorage.getItem("p_max"))){
+      //   this.ApplyPrice()
+      // }
+    }
     //this.ngOnDestroy
   }
 
@@ -66,6 +87,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     //this.ApplyPrice()
     this.categorizeData(cat_choice)
     //this.selectSortOption()
+    localStorage.removeItem("searched_item")
   }
 
   categorizeData(cat_choice: string){
@@ -103,7 +125,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
       )
       //this.marketdata.push(item)
     }
-
+    
     // this.temp_list.value.forEach((item,index) => {
     //   if(item.category == "Product" && cat_choice == "Product"){
     //     this.marketdata.push(item)
@@ -133,6 +155,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
  
     // })
     // )
+    localStorage.removeItem("searched_item")
     this.categorizeData(this.curr_category.value)
     
   }
@@ -145,13 +168,19 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
       return
     }
 
-    const min:number = Number(p_min.value)
-    const max:number = Number(p_max.value)
+    var min:number = Number(p_min.value)
+    var  max:number = Number(p_max.value)
+    // if(localStorage.getItem("p_min")&&(localStorage.getItem("p_max"))){
+    //   min = Number(localStorage.getItem("p_min"))
+    //   max = Number(localStorage.getItem("p_max"))
+    //   console.log( "NewValue : " + min + "  " + max )
+    // }
     console.log( "Value : " + min + "  " + max )
     
     //this.categorizeData(this.curr_category.value) 
     this.selectSortOption()
-
+    localStorage.setItem("p_min", String(min))
+    localStorage.setItem("p_max", String(max))
     this.marketdata = []
     //console.log("Inside data : " + JSON.stringify(this.temp_list.value))
     if( min != undefined || max!= undefined  || (min > 0 || max > 0)){
@@ -190,7 +219,10 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
 
   }
 
-  searchItem(word: string){
+  searchItem(word: string | null){
+    if(word == null){
+      return
+    }
     console.log("Search the word : " + word)
     this.categorizeData(this.curr_category.value) 
     this.marketdata = this.marketdata.filter(function(ele, i, array){
@@ -203,10 +235,13 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
       })
     this.temp_list.next(this.marketdata)
     console.log("Searched Items: " + JSON.stringify(this.marketdata))
+    localStorage.setItem("searched_item", word)
   }
 
   ViewItem(item: item){
     const _id = item ? item._id : null;
+    this.marketdata = []
+    localStorage.setItem("curr_category", this.curr_category.value)
     console.log("View Item: " + JSON.stringify(_id))
     if(item.category == "Commission"){
       this.router.navigate(['/commission-item/', {id: _id} ])
