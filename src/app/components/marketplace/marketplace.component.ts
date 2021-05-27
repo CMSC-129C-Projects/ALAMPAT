@@ -27,7 +27,7 @@ interface item {
   templateUrl: './marketplace.component.html',
   styleUrls: ['./marketplace.component.css']
 })
-export class MarketplaceComponent implements OnInit {
+export class MarketplaceComponent implements OnInit, OnDestroy {
   
   marketdata: item[];
   temp_list: BehaviorSubject<item[]>;
@@ -75,7 +75,9 @@ export class MarketplaceComponent implements OnInit {
       // if(localStorage.getItem("p_min")&&(localStorage.getItem("p_max"))){
       //   this.ApplyPrice()
       // }
+      localStorage.setItem('reload', 'true')
     }
+    
     //this.ngOnDestroy
   }
 
@@ -189,7 +191,7 @@ export class MarketplaceComponent implements OnInit {
     
     
     //this.categorizeData(this.curr_category.value) 
-    this.selectSortOption()
+    //this.selectSortOption()
     //localStorage.setItem("p_min", String(min))
     //localStorage.setItem("p_max", String(max))
     this.marketdata = []
