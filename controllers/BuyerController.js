@@ -104,7 +104,7 @@ const deleteCartitem = async(req, res, next) => {
 const addReservation = async(req, res, next) => {
     try{
 
-        User.findByIdAndUpdate(req.params.id , { $push: { reservation: req.body.comm_id } })
+        User.findByIdAndUpdate(req.params.id , { $push: { reservation: req.params._id } })
         .then((result) => {
             res.json({
                 message: 'Commission  added to Reservation successfully!',
