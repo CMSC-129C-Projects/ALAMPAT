@@ -22,7 +22,7 @@ export class UploadService {
     pseudo_art: any;
     isUploaded: boolean = false;
     isDeleted: boolean = false;
-    userID: string = '607fe491958fa65f08f14d0e';
+    userID: string | null;
     artworkID: string = '6087e77a8431c85ee8f081dc';
     uploadError: string = '';
 
@@ -37,7 +37,9 @@ export class UploadService {
 
     constructor(private router:Router,
         private domSanitizer: DomSanitizer, 
-        ) { }
+        ) {
+            
+         }
     
 
     refresh(): Observable<any> {
@@ -53,14 +55,14 @@ export class UploadService {
     }
 
     selectArt(art: any) {
-        //console.log("Passed art: "+ JSON.stringify(art))
-        //this.currArt.emit(art)
+  
         this.artSource.next(art);
     }
 
     uploadPortfolio = async (portfolio: Portfolio) => {
         console.log('in get portfolio')
         try {
+            this.userID = localStorage.getItem('id')
             const response = await axios.post<uploadResponse>(`${localAPI}/seller/${this.userID}/addportfolio`, portfolio)
             const { message, success } = response.data
             console.log(response.data)
@@ -79,46 +81,36 @@ export class UploadService {
     
     getPortfoliodata() {
         try {
+            this.userID = localStorage.getItem('id')
             axios.get(`${localAPI}/seller/${this.userID}/portfolio`)
             .then(resp => {
                 this.portfolio.next(resp.data.portfolioArray)
                 
-                console.log(this.portfolio);
-                //return resp.data
+                console.log(this.portfolio);  
             })
-            .catch(err => {
-                // Handle Error Here
-                //this.error.emit(err)
+            .catch(err => { 
                 console.log(err);
-                //return err
             });
-            
 
         } catch (error) {
-            //.error.emit(error)
             console.log(error)
             this.uploadError = error
-
-            //return error
         }
     }
+
     updatePortfoliodata = async (portfolio: Portfolio, id: any ) => {
         try {
+            this.userID = localStorage.getItem('id')
             const response = await axios.patch(`${localAPI}/seller/${this.userID}/editportfolio/${id}`, portfolio);
             const { message, success } = response.data
             //console.log(response.data)
             if (success) {
                 this.isUploaded = true;
-                //this.pseudo_art = response.data.result
-                
-                //this.pseudo_art.images.imageBase64 =  this.domSanitizer.bypassSecurityTrustUrl(response.data.result.images.imageBase64)
-                //console.log("Pseudo_art: " + JSON.stringify(this.pseudo_art))
-                //this.currArt.emit(this.pseudo_art)
+            
                 console.log("Artwork Updated!" + response.data.result)
                 
-                //this.router.navigate(['/registration-confirmed'])
                 return this.isUploaded
-                //
+               
             } else {
                 this.isUploaded = false;
                 
@@ -135,6 +127,7 @@ export class UploadService {
 
     deletePortfoliodata = async (id: any ) => {
         try {
+            this.userID = localStorage.getItem('id')
             const response = await axios.delete(`${localAPI}/seller/${this.userID}/removeportfolio/`,{data : { _id :id}});
             const { message, success } = response.data
             console.log(response.data)

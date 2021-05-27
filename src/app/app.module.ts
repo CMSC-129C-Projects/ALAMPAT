@@ -1,23 +1,39 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
-
 import { AppRoutingModule, routingComponents } from './app-routing.module';
+
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireModule } from '@angular/fire';
+
+import { UploadService } from './services/upload';
+import { AccountService } from './services/account';
+import { ProductService } from './services/productServ';
+import { UserService } from './services/auth';
+import { MarketService } from './services/market';
+import { AuthGuard } from './auth.guard';
+
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ContactComponent } from './components/contact/contact.component';
-import {AngularFireStorageModule} from '@angular/fire/storage'
-import {AngularFireModule} from '@angular/fire';
-import { MarketplaceComponent } from './components/marketplace/marketplace.component'
+import { MyaccountbuyerComponent } from './components/accounts/buyer/myaccountbuyer/myaccountbuyer.component';
+import { MyaccountsellerComponent } from './components/accounts/seller/myaccountseller/myaccountseller.component';
 import { HeaderbuyerComponent } from './components/accounts/buyer/headerbuyer/headerbuyer.component';
 import { HeadersellerComponent } from './components/accounts/seller/headerseller/headerseller.component';
 import { EditaccountbuyerComponent } from './components/accounts/buyer/editaccountbuyer/editaccountbuyer.component';
 import { EditaccountsellerComponent } from './components/accounts/seller/editaccountseller/editaccountseller.component';
-
-import { UploadService } from './services/upload';
-import { MarketService } from './services/market';
+import { PortfolioComponent } from './components/accounts/seller/portfolios/portfolio/portfolio.component';
+import { PortfolioArtworkComponent } from './components/accounts/seller/portfolios/portfolio-artwork/portfolio-artwork.component';
+import { ProductsComponent } from './components/accounts/seller/product/products/products.component';
+import { AddProductComponent } from './components/accounts/seller/product/add-product/add-product.component';
 import { ViewcommissionComponent } from './components/viewcommission/viewcommission.component';
+import { MarketplaceComponent } from './components/marketplace/marketplace.component'
+import { SellershopComponent } from './components/accounts/seller/sellershop/sellershop.component';
+
+import { CommissionComponent } from './components/accounts/seller/commissions/commission/commission.component';
+import { CommissionItemComponent } from './components/accounts/seller/commissions/commission-item/commission-item.component';
+import { ViewProductComponent } from './components/accounts/buyer/view-product/view-product.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,10 +43,21 @@ import { ViewcommissionComponent } from './components/viewcommission/viewcommiss
     routingComponents,
     MarketplaceComponent,
     ViewcommissionComponent,
+    MyaccountbuyerComponent,
+    MyaccountsellerComponent,
     HeaderbuyerComponent,
     HeadersellerComponent,
     EditaccountbuyerComponent,
     EditaccountsellerComponent,
+    PortfolioComponent,
+    PortfolioArtworkComponent,
+    ProductsComponent,
+    AddProductComponent,  
+    SellershopComponent,
+    CommissionComponent,
+    CommissionItemComponent,
+    ViewProductComponent
+
   ],
   imports: [
     BrowserModule,
@@ -45,14 +72,21 @@ import { ViewcommissionComponent } from './components/viewcommission/viewcommiss
       appId: "1:42190675269:web:4d4f246a30fb3b380df22c",
       measurementId: "G-M7VWRJ4WN7"
     }),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+
   ],
-  exports:[
+  exports: [
     WelcomeComponent,
+    
   ],
   providers: [
+    UserService,
     UploadService,
+    AccountService,
+    ProductService,
+    AuthGuard,
     MarketService,
+  
   ],
   bootstrap: [AppComponent]
 })

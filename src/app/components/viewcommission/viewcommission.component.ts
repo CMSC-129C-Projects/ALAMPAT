@@ -42,7 +42,7 @@ export class ViewcommissionComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const com_id = this.route.snapshot.paramMap.get('id');
     this.slide_len = "i"
-    console.log("Item : " + JSON.stringify(com_id))
+    //console.log("Item : " + JSON.stringify(com_id))
     this.marketserv.getCommission(com_id)
     this.subs.push(this.marketserv.getcommission().subscribe((com:commission)=>{
       this.comm_item = com
@@ -59,7 +59,7 @@ export class ViewcommissionComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void{
-    localStorage.setItem('reload', "false")
+    
     
     //this.marketserv.editReload(false)
     this.subs.forEach((x)=> x.unsubscribe())

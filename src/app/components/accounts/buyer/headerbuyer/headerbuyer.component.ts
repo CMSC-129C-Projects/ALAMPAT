@@ -21,4 +21,11 @@ export class HeaderbuyerComponent implements OnInit {
     this.auth.logout()
     this.router.navigate(['/'])
   }
+
+  GotoMarketPlace(){
+      localStorage.setItem('reload', 'true')
+      localStorage.removeItem('curr_category')
+      localStorage.removeItem('searched_item')
+      this.router.navigate(['/marketplace'])
+  }
 }

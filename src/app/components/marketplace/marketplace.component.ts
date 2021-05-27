@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MarketService } from 'src/app/services/market';
 import { SortService } from 'src/app/services/sortingService';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 interface item {
@@ -44,6 +44,7 @@ export class MarketplaceComponent implements OnInit {
     private marketserv: MarketService,
     private sortserv: SortService,
     private router: Router,
+    private route: ActivatedRoute,
   ) {
     this.curr_category = new BehaviorSubject<string>('All')
     this.temp_list = new BehaviorSubject<item[]>([])
@@ -55,11 +56,15 @@ export class MarketplaceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("I am here " + JSON.stringify(this.marketdata))
-    if(localStorage.getItem('reload') != "false"){
+    console.log("I am here " )
+  
+
+    if(localStorage.getItem('reload') == "true"){
+      this.curr_category.next('All')
       this.load_wholemarket()
+      
     }
-    else{
+    else if(localStorage.getItem('reload') == "false"){
       const cat = localStorage.getItem('curr_category') ? localStorage.getItem('curr_category') : null
       this.curr_category.next(cat)
       
@@ -92,7 +97,7 @@ export class MarketplaceComponent implements OnInit {
   }
 
   categorizeData(cat_choice: string){
-    console.log("I am here 3")
+    console.log("I am here 3 " , cat_choice)
 
     this.marketdata = []
     if(cat_choice == "Product"){
@@ -180,8 +185,8 @@ export class MarketplaceComponent implements OnInit {
     
     //this.categorizeData(this.curr_category.value) 
     this.selectSortOption()
-    localStorage.setItem("p_min", String(min))
-    localStorage.setItem("p_max", String(max))
+    //localStorage.setItem("p_min", String(min))
+    //localStorage.setItem("p_max", String(max))
     this.marketdata = []
     //console.log("Inside data : " + JSON.stringify(this.temp_list.value))
     if( min != undefined || max!= undefined  || (min > 0 || max > 0)){
@@ -242,9 +247,11 @@ export class MarketplaceComponent implements OnInit {
   ViewItem(item: item){
     const _id = item ? item._id : null;
     this.marketdata = []
+    this.subs.forEach((x)=> x.unsubscribe())
     localStorage.setItem("curr_category", this.curr_category.value)
     console.log("View Item: " + JSON.stringify(_id))
     if(item.category == "Commission"){
+      localStorage.setItem('reload', "false")
       this.router.navigate(['/commission-item/', {id: _id} ])
     }
     else{
