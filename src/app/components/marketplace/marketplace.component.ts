@@ -171,6 +171,7 @@ export class MarketplaceComponent implements OnInit {
     var p_max = this.price_max as HTMLInputElement
    
     if(p_max == undefined || p_min == undefined || p_min.value == '' || p_max.value == ''){
+      this.categorizeData(this.curr_category.value)
       return
     }
 
