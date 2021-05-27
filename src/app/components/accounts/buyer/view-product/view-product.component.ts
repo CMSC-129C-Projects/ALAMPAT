@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { MarketService } from 'src/app/services/market';
+import { CartService } from 'src/app/services/cart';
 interface product {
-  _id?: string;
+  _id: string;
   itemname:string;
   description: string;
   //stock?: number;
@@ -33,6 +34,7 @@ export class ViewProductComponent implements OnInit, OnDestroy{
   constructor(
     private route:ActivatedRoute,
     private marketserv: MarketService,
+    private cartServ: CartService,
   ) {
     
     //this.copy = new BehaviorSubject<any>('')
@@ -62,4 +64,8 @@ export class ViewProductComponent implements OnInit, OnDestroy{
     this.subs.forEach((x)=> x.unsubscribe())
   }
 
+  addtoCart(prod: any){
+    console.log("id: " + JSON.stringify(prod._id))
+    this.cartServ.addtoCart(prod._id)
+  }
 }

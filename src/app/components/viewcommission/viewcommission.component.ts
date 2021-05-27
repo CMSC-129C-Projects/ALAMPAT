@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { MarketService } from 'src/app/services/market';
-
+import { CartService } from 'src/app/services/cart';
 interface commission {
   _id?: string;
   itemname:string;
@@ -34,6 +34,7 @@ export class ViewcommissionComponent implements OnInit, OnDestroy {
   constructor(
     private route:ActivatedRoute,
     private marketserv: MarketService,
+    private cartServ: CartService,
   ) {
     
     this.copy = new BehaviorSubject<any>('')
@@ -63,5 +64,9 @@ export class ViewcommissionComponent implements OnInit, OnDestroy {
     
     //this.marketserv.editReload(false)
     this.subs.forEach((x)=> x.unsubscribe())
+  }
+  addReservation(prod: any){
+    console.log("id: " + JSON.stringify(prod._id))
+    this.cartServ.addReservation(prod._id)
   }
 }

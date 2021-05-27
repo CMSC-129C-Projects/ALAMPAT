@@ -175,7 +175,7 @@
                         </svg>
                     </button>
                     
-                    <button *ngIf="prod_stock != 0" class="button is-medium is-danger has-text-weight-bold">
+                    <button *ngIf="prod_stock != 0" (click)="addtoCart(prod_item)" class="button is-medium is-danger has-text-weight-bold">
                         Add to Cart
                         &nbsp;
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
