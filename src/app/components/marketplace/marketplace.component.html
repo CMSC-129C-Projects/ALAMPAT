@@ -53,7 +53,7 @@
                 <input class="input" #searchword type="text" placeholder="What are you looking for?">
                 </p>
                 <p class="control">
-                    <a class="button is-warning has-text-weight-bold" (click) = "searchItem(searchword.value);minfield.value =''; maxfield.value ='' ">
+                    <a class="button is-warning has-text-weight-bold" (click) = "onResetsearch();searchItem(searchword.value);minfield.value =''; maxfield.value =''; ">
                         Search
                     </a>
                 </p>
@@ -130,7 +130,7 @@
             </div>
         </div>
         <div class="column is-narrow">
-            <button class="button is-small is-danger has-text-weight-bold" (click)="minfield.value =''; maxfield.value ='';searchword.value='';load_wholemarket(); " id="reset">
+            <button class="button is-small is-danger has-text-weight-bold" (click)="minfield.value =''; maxfield.value ='';searchword.value='';load_wholemarket();resetFilter() " id="reset">
                 Reset All Filters
             </button>
         </div>

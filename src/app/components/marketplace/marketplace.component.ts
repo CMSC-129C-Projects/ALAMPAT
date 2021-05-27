@@ -69,12 +69,12 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
       this.curr_category.next(cat)
       
       this.categorizeData(this.curr_category.value)
-      if(localStorage.getItem("searched_item")){
+      if("searched_item" in localStorage){
         this.searchItem(localStorage.getItem("searched_item"))
       }
-      // if(localStorage.getItem("p_min")&&(localStorage.getItem("p_max"))){
-      //   this.ApplyPrice()
-      // }
+      if("p_min" in localStorage && "p_max" in localStorage){
+        this.onReload_applyprice()
+      }
       localStorage.setItem('reload', 'true')
     }
     
@@ -84,6 +84,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subs.forEach((x) => x.unsubscribe())
   }
+
 
   Categorizeby(event: Event  ){
     console.log("I am here 2")
@@ -96,6 +97,8 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     this.categorizeData(cat_choice)
     //this.selectSortOption()
     localStorage.removeItem("searched_item")
+    localStorage.removeItem("p_min")
+    localStorage.removeItem("p_max")
   }
 
   categorizeData(cat_choice: string){
@@ -173,7 +176,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     var p_max = this.price_max as HTMLInputElement
    
     if(p_max == undefined || p_min == undefined || p_min.value == '' || p_max.value == ''){
-      if(localStorage.getItem("searched_item")!= null){
+      if("searched_item" in localStorage){
         this.searchItem(localStorage.getItem("searched_item"))
       }
       //this.categorizeData(this.curr_category.value)
@@ -192,8 +195,8 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     
     //this.categorizeData(this.curr_category.value) 
     //this.selectSortOption()
-    //localStorage.setItem("p_min", String(min))
-    //localStorage.setItem("p_max", String(max))
+    localStorage.setItem("p_min", String(min))
+    localStorage.setItem("p_max", String(max))
     this.marketdata = []
     //console.log("Inside data : " + JSON.stringify(this.temp_list.value))
     if( min != undefined || max!= undefined  || (min > 0 || max > 0)){
@@ -222,6 +225,28 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     console.log("I am here 5")
   }
 
+  onReload_applyprice(){
+    const min = Number(localStorage.getItem("p_min"))
+    const max = Number(localStorage.getItem("p_max"))
+    this.marketdata = []
+    if( min != undefined || max!= undefined  || (min > 0 || max > 0)){
+      this.temp_list.value.forEach((item,index) => {
+        if(min <= max){
+          if(item.price >= min  && item.price <= max  ){
+            this.marketdata.push(item)
+            //console.log("Inside data : " + JSON.stringify(item))
+          }
+        }
+        if(min > max){
+          if(item.price <= min  && item.price >= max  ){
+            this.marketdata.push(item)
+            //console.log("Inside data : " + JSON.stringify(item))
+          }
+        }
+        })
+    }
+  }
+
   selectSortOption(){
     console.log("I am here 6")
     //this.marketdata = this.temp_list.value
@@ -235,7 +260,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   searchItem(word: string | null){
     
     if(word == null){
-      localStorage.removeItem("searched_item")
+      //localStorage.removeItem("searched_item")
       return
     }
 
@@ -254,6 +279,18 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     localStorage.setItem("searched_item", word)
   }
 
+  resetFilter(){
+    localStorage.removeItem("searched_item")
+    localStorage.removeItem("p_min")
+    localStorage.removeItem("p_max")
+  }
+
+  onResetsearch(){
+    localStorage.removeItem("searched_item")
+    localStorage.removeItem("p_min")
+    localStorage.removeItem("p_max")
+  }
+
   ViewItem(item: item){
     const _id = item ? item._id : null;
     this.marketdata = []
@@ -269,9 +306,11 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
       localStorage.setItem('reload', "false")
       this.router.navigate(['/product-item/', {id: _id} ])
     }
-    else{
-      localStorage.setItem('reload', "false")
-      this.router.navigate(['/marketplace/' ])
-    }
+    // else{
+    //   localStorage.setItem('reload', "false")
+    //   this.router.navigate(['/marketplace/' ])
+    // }
   }
 }
+
+
