@@ -1,0 +1,104 @@
+<style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 30px;
+    }
+  
+    .span-spaces {
+      padding-left: 5px;
+      padding-right: 10px;
+    }
+
+    .profileImage {
+        height:64px;
+        width:64px;
+        object-fit:cover;
+        border-radius: 50%;
+    }
+</style>
+
+<app-headerseller></app-headerseller>
+
+<!-- PROFILE PICTURE and NAME-->
+<section>
+    <div class="container">
+        <div class="tile is-ancestor ">
+            <div class="tile is-8 is-parent">
+                <div class="tile is-3 is-child"><!--EMPTY SPACE--></div>
+                <div class="tile is-1 is-child">
+                    <figure class="image">
+                        <img class="profileImage" [src]= "imageSRC">
+                    </figure>
+                </div>
+                <span>&nbsp;&nbsp;&nbsp;</span>
+                <div class="tile is-5 is-child">
+                    <p class="title">
+                        {{user?.name}}
+                    </p>
+                    <p class="subtitle">
+                        <button class="button is-small is-rounded is-static"><strong>Seller Account</strong></button>
+                    </p>
+                </div>
+
+                <!-- EDIT BUTTON -->
+                <div class="tile is-5 is-child"><!--EMPTY SPACE--></div>
+                <div class="tile is-5 is child">
+                    <div class="buttons is-right">
+                        &nbsp; &nbsp;
+                        <button (click)="onClickEditAccountSeller();" class="button is-warning is-small is-light is-outlined">
+                            <strong>Edit</strong>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ACCOUNT INFO -->
+<!-- info will most likely be linked from the database-->
+<section class="section">
+    <div class="columns is-mobile is-centered">
+        <div class="box" style="width: 800px">
+            <div class="field">
+                <label class="label ">Email Address</label>
+                <div class="control has-icons-left">
+                    <textarea class="textarea has-fixed-size" rows="1" readonly>{{user?.email}}</textarea>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label " >Password</label>
+                <div class="control has-icons-left">
+                    <input class="textarea has-fixed-size" rows="1" type="password"  maxlength="8" value="{{user?.password}}" readonly/>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label ">Phone Number</label>
+                <div class="control">
+                    <textarea class="textarea has-fixed-size" rows="1" maxlength ="10"readonly>{{user?.phoneNumber}}</textarea>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label ">Seller Description</label>
+                <div class="control has-icons-left">
+                    <div class="field">
+                        <div class="control has-icons-left">
+                            <textarea class="textarea" rows="1" readonly>{{user?.description}}</textarea>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-footer></app-footer>
+
+<!-- links to other pages and modals -->
+<app-editaccountseller [openEditAccountSellerModal] = 'showEditAccountSellerModal'></app-editaccountseller>

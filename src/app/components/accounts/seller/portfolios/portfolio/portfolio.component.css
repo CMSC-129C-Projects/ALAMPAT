@@ -1,0 +1,13 @@
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.span-spaces {
+  padding-left: 5px;
+  padding-right: 30px;
+}
+
+.object-fit_cover {
+  object-fit: contain
+}  

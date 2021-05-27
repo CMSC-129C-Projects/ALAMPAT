@@ -10,7 +10,10 @@ import { ContactComponent } from './components/contact/contact.component';
 import {AngularFireStorageModule} from '@angular/fire/storage'
 import {AngularFireModule} from '@angular/fire';
 import { MarketplaceComponent } from './components/marketplace/marketplace.component'
-
+import { HeaderbuyerComponent } from './components/accounts/buyer/headerbuyer/headerbuyer.component';
+import { HeadersellerComponent } from './components/accounts/seller/headerseller/headerseller.component';
+import { EditaccountbuyerComponent } from './components/accounts/buyer/editaccountbuyer/editaccountbuyer.component';
+import { EditaccountsellerComponent } from './components/accounts/seller/editaccountseller/editaccountseller.component';
 
 import { UploadService } from './services/upload';
 import { MarketService } from './services/market';
@@ -23,8 +26,11 @@ import { ViewcommissionComponent } from './components/viewcommission/viewcommiss
     ContactComponent,
     routingComponents,
     MarketplaceComponent,
-    ViewcommissionComponent
-
+    ViewcommissionComponent,
+    HeaderbuyerComponent,
+    HeadersellerComponent,
+    EditaccountbuyerComponent,
+    EditaccountsellerComponent,
   ],
   imports: [
     BrowserModule,
