@@ -8,7 +8,7 @@ router.post('/:id/addtoCart/', buyerController.addtoCart)
 router.get('/:id/getCart/', buyerController.getCartItems)
 router.delete('/:id/removeCartitem/', buyerController.deleteCartitem)
 
-
+router.post('/:id/addReservation/', buyerController.addReservation)
 //router.get('/products', marketController.getCommissionList, marketController.getProductList)
 
 router.get('/market', marketController.getAll)

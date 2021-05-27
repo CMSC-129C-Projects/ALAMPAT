@@ -146,11 +146,5 @@ const updateAccount = async(req, res, next) => {
 
 
 module.exports = { 
-<<<<<<< HEAD
     getUserByEmail, getUserList, getUserByID, updateAccount, 
 }
-=======
-    getUserByEmail, getUserList, getUserByID, updateAccount, upload 
-}
-
->>>>>>> Backend_4

@@ -3,12 +3,9 @@ const router = express.Router();
 const checkAuth = require('../middleware/checkAuth');
 
 const portfolioController = require('../controllers/PortfolioController');
-<<<<<<< HEAD
 const OrderController = require('../controllers/OrderController');
-=======
 const productController = require('../controllers/productController');
 const commissionController = require('../controllers/CommissionController');
->>>>>>> Backend_4
 
 router.post('/:id/addportfolio', portfolioController.addArtwork)
 router.get('/:id/portfolio', portfolioController.getArtworkList)

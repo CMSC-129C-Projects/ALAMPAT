@@ -18,13 +18,10 @@ router.get('/profile/:id', userController.getUserByID)
 
 router.patch('/updateAccount/:id?', userController.updateAccount)
 
-<<<<<<< HEAD
 router.get('/:id/getOrders/', OrderController.getOrderList)
 
 router.post('/:id/addprod_orders/', OrderController.addProductOrder)
 
 router.post('/:id/addcomm_orders/', OrderController.addCommissionOrder)
-=======
->>>>>>> Backend_4
 module.exports = router;
 

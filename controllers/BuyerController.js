@@ -30,6 +30,8 @@ const addtoCart = async(req, res, next) => {
     }
 }
 
+
+
 const getCartItems = async(req, res, next) => {
     try{
         const user = await User.findById(req.params.id)
@@ -88,6 +90,34 @@ const deleteCartitem = async(req, res, next) => {
 }
 
 
+const addReservation = async(req, res, next) => {
+    try{
+
+        User.findByIdAndUpdate(req.params.id , { $push: { reservation: req.body.comm_id } })
+        .then((result) => {
+            res.json({
+                message: 'Commission  added to Reservation successfully!',
+                result: result.reservation,
+                success: true,
+            })
+        }).catch((error) =>{
+            res.status(400).json({
+                message: 'Failed to add commission in Reservation',
+                error: error,
+                success: false,
+            })
+        })
+    }
+    catch(error){
+    
+        console.log(error)
+        res.status(404).json({ 
+            error,
+            success: false, })
+    
+    }
+}
+
 module.exports = { 
-   addtoCart, getCartItems, deleteCartitem,
+   addtoCart, getCartItems, deleteCartitem, addReservation
 }
