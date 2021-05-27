@@ -31,6 +31,10 @@ interface item {
 export class MarketplaceComponent implements OnInit, OnDestroy {
   @ViewChild('select') select: ElementRef
 
+  data: Array<any>;
+  totalRecords: number;
+  page: number = 1;
+  
   marketdata: item[];
   temp_list: BehaviorSubject<item[]>;
   

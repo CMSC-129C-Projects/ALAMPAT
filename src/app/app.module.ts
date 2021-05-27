@@ -6,6 +6,8 @@ import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire';
 
+import { NgxPaginationModule } from 'ngx-pagination'
+
 import { UploadService } from './services/upload';
 import { AccountService } from './services/account';
 import { ProductService } from './services/productServ';
@@ -73,7 +75,7 @@ import { ViewProductComponent } from './components/accounts/buyer/view-product/v
       measurementId: "G-M7VWRJ4WN7"
     }),
     AngularFireStorageModule,
-
+    NgxPaginationModule
   ],
   exports: [
     WelcomeComponent,
