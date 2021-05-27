@@ -171,7 +171,10 @@ export class MarketplaceComponent implements OnInit {
     var p_max = this.price_max as HTMLInputElement
    
     if(p_max == undefined || p_min == undefined || p_min.value == '' || p_max.value == ''){
-      this.categorizeData(this.curr_category.value)
+      if(localStorage.getItem("searched_item")!= null){
+        this.searchItem(localStorage.getItem("searched_item"))
+      }
+      //this.categorizeData(this.curr_category.value)
       return
     }
 
@@ -183,6 +186,7 @@ export class MarketplaceComponent implements OnInit {
     //   console.log( "NewValue : " + min + "  " + max )
     // }
     console.log( "Value : " + min + "  " + max )
+    
     
     //this.categorizeData(this.curr_category.value) 
     this.selectSortOption()
@@ -227,9 +231,12 @@ export class MarketplaceComponent implements OnInit {
   }
 
   searchItem(word: string | null){
+    
     if(word == null){
+      localStorage.removeItem("searched_item")
       return
     }
+
     console.log("Search the word : " + word)
     this.categorizeData(this.curr_category.value) 
     this.marketdata = this.marketdata.filter(function(ele, i, array){
