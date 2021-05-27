@@ -30,6 +30,8 @@ export class ViewProductComponent implements OnInit, OnDestroy{
   prod_stock: any
   subs : Subscription[] = []
   image_list :any[] = []
+  imageSRC: string;
+  openImageModal: boolean = false;
 
   constructor(
     private route:ActivatedRoute,
@@ -67,5 +69,14 @@ export class ViewProductComponent implements OnInit, OnDestroy{
   addtoCart(prod: any){
     console.log("id: " + JSON.stringify(prod._id))
     this.cartServ.addtoCart(prod._id)
+  }
+  onClickOpen (index: any) {
+    this.openImageModal = true;
+    this.imageSRC = this.image_list[index].imageBase64;
+  }
+
+  onClickExit () {
+      this.openImageModal = false;
+      this.imageSRC = '';
   }
 }
