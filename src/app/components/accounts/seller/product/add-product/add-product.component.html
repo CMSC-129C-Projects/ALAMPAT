@@ -98,8 +98,8 @@
                                     formControlName="price" type="number" min="1" required>
                                 <div *ngIf="submitted || (formControls.price?.touched || formControls.price?.dirty) && formControls.price?.errors"
                                     class="help is-danger">
-                                    <div *ngIf="formControls.price?.errors?.required">Price for the product is required.
-                                    </div>
+                                    <div *ngIf="formControls.price?.errors?.required">Price for the product is required.</div>
+                                    <div *ngIf="formControls.price?.errors?.min">Price cannot be less than 1</div>
                                 </div>
                             </div>
                         </div>
@@ -113,11 +113,10 @@
                                     type="number" min="1" max="100" required>
                                 <div *ngIf="submitted || (formControls.stock?.touched || formControls.stock?.dirty) && formControls.stock?.errors"
                                     class="help is-danger">
-                                    <div *ngIf="formControls.stock?.errors?.required">Stock for the product is required.
-                                    </div>
+                                    <div *ngIf="formControls.stock?.errors?.required">Stock for the product is required.</div>
+                                    <div *ngIf="formControls.stock?.errors?.min">Stock cannot be less than 1</div>
+                                <div *ngIf="formControls.stock?.errors?.max">Stock cannot be more than 100</div>
                                 </div>
-                                <div *ngIf="formControls.stock?.errors?.min">Stock cannot be less than 1.</div>
-                                <div *ngIf="formControls.stock?.errors?.max">Stock cannot be more than 100.</div>
                             </div>
                         </div>
                     </div>

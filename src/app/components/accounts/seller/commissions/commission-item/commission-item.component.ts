@@ -67,7 +67,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
   constructor(private formBuilder: FormBuilder,
     private commissionService: CommissionService,
     private afStorage: AngularFireStorage) { }
-
+  
   ngOnInit(): void {
     this.commissionService.getItemdata()
 
@@ -89,8 +89,8 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
       commissionname: ['', Validators.required],
       commissiondescription: ['', Validators.required],
       category: ['Commission', Validators.required],
-      slot: ['', Validators.required],
-      price: ['', Validators.required]
+      slot: ['', [Validators.required, Validators.min(1)]],
+      price: ['', [Validators.required, Validators.min(1)]]
     });
 
     this.addService = this.formBuilder.group ({
@@ -102,8 +102,8 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
       commissionname: ['', Validators.required],
       commissiondescription: ['', Validators.required],
       category: ['Commission', Validators.required],
-      slot: ['', Validators.required],
-      price: ['', Validators.required]
+      slot: ['', [Validators.required, Validators.min(1)]],
+      price: ['', [Validators.required, Validators.min(1)]]
     });
   }
 
@@ -226,6 +226,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
     this.addService.patchValue({"category": 'Commission'});
     console.log(this.addService.value);
     if(this.addService.invalid){
+      console.log("Add failed");
       return;
     }
     else{
