@@ -43,6 +43,10 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   min: number;
   max: number
 
+  pmin: BehaviorSubject<any> 
+  pmax: BehaviorSubject<any> 
+  word: BehaviorSubject<any> 
+  sort_ord: BehaviorSubject<any> 
   curr_category: BehaviorSubject<any> 
 
   constructor(
@@ -52,6 +56,10 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
   ) {
     this.curr_category = new BehaviorSubject<string>('All')
+    this.word = new BehaviorSubject<string>('')
+    this.pmin = new BehaviorSubject<number>(0)
+    this.pmax = new BehaviorSubject<number>(0)
+    this.sort_ord = new BehaviorSubject<string>('')
     this.temp_list = new BehaviorSubject<item[]>([])
 
     
@@ -75,6 +83,8 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
       
       this.categorizeData(this.curr_category.value)
       if("searched_item" in localStorage){
+        const word = localStorage.getItem('searched_item') ? localStorage.getItem('searched_item') : null
+        this.word.next(word)
         this.searchItem(localStorage.getItem("searched_item"))
       }
       if("p_min" in localStorage && "p_max" in localStorage){
@@ -202,8 +212,8 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   onReload_applyprice(){
     const min = Number(localStorage.getItem("p_min"))
     const max = Number(localStorage.getItem("p_max"))
-    this.min = min
-    this.max = max
+    this.pmin.next(min)
+    this.pmax.next(max)
     this.subs.forEach((x)=> x.unsubscribe())
     this.marketdata = []
     if( min != undefined || max!= undefined  || (min > 0 || max > 0)){
@@ -257,6 +267,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
 
   Sortby(option: string|null){
     console.log("I am here 6")
+    this.sort_ord.next(option)
     this.subs.forEach((x)=> x.unsubscribe())
     //this.marketdata = this.temp_list.value
     if(option == 'A-Z'){

@@ -50,7 +50,7 @@
         <div class="column is-centered is-6 mr-5 pr-5">
             <div class="field has-addons">
                 <p class="control is-expanded">
-                <input class="input" #searchword type="text" placeholder="What are you looking for?">
+                <input  [value]="word.value" class="input" #searchword type="text" placeholder="What are you looking for?">
                 </p>
                 <p class="control">
                     <a class="button is-warning has-text-weight-bold" (click) = "onResetsearch();select.value='';searchItem(searchword.value);minfield.value =''; maxfield.value =''; ">
@@ -96,13 +96,13 @@
         <div class="column has-text-centered is-2">
             <div class="field has-addons">
                 <p class="control is-expanded">
-                <input  (input)="price_min =$event.target"   #minfield class="form-control" class="input is-small" type="number" min ="0" placeholder="Min Price">
+                <input [value]="pmin.value" (input)="price_min =$event.target"   #minfield class="form-control" class="input is-small" type="number" min ="0" placeholder="Min Price">
                 </p>
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
                   </svg>
                 <p class="control is-expanded">
-                    <input  (input)="price_max=$event.target"  #maxfield class="form-control" class="input is-small" type="number" min ="0" placeholder="Max Price">
+                    <input [value]="pmax.value" (input)="price_max=$event.target"  #maxfield class="form-control" class="input is-small" type="number" min ="0" placeholder="Max Price">
                 </p>
             </div>
         </div>
@@ -119,7 +119,7 @@
         </div>
         <div class="column is-2">
             <div class="select is-small is-fullwidth">
-                <select #select (change)="ChooseSort($event)">
+                <select [value] = "sort_ord.value" #select (change)="ChooseSort($event)">
                     <option value="" hidden>--Select Choice--</option>
                     <option value="A-Z">Alphabetical (Asc.)</option>
                     <option value="Z-A">Alphabetical (Desc.)</option>
