@@ -39,7 +39,7 @@ const getProduct = (req, res, next) => {
         let prod = {
           _id: product._id,
           itemname: product.productname, 
-          images: product.images,
+          images: [product.images],
           description:product.description,
           stock:product.stock,
           price:product.price,
@@ -91,7 +91,7 @@ const getCommissionList = (req, res, next) => {
           let com = {
             _id:commission._id ,
             itemname:commission.commissionname , 
-            images: commission.images,
+            images: [commission.images],
             description:commission.description,
             slot:commission.slot,
             price:commission.price,
