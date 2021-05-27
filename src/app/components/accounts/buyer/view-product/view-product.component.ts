@@ -26,6 +26,7 @@ interface product {
 export class ViewProductComponent implements OnInit, OnDestroy{
 
   prod_item:  product
+  prod_stock: any
   subs : Subscription[] = []
   image_list :any[] = []
 
@@ -45,6 +46,7 @@ export class ViewProductComponent implements OnInit, OnDestroy{
     
     this.subs.push(this.marketserv.getproduct().subscribe((prod:product)=>{
       this.prod_item = prod
+      this.prod_stock = prod.stock
       this.image_list = prod.images
       //var len = com.images.length
       //this.slide_len = this.slide_len + String(len)
