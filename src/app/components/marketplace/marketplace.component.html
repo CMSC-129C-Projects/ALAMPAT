@@ -53,7 +53,7 @@
                 
             </div>
         </div>
-        <div class="column is-centered is-6 mr-5 pr-5">
+        <div class="column is-centered is-6 mr-6 pr-5">
             <div class="field has-addons">
                 <p class="control is-expanded">
                 <input  [value]="word.value" class="input" #searchword type="text" placeholder="What are you looking for?">
@@ -82,10 +82,10 @@
             </a>
         </div>
     </div> 
-    
+
      <!-- FILTER PANEL -->
      <div class="columns is-centered pb-4">
-        <div class="column is-narrow has-text-centered">
+        <div class="column is-narrow mr-6">
             <p class="text has-text-weight-bold">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-funnel-fill" viewBox="0 0 16 16">
                     <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z"/>
@@ -112,7 +112,7 @@
                 </p>
             </div>
         </div>
-        <div class="column is-narrow">
+        <div class="column is-narrow mr-6">
             <button class="button is-link is-light is-outlined is-small has-text-weight-bold"  (click)="ApplyPrice()">
                 Apply
             </button>
@@ -123,7 +123,7 @@
                 Sort By:
             </p>
         </div>
-        <div class="column is-2">
+        <div class="column is-2 mr-6">
             <div class="select is-small is-fullwidth">
                 <select [value] = "sort_ord.value" #select (change)="ChooseSort($event)">
                     <option value="" hidden>--Select Choice--</option>
