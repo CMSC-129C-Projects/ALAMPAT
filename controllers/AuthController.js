@@ -34,13 +34,18 @@ const register = async (req, res, next) => {
                 phoneNumber: req.body.phoneNumber,
                 address: req.body.address,
                 userType: req.body.userType,
-                password: hashedPass,
+                password: req.body.password,
+                token: hashedPass,
                 description: '',
                 
                 portfolio: [null],
                 cart: [null],
                 reservation: [null],
-                orders: [null]
+                orders: [null],
+
+                //for seller type user
+                commissions: [null],
+                products: [null]
             })
             
             user.save(function(err,user){
@@ -79,7 +84,7 @@ const login = (req, res, next) => {
     User.findOne({ $or: [{ email: username }] })
         .then(user => {
             if (user) {
-                bcrypt.compare(password, user.password, function (err, result) {
+                bcrypt.compare(password, user.token, function (err, result) {
                     if (err) {
                         
                         res.json({
@@ -94,6 +99,7 @@ const login = (req, res, next) => {
                             message: 'Login Successful!',
                             userdata: user,
                             token: token,
+                            expiresIn: 3600,
                             loggedin: true
                         })
                     } 

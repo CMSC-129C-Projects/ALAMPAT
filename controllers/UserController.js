@@ -1,3 +1,4 @@
+const { deleteOne } = require('../models/user');
 const User = require('../models/user')
 const ObjectId = require("mongodb").ObjectID
 const bcrypt = require('bcryptjs')
@@ -95,14 +96,10 @@ const updateAccount = async(req, res, next) => {
             else{
                 console.log(req.params.id);
                 const id = req.params.id
-                let final_img = {
-                    filename: req.body.profileImage.filename,
-                    contentType: req.body.profileImage.contentType,
-                    imageBase64: req.body.profileImage.imageBase64
-                }
+               
 
                 //creates a new user object together with the final image object
-                let user = new User({
+                let user = {
                     name: req.body.name,
                     profileImage: {
                         filename: req.body.profileImage.filename,
@@ -112,30 +109,31 @@ const updateAccount = async(req, res, next) => {
                     email: req.body.email,  
                     phoneNumber: req.body.phoneNumber,
                     address: req.body.address,
-                    password: hashedPass, 
+                    password: req.body.password, 
+                    token: hashedPass,
                     description: req.body.description
               
-             })
-                console.log(new ObjectId(req.params.id))
+             }
+                //console.log(new ObjectId(req.params.id))
             //updates the user object data to the database 
-            User.findByIdAndUpdate( id , user)
-                .then((result) => {
-                    //console.log(result)
-                    res.json({
-                        message: 'User account data updated successfully!',
-                        result,
-                        success: true,
-                    })
+                User.findByIdAndUpdate( id , {$set: user})
+                    .then((result) => {
+                        //console.log(result)
+                        res.json({
+                            message: 'User account data updated successfully!',
+                            result,
+                            success: true,
+                        })
+                        
+                    }).catch((error)=>{
+                        res.status(400).json({
+                            message: 'User account data update failed!',
+                            error:error,
+                            user,
+                            success: false,
+                        })
                     
-                }).catch((error)=>{
-                    res.status(400).json({
-                        message: 'User account data update failed!',
-                        error:error,
-                        user,
-                        success: false,
                     })
-                   
-                })
             }
         })
     }
@@ -148,5 +146,11 @@ const updateAccount = async(req, res, next) => {
 
 
 module.exports = { 
+<<<<<<< HEAD
     getUserByEmail, getUserList, getUserByID, updateAccount, 
 }
+=======
+    getUserByEmail, getUserList, getUserByID, updateAccount, upload 
+}
+
+>>>>>>> Backend_4

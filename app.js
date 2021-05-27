@@ -1,13 +1,14 @@
 const express     = require("express")
 const mongoose    = require("mongoose")
 const morgan      = require('morgan')
-const bodyParser  = require('body-parser')
+
 const cors        = require("cors")
 
 const User        = require("./models/user")
 const AuthRoute   = require('./routes/auth')
 const UserRoute   = require('./routes/users')
 const SellerRoute = require('./routes/seller')
+const BuyerRoute  = require('./routes/buyer')
 
 require("dotenv/config")
 
@@ -34,13 +35,13 @@ db.once('open', () => {
 const app = express()
 app.use(cors())
 
-app.use(express.json({limit: '50mb'}))
-
+app.use(express.json({limit: '5mb'}))
+app.use(express.urlencoded({extended: false}))
 app.use(morgan('dev'))
 //app.use('/profileUploads', express.static('profileUploads'));
 //app.use(bodyParser.urlencoded({extended: false}))
-//app.use(bodyParser.json())
 
+//app.use(bodyParser.json())
 
 
 app.use((req, res, next) => {
@@ -63,6 +64,8 @@ app.post('/', (req,res) =>{})
 app.use('/auth', AuthRoute)
 app.use('/users', UserRoute)
 app.use('/seller', SellerRoute)
+app.use('/buyer', BuyerRoute)
+
 
 app.use((req, res, next) => {
     const error = new Error("Not found");
@@ -78,6 +81,7 @@ app.use((req, res, next) => {
       }
     });
   });
+
 
 app.listen(3000, () => {
     console.log("Listening to 3000");

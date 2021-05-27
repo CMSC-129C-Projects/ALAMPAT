@@ -25,6 +25,10 @@ const userSchema = new Schema({
          //required: 'Date of Birth can\'t be empty'
 
     },
+
+    token:{
+        type: String,
+    },
  
     email: {
         type: String,
@@ -73,7 +77,17 @@ const userSchema = new Schema({
     orders: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'orders'
-    }]
+    }],
+
+    commissions: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'commissions'
+    }],
+
+    products: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'products'
+    }],
 
 
 
