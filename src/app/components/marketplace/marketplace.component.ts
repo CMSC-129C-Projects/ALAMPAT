@@ -31,7 +31,7 @@ export class MarketplaceComponent implements OnInit {
   
   marketdata: item[];
   temp_list: BehaviorSubject<item[]>;
-
+  
   subs: Subscription[] = [];
   re_sub:Subscription[] = []
   price_min: EventTarget | null ;
@@ -62,6 +62,7 @@ export class MarketplaceComponent implements OnInit {
     else{
       const cat = localStorage.getItem('curr_category') ? localStorage.getItem('curr_category') : null
       this.curr_category.next(cat)
+      
       this.categorizeData(this.curr_category.value)
       if(localStorage.getItem("searched_item")){
         this.searchItem(localStorage.getItem("searched_item"))
@@ -246,6 +247,9 @@ export class MarketplaceComponent implements OnInit {
     if(item.category == "Commission"){
       this.router.navigate(['/commission-item/', {id: _id} ])
     }
-    
+    else{
+      localStorage.setItem('reload', "false")
+      this.router.navigate(['/marketplace/' ])
+    }
   }
 }

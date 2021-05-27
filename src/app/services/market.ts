@@ -5,6 +5,24 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 
+interface item {
+    _id?: string;
+    // productname?: string;
+    // commissioname?:string;
+    itemname:string;
+    description: string;
+    stock?: number;
+    slot?: number;
+    price: number;
+    images: {
+      filename: string;
+      contentType: string;
+      imageBase64: string;
+    };
+    category:string;
+    sellername?: string;
+    profileImage?: string;
+  }
 
 const localAPI = 'http://localhost:3000'
 
@@ -15,7 +33,7 @@ const localAPI = 'http://localhost:3000'
 
 export class MarketService {
     market: BehaviorSubject<any> ;
-    item: BehaviorSubject<any>
+    item: BehaviorSubject<item>
     // artSource = new Subject<any>();
     // //currArt = this.artSource.asObservable();
     // //currArt: EventEmitter<any> = new EventEmitter();
@@ -29,7 +47,7 @@ export class MarketService {
     constructor(
         ) {
            this.market = new BehaviorSubject<any>([])
-           this.item = new BehaviorSubject<any>(null)
+           this.setItem()
            this.reload = new EventEmitter<boolean>(true)
            //this.getMarketdata()
            localStorage.setItem('reload', "true")
@@ -41,7 +59,26 @@ export class MarketService {
         return this.market.value;
     }
 
-    
+    setItem(){
+        this.item = new BehaviorSubject<item>({
+            _id: '',
+            // productname?: string;
+            // commissioname?:string;
+            itemname:'',
+            description: '',
+            stock: 0,
+            slot: 0,
+            price: 0,
+            images: {
+              filename: '',
+              contentType: '',
+              imageBase64: '',
+            },
+            category:'',
+            sellername: '',
+            profileImage: '',
+           })
+    }
     editReload(reload:boolean){
         this.reload.emit(reload)
     }
@@ -61,14 +98,14 @@ export class MarketService {
         return this.market.asObservable()
     }  
 
-    getcommission(_id: string|null): Observable<any>{
-        this.item = new BehaviorSubject<any>(null)
-        this.getCommission(_id)
+    getcommission(): Observable<any>{
+        
+        //this.getCommission(_id)
         return this.item.asObservable()
     }  
 
-    getproduct(_id: string|null): Observable<any>{
-        this.getProduct(_id)
+    getproduct(): Observable<any>{
+        //this.getProduct(_id)
         return this.item.asObservable()
     }  
 
@@ -109,7 +146,7 @@ export class MarketService {
     }
 
     getCommissionMarketdata() {
-    
+        
         axios.get(`${localAPI}/buyer/commissionmarket`)
         .then(resp => {
             this.market.next(resp.data.all)
@@ -127,7 +164,7 @@ export class MarketService {
     }
 
     getCommission(_id: string|null) {
-    
+        this.setItem()
         axios.get(`${localAPI}/buyer/getCommission/${_id}`)
         .then(resp => {
             this.item.next(resp.data.commission)
