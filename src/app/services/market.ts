@@ -182,7 +182,7 @@ export class MarketService {
     }
    
     getProduct(_id: string|null) {
-    
+        this.setItem()
         axios.get(`${localAPI}/buyer/getProduct/${_id}`)
         .then(resp => {
             this.item.next(resp.data.product)

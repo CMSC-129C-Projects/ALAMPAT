@@ -33,7 +33,7 @@ const routes: Routes = [
   { path: 'seller-products', component: ProductsComponent, canActivate: [AuthGuard]  },
   { path: 'marketplace', component: MarketplaceComponent },
   { path: 'commission-item', component: ViewcommissionComponent },
-  { path: 'buyer-productview', component: ViewProductComponent, canActivate:[AuthGuard] }, //wala pa na connect sa object na naas marketplace
+  { path: 'product-item', component: ViewProductComponent, canActivate:[AuthGuard] }, //wala pa na connect sa object na naas marketplace
   
   { path: 'notfound', component: NoPageFoundComponent},
   { path: '**', redirectTo:'notfound' }

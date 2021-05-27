@@ -233,14 +233,14 @@ export class MarketplaceComponent implements OnInit {
     this.categorizeData(this.curr_category.value) 
     this.marketdata = this.marketdata.filter(function(ele, i, array){
       let arrayelement = ele.itemname.toLowerCase()
-      console.log("Array element "+arrayelement)
+      //console.log("Array element "+arrayelement)
       return arrayelement.includes(word.toLowerCase())
     })
     this.subs.forEach((x)=>{
         x.unsubscribe()
       })
     this.temp_list.next(this.marketdata)
-    console.log("Searched Items: " + JSON.stringify(this.marketdata))
+    // /console.log("Searched Items: " + JSON.stringify(this.marketdata))
     localStorage.setItem("searched_item", word)
   }
 
@@ -249,10 +249,15 @@ export class MarketplaceComponent implements OnInit {
     this.marketdata = []
     this.subs.forEach((x)=> x.unsubscribe())
     localStorage.setItem("curr_category", this.curr_category.value)
-    console.log("View Item: " + JSON.stringify(_id))
+    //console.log("View Item: " + JSON.stringify(_id))
+
     if(item.category == "Commission"){
       localStorage.setItem('reload', "false")
       this.router.navigate(['/commission-item/', {id: _id} ])
+    }
+    else if(item.category == "Product"){
+      localStorage.setItem('reload', "false")
+      this.router.navigate(['/product-item/', {id: _id} ])
     }
     else{
       localStorage.setItem('reload', "false")
