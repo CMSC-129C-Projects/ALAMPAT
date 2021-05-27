@@ -84,6 +84,12 @@
         color: orange;
     }
 
+    .profileImage {
+        height:64px;
+        width:64px;
+        object-fit:cover;
+        border-radius: 50%;
+    }
 </style>
 
 <app-headerbuyer></app-headerbuyer>
@@ -273,7 +279,7 @@
                 <div class="columns">
                     <div class="column is-2 ">
                         <figure class="image is-64x64">
-                            <img class="is-rounded"
+                            <img class="profileImage"
                                 [src]="prod_item.profileImage">
                         </figure>
                     </div>
