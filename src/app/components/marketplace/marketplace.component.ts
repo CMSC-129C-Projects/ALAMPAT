@@ -3,6 +3,7 @@ import { MarketService } from 'src/app/services/market';
 import { SortService } from 'src/app/services/sortingService';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MinLengthValidator } from '@angular/forms';
 
 
 interface item {
@@ -37,6 +38,9 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   price_min: EventTarget | null ;
   price_max: EventTarget | null ;
   reload: boolean
+
+  min: number;
+  max: number
 
   curr_category: BehaviorSubject<any> 
 
@@ -228,6 +232,9 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   onReload_applyprice(){
     const min = Number(localStorage.getItem("p_min"))
     const max = Number(localStorage.getItem("p_max"))
+    this.min = min
+    this.max = max
+    this.subs.forEach((x)=> x.unsubscribe())
     this.marketdata = []
     if( min != undefined || max!= undefined  || (min > 0 || max > 0)){
       this.temp_list.value.forEach((item,index) => {
@@ -245,6 +252,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
         }
         })
     }
+    console.log("Reloaded page with price")
   }
 
   selectSortOption(){
