@@ -175,9 +175,9 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     var p_max = this.price_max as HTMLInputElement
    
     if(p_max == undefined || p_min == undefined || p_min.value == '' || p_max.value == ''){
-      if("searched_item" in localStorage){
-        this.searchItem(localStorage.getItem("searched_item"))
-      }
+      // if("searched_item" in localStorage){
+      //   this.searchItem(localStorage.getItem("searched_item"))
+      // }
       //this.categorizeData(this.curr_category.value)
       return
     }
