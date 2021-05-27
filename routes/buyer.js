@@ -4,7 +4,7 @@ const router = express.Router();
 const buyerController = require('../controllers/BuyerController');
 const marketController = require('../controllers/MarketController');
 
-router.post('/:id/addtoCart/', buyerController.addtoCart)
+router.post('/:id/addtoCart/:_id', buyerController.addtoCart)
 router.get('/:id/getCart/', buyerController.getCartItems)
 router.delete('/:id/removeCartitem/', buyerController.deleteCartitem)
 

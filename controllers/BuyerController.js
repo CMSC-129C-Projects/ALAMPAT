@@ -1,11 +1,17 @@
 const User = require('../models/user')
 const Order  = require('../models/order')
+const Product = require('../models/products')
 const ObjectId = require("mongodb").ObjectID
+//const mongoose = require('mongoose')
 
-const addtoCart = async(req, res, next) => {
+const addtoCart = (req, res, next) => {
     try{
-
-        User.findByIdAndUpdate(req.params.id , { $push: { cart: req.body.product_id } })
+        
+       // let id = new ObjectId(req.params._id)
+        console.log("received id" + req.params._id)
+        //Product.findById( req.params_id, function( err, res ){
+            //if(err) throw err;
+        User.findByIdAndUpdate(req.params.id , { $push: { cart: req.params._id} })
         .then((result) => {
             res.json({
                 message: 'Product added to Cart successfully!',
@@ -19,6 +25,11 @@ const addtoCart = async(req, res, next) => {
                 success: false,
             })
         })
+        //})
+        //console.log("prod  id" + prod)
+        
+        
+        
     }
     catch(error){
     
