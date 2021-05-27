@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MarketService } from 'src/app/services/market';
 import { SortService } from 'src/app/services/sortingService';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MinLengthValidator } from '@angular/forms';
+
 
 
 interface item {
@@ -29,7 +29,8 @@ interface item {
   styleUrls: ['./marketplace.component.css']
 })
 export class MarketplaceComponent implements OnInit, OnDestroy {
-  
+  @ViewChild('select') select: ElementRef
+
   marketdata: item[];
   temp_list: BehaviorSubject<item[]>;
   
@@ -79,10 +80,14 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
       if("p_min" in localStorage && "p_max" in localStorage){
         this.onReload_applyprice()
       }
+      if("sort" in localStorage){
+        this.Sortby(localStorage.getItem('sort'))
+
+        this.select.nativeElement.value = localStorage.getItem('sort')
+      }
       localStorage.setItem('reload', 'true')
     }
-    
-    //this.ngOnDestroy
+
   }
 
   ngOnDestroy(): void {
@@ -103,6 +108,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     localStorage.removeItem("searched_item")
     localStorage.removeItem("p_min")
     localStorage.removeItem("p_max")
+    localStorage.removeItem('sort')
   }
 
   categorizeData(cat_choice: string){
@@ -127,8 +133,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
         this.temp_list.next(this.marketdata)
       })
       )
-      //this.marketdata.push(item)
-      //console.log("I am here")
+
     }
     else if(cat_choice == ''|| cat_choice == 'All' ){
       this.subs.push(
@@ -141,19 +146,6 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
       //this.marketdata.push(item)
     }
     
-    // this.temp_list.value.forEach((item,index) => {
-    //   if(item.category == "Product" && cat_choice == "Product"){
-    //     this.marketdata.push(item)
-    //   }
-    //   else if(item.category == "Commission" && cat_choice == "Commission"){
-    //     this.marketdata.push(item)
-    //     //console.log("I am here")
-    //   }
-    //   else if(cat_choice == ''|| cat_choice == 'All' ){
-    //     this.marketdata.push(item)
-    //   }
-    // })
-
   }
   
   load_wholemarket(){
@@ -161,15 +153,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     this.subs.forEach((x)=>{
       x.unsubscribe()
     })
-    // this.subs.push(
-    //   this.marketserv.getallMarket().subscribe( (items: any[]) => {
-    //   //this.marketdata = items
-    //   this.marketdata = items
-      
-    //   this.temp_list.next(this.marketdata)
- 
-    // })
-    // )
+
     localStorage.removeItem("searched_item")
     this.categorizeData(this.curr_category.value)
     
@@ -189,16 +173,9 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
 
     var min:number = Number(p_min.value)
     var  max:number = Number(p_max.value)
-    // if(localStorage.getItem("p_min")&&(localStorage.getItem("p_max"))){
-    //   min = Number(localStorage.getItem("p_min"))
-    //   max = Number(localStorage.getItem("p_max"))
-    //   console.log( "NewValue : " + min + "  " + max )
-    // }
+
     console.log( "Value : " + min + "  " + max )
     
-    
-    //this.categorizeData(this.curr_category.value) 
-    //this.selectSortOption()
     localStorage.setItem("p_min", String(min))
     localStorage.setItem("p_max", String(max))
     this.marketdata = []
@@ -219,13 +196,6 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
         }
         })
     }
-    
-    //console.log("Market data : " + JSON.stringify(this.marketdata))
-    //this.temp_list.next(this.marketdata)
-    //this.marketdata = this.temp_list.value
-    // this.subs.forEach((x)=>{
-    //   x.unsubscribe()
-    // })
     console.log("I am here 5")
   }
 
@@ -255,15 +225,6 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     console.log("Reloaded page with price")
   }
 
-  selectSortOption(){
-    console.log("I am here 6")
-    //this.marketdata = this.temp_list.value
-    
-    this.marketdata.sort(this.sortserv.getNumAscendingSortOrder("price"))
-    //console.log("Inside data : " + JSON.stringify(this.temp_list))
-    //this.temp_list.next(this.marketdata)
-
-  }
 
   searchItem(word: string | null){
     
@@ -287,16 +248,46 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     localStorage.setItem("searched_item", word)
   }
 
+  ChooseSort(event:Event){
+    const option = (event.target as HTMLInputElement).value
+    console.log("sort option: " + option)
+    localStorage.setItem('sort', option)
+    this.Sortby(option)
+  }
+
+  Sortby(option: string|null){
+    console.log("I am here 6")
+    this.subs.forEach((x)=> x.unsubscribe())
+    //this.marketdata = this.temp_list.value
+    if(option == 'A-Z'){
+      this.marketdata.sort(this.sortserv.getStrAscendingSortOrder("itemname"))
+    }
+    if(option == 'Z-A'){
+      this.marketdata.sort(this.sortserv.getStrDescendingSortOrder("itemname"))
+    }
+    if(option == 'H-L'){
+      this.marketdata.sort(this.sortserv.getNumDescendingSortOrder("price"))
+    }
+    if(option == 'L-H'){
+      this.marketdata.sort(this.sortserv.getNumAscendingSortOrder("price"))
+    }
+    
+    //console.log("Inside data : " + JSON.stringify(this.temp_list))
+
+  }
+
   resetFilter(){
     localStorage.removeItem("searched_item")
     localStorage.removeItem("p_min")
     localStorage.removeItem("p_max")
+    localStorage.removeItem('sort')
   }
 
   onResetsearch(){
     localStorage.removeItem("searched_item")
     localStorage.removeItem("p_min")
     localStorage.removeItem("p_max")
+    localStorage.removeItem('sort')
   }
 
   ViewItem(item: item){

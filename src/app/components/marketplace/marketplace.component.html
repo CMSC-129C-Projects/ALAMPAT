@@ -37,7 +37,7 @@
                 </div> -->
                 <div class="control">
                     <div class="select is-fullwidth">
-                        <select name="category"  id= "category"(change) = "Categorizeby($event); minfield.value =''; maxfield.value ='';searchword.value=''" [value]="curr_category.value">
+                        <select name="category"  id= "category"(change) = "Categorizeby($event);select.value = '';minfield.value =''; maxfield.value ='';searchword.value=''" [value]="curr_category.value">
                             <option value="All">All Items</option>
                             <option value="Product">Products Only</option>
                             <option value="Commission">Commissions Only</option>
@@ -53,7 +53,7 @@
                 <input class="input" #searchword type="text" placeholder="What are you looking for?">
                 </p>
                 <p class="control">
-                    <a class="button is-warning has-text-weight-bold" (click) = "onResetsearch(); searchItem(searchword.value);minfield.value =''; maxfield.value =''; ">
+                    <a class="button is-warning has-text-weight-bold" (click) = "onResetsearch();select.value='';searchItem(searchword.value);minfield.value =''; maxfield.value =''; ">
                         Search
                     </a>
                 </p>
@@ -96,13 +96,13 @@
         <div class="column has-text-centered is-2">
             <div class="field has-addons">
                 <p class="control is-expanded">
-                <input  (input)="price_min =$event.target"   #minfield class="form-control" class="input is-small" type="number" placeholder="Min Price">
+                <input  (input)="price_min =$event.target"   #minfield class="form-control" class="input is-small" type="number" min ="0" placeholder="Min Price">
                 </p>
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
                   </svg>
                 <p class="control is-expanded">
-                    <input  (input)="price_max=$event.target"  #maxfield class="form-control" class="input is-small" type="number" placeholder="Max Price">
+                    <input  (input)="price_max=$event.target"  #maxfield class="form-control" class="input is-small" type="number" min ="0" placeholder="Max Price">
                 </p>
             </div>
         </div>
@@ -114,23 +114,23 @@
 
         <div class="column is-narrow">
             <p class="text has-text-right">
-                Item Rating
+                Sort By:
             </p>
         </div>
         <div class="column is-2">
             <div class="select is-small is-fullwidth">
-                <select>
-                    <option value="all">All Rating</option>
-                    <option value="five">5 stars</option>
-                    <option value="four">4+ stars</option>
-                    <option value="three">3+ stars</option>
-                    <option value="two">2+ stars</option>
-                    <option value="one">1+ stars</option>
+                <select #select (change)="ChooseSort($event)">
+                    <option value="" hidden>--Select Choice--</option>
+                    <option value="A-Z">Alphabetical (Asc.)</option>
+                    <option value="Z-A">Alphabetical (Desc.)</option>
+                    <option value="H-L">Price (High to Low)</option>
+                    <option value="L-H">Price (Low to High)</option>
+                    
                 </select>
             </div>
         </div>
         <div class="column is-narrow">
-            <button class="button is-small is-danger has-text-weight-bold" (click)="minfield.value =''; maxfield.value ='';searchword.value='';load_wholemarket();resetFilter() " id="reset">
+            <button class="button is-small is-danger has-text-weight-bold" (click)="minfield.value ='';select.value=''; maxfield.value ='';searchword.value='';load_wholemarket();resetFilter() " id="reset">
                 Reset All Filters
             </button>
         </div>
