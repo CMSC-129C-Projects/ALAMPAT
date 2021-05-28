@@ -6,11 +6,6 @@
 </style>
 
 <app-headerbuyer></app-headerbuyer>
-<style>
-  section {
-    background-image: "assets/bg.png";
-  }
-</style>
 
 <link
   rel="stylesheet"
@@ -37,12 +32,12 @@
           Marketplace
         </div>
       </div>
-      <!--<hr style="background-color:#e8e6e6"> -->
+      <hr style="background-color:#e8e6e6"> 
     </div>
   </div>
 </div>
 
-<div class="hero-body has-background-white-bis">
+<div class="hero-body">
   <!-- Category, Search Bar, Cart -->
   <div class="columns">
     <div class="column is-1"></div>
@@ -165,162 +160,65 @@
         SEARCH FILTER
       </p>
     </div>
-  </div>
-</div>
-<div class="column is-centered is-6 mr-5 pr-5">
-  <div class="field has-addons">
-    <p class="control is-expanded">
-      <input
-        [value]="word.value"
-        class="input"
-        #searchword
-        type="text"
-        placeholder="What are you looking for?"
-      />
-    </p>
-    <p class="control">
-      <a
-        class="button is-warning has-text-weight-bold"
-        (click)="
-          onResetsearch();
-          select.value = '';
-          searchItem(searchword.value);
-          minfield.value = '';
-          maxfield.value = ''
-        "
-      >
-        Search
-      </a>
-    </p>
-  </div>
-</div>
-<!-- CART and RESERVATION anchors
+
     <div class="column is-narrow">
-      <a title="Cart">
+      <p class="text has-text-right">Price Range</p>
+    </div>
+
+    <div class="column has-text-centered is-2">
+      <div class="field has-addons">
+        <p class="control is-expanded">
+          <input
+            [value]="pmin.value"
+            (input)="price_min = $event.target"
+            #minfield
+            class="form-control"
+            class="input is-small"
+            type="number"
+            min="0"
+            placeholder="Min Price"
+          />
+        </p>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
           fill="currentColor"
-          class="bi bi-cart4"
+          class="bi bi-arrow-right-short"
           viewBox="0 0 16 16"
         >
           <path
-            d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"
+            fill-rule="evenodd"
+            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
           />
         </svg>
-      </a>
-      &nbsp;
-      <a title="Reservations">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="28"
-          height="28"
-          fill="currentColor"
-          class="bi bi-clipboard-data"
-          viewBox="0 0 16 16"
-        >
-          <path
-            d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z"
+        <p class="control is-expanded">
+          <input
+            [value]="pmax.value"
+            (input)="price_max = $event.target"
+            #maxfield
+            class="form-control"
+            class="input is-small"
+            type="number"
+            min="0"
+            placeholder="Max Price"
           />
-          <path
-            d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"
-          />
-          <path
-            d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"
-          />
-        </svg>
-      </a>
-    </div> -->
+        </p>
+      </div>
+    </div>
+    <div class="column is-narrow mr-6">
+      <button
+        class="button is-link is-light is-outlined is-small has-text-weight-bold"
+        (click)="ApplyPrice()"
+      >
+        Apply
+      </button>
+    </div>
 
-<div class="column is-narrow">
-  <p class="text has-text-right">Price Range</p>
-</div>
-<div class="column has-text-centered is-2">
-  <div class="field has-addons">
-    <p class="control is-expanded">
-      <input
-        [value]="pmin.value"
-        (input)="price_min = $event.target"
-        #minfield
-        class="form-control"
-        class="input is-small"
-        type="number"
-        min="0"
-        placeholder="Min Price"
-      />
-    </p>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
-      fill="currentColor"
-      class="bi bi-arrow-right-short"
-      viewBox="0 0 16 16"
-    >
-      <path
-        fill-rule="evenodd"
-        d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-      />
-    </svg>
-    <p class="control is-expanded">
-      <input
-        [value]="pmax.value"
-        (input)="price_max = $event.target"
-        #maxfield
-        class="form-control"
-        class="input is-small"
-        type="number"
-        min="0"
-        placeholder="Max Price"
-      />
-    </p>
-  </div>
-</div>
-<div class="column is-narrow mr-6">
-  <button
-    class="button is-link is-light is-outlined is-small has-text-weight-bold"
-    (click)="ApplyPrice()"
-  >
-    Apply
-  </button>
-</div>
-
-<div class="column is-narrow">
-  <p class="text has-text-right">Sort By:</p>
-</div>
-<div class="column is-2 mr-6">
-  <div class="select is-small is-fullwidth">
-    <select [value]="sort_ord.value" #select (change)="ChooseSort($event)">
-      <option value="" hidden>--Select Choice--</option>
-      <option value="A-Z">Alphabetical (Asc.)</option>
-      <option value="Z-A">Alphabetical (Desc.)</option>
-      <option value="H-L">Price (High to Low)</option>
-      <option value="L-H">Price (Low to High)</option>
-    </select>
-  </div>
-</div>
-<div class="column is-narrow">
-  <button
-    class="button is-small is-danger has-text-weight-bold"
-    (click)="
-      minfield.value = '';
-      select.value = '';
-      maxfield.value = '';
-      searchword.value = '';
-      load_wholemarket();
-      resetFilter()
-    "
-    id="reset"
-  >
-    Reset All Filters
-  </button>
-</div>
-
-<!-- <div class="column is-narrow">
+    <div class="column is-narrow">
       <p class="text has-text-right">Sort By:</p>
     </div>
-    <div class="column is-2">
+    <div class="column is-2 mr-6">
       <div class="select is-small is-fullwidth">
         <select [value]="sort_ord.value" #select (change)="ChooseSort($event)">
           <option value="" hidden>--Select Choice--</option>
@@ -330,70 +228,25 @@
           <option value="L-H">Price (Low to High)</option>
         </select>
       </div>
-    </div> -->
-<!-- FILTER PANEL 
-    <div class="columns pb-4">
-        <div class="column is-1"></div>
-        <div class="column is-mobile">
-            
-            <div class="level-left">
-                <div class="level-item ml-5">
-                    <p class="text has-text-weight-bold">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-funnel-fill" viewBox="0 0 16 16">
-                            <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z"/>
-                        </svg>
-                        SEARCH FILTER
-                    </p>
-                </div>
-                <div class="level-item ml-6">
-                    <p class="text">
-                        Price Range
-                    </p>
-                </div>
-                <div class="level-item">
-                    <div class="field has-addons">
-                        <p class="control is-expanded">
-                        <input [value]="pmin.value" (input)="price_min =$event.target"   #minfield class="form-control" class="input is-small" type="number" min ="0" placeholder="Min Price">
-                        </p>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
-                          </svg>
-                        <p class="control is-expanded">
-                            <input [value]="pmax.value" (input)="price_max=$event.target"  #maxfield class="form-control" class="input is-small" type="number" min ="0" placeholder="Max Price">
-                        </p>
-                    </div>
-                </div>
-                <div class="level-item">
-                    <button class="button is-link is-light is-outlined is-small has-text-weight-bold"  (click)="ApplyPrice()">
-                        Apply
-                    </button>
-                </div>
-                <div class="level-item ml-6">
-                    <p class="text has-text-right">
-                        Sort By:
-                    </p>
-                </div>
-                <div class="level-item">
-                    <div class="select is-small is-fullwidth">
-                        <select [value] = "sort_ord.value" #select (change)="ChooseSort($event)">
-                            <option value="" hidden>--Select Choice--</option>
-                            <option value="A-Z">Alphabetical (Asc.)</option>
-                            <option value="Z-A">Alphabetical (Desc.)</option>
-                            <option value="H-L">Price (High to Low)</option>
-                            <option value="L-H">Price (Low to High)</option>
-                            
-                        </select>
-                    </div>
-                </div>
-                <div class="level-item ml-6">
-                    <button class="button is-small is-danger has-text-weight-bold" (click)="minfield.value ='';select.value=''; maxfield.value ='';searchword.value='';load_wholemarket();resetFilter() " id="reset">
-                        Reset All Filters
-                    </button>
-                </div>
+    </div>
+    <div class="column is-narrow">
+      <button
+        class="button is-small is-danger has-text-weight-bold"
+        (click)="
+          minfield.value = '';
+          select.value = '';
+          maxfield.value = '';
+          searchword.value = '';
+          load_wholemarket();
+          resetFilter()
+        "
+        id="reset"
+      >
+        Reset All Filters
+      </button>
+    </div>
+  </div>
 
-            </div>
-        </div>
-    </div> -->
 
 <!-- Products and Commissions -->
 <!-- SUGGESSTION: -->
