@@ -4,8 +4,6 @@ import { SortService } from 'src/app/services/sortingService';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 
-
-
 interface item {
   _id?: string;
   // productname?: string;
@@ -61,8 +59,8 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   ) {
     this.curr_category = new BehaviorSubject<string>('All')
     this.word = new BehaviorSubject<string>('')
-    this.pmin = new BehaviorSubject<number>(0)
-    this.pmax = new BehaviorSubject<number>(0)
+    this.pmin = new BehaviorSubject<string|number>('')
+    this.pmax = new BehaviorSubject<string|number>('')
     this.sort_ord = new BehaviorSubject<string>('')
     this.temp_list = new BehaviorSubject<item[]>([])
 
@@ -74,7 +72,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     console.log("I am here " )
-  
+     
 
     if(localStorage.getItem('reload') == "true"){
       this.curr_category.next('All')
@@ -97,7 +95,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
       if("sort" in localStorage){
         this.Sortby(localStorage.getItem('sort'))
 
-        this.select.nativeElement.value = localStorage.getItem('sort')
+        // /this.select.nativeElement.value = localStorage.getItem('sort')
       }
       localStorage.setItem('reload', 'true')
     }
@@ -117,7 +115,9 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     
     this.curr_category.next(cat_choice)
     //this.ApplyPrice()
+    // /window.location.reload();
     this.categorizeData(cat_choice)
+    
     //this.selectSortOption()
     localStorage.removeItem("searched_item")
     localStorage.removeItem("p_min")
@@ -127,9 +127,10 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
 
   categorizeData(cat_choice: string){
     console.log("I am here 3 " , cat_choice)
-
+    this.subs.forEach((x)=> x.unsubscribe())
     this.marketdata = []
     if(cat_choice == "Product"){
+      
       this.subs.push(
         this.marketserv.getproductMarket().subscribe( (items: any[]) => {
         //this.marketdata = items
@@ -178,9 +179,9 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     var p_max = this.price_max as HTMLInputElement
    
     if(p_max == undefined || p_min == undefined || p_min.value == '' || p_max.value == ''){
-      if("searched_item" in localStorage){
-        this.searchItem(localStorage.getItem("searched_item"))
-      }
+      // if("searched_item" in localStorage){
+      //   this.searchItem(localStorage.getItem("searched_item"))
+      // }
       //this.categorizeData(this.curr_category.value)
       return
     }
@@ -193,6 +194,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     localStorage.setItem("p_min", String(min))
     localStorage.setItem("p_max", String(max))
     this.marketdata = []
+
     //console.log("Inside data : " + JSON.stringify(this.temp_list.value))
     if( min != undefined || max!= undefined  || (min > 0 || max > 0)){
       this.temp_list.value.forEach((item,index) => {
@@ -209,6 +211,10 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
           }
         }
         })
+    }
+
+    if(this.sort_ord.value == 'A-Z' || this.sort_ord.value == 'Z-A' || this.sort_ord.value == 'L-H' || this.sort_ord.value == 'H-L' ){
+      this.Sortby(this.sort_ord.value)
     }
     console.log("I am here 5")
   }

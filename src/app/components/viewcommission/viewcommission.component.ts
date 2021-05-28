@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { MarketService } from 'src/app/services/market';
-
+import { CartService } from 'src/app/services/cart';
 interface commission {
   _id?: string;
   itemname:string;
@@ -27,13 +27,18 @@ interface commission {
 export class ViewcommissionComponent implements OnInit, OnDestroy {
 
   comm_item:  commission
+  comm_slot: any;
   subs : Subscription[] = []
   image_list :any[] = []
   slide_len: any ;
   copy: BehaviorSubject<any> 
+  imageSRC: string;
+  openImageModal: boolean = false;
+
   constructor(
     private route:ActivatedRoute,
     private marketserv: MarketService,
+    private cartServ: CartService,
   ) {
     
     this.copy = new BehaviorSubject<any>('')
@@ -46,6 +51,7 @@ export class ViewcommissionComponent implements OnInit, OnDestroy {
     this.marketserv.getCommission(com_id)
     this.subs.push(this.marketserv.getcommission().subscribe((com:commission)=>{
       this.comm_item = com
+      this.comm_slot = com.slot
       this.image_list = com.images
       //var len = com.images.length
       //this.slide_len = this.slide_len + String(len)
@@ -63,5 +69,18 @@ export class ViewcommissionComponent implements OnInit, OnDestroy {
     
     //this.marketserv.editReload(false)
     this.subs.forEach((x)=> x.unsubscribe())
+  }
+  addReservation(prod: any){
+    console.log("id: " + JSON.stringify(prod._id))
+    this.cartServ.addReservation(prod._id)
+  }
+  onClickOpen (index: any) {
+    this.openImageModal = true;
+    this.imageSRC = this.image_list[index].imageBase64;
+  }
+
+  onClickExit () {
+      this.openImageModal = false;
+      this.imageSRC = '';
   }
 }

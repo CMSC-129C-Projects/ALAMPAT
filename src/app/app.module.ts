@@ -13,6 +13,7 @@ import { AccountService } from './services/account';
 import { ProductService } from './services/productServ';
 import { UserService } from './services/auth';
 import { MarketService } from './services/market';
+import { CartService } from './services/cart';
 import { AuthGuard } from './auth.guard';
 
 import { AppComponent } from './app.component';
@@ -88,6 +89,7 @@ import { ViewProductComponent } from './components/accounts/buyer/view-product/v
     ProductService,
     AuthGuard,
     MarketService,
+    CartService,
   
   ],
   bootstrap: [AppComponent]

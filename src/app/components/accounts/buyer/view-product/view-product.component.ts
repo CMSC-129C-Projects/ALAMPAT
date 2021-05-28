@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { MarketService } from 'src/app/services/market';
+import { CartService } from 'src/app/services/cart';
 interface product {
-  _id?: string;
+  _id: string;
   itemname:string;
   description: string;
   //stock?: number;
@@ -26,12 +27,16 @@ interface product {
 export class ViewProductComponent implements OnInit, OnDestroy{
 
   prod_item:  product
+  prod_stock: any
   subs : Subscription[] = []
   image_list :any[] = []
+  imageSRC: string;
+  openImageModal: boolean = false;
 
   constructor(
     private route:ActivatedRoute,
     private marketserv: MarketService,
+    private cartServ: CartService,
   ) {
     
     //this.copy = new BehaviorSubject<any>('')
@@ -45,6 +50,7 @@ export class ViewProductComponent implements OnInit, OnDestroy{
     
     this.subs.push(this.marketserv.getproduct().subscribe((prod:product)=>{
       this.prod_item = prod
+      this.prod_stock = prod.stock
       this.image_list = prod.images
       //var len = com.images.length
       //this.slide_len = this.slide_len + String(len)
@@ -60,4 +66,17 @@ export class ViewProductComponent implements OnInit, OnDestroy{
     this.subs.forEach((x)=> x.unsubscribe())
   }
 
+  addtoCart(prod: any){
+    console.log("id: " + JSON.stringify(prod._id))
+    this.cartServ.addtoCart(prod._id)
+  }
+  onClickOpen (index: any) {
+    this.openImageModal = true;
+    this.imageSRC = this.image_list[index].imageBase64;
+  }
+
+  onClickExit () {
+      this.openImageModal = false;
+      this.imageSRC = '';
+  }
 }
