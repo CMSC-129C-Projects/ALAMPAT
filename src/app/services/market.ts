@@ -83,12 +83,17 @@ export class MarketService {
         this.reload.emit(reload)
     }
     
+    setmarket(){
+        this.market.next([])
+    }
     getallMarket(): Observable<any>{
+        //this.market = new BehaviorSubject<any>([])
         this.getallMarketdata()
         return this.market.asObservable()
     }   
 
     getproductMarket(): Observable<any>{
+
         this.getProductMarketdata()
         return this.market.asObservable()
     }  

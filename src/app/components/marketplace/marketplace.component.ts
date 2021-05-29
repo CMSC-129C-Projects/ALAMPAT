@@ -26,6 +26,7 @@ interface item {
   templateUrl: './marketplace.component.html',
   styleUrls: ['./marketplace.component.css']
 })
+
 export class MarketplaceComponent implements OnInit, OnDestroy {
   @ViewChild('select') select: ElementRef
 
@@ -97,6 +98,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
 
         // /this.select.nativeElement.value = localStorage.getItem('sort')
       }
+      this.marketserv.setmarket()
       localStorage.setItem('reload', 'true')
     }
 
@@ -111,11 +113,14 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     console.log("I am here 2")
     const category = event.target as HTMLInputElement
     const cat_choice = category.value
+    //this.marketdata = []
     console.log("Category choice:" + JSON.stringify(category.value))  
-    
+    //this.subs.forEach((x)=> x.unsubscribe())
     this.curr_category.next(cat_choice)
     //this.ApplyPrice()
     // /window.location.reload();
+    this.marketserv.setmarket()
+    //this.marketserv.market = new BehaviorSubject<any>([])
     this.categorizeData(cat_choice)
     
     //this.selectSortOption()
