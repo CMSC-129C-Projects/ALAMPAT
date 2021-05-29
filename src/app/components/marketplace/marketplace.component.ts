@@ -119,7 +119,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     this.curr_category.next(cat_choice)
     //this.ApplyPrice()
     // /window.location.reload();
-    this.marketserv.setmarket()
+    //this.marketserv.setmarket()
     //this.marketserv.market = new BehaviorSubject<any>([])
     this.categorizeData(cat_choice)
     
