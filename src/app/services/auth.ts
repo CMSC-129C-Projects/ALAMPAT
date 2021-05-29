@@ -3,7 +3,7 @@ import axios from 'axios'
 import { User } from '../models/User'
 import { Router } from '@angular/router';
 
-const localAPI = 'http://localhost:3000'
+const localAPI = 'https://alampat.herokuapp.com'
 
 interface RegistrationResponse {
     message: string;

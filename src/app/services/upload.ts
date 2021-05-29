@@ -6,7 +6,7 @@ import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { tap } from 'rxjs/operators';
 
-const localAPI = 'http://localhost:3000'
+const localAPI = 'https://alampat.herokuapp.com'
 
 interface uploadResponse {
     message: string;

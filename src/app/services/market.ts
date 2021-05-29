@@ -24,7 +24,7 @@ interface item {
     profileImage?: string;
   }
 
-const localAPI = 'http://localhost:3000'
+const localAPI = 'https://alampat.herokuapp.com'
 
 
 @Injectable({
@@ -86,6 +86,7 @@ export class MarketService {
     setmarket(){
         this.market.next([])
     }
+
     getallMarket(): Observable<any>{
         //this.market = new BehaviorSubject<any>([])
         this.getallMarketdata()
