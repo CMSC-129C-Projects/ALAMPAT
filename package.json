@@ -2,7 +2,8 @@
   "name": "frontend",
   "version": "0.0.0",
   "scripts": {
-    "ng": "npm i -g @angular/cli",
+    "preinstall": "npm install -g angular-cli",
+    "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
     "test": "ng test",
