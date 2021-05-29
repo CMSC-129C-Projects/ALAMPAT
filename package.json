@@ -2,9 +2,9 @@
   "name": "frontend",
   "version": "0.0.0",
   "scripts": {
-    "ng": "npm i -g http-server && npm i -g @angular/cli",
+    "ng": "npm i -g @angular/cli",
     "start": "ng serve",
-    "build": "ng build --prod --aot",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
