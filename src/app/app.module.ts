@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire';
@@ -59,6 +60,7 @@ import { ViewProductComponent } from './components/accounts/buyer/view-product/v
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp({
       apiKey: "AIzaSyAYsXEKw9iqkrLxKgItK3_BxS94pWyLY9I",
@@ -70,7 +72,7 @@ import { ViewProductComponent } from './components/accounts/buyer/view-product/v
       measurementId: "G-M7VWRJ4WN7"
     }),
     AngularFireStorageModule,
-
+    RouterModule.forRoot([]),
   ],
   exports: [
     WelcomeComponent,
