@@ -1,3 +1,12 @@
+<style>
+    .limitedText { /* change p to div when necessary */
+        white-space: nowrap; 
+        overflow: hidden;
+        width: 440px; /* adjust according to the length you wish to limit the text */
+        text-overflow: ellipsis; 
+    }
+</style>
+
 <app-headerbuyer></app-headerbuyer>
 
 <!-- BACK ARROW -->
@@ -44,7 +53,7 @@
   </div>
 
 <!-- RESERVED ITEMS -->
-<div class="columns is-centered is-mobile">
+<div class="columns is-centered is-mobile"> <!-- *ngFor="let item of reservationsList; index as i"> -->
     <div class="column is-2"></div>
     <div class="column">
         <div class="box">
@@ -52,14 +61,16 @@
                 <div class="media-left">
                     <figure class="image is-100x100">
                         <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+                        <!-- <img class="object-fit_cover" [src]= "item.images.imageBase64" alt=""> -->
                     </figure>
                 </div>
                 <div class="media-content">
                     <div class="content">
-                        <p class="text has-text-weight-bold is-size-4 is-marginless" readonly>
-                            Commission Name
+                        <p class="limitedText has-text-weight-bold is-size-4 is-marginless" readonly>
+                            <!-- notice the class limitedText, when the text is too long, it ends with "..." -->
+                            This happens if text is too long reeeeee
                         </p>
-                        <p class="text has-text-primary is-size-4 has-text-weight-bold is-marginless" readonly>
+                        <p class="text has-text-primary is-size-5 has-text-weight-bold is-marginless" readonly>
                             ₱ 150.00
                         </p>
                         <div class="block">
