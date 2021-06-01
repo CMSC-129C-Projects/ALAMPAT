@@ -196,7 +196,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
     this.submitted = false;
     
     
-    if(this.openAddArtworkModal) {
+    if(this.openAddArtworkModal == true) {
       this.addPortfolio.reset();
       this.uploadService.addswitch(false)
       if(this.addedimageSRC!=""){
@@ -205,7 +205,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
       this.addedimageSRC = '';
     }
 
-    if(this.openEditArtworkModal) {
+    if(this.openEditArtworkModal == true) {
       this.portfolioForm.reset();
       //console.log("prev_image " + JSON.stringify(this.prev_image))
       //console.log("imageSRC " + JSON.stringify(this.imageSRC))

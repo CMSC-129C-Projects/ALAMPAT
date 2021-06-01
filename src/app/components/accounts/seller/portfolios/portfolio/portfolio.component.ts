@@ -111,13 +111,17 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     if (this.portfolioList.length < this.maxItems) {
       this.uploadService.addswitch(true)
     }
+    
     //this.showAddArtworkModal = !this.showAddArtworkModal;
   }
   
   onClickEditArtwork (item: any) {
     //console.log("Passed Item: "+ JSON.stringify(item))
     this.uploadService.selectArt(item)
-    this.showEditArtworkModal = !this.showEditArtworkModal;
+    this.uploadService.editswitch(true)
+    //this.ngOnDestroy()
+    //this.ngOnInit()
+    //this.showEditArtworkModal = !this.showEditArtworkModal;
   }
 
   onClickDelete (item: any, index: any) {
@@ -133,6 +137,9 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.uploadService.selectArt(this.item);
     this.uploadService.deletePortfoliodata(this.itemID);
     //console.log(this.index);
+    this.portfolioList = []
+    this.uploadService.getPortfoliodata()
+    
     if(this.index !== -1) {
       this.portfolioList.splice(this.index, 1);
     }
