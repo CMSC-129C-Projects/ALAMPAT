@@ -24,8 +24,13 @@ export class HeaderbuyerComponent implements OnInit {
 
   GotoMarketPlace(){
       localStorage.setItem('reload', 'true')
+      localStorage.setItem('curr_category', 'All')
       localStorage.removeItem('curr_category')
       localStorage.removeItem('searched_item')
+      localStorage.removeItem('p_min')
+      localStorage.removeItem('p_max')
+      localStorage.removeItem('sort')
+      
       this.router.navigate(['/marketplace'])
   }
 }

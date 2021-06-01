@@ -20,7 +20,7 @@ interface uploadResponse {
 export class CommissionService {
     isUploaded: boolean = false;
     isDeleted: boolean = false;
-    userID: string = '607fe491958fa65f08f14d0e';
+    userID: string|null ;
     commissionID: string = '';
     uploadError: string = '';
 
@@ -51,6 +51,7 @@ export class CommissionService {
 
     uploadItem = async (commission: Commission) => {
         console.log('in get commission service')
+        this.userID = localStorage.getItem('id')
         try {
             const response = await axios.post<uploadResponse>(`${localAPI}/seller/${this.userID}/addcommission`, commission)
             const { message, success } = response.data
@@ -69,6 +70,7 @@ export class CommissionService {
     
     getItemdata() {
         try {
+            this.userID = localStorage.getItem('id')
             axios.get(`${localAPI}/seller/${this.userID}/commission`)
             .then(resp => {
                 this.commission.next(resp.data.commissionsArray)
@@ -88,6 +90,7 @@ export class CommissionService {
     
     updateItemdata = async (commission: Commission, id: any ) => {
         try {
+            this.userID = localStorage.getItem('id')
             const response = await axios.patch(`${localAPI}/seller/${this.userID}/editcommission/${id}`, commission);
             const { message, success } = response.data
             //console.log(response.data)
@@ -114,6 +117,7 @@ export class CommissionService {
 
     deleteItemdata = async (id: any ) => {
         try {
+            this.userID = localStorage.getItem('id')
             const response = await axios.delete(`${localAPI}/seller/${this.userID}/removecommission/`,{data : { _id :id}});
             const { message, success } = response.data
             console.log(response.data)

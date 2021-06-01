@@ -58,7 +58,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
   ) {
-    this.curr_category = new BehaviorSubject<string>('All')
+    
     this.word = new BehaviorSubject<string>('')
     this.pmin = new BehaviorSubject<string|number>('')
     this.pmax = new BehaviorSubject<string|number>('')
@@ -73,10 +73,11 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     console.log("I am here " )
-     
-
+    this.curr_category = new BehaviorSubject<string>('')
+    
     if(localStorage.getItem('reload') == "true"){
-      this.curr_category.next('All')
+      //this.curr_category.next('All')
+      this.curr_category.next(localStorage.getItem('curr_category'))
       this.load_wholemarket()
       
     }
@@ -115,14 +116,22 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     const cat_choice = category.value
     //this.marketdata = []
     console.log("Category choice:" + JSON.stringify(category.value))  
-    //this.subs.forEach((x)=> x.unsubscribe())
+    //
     this.curr_category.next(cat_choice)
     //this.ApplyPrice()
     // /window.location.reload();
-    //this.marketserv.setmarket()
-    //this.marketserv.market = new BehaviorSubject<any>([])
+    // if(localStorage.getItem('reload') == "false"){
+    //   this.subs.forEach((x)=> x.unsubscribe())
+    //   this.temp_list.next([])
+    //   this.marketserv.setmarket()
+    // }
+   
+    this.marketserv.market.next([])
     this.categorizeData(cat_choice)
-    
+    //this.subs.forEach((x)=> x.unsubscribe())
+    localStorage.setItem('curr_category', cat_choice)
+    //this.router.navigate(['/marketplace'])
+    //window.location.reload()
     //this.selectSortOption()
     localStorage.removeItem("searched_item")
     localStorage.removeItem("p_min")
