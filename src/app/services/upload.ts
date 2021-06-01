@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { tap } from 'rxjs/operators';
+import Axios from 'axios-observable';
 
 const localAPI = 'https://alampat.herokuapp.com'
 
@@ -79,22 +80,24 @@ export class UploadService {
     }
   
     
-    getPortfoliodata() {
+    getPortfoliodata(): Observable<any>{
         try {
             this.userID = localStorage.getItem('id')
-            axios.get(`${localAPI}/seller/${this.userID}/portfolio`)
-            .then(resp => {
-                this.portfolio.next(resp.data.portfolioArray)
+            // axios.get(`${localAPI}/seller/${this.userID}/portfolio`)
+            // .then(resp => {
+            //     this.portfolio.next(resp.data.portfolioArray)
                 
-                console.log(this.portfolio);  
-            })
-            .catch(err => { 
-                console.log(err);
-            });
-
+            //     console.log(this.portfolio);  
+            // })
+            // .catch(err => { 
+            //     console.log(err);
+            // });
+            return Axios.get(`${localAPI}/seller/${this.userID}/portfolio`)
+            
         } catch (error) {
             console.log(error)
             this.uploadError = error
+            return error
         }
     }
 

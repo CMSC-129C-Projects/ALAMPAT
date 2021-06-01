@@ -64,8 +64,8 @@
         </div> 
     </div>
 </div>
-<app-portfolio-artwork [openAddArtworkModal] = 'showAddArtworkModal' ></app-portfolio-artwork>
-<app-portfolio-artwork [openEditArtworkModal] = 'showEditArtworkModal'></app-portfolio-artwork>
+<app-portfolio-artwork [openAddArtworkModal] = 'showAddArtworkModal' (exitedadd)="OnReloadadd($event)" ></app-portfolio-artwork>
+<app-portfolio-artwork [openEditArtworkModal] = 'showEditArtworkModal' (exited)="OnReload($event)"></app-portfolio-artwork>
 <app-footer></app-footer>
 
 <!-- IMAGE MODAL -->

@@ -49,35 +49,31 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     private uploadService: UploadService,
     private afStorage: AngularFireStorage,) { 
     
-     this.subscriptions.push(
-       this.uploadService.refresh().subscribe((m:any) => {
-        this.uploadService.getPortfoliodata()
-        console.log(m);
-        this.ngOnInit();
-      })
-     )
-    
-    this.subscriptions.push(
-      this.uploadService.showAdd.subscribe((x)=>{
-        this.showAddArtworkModal = x
-      })
-    )
-    this.subscriptions.push(
-      this.uploadService.showEdit.subscribe((x)=>{
-        this.showEditArtworkModal = x
-      })
-    )
+    //  this.subscriptions.push(
+    //    this.uploadService.refresh().subscribe((m:any) => {
+    //     
+    //     console.log(m);
+    //     this.ngOnInit();
+    //   })
+    //  )
+    this.subscribebuttons()
   }
 
   ngOnInit(): void {
-    
+    //this.uploadService.getPortfoliodata()
+    // this.subscriptions.push(
+    //   this.uploadService.portfolio.asObservable().pipe().subscribe((artwork)=>{
+    //   this.portfolioList = artwork;
+    //   console.log("Portfolio: " + JSON.stringify(this.portfolioList))
+    // }, (error) => {
+    //   console.log("Error", error)
+    // })
+    // )
     this.subscriptions.push(
-      this.uploadService.portfolio.asObservable().pipe().subscribe((artwork)=>{
-      this.portfolioList = artwork;
-      console.log("Portfolio: " + JSON.stringify(this.portfolioList))
-    }, (error) => {
-      console.log("Error", error)
-    })
+      this.uploadService.getPortfoliodata().subscribe( artwork => {
+        this.portfolioList = artwork.data.portfolioArray;
+        console.log("Portfolio: " + JSON.stringify(this.portfolioList))
+      })
     )
   }
   
@@ -115,7 +111,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     //this.showAddArtworkModal = !this.showAddArtworkModal;
   }
   
-  onClickEditArtwork (item: any) {
+  onClickEditArtwork (item: Portfolio) {
     //console.log("Passed Item: "+ JSON.stringify(item))
     this.uploadService.selectArt(item)
     this.uploadService.editswitch(true)
@@ -133,11 +129,15 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   }
 
   onClickSureDelete () {
-    this.afStorage.storage.refFromURL(this.imageSRC).delete();
+    if(this.imageSRC){
+      this.afStorage.storage.refFromURL(this.imageSRC).delete();
+    }
+    
     this.uploadService.selectArt(this.item);
     this.uploadService.deletePortfoliodata(this.itemID);
     //console.log(this.index);
-    this.portfolioList = []
+    //this.portfolioList = []
+    //this.uploadService.portfolio.next([])
     this.uploadService.getPortfoliodata()
     
     if(this.index !== -1) {
@@ -145,8 +145,42 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     }
     this.openDeleteModal = false;
   }
-    
+  
+  subscribebuttons(){
+    this.subscriptions.push(
+      this.uploadService.showAdd.subscribe((x)=>{
+        this.showAddArtworkModal = x
+      })
+    )
+    this.subscriptions.push(
+      this.uploadService.showEdit.subscribe((x)=>{
+        this.showEditArtworkModal = x
+      })
+    )
+  }
 
+  OnReload(exited:boolean){
+    if(exited == true){
+      this.ngOnDestroy()
+      this.ngOnInit()
+      this.subscribebuttons()
+    }
+    
+  }
+
+  OnReloadadd(exited:boolean){
+    if(exited == true){
+      this.ngOnDestroy()
+      this.subscriptions.push(
+      this.uploadService.getPortfoliodata().subscribe( artwork => {
+        this.portfolioList = artwork.data.portfolioArray;
+        console.log("Portfolio: " + JSON.stringify(this.portfolioList))
+      })
+    )
+      this.subscribebuttons()
+    }
+    
+  }
   onClickGoback(){
     //Code that goes back to seller shop menu
   }

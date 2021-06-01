@@ -4,7 +4,7 @@
   "scripts": {
     "preinstall": "npm install -g angular-cli",
     "ng": "ng",
-    "start": "node server.js", 
+    "start": "node server.js",
     "build": "ng build ",
     "test": "ng test",
     "lint": "ng lint",
@@ -27,6 +27,7 @@
     "@angular/platform-browser-dynamic": "~11.2.5",
     "@angular/router": "~11.2.5",
     "axios": "^0.21.1",
+    "axios-observable": "^1.1.6",
     "bulma": "^0.9.2",
     "dropbox": "^9.6.0",
     "express": "^4.17.1",
