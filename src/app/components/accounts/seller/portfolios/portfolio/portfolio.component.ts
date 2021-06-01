@@ -138,7 +138,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     //console.log(this.index);
     //this.portfolioList = []
     //this.uploadService.portfolio.next([])
-    this.uploadService.getPortfoliodata()
+    //this.uploadService.getPortfoliodata()
     
     if(this.index !== -1) {
       this.portfolioList.splice(this.index, 1);

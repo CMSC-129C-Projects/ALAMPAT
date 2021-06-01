@@ -77,8 +77,8 @@
                     <!-- <option disabled>Select Choice</option> -->
                         <option  value="--Select Choice--" hidden>--Select Choice--</option>
                         <option  value="Alphabetical">Alphabetical</option>
-                        <option  value="Date Created">Date Created</option>
-                        <option  value="Date Modified">Date Modified</option>
+                        <option  value="Date Created">Date Created (Oldest to Newest)</option>
+                        <option  value="Date Modified">Date Modified (Latest) </option>
 
                     <!-- <option *ngFor="let choice of Choices">{{ choice }}</option> -->
                     </select>
@@ -154,8 +154,8 @@
     </div>
 </div>
 
-<app-commission-item [openAddServiceModal] = 'showAddServiceModal'></app-commission-item>
-<app-commission-item [openEditServiceModal] = 'showEditServiceModal'></app-commission-item>
+<app-commission-item [openAddServiceModal] = 'showAddServiceModal' (reload)="reloadPage($event)"></app-commission-item>
+<app-commission-item [openEditServiceModal] = 'showEditServiceModal' (reloadedit)="reloadPage($event)"></app-commission-item>
 
 <!-- IMAGE MODAL -->
 <div class="modal" [ngClass]="openImageModal ? 'is-active' : ''">

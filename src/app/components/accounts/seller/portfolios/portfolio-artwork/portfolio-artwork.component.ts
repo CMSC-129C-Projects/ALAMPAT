@@ -82,7 +82,16 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
       artworkname: ['', Validators.required],
       artworkdescription: ['', Validators.required]
     });
+    this.addPortfolio = this.formBuilder.group ({
+      artworkimage: this.formBuilder.group({
+        filename: [''],
+        contentType: [''],
+        imageBase64:[''],
+      }, {Validators: [Validators.required]}),
 
+      artworkname: ['', Validators.required],
+      artworkdescription: ['', Validators.required]
+    });
     this.subscriptions = this.uploadService.artSource.asObservable().subscribe(currArt =>{
       console.log("Selected Art: " + JSON.stringify(currArt))
       this.artwork = currArt
@@ -97,16 +106,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
 
     
 
-    this.addPortfolio = this.formBuilder.group ({
-      artworkimage: this.formBuilder.group({
-        filename: [''],
-        contentType: [''],
-        imageBase64:[''],
-      }, {Validators: [Validators.required]}),
-
-      artworkname: ['', Validators.required],
-      artworkdescription: ['', Validators.required]
-    });
+    
     
   }
   

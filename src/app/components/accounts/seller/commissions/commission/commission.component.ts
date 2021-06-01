@@ -40,7 +40,7 @@ export class CommissionComponent implements OnInit, OnDestroy {
   service: any;
   imageSRC: any;
 
-  option: string= "";
+  option: string|null = "";
   sortForm: FormGroup;
 
   subscriptions: Subscription[] = [];
@@ -63,43 +63,17 @@ export class CommissionComponent implements OnInit, OnDestroy {
         })
       )
 
-      this.subscriptions.push(
-        this.commissionService.showAdd.subscribe((x) => {
-          this.showAddServiceModal = x
-        })
-      )
-
-      this.subscriptions.push(
-        this.commissionService.showEdit.subscribe((x)=>{
-          this.showEditServiceModal = x
-        })
-      )
+      this.subscribebuttons()
     }
 
   ngOnInit(): void {
-    this.subscriptions.push(
-      this.commissionService.commission.asObservable().pipe().subscribe((service)=>{
-        //put items to sold out array
-        this.soldoutList = [];
-        this.serviceList = [];
-        service.forEach((item:commission) => {
-          if (item.slot == 0) {
-            this.soldoutList.push(item);
-          }
-          if(item.slot > 0){
-            this.serviceList.push(item);
-          }
-        })
-        this.selectSortOption(this.option);
-      }, (error) => {
-        console.log("Error", error)
-      })
-    )
+    
     //for Sort Form
     this.sortForm = this.formBuilder.group ({
       button: ['--Select Choice--']
     });
     
+    this.subscribeComms()
     //For tabs
     const tabs = document.querySelectorAll('.tabs li');
     const tabContentBoxes = document.querySelectorAll('#tab-content > div');
@@ -126,10 +100,35 @@ export class CommissionComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe())
+    localStorage.removeItem('sort_prod')
   }
 
-  loadPage(option:string){
-    
+  subscribeComms(){
+    if("sort_prod" in localStorage){
+      this.sortForm.patchValue({
+        button: localStorage.getItem('sort_prod')
+      })
+      this.option = localStorage.getItem('sort_prod')
+    }
+
+    this.subscriptions.push(
+      this.commissionService.getItemdata().subscribe((service)=>{
+        //put items to sold out array
+        this.soldoutList = [];
+        this.serviceList = [];
+        service.data.commissionsArray.forEach((item:commission) => {
+          if (item.slot == 0) {
+            this.soldoutList.push(item);
+          }
+          if(item.slot > 0){
+            this.serviceList.push(item);
+          }
+        })
+        this.selectSortOption(this.option);
+      }, (error) => {
+        console.log("Error", error)
+      })
+    )
   }
 
   onClickOpen (item:any, index:any, tabId:any) {
@@ -179,46 +178,55 @@ export class CommissionComponent implements OnInit, OnDestroy {
     this.commissionService.selectItem(this.item);
     this.commissionService.deleteItemdata(this.itemID);
 
-    if(this.index !== -1) {
-      this.serviceList.splice(this.index, 1);
-    }
+    this.serviceList.forEach(x =>{
+      if(this.itemID == x._id){
+        if(this.index !== -1) {
+          this.serviceList.splice(this.index, 1);
+        }
+      }
+    })
+    this.soldoutList.forEach(x =>{
+      if(this.itemID == x._id){
+        if(this.index !== -1) {
+          this.soldoutList.splice(this.index, 1);
+        }
+      }
+    })
     this.openDeleteModal = false;
   }
 
   reloadPage(refresh: boolean){
     if(refresh == true){
-      this.commissionService.getItemdata()
+      this.subscriptions.forEach(sub => sub.unsubscribe())
+      //this.prodServ.getProductdata()
       this.ngOnInit()
+      this.subscribebuttons()
     }
+  }
+
+  subscribebuttons(){
+    this.subscriptions.push(
+      this.commissionService.showAdd.subscribe((x) => {
+        this.showAddServiceModal = x
+      })
+    )
+
+    this.subscriptions.push(
+      this.commissionService.showEdit.subscribe((x)=>{
+        this.showEditServiceModal = x
+      })
+    )
   }
 
   Orderby(event: Event){
     const option = event.target as HTMLInputElement
     this.option = option.value
     console.log("Sort Option")
-    this.commissionService.getItemdata()
-    this.subscriptions.push(
-      this.commissionService.commission.asObservable().subscribe((service) => {
-
-        this.soldoutList = [];
-        this.serviceList = []; 
-        service.forEach((item:commission) => {
-          if (item.slot == 0) {
-            this.soldoutList.push(item);
-          }
-          if(item.slot > 0) {
-            this.serviceList.push(item);
-          }
-        })
-
-        this.selectSortOption(option.value)
-      }, (error) => {
-        console.log("Error", error)
-      })
-    )
+    localStorage.setItem('sort_prod', option.value)
+    this.subscribeComms()
   }
 
-  selectSortOption(option:string){
+  selectSortOption(option:string|null){
     if(option == "Alphabetical"){
       this.serviceList.sort(this.sortserv.getStrAscendingSortOrder("commissionname"))
       this.soldoutList.sort(this.sortserv.getStrAscendingSortOrder("commissionname"))

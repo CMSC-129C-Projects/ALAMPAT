@@ -119,12 +119,12 @@
             </div>
             <form [formGroup]="sortForm">
               <div class="form-group">
-                <select formControlName="button" class="form-control" (change)="Orderby($event)">
+                <select formControlName="button" class="form-control" (change)="Orderby($event)" [value] = "option" >
                   <!-- <option disabled>Select Choice</option> -->
                   <option  value="--Select Choice--" hidden>--Select Choice--</option>
                   <option  value="Alphabetical">Alphabetical</option>
-                  <option  value="Date Created">Date Created</option>
-                  <option  value="Date Modified">Date Modified</option>
+                  <option  value="Date Created">Date Created (Oldest to Newest)</option>
+                  <option  value="Date Modified">Date Modified (Latest)</option>
 
                   <!-- <option *ngFor="let choice of Choices">{{ choice }}</option> -->
                 </select>
@@ -285,6 +285,7 @@
 <app-add-product [openAddProductModal]="showAddProductModal" (reload)= "reloadPage($event)"></app-add-product>
 <app-add-product
   [openEditProductModal]="showEditProductModal" 
+  (reloadedit)= "reloadPage($event)"
 ></app-add-product>
 
 <!-- IMAGE MODAL -->

@@ -32,7 +32,8 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
   @Input() openAddServiceModal: boolean;
   @Input() openEditServiceModal: boolean;
   @Input() openSuccessModal: boolean;
-  @Output() reload: EventEmitter<boolean> = new EventEmitter(false)
+  @Output() reload: EventEmitter<boolean> ;
+  @Output() reloadedit: EventEmitter<boolean>;
   @ViewChild('image') image: ElementRef
 
   saved: boolean = false;
@@ -66,20 +67,13 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
 
   constructor(private formBuilder: FormBuilder,
     private commissionService: CommissionService,
-    private afStorage: AngularFireStorage) { }
+    private afStorage: AngularFireStorage) {
+      this.reload = new EventEmitter(false);
+      this.reloadedit = new EventEmitter(false);
+     }
 
   ngOnInit(): void {
-    this.commissionService.getItemdata()
-
-    this.subscriptions = this.commissionService.comSource.asObservable().subscribe(currItem => {
-      this.service = currItem
-      this.imageSRC = this.service.images.imageBase64
-      this.initForm()
-    })
-
-    this.fileName = '';
-    this.imageSRC = '';
-
+    //this.commissionService.getItemdata()
     this.serviceForm = this.formBuilder.group ({
       commissionimage: this.formBuilder.group({
         filename: [''],
@@ -105,6 +99,17 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
       slot: ['', Validators.required],
       price: ['', Validators.required]
     });
+
+    this.subscriptions = this.commissionService.comSource.asObservable().subscribe(currItem => {
+      this.service = currItem
+      this.imageSRC = this.service.images.imageBase64
+      this.initForm()
+    })
+
+    this.fileName = '';
+    this.imageSRC = '';
+
+    
   }
 
   ngOnDestroy():void{
@@ -270,6 +275,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
         this.fileName = '';
         this.imageSRC = '';
         this.commissionService.editswitch(false)
+        this.reloadedit.emit(true)
       }
       else{
         this.initForm();
