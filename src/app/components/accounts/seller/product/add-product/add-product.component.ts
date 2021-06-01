@@ -291,7 +291,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
   }
 
   initForm = () => {
-    this.editForm.reset({
+    this.editForm.patchValue({
       productName: this.prod.productname,
       productDescription: this.prod?.description,
       productImage:{

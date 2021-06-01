@@ -269,6 +269,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
         if(this.imageSRC != this.prev_image && this.prev_image!=""){
           this.afStorage.storage.refFromURL(this.prev_image).delete();
         }
+        this.saved = true
         this.ngOnInit();
         this.percentage = new Observable()
         this.snapshot = new Observable()
