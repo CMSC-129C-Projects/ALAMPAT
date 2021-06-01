@@ -54,14 +54,6 @@ export class CommissionComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     ) { 
       
-      this.subscriptions.push(
-        this.commissionService.refresh().subscribe((m:any) => {
-        this.commissionService.getItemdata()
-        console.log(m);
-        this.ngOnInit();
-        
-        })
-      )
 
       this.subscribebuttons()
     }
