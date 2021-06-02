@@ -1,92 +1,121 @@
 <style>
-    .limitedText { /* change p to div when necessary */
-        white-space: nowrap; 
-        overflow: hidden;
-        width: 440px; /* adjust according to the length you wish to limit the text */
-        text-overflow: ellipsis; 
-    }
+  .limitedText {
+    /* change p to div when necessary */
+    white-space: nowrap;
+    overflow: hidden;
+    width: 440px; /* adjust according to the length you wish to limit the text */
+    text-overflow: ellipsis;
+  }
 </style>
 
 <app-headerbuyer></app-headerbuyer>
 
 <!-- BACK ARROW -->
 <div class="container">
-    <nav class="breadcrumb is-small" aria-label="breadcrumbs">
-        <li><a>
-            <span class="icon is-small">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
-                    <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
-                  </svg>
-                  <i class="bi bi-caret-left-fill" aria-hidden="true"></i>
-              </span>
-              <span>Back</span> 
-          </a></li>
-    </nav>
-    <div class="container">
-    </div>
+  <nav class="breadcrumb is-small" aria-label="breadcrumbs">
+    <li>
+      <a>
+        <span class="icon is-small">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-caret-left-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"
+            />
+          </svg>
+          <i class="bi bi-caret-left-fill" aria-hidden="true"></i>
+        </span>
+        <span>Back</span>
+      </a>
+    </li>
+  </nav>
+  <div class="container"></div>
 </div>
 
 <!-- RESERVATION TITLE -->
 <div class="hero mb-2">
-    <div class="columns is-mobile">
-      <div class="column is-10 is-offset-1">
-        <div class="card-container">
-          <div class="title is-family-primary has-icons-left">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="30"
-              height="30"
-              fill="currentColor"
-              class="bi bi-shop"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z"
-              />
-            </svg>
-            Reservations
-          </div>
+  <div class="columns is-mobile">
+    <div class="column is-10 is-offset-1">
+      <div class="card-container">
+        <div class="title is-family-primary has-icons-left">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            fill="currentColor"
+            class="bi bi-shop"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z"
+            />
+          </svg>
+          Reservations
         </div>
-        <hr style="background-color:#e8e6e6"> 
       </div>
+      <hr style="background-color: #e8e6e6" />
     </div>
   </div>
+</div>
 
 <!-- RESERVED ITEMS -->
-<div class="columns is-centered is-mobile"> <!-- *ngFor="let item of reservationsList; index as i"> -->
-    <div class="column is-2"></div>
-    <div class="column">
-        <div class="box">
-            <article class="media">
-                <div class="media-left">
-                    <figure class="image is-100x100">
-                        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
-                        <!-- <img class="object-fit_cover" [src]= "item.images.imageBase64" alt=""> -->
-                    </figure>
+<div class="columns is-centered is-mobile">
+  <!-- *ngFor="let item of reservationsList; index as i"> -->
+  <div class="column is-2"></div>
+  <div class="column">
+    <div class="box">
+      <article class="media">
+        <div class="media-left">
+          <figure class="image is-100x100">
+            <img
+              src="https://bulma.io/images/placeholders/128x128.png"
+              alt="Image"
+            />
+            <!-- <img class="object-fit_cover" [src]= "item.images.imageBase64" alt=""> -->
+          </figure>
+        </div>
+        <div class="media-content">
+          <div class="content">
+            <p
+              class="limitedText has-text-weight-bold is-size-4 is-marginless"
+              readonly
+            >
+              <!-- notice the class limitedText, when the text is too long, it ends with "..." -->
+              This happens if text is too long weeeeee
+            </p>
+            <p
+              class="
+                text
+                has-text-primary
+                is-size-5
+                has-text-weight-bold
+                is-marginless
+              "
+              readonly
+            >
+              ₱ 150.00
+            </p>
+            <div class="block">
+              <div class="text is-size-6" readonly>
+                Seller Name:
+                <a class="tag is-white is-light has-text-weight-bold is-small">
+                  Name of the Seller
+                </a>
+              </div>
+              <div class="text is-size-6" readonly>
+                Reservation Status:
+                <!-- NGIF -->
+                <div
+                  class="tag is-warning is-light has-text-weight-bold is-small"
+                >
+                  Waiting for Seller's Approval
                 </div>
-                <div class="media-content">
-                    <div class="content">
-                        <p class="limitedText has-text-weight-bold is-size-4 is-marginless" readonly>
-                            <!-- notice the class limitedText, when the text is too long, it ends with "..." -->
-                            This happens if text is too long weeeeee
-                        </p>
-                        <p class="text has-text-primary is-size-5 has-text-weight-bold is-marginless" readonly>
-                            ₱ 150.00
-                        </p>
-                        <div class="block">
-                            <div class="text is-size-6" readonly>
-                                Seller Name:
-                                <a class="tag is-white is-light has-text-weight-bold is-small">
-                                    Name of the Seller
-                                </a>
-                            </div>
-                            <div class="text is-size-6" readonly>
-                                Reservation Status:
-                               <!-- NGIF -->
-                                <div class="tag is-warning is-light has-text-weight-bold is-small">
-                                    Waiting for Seller's Approval
-                                </div>
-                                <!--
+                <!--
                                 <div class="tag is-success has-text-weight-bold is-small">
                                     Reservation Accepted
                                 </div> 
@@ -94,18 +123,20 @@
                                     Reservation Denied
                                 </div>
                                 -->
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- BUTTONS -->
-                <div class="media-right">
-                    <!-- NGIF -->
-                    <button class="button is-danger has-text-weight-bold">
-                        Cancel Reservation
-                    </button>
-                    <!--
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- BUTTONS -->
+        <div class="media-right">
+          <!-- NGIF -->
+          <button
+            (click)="onClickInfo()"
+            class="button is-primary has-text-weight-bold"
+          >
+            See Reservation Info
+          </button>
+          <!--
                     <button class="button is-success has-text-weight-bold">
                         Proceed to Checkout
                     </button>
@@ -113,11 +144,113 @@
                         Remove Reservation
                     </button>
                 -->
-                </div>
-            </article>
         </div>
+      </article>
     </div>
-    <div class="column is-2"></div>
+  </div>
+  <div class="column is-2"></div>
+</div>
+
+<!-- VIEW RESERVATION MODAL -->
+<div class="modal" [ngClass]="showReservation ? 'is-active' : ''">
+  <!-- <div class="modal is-active"> -->
+  <div class="modal-background" (click)="onClickExit()"></div>
+  <div class="notification is-outline">
+    <button (click)="onClickExit()" class="delete"></button>
+    <div class="columns">
+      <div class="column is-two-fifths">
+        <div class="media-left">
+          <figure class="image is-150x150">
+            <img
+              src="https://bulma.io/images/placeholders/128x128.png"
+              alt="Image"
+            />
+            <!-- <img class="object-fit_cover" [src]= "item.images.imageBase64" alt=""> -->
+          </figure>
+        </div>
+      </div>
+      <div class="column is-multiline">
+        <div class="rows">
+          <div class="row is-full">
+            <p class="has-text-weight-bold is-size-4 is-marginless" readonly>
+              <!-- notice the class limitedText, when the text is too long, it ends with "..." -->
+              This happens if text is too long weeeeeessssssssss
+            </p>
+          </div>
+          <div class="row is-full">
+            <p
+              class="
+                text
+                has-text-primary
+                is-size-5
+                has-text-weight-bold
+                is-marginless
+              "
+              readonly
+            >
+              ₱ 150.00
+            </p>
+            <div class="block">
+              <div class="text is-size-6" readonly>
+                Seller Name:
+                <a class="tag is-white is-light has-text-weight-bold is-small">
+                  Name of the Seller
+                </a>
+              </div>
+              <div class="text is-size-6" readonly>
+                Reservation Status:
+                <!-- NGIF -->
+                <div
+                  class="tag is-warning is-light has-text-weight-bold is-small"
+                >
+                  Waiting for Seller's Approval
+                </div>
+              </div>
+            </div>
+            <div class="row is-full">
+              <p
+                class="
+                  text
+                  is-multiline is-center is-size-5
+                  has-text-weight-bold
+                  is-marginless
+                "
+                readonly
+              >
+                TERMS & CONDITIONS
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                hendrerit sapien eget lorem facilisis pharetra. Maecenas semper
+                magna sapien. Integer feugiat feugiat sem at posuere. Phasellus
+                tincidunt leo in ligula porttitor pretium in in enim.
+                Pellentesque gravida id felis ut ultrices. Aenean bibendum vitae
+                diam at faucibus. Vivamus ac imperdiet orci. Praesent
+                scelerisque malesuada turpis, a semper nisl sollicitudin non.
+                Nam vulputate risus condimentum mauris elementum, quis viverra
+                justo faucibus. Maecenas pulvinar dui ut vehicula iaculis.
+                
+              </p>
+            </div>
+            <!--
+                                        <div class="tag is-success has-text-weight-bold is-small">
+                                            Reservation Accepted
+                                        </div> 
+                                        <div class="tag is-danger is-light has-text-weight-bold is-small">
+                                            Reservation Denied
+                                        </div>
+                                        -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="buttons is-pulled-right px-4 mx-5">
+      <button class="button is-danger is-outlined">Cancel Reservation</button>
+      <button class="button is-link is-outlined">Proceed to Checkout</button>
+      <p class="pl-4"></p>
+    </div>
+  </div>
 </div>
 
 <app-footer></app-footer>

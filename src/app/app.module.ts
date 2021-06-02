@@ -35,6 +35,7 @@ import { CommissionComponent } from './components/accounts/seller/commissions/co
 import { CommissionItemComponent } from './components/accounts/seller/commissions/commission-item/commission-item.component';
 import { ViewProductComponent } from './components/accounts/buyer/view-product/view-product.component';
 import { ReservationsComponent } from './components/accounts/buyer/reservations/reservations.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +57,8 @@ import { ReservationsComponent } from './components/accounts/buyer/reservations/
     CommissionComponent,
     CommissionItemComponent,
     ViewProductComponent,
-    ReservationsComponent
+    ReservationsComponent,
+
 
   ],
   imports: [

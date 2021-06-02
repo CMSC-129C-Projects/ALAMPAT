@@ -6,10 +6,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reservations.component.css']
 })
 export class ReservationsComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  // @Input() openReservationModal: boolean;
+  showReservation: boolean = false;
+  constructor() {
+    this.showReservation = false;
   }
 
+  ngOnInit(): void {
+
+  }
+  
+  onClickInfo = () => {
+    this.showReservation = !this.showReservation;
+  }
+
+  onClickExit = () => {
+    if(this.showReservation) {
+      this.showReservation = false;
+    }
+  }
 }
