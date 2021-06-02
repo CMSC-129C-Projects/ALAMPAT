@@ -1,6 +1,5 @@
 <style>
   .limitedText {
-    /* change p to div when necessary */
     white-space: nowrap;
     overflow: hidden;
     width: 440px; /* adjust according to the length you wish to limit the text */
@@ -86,7 +85,7 @@
               readonly
             >
               <!-- notice the class limitedText, when the text is too long, it ends with "..." -->
-              This happens if text is too long weeeeee
+              This happens if text is too long weeeeeeeeeeeeeeee
             </p>
             <p
               class="
@@ -115,7 +114,7 @@
                 >
                   Waiting for Seller's Approval
                 </div>
-                <!--
+                <!-- NGIF part
                                 <div class="tag is-success has-text-weight-bold is-small">
                                     Reservation Accepted
                                 </div> 
@@ -136,7 +135,7 @@
           >
             See Reservation Info
           </button>
-          <!--
+          <!-- NGIF part
                     <button class="button is-success has-text-weight-bold">
                         Proceed to Checkout
                     </button>
@@ -202,13 +201,12 @@
               </div>
               <div class="text is-size-6" readonly>
                 Reservation Status:
-                <!-- NGIF -->
                 <div
                   class="tag is-warning is-light has-text-weight-bold is-small"
                 >
                   Waiting for Seller's Approval
                 </div>
-                <!--
+                <!-- NGIF part
                                 <div class="tag is-success has-text-weight-bold is-small">
                                     Reservation Accepted
                                 </div> 
@@ -234,7 +232,8 @@
         <button class="button is-link has-text-weight-bold" disabled>
           Pending Approval
         </button>
-        <!--<button class="button is-link has-text-weight-bold">
+        <!-- NGIF part
+        <button class="button is-link has-text-weight-bold">
           Proceed To Checkout
         </button> -->
         <button class="button is-danger has-text-weight-bold">
