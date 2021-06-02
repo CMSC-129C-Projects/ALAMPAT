@@ -24,6 +24,7 @@ const addCommission = async(req, res, next) => {
             }
 
             commission.save(function(err, result){
+                if(err) throw err;
                 if(!err){
                 
                 User.findByIdAndUpdate( req.params.id , { $push: { commissions: result._id } })
@@ -150,6 +151,7 @@ const deleteCommission = async(req, res, next) => {
            
         //updates the user object data to the database 
         Commission.findByIdAndRemove(req.body._id, function(err, result){
+            if(err) throw err;
             if(!err){
                 User.findByIdAndUpdate( req.params.id , { $pull: { commissions: result._id } })
                 .then((data)=>{

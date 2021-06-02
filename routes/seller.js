@@ -11,7 +11,7 @@ router.post('/:id/addportfolio', portfolioController.addArtwork)
 router.get('/:id/portfolio', portfolioController.getArtworkList)
 router.patch('/:id/editportfolio/:artid', portfolioController.updateArtwork)
 router.delete('/:id/removeportfolio/', portfolioController.deleteArtwork)
-
+router.get('/:id/artwork/:_id', portfolioController.getArtwork)
 
 router.post('/:id/addproduct', productController.addProduct)
 router.get('/:id/product', productController.getProductList)

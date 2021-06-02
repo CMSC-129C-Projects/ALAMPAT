@@ -89,6 +89,7 @@ const addProductOrder = async(req, res, next) => {
         })
 
          prod_order.save(function(err, result){
+            if(err) throw err;
              if(!err){
                 User.findByIdAndUpdate( req.params.id , { $push: { orders: result._id } })
                 .then((result) => {
@@ -136,25 +137,26 @@ const addCommissionOrder = async(req, res, next) => {
         })
 
          comm_order.save(function(err, result){
-             if(!err){
-                User.findByIdAndUpdate( req.params.id , { $push: { orders: result._id } })
-                .then((result) => {
-                    //console.log(result)
-                    res.json({
-                        message: "Order added successfully! ",
-                        orders: result.orders,
-                        success: true,
-                    })
-                    
-                }).catch((error)=>{
-                    res.status(400).json({
-                        message: "Failed to add order to the user!",
-                        error: error,
-                        success: false,
-                    })
-                    
+            if(err) throw err;
+            if(!err){
+            User.findByIdAndUpdate( req.params.id , { $push: { orders: result._id } })
+            .then((result) => {
+                //console.log(result)
+                res.json({
+                    message: "Order added successfully! ",
+                    orders: result.orders,
+                    success: true,
                 })
-             }
+                
+            }).catch((error)=>{
+                res.status(400).json({
+                    message: "Failed to add order to the user!",
+                    error: error,
+                    success: false,
+                })
+                
+            })
+            }
          })
     }
     catch(error){
