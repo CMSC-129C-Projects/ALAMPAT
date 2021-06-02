@@ -152,15 +152,20 @@
 </div>
 
 <!-- VIEW RESERVATION MODAL -->
+
 <div class="modal" [ngClass]="showReservation ? 'is-active' : ''">
   <!-- <div class="modal is-active"> -->
   <div class="modal-background" (click)="onClickExit()"></div>
-  <div class="notification is-outline">
-    <button (click)="onClickExit()" class="delete"></button>
-    <div class="columns">
-      <div class="column is-two-fifths">
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <div class="column has-text-right is-paddingless is-marginless">
+        <button (click)="onClickExit()" class="delete "></button>
+      </div>
+    </header>
+    <div class="modal-card-body">
+      <article class="media">
         <div class="media-left">
-          <figure class="image is-150x150">
+          <figure class="image">
             <img
               src="https://bulma.io/images/placeholders/128x128.png"
               alt="Image"
@@ -168,21 +173,19 @@
             <!-- <img class="object-fit_cover" [src]= "item.images.imageBase64" alt=""> -->
           </figure>
         </div>
-      </div>
-      <div class="column is-multiline">
-        <div class="rows">
-          <div class="row is-full">
-            <p class="has-text-weight-bold is-size-4 is-marginless" readonly>
-              <!-- notice the class limitedText, when the text is too long, it ends with "..." -->
-              This happens if text is too long weeeeeessssssssss
+        <div class="media-content">
+          <div class="content">
+            <p
+              class="text has-text-weight-bold is-size-4 is-marginless"
+              readonly
+            >
+              Commission Name
             </p>
-          </div>
-          <div class="row is-full">
             <p
               class="
                 text
                 has-text-primary
-                is-size-5
+                is-size-4
                 has-text-weight-bold
                 is-marginless
               "
@@ -205,51 +208,40 @@
                 >
                   Waiting for Seller's Approval
                 </div>
+                <!--
+                                <div class="tag is-success has-text-weight-bold is-small">
+                                    Reservation Accepted
+                                </div> 
+                                <div class="tag is-danger is-light has-text-weight-bold is-small">
+                                    Reservation Denied
+                                </div>
+                                -->
               </div>
             </div>
-            <div class="row is-full">
-              <p
-                class="
-                  text
-                  is-multiline is-center is-size-5
-                  has-text-weight-bold
-                  is-marginless
-                "
-                readonly
-              >
-                TERMS & CONDITIONS
+            <div class="block">
+              <p class="text has-text-weight-bold is-size-5">
+                Terms & Conditions
               </p>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                hendrerit sapien eget lorem facilisis pharetra. Maecenas semper
-                magna sapien. Integer feugiat feugiat sem at posuere. Phasellus
-                tincidunt leo in ligula porttitor pretium in in enim.
-                Pellentesque gravida id felis ut ultrices. Aenean bibendum vitae
-                diam at faucibus. Vivamus ac imperdiet orci. Praesent
-                scelerisque malesuada turpis, a semper nisl sollicitudin non.
-                Nam vulputate risus condimentum mauris elementum, quis viverra
-                justo faucibus. Maecenas pulvinar dui ut vehicula iaculis.
-                
-              </p>
+              <p class="text is-size-7">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean cursus, ligula quis facilisis convallis, nibh mauris ultrices nibh, rhoncus fringilla erat felis vitae neque. Mauris blandit elit non nisl interdum ultrices. Vestibulum mollis est non rhoncus mattis. Donec tincidunt odio dolor, lacinia commodo arcu luctus ut. Aenean tincidunt nibh quis orci vestibulum, quis mattis ipsum sagittis. Quisque quis ante porttitor, ullamcorper ligula sit amet, auctor nulla. Ut cursus, ex nec euismod accumsan, mauris massa facilisis felis, sed suscipit metus enim mattis nibh. Praesent nec ex imperdiet, sagittis nunc vitae, scelerisque dui. Nulla auctor risus sem, vitae venenatis lorem faucibus ut. Mauris iaculis suscipit posuere. Morbi non sem consectetur leo mattis bibendum. Nullam id semper nisi. Mauris dolor urna, tristique a finibus ac, sollicitudin a nisl. Etiam non tellus pharetra, dignissim purus quis, bibendum felis. Aliquam erat volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.              </p>
             </div>
-            <!--
-                                        <div class="tag is-success has-text-weight-bold is-small">
-                                            Reservation Accepted
-                                        </div> 
-                                        <div class="tag is-danger is-light has-text-weight-bold is-small">
-                                            Reservation Denied
-                                        </div>
-                                        -->
           </div>
         </div>
+      </article>
+    </div>
+    <footer class="modal-card-foot">
+      <div class="column has-text-centered is-paddingless is-marginless">
+        <button class="button is-link has-text-weight-bold" disabled>
+          Pending Approval
+        </button>
+        <!--<button class="button is-link has-text-weight-bold">
+          Proceed To Checkout
+        </button> -->
+        <button class="button is-danger has-text-weight-bold">
+          Cancel Reservation
+        </button>
       </div>
-    </div>
-
-    <div class="buttons is-pulled-right px-4 mx-5">
-      <button class="button is-danger is-outlined">Cancel Reservation</button>
-      <button class="button is-link is-outlined">Proceed to Checkout</button>
-      <p class="pl-4"></p>
-    </div>
+    </footer>
   </div>
 </div>
 
