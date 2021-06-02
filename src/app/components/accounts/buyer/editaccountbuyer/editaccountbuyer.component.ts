@@ -106,7 +106,7 @@ export class EditaccountbuyerComponent implements OnInit {
       var userdata = await this.accountService.updateUserdata(this.BuyerForm.value);
       if (userdata === true) {
         this.ngOnInit()
-        this.afStorage.storage.refFromURL(this.prev_img).delete();
+        //this.afStorage.storage.refFromURL(this.prev_img).delete();
         this.accountService.editswitch(false)
         this.imageSRC = ''
         //this.router.navigate(['/']) back to accounts page

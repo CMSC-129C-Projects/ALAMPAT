@@ -1,4 +1,4 @@
-import { Component, Input, OnInit,OnDestroy, Output,EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit,OnDestroy, Output,EventEmitter, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Products } from 'src/app/models/products';
 import { ProductService } from 'src/app/services/productServ';
@@ -26,11 +26,12 @@ interface product {
   styleUrls: ['./add-product.component.css']
 })
 
-export class AddProductComponent implements OnInit, OnDestroy {
+export class AddProductComponent implements OnChanges, OnDestroy {
   @Input() openAddProductModal: boolean;
   @Input() openEditProductModal: boolean;
   @Input() openSuccessModal: boolean;
-  @Output() reload: EventEmitter<boolean> = new EventEmitter(false)
+  @Output() reload: EventEmitter<boolean> 
+  @Output() reloadedit: EventEmitter<boolean>
   @ViewChild('image') image: ElementRef
 
   submitted: boolean = false;
@@ -62,11 +63,41 @@ export class AddProductComponent implements OnInit, OnDestroy {
     private prodServ: ProductService,
     private afStorage: AngularFireStorage,
     ) {
-      this.imagesrc = ""
+      this.imagesrc = "";
+      this.reload =  new EventEmitter(false);
+      this.reloadedit =  new EventEmitter(false);
      }
 
-  ngOnInit(): void {
-    this.prodServ.getProductdata()
+  ngOnChanges(): void {
+    //this.prodServ.getProductdata()
+
+    this.productForm = this.formBuilder.group({
+      productImage: this.formBuilder.group({
+        filename: [''],
+        contentType: [''],
+        imageBase64:[''],
+      }, {Validators: [Validators.required]} ),
+      category: ['Product'],
+      productName: ['', Validators.required],
+      productDescription: ['', Validators.required],
+      stock: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      price: ['', Validators.required],
+      button: ['']
+    });
+    
+    this.editForm = this.formBuilder.group({
+      productImage: this.formBuilder.group({
+        filename: [''],
+        contentType: [''],
+        imageBase64:[''],
+      }, {Validators: [Validators.required]} ),
+      category: ['Product'],
+      productName: ['', Validators.required],
+      productDescription: ['', Validators.required],
+      stock: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      price: ['', Validators.required],
+
+    });
 
     this.subs = this.prodServ.productSource.asObservable().subscribe(currProd =>{
 
@@ -77,33 +108,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
       this.initForm()
       console.log("Selected Product: " + JSON.stringify(this.prod))
     })
-    
-    this.productForm = this.formBuilder.group({
-      productImage: this.formBuilder.group({
-        filename: [''],
-        contentType: [''],
-        imageBase64:[''],
-      }, {Validators: [Validators.required]} ),
-      category: ['Product'],
-      productName: ['', Validators.required],
-      productDescription: ['', Validators.required],
-      stock: ['', [Validators.required, Validators.min(1), Validators.max(1000)]],
-      price: ['', [Validators.required, Validators.min(1)]],
-      button: ['']
-    });
-
-    this.editForm = this.formBuilder.group({
-      productImage: this.formBuilder.group({
-        filename: [''],
-        contentType: [''],
-        imageBase64:[''],
-      }, {Validators: [Validators.required]} ),
-      category: ['Product'],
-      productName: ['', Validators.required],
-      productDescription: ['', Validators.required],
-      stock: ['', [Validators.required, Validators.min(1), Validators.max(1000)]],
-      price: ['', [Validators.required, Validators.min(1)]],
-    });
+   
   }
 
   get formControls() { return this.productForm.controls; }
@@ -241,12 +246,12 @@ export class AddProductComponent implements OnInit, OnDestroy {
     this.prodServ.uploadProduct(product);
     this.prodServ.addswitch(false)
     this.productForm.reset();
-    this.ngOnInit()
+    //this.ngOnInit()
     this.percentage = new Observable();
     this.snapshot = new Observable();
     this.addedFileName = '';
     this.addedimagesrc = '';
-    this.reload.emit(true)
+    //this.reload.emit(true)
     //this.userService.login(this.loginForm.value);
   }
   
@@ -266,7 +271,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
         }
         //this.afStorage.storage.refFromURL(this.prev_image).delete();
         this.prev_image = '';
-        this.ngOnInit();
+        //this.ngOnInit();
         //this.portfolioForm.reset(); 
         this.saved = true
         this.percentage = new Observable()
@@ -274,7 +279,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
         this.filename = '';
         this.imagesrc = '';
         this.prodServ.editswitch(false)
-        this.reload.emit(true)
+        this.reloadedit.emit(true)
       }
       else{
         this.initForm();

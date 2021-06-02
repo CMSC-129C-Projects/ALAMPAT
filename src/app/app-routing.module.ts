@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NoPageFoundComponent } from './components/no-page-found/no-page-found.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import { UploadService } from './services/upload';
+import { ViewcommissionComponent } from './components/viewcommission/viewcommission.component';
+import { MarketplaceComponent } from './components/marketplace/marketplace.component'
+
 import { HeaderbuyerComponent } from './components/accounts/buyer/headerbuyer/headerbuyer.component';
 import { HeadersellerComponent } from './components/accounts/seller/headerseller/headerseller.component';
 import { MyaccountbuyerComponent } from './components/accounts/buyer/myaccountbuyer/myaccountbuyer.component';
@@ -27,15 +31,16 @@ const routes: Routes = [
   { path: 'seller-portfolio', component: PortfolioComponent, canActivate: [AuthGuard]  },
   { path: 'seller-commission', component: CommissionComponent, canActivate: [AuthGuard]  },
   { path: 'seller-products', component: ProductsComponent, canActivate: [AuthGuard]  },
-
-  { path: 'buyer-productview', component: ViewProductComponent, canActivate:[AuthGuard] }, //wala pa na connect sa object na naas marketplace
+  { path: 'marketplace', component: MarketplaceComponent },
+  { path: 'commission-item', component: ViewcommissionComponent },
+  { path: 'product-item', component: ViewProductComponent }, //wala pa na connect sa object na naas marketplace
   
   { path: 'notfound', component: NoPageFoundComponent},
   { path: '**', redirectTo:'notfound' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule]
 })
 
