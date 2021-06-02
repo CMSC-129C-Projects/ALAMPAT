@@ -35,7 +35,7 @@
                     <div class="control">
                         <div class="file is-primary is-fullwidth">
                             <label class="file-label">
-                                <input class="file-input" #image type="file" accept="image/*" (change)="uploadFile($event)"
+                                <input class="file-input" #addimage id= "addImage" type="file" accept="image/*" (change)="uploadFile($event)"
                                     name="productImage" formControlName="productImage" placeholder="No file uploaded."
                                     required>
                                 <span class="file-cta">
@@ -183,7 +183,7 @@
                     <div class="control">
                         <div class="file is-primary is-fullwidth">
                             <label class="file-label">
-                                <input class="file-input" #image type="file" accept="image/*" (change)="uploadFile_edit($event)"
+                                <input class="file-input" #editimage  id= "editImage" type="file" accept="image/*" (change)="uploadFile_edit($event)"
                                     name="productImage" formControlName="productImage" placeholder="No file uploaded."
                                     required>
                                 <span class="file-cta">

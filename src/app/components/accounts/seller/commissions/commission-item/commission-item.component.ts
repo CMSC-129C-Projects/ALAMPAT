@@ -34,8 +34,10 @@ export class CommissionItemComponent implements OnChanges, OnDestroy {
   @Input() openSuccessModal: boolean;
   @Output() reload: EventEmitter<boolean> ;
   @Output() reloadedit: EventEmitter<boolean>;
-  @ViewChild('image') image: ElementRef
-
+  
+  @ViewChild('addimage') addimage: ElementRef
+  @ViewChild('editimage') editimage: ElementRef
+  
   saved: boolean = false;
   submitted: boolean = false;
   serviceForm: FormGroup;
@@ -153,7 +155,7 @@ export class CommissionItemComponent implements OnChanges, OnDestroy {
         console.log("Here: " + JSON.stringify(this.url) );
       })
     )
-    this.image.nativeElement.value = null
+    this.editimage.nativeElement.value = null
   } 
   
   //upload file function for add forms
@@ -188,7 +190,7 @@ export class CommissionItemComponent implements OnChanges, OnDestroy {
         console.log("Here: " + JSON.stringify(this.url) );
       })
     )
-    this.image.nativeElement.value = null
+    this.addimage.nativeElement.value = null
   }
 
   //functions when the modal exits or cancels

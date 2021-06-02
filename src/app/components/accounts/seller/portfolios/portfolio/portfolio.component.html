@@ -42,7 +42,12 @@
                     <div class="card"> 
                         <a class="card-image">
                             <figure class="image is-3by2" (click)="onClickOpen(item, i)">
-                                <img class="object-fit_cover" [src]= "item.images.imageBase64">
+                                <div *ngIf="item.images?.imageBase64">
+                                    <img class="object-fit_cover" [src]= "item.images.imageBase64">
+                                </div>
+                                <div *ngIf="!item.images?.imageBase64">
+                                    <img class="object-fit_cover"  src= "assets/noimg.png" alt="">
+                                </div>
                             </figure>
                         </a>
                         <div class="card-content">
@@ -72,8 +77,11 @@
 <div class="modal" [ngClass]="openImageModal ? 'is-active' : ''">
     <div class="modal-background" (click)="onClickExit()"></div>
     <div class="modal-content">
-        <p class="image">
+        <p class="image" *ngIf="imageSRC">
             <img [src]="imageSRC" alt="">
+        </p>
+        <p class= "image" *ngIf="!imageSRC">
+            <img class="object-fit_cover"  src= "assets/noimg.png" alt="">
         </p>
     </div>
     <button class="modal-close is-large" aria-label="close" (click)="onClickExit()"></button>

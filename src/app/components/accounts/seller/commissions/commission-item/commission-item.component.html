@@ -32,7 +32,7 @@
                     <div class="control">
                         <div class="file is-primary is-fullwidth" >
                             <label class="file-label">
-                                <input [ngClass]="{ 'has-error': formControls.commissionimage?.errors }" class="file-input" #image type="file" id="UploadFile" accept="image/*" (change)="uploadFileInAddForm($event)" name="commissionimage" formControlName="commissionimage" required>
+                                <input [ngClass]="{ 'has-error': formControls.commissionimage?.errors }" class="file-input" #addimage type="file" id="UploadFile" accept="image/*" (change)="uploadFileInAddForm($event)" name="commissionimage" formControlName="commissionimage" required>
                                 <span class="file-cta">
                                     <span class="file-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
@@ -152,7 +152,7 @@
                     <div class="control">
                         <div class="file is-primary is-fullwidth">
                             <label class="file-label">
-                                <input class="file-input" #image type="file" accept="image/*" (change)="uploadFile($event)" name="commissionimage" formControlName="commissionimage" required>
+                                <input class="file-input" #editimage type="file" accept="image/*" (change)="uploadFile($event)" name="commissionimage" formControlName="commissionimage" required>
                                 <span class="file-cta">
                                     <span class="file-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">

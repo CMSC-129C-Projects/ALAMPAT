@@ -27,7 +27,9 @@ export class PortfolioArtworkComponent implements OnChanges, OnDestroy {
   @Input() openAddArtworkModal: boolean;
   @Input() openEditArtworkModal: boolean;
   @Input() openSuccessModal: boolean;
-  @ViewChild('image') image:ElementRef;
+  
+  @ViewChild('addimage') addimage:ElementRef;
+  @ViewChild('editimage') editimage:ElementRef;
   @Output() exited: EventEmitter<boolean> = new EventEmitter<boolean>(false)
   @Output() exitedadd: EventEmitter<boolean> = new EventEmitter<boolean>(false)
   @Input() artwork: any = '';
@@ -147,11 +149,11 @@ export class PortfolioArtworkComponent implements OnChanges, OnDestroy {
         this.fileName = file.name
         
         this.imageSRC = this.url
-        
+        this.editimage.nativeElement.value = null
         console.log("Here: " + JSON.stringify(this.url) );
       })
     )
-    this.image.nativeElement.value = null
+    
   }
 
   //upload file function for add forms
@@ -183,10 +185,11 @@ export class PortfolioArtworkComponent implements OnChanges, OnDestroy {
         });
         this.addedFileName = file.name
         this.addedimageSRC = this.url
+        this.addimage.nativeElement.value = null
         console.log("Here: " + JSON.stringify(this.url) );
       })
     )
-    this.image.nativeElement.value = null
+    
   }
  
  
@@ -208,7 +211,7 @@ export class PortfolioArtworkComponent implements OnChanges, OnDestroy {
     if(this.openAddArtworkModal == true) {
       this.addPortfolio.reset();
       this.uploadService.addswitch(false)
-      if(this.addedimageSRC!=""){
+      if(this.addedimageSRC){
         this.afStorage.storage.refFromURL(this.addedimageSRC).delete();
       }
       this.addedimageSRC = '';
@@ -218,7 +221,7 @@ export class PortfolioArtworkComponent implements OnChanges, OnDestroy {
       this.portfolioForm.reset();
       //console.log("prev_image " + JSON.stringify(this.prev_image))
       //console.log("imageSRC " + JSON.stringify(this.imageSRC))
-      if(this.imageSRC !== this.prev_image && this.imageSRC !=""){
+      if(this.imageSRC !== this.prev_image && this.prev_image !=""){
         this.afStorage.storage.refFromURL(this.imageSRC).delete();
       }
       this.imageSRC = '';
@@ -275,7 +278,7 @@ export class PortfolioArtworkComponent implements OnChanges, OnDestroy {
       if (userdata) {
         //console.log("On Save Art: " + JSON.stringify(this.portfolioForm))
         //this.portfolioForm.get('artowkimage')?.reset();
-        if(this.imageSRC != this.prev_image && this.imageSRC!="" ){
+        if(this.imageSRC != this.prev_image && this.prev_image!="" ){
           this.afStorage.storage.refFromURL(this.prev_image).delete();
         }
         //this.afStorage.storage.refFromURL(this.prev_image).delete();

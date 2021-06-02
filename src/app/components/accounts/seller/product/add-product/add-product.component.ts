@@ -32,8 +32,8 @@ export class AddProductComponent implements OnChanges, OnDestroy {
   @Input() openSuccessModal: boolean;
   @Output() reload: EventEmitter<boolean> 
   @Output() reloadedit: EventEmitter<boolean>
-  @ViewChild('image') image: ElementRef
-
+  @ViewChild('addimage') addimage: ElementRef
+  @ViewChild('editimage') editimage: ElementRef
   submitted: boolean = false;
   productForm: FormGroup;
   editForm: FormGroup;
@@ -70,7 +70,8 @@ export class AddProductComponent implements OnChanges, OnDestroy {
 
   ngOnChanges(): void {
     //this.prodServ.getProductdata()
-
+    const img = document.getElementById('editImage')
+    console.log("Selected img: " + img)
     this.productForm = this.formBuilder.group({
       productImage: this.formBuilder.group({
         filename: [''],
@@ -106,7 +107,7 @@ export class AddProductComponent implements OnChanges, OnDestroy {
       //this.imagesrc = this.prod.images.imageBase64
       this.prev_image = this.prod.images.imageBase64
       this.initForm()
-      console.log("Selected Product: " + JSON.stringify(this.prod))
+      //console.log("Selected Product: " + JSON.stringify(this.prod))
     })
    
   }
@@ -149,11 +150,11 @@ export class AddProductComponent implements OnChanges, OnDestroy {
         this.addedFileName = file.name
         
         this.addedimagesrc = this.url
-        
+        this.addimage.nativeElement.value = null
         console.log("Here: " + JSON.stringify(this.url) );
       })
     )
-    this.image.nativeElement.value = null
+    
   }
 
   //upload file function for editing product
@@ -187,11 +188,11 @@ export class AddProductComponent implements OnChanges, OnDestroy {
         this.filename = file.name
         
         this.imagesrc = this.url
-        
+        this.editimage.nativeElement.value = null
         console.log("Here: " + JSON.stringify(this.url) );
       })
     )
-    this.image.nativeElement.value = null
+    
   }
 
   onClickExit = () => {
@@ -202,7 +203,7 @@ export class AddProductComponent implements OnChanges, OnDestroy {
       this.productForm.reset()
       this.prodServ.addswitch(false)
       this.addedFileName = ''
-      if(this.addedimagesrc!=""){
+      if(this.addedimagesrc){
         this.afStorage.storage.refFromURL(this.addedimagesrc).delete();
       }
       this.addedFileName = ''
@@ -210,7 +211,7 @@ export class AddProductComponent implements OnChanges, OnDestroy {
     }
     if(this.openEditProductModal) {
       this.editForm.reset()
-      if(this.imagesrc!== this.prev_image && this.imagesrc!=""){
+      if(this.imagesrc!== this.prev_image && this.prev_image!=""){
         this.afStorage.storage.refFromURL(this.imagesrc).delete();
       }
       this.imagesrc = '';
@@ -223,6 +224,7 @@ export class AddProductComponent implements OnChanges, OnDestroy {
       this.openSuccessModal = false;
       this.submitted = false;
     }
+    //this.image.nativeElement.value = null
   }
   
 
@@ -266,7 +268,7 @@ export class AddProductComponent implements OnChanges, OnDestroy {
       if (proddata) {
         //console.log("On Save Art: " + JSON.stringify(this.editForm))
         //this.portfolioForm.get('artowkimage')?.reset();
-        if(this.imagesrc != this.prev_image && this.imagesrc!=""){
+        if(this.imagesrc != this.prev_image && this.prev_image!=""){
           this.afStorage.storage.refFromURL(this.prev_image).delete();
         }
         //this.afStorage.storage.refFromURL(this.prev_image).delete();
