@@ -5,9 +5,9 @@ name: Alampat Build
 
 on:
   push:
-    branches: [ deploy-test ]
+    branches: [ master ]
   pull_request:
-    branches: [ deploy-test ]
+    branches: [ master ]
 
 jobs:
   ubuntu-build:
