@@ -39,6 +39,8 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   index: any;
   artwork: any;
 
+  passed_art:any;
+
   subscriptions: Subscription[] = [];
 
   @Input() portfolioList: Portfolio[] = [];
@@ -60,6 +62,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.passed_art = ''
     //this.uploadService.getPortfoliodata()
     // this.subscriptions.push(
     //   this.uploadService.portfolio.asObservable().pipe().subscribe((artwork)=>{
@@ -72,7 +75,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.uploadService.getPortfoliodata().subscribe( artwork => {
         this.portfolioList = artwork.data.portfolioArray;
-        console.log("Portfolio: " + JSON.stringify(this.portfolioList))
+        //console.log("Portfolio: " + JSON.stringify(this.portfolioList))
       })
     )
   }
@@ -111,8 +114,9 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     //this.showAddArtworkModal = !this.showAddArtworkModal;
   }
   
-  onClickEditArtwork (item: Portfolio) {
-    //console.log("Passed Item: "+ JSON.stringify(item))
+  onClickEditArtwork (item: any) {
+    console.log("Passed Item: "+ JSON.stringify(item))
+    //this.passed_art = item
     this.uploadService.selectArt(item)
     this.uploadService.editswitch(true)
     //this.ngOnDestroy()
@@ -174,7 +178,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       this.subscriptions.push(
       this.uploadService.getPortfoliodata().subscribe( artwork => {
         this.portfolioList = artwork.data.portfolioArray;
-        console.log("Portfolio: " + JSON.stringify(this.portfolioList))
+        //console.log("Portfolio: " + JSON.stringify(this.portfolioList))
       })
     )
       this.subscribebuttons()

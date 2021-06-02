@@ -1,4 +1,4 @@
-import { Component, Input, OnInit,OnDestroy, Output,EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit,OnDestroy, Output,EventEmitter, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Products } from 'src/app/models/products';
 import { ProductService } from 'src/app/services/productServ';
@@ -26,7 +26,7 @@ interface product {
   styleUrls: ['./add-product.component.css']
 })
 
-export class AddProductComponent implements OnInit, OnDestroy {
+export class AddProductComponent implements OnChanges, OnDestroy {
   @Input() openAddProductModal: boolean;
   @Input() openEditProductModal: boolean;
   @Input() openSuccessModal: boolean;
@@ -68,8 +68,8 @@ export class AddProductComponent implements OnInit, OnDestroy {
       this.reloadedit =  new EventEmitter(false);
      }
 
-  ngOnInit(): void {
-    this.prodServ.getProductdata()
+  ngOnChanges(): void {
+    //this.prodServ.getProductdata()
 
     this.productForm = this.formBuilder.group({
       productImage: this.formBuilder.group({
@@ -107,10 +107,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
       this.initForm()
       console.log("Selected Product: " + JSON.stringify(this.prod))
     })
-    
-    
-
-    
+   
   }
 
   get formControls() { return this.productForm.controls; }
@@ -273,7 +270,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
         }
         //this.afStorage.storage.refFromURL(this.prev_image).delete();
         this.prev_image = '';
-        this.ngOnInit();
+        //this.ngOnInit();
         //this.portfolioForm.reset(); 
         this.saved = true
         this.percentage = new Observable()
@@ -291,7 +288,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
   }
 
   initForm = () => {
-    this.editForm.patchValue({
+    this.editForm.reset({
       productName: this.prod.productname,
       productDescription: this.prod?.description,
       productImage:{

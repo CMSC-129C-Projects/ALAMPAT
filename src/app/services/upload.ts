@@ -8,7 +8,18 @@ import { tap } from 'rxjs/operators';
 import Axios from 'axios-observable';
 
 const localAPI = 'https://alampat.herokuapp.com'
-
+const anotherAPI = 'http://localhost:3000'
+interface portfolio {
+    _id?: string;
+    artworkname: string;
+    description: string;
+    images: {
+        filename: string,
+        contentType: string, 
+        imageBase64: string
+    }
+  }
+  
 interface uploadResponse {
     message: string;
     portfolioData: Portfolio;
@@ -27,19 +38,21 @@ export class UploadService {
     artworkID: string = '6087e77a8431c85ee8f081dc';
     uploadError: string = '';
 
-    artSource = new Subject<any>();
+    artSource: BehaviorSubject<any>  = new BehaviorSubject<any>({});
+    art = this.artSource.asObservable()
     //currArt = this.artSource.asObservable();
     //currArt: EventEmitter<any> = new EventEmitter();
     //portfolio: EventEmitter<any> = new EventEmitter();
-    showAdd: EventEmitter<boolean> = new EventEmitter();
-    showEdit: EventEmitter<boolean> = new EventEmitter();
+    showAdd: EventEmitter<boolean> = new EventEmitter<boolean>(false);
+    showEdit: EventEmitter<boolean> = new EventEmitter<boolean>(false);
     portfolio = new Subject<any>();
     //error: EventEmitter<any> = new EventEmitter();
 
     constructor(private router:Router,
         private domSanitizer: DomSanitizer, 
         ) {
-            
+            this.artSource = new BehaviorSubject<any>({})
+            this.art = this.artSource.asObservable()
          }
     
 
@@ -56,7 +69,7 @@ export class UploadService {
     }
 
     selectArt(art: any) {
-  
+        //console.log("Passed Item: "+ JSON.stringify(art))
         this.artSource.next(art);
     }
 
@@ -101,6 +114,7 @@ export class UploadService {
         }
     }
 
+    
     updatePortfoliodata = async (portfolio: Portfolio, id: any ) => {
         try {
             this.userID = localStorage.getItem('id')

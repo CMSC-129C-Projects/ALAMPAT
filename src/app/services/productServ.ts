@@ -24,7 +24,7 @@ export class ProductService {
     isUploaded: boolean = false;
     isDeleted: boolean = false;
     uploadError: string = '';
-    productSource = new Subject<any>();
+    productSource: BehaviorSubject<any>;
     productlist = new Subject<any>();
     showAddmodal: EventEmitter<boolean> = new EventEmitter();
     showEditmodal: EventEmitter<boolean> = new EventEmitter();
@@ -32,7 +32,7 @@ export class ProductService {
     userID: string | null = '607fe491958fa65f08f14d0e';
 
     constructor(private router: Router, private domSanitizer: DomSanitizer) {
-
+        this.productSource = new BehaviorSubject<any>({});
     }
 
     refresh(): Observable<any> {

@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, OnDestroy, EventEmitter,ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, Output, OnInit, OnDestroy, EventEmitter,ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Commission } from 'src/app/models/Commission';
 import { CommissionService } from 'src/app/services/comService';
@@ -28,7 +28,7 @@ interface commission {
   styleUrls: ['./commission-item.component.css']
 })
 
-export class CommissionItemComponent implements OnInit, OnDestroy {
+export class CommissionItemComponent implements OnChanges, OnDestroy {
   @Input() openAddServiceModal: boolean;
   @Input() openEditServiceModal: boolean;
   @Input() openSuccessModal: boolean;
@@ -72,7 +72,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
       this.reloadedit = new EventEmitter(false);
      }
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
     //this.commissionService.getItemdata()
     this.serviceForm = this.formBuilder.group ({
       commissionimage: this.formBuilder.group({
@@ -247,7 +247,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
 
       this.commissionService.uploadItem(service);
       this.commissionService.getItemdata()
-      this.ngOnInit()
+      //this.ngOnInit()
       this.commissionService.addswitch(false)
       this.percentage = new Observable()
       this.snapshot = new Observable()
@@ -270,7 +270,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
           this.afStorage.storage.refFromURL(this.prev_image).delete();
         }
         this.saved = true
-        this.ngOnInit();
+        //this.ngOnInit();
         this.percentage = new Observable()
         this.snapshot = new Observable()
         this.fileName = '';

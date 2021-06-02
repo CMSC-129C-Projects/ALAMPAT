@@ -25,14 +25,16 @@ export class CommissionService {
     commissionID: string = '';
     uploadError: string = '';
 
-    comSource = new Subject<any>();
+    comSource: BehaviorSubject<any>;
     showAdd: EventEmitter<boolean> = new EventEmitter();
     showEdit: EventEmitter<boolean> = new EventEmitter();
     commission = new Subject<any>();
 
     constructor(private router:Router,
         private domSanitizer: DomSanitizer, 
-        ) { }
+        ) {
+                this.comSource = new BehaviorSubject<any>({})
+         }
     
     refresh(): Observable<any> {
         return this.comSource.asObservable();

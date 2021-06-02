@@ -1,4 +1,4 @@
-import { Component, Input, Output, ChangeDetectorRef, OnInit, OnDestroy, EventEmitter,ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, Output, ChangeDetectorRef, OnInit, OnDestroy, EventEmitter,ElementRef, ViewChild, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Portfolio } from 'src/app/models/Portfolio';
 import { UploadService } from 'src/app/services/upload';
@@ -23,19 +23,20 @@ interface portfolio {
   templateUrl: './portfolio-artwork.component.html',
   styleUrls: ['./portfolio-artwork.component.css']
 })
-export class PortfolioArtworkComponent implements OnInit, OnDestroy {
+export class PortfolioArtworkComponent implements OnChanges, OnDestroy {
   @Input() openAddArtworkModal: boolean;
   @Input() openEditArtworkModal: boolean;
   @Input() openSuccessModal: boolean;
   @ViewChild('image') image:ElementRef;
   @Output() exited: EventEmitter<boolean> = new EventEmitter<boolean>(false)
   @Output() exitedadd: EventEmitter<boolean> = new EventEmitter<boolean>(false)
+  @Input() artwork: any = '';
 
   saved: boolean = false;
   submitted: boolean = false;
   portfolioForm: FormGroup;
   addPortfolio: FormGroup;
-  artwork: portfolio;
+  
  
   task: AngularFireUploadTask;
   snapshot: Observable<any>;
@@ -68,9 +69,10 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
    ) {
      this.exited = new  EventEmitter<boolean>(false);
      this.exitedadd = new  EventEmitter<boolean>(false)
+     this.artwork = ''
     }
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
 
     this.portfolioForm = this.formBuilder.group ({
       artworkimage: this.formBuilder.group({
@@ -92,6 +94,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
       artworkname: ['', Validators.required],
       artworkdescription: ['', Validators.required]
     });
+
     this.subscriptions = this.uploadService.artSource.asObservable().subscribe(currArt =>{
       console.log("Selected Art: " + JSON.stringify(currArt))
       this.artwork = currArt
@@ -100,7 +103,8 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
       this.prev_image = this.artwork.images.imageBase64
       this.initForm()
     })
-
+    //console.log("Selected Art: " + JSON.stringify(this.artwork))
+    //this.initForm()
     this.fileName = '';
     this.imageSRC = '';
 
@@ -191,7 +195,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
   onClickExit = () => {
     //console.log("On Exit Art: " + JSON.stringify(this.artwork))
     console.log(this.portfolioForm.value);
-    console.log(this.addPortfolio.value);
+    //console.log(this.addPortfolio.value);
     
     this.addedFileName = '';
     this.fileName = '';
@@ -276,7 +280,7 @@ export class PortfolioArtworkComponent implements OnInit, OnDestroy {
         }
         //this.afStorage.storage.refFromURL(this.prev_image).delete();
         this.prev_image = '';
-        this.ngOnInit();
+        //this.ngOnInit();
         //this.portfolioForm.reset();
         
         this.saved = true
