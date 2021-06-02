@@ -153,52 +153,52 @@
                     />
                   </figure>
                 </a>
-                <div class="card-content">
-                  <p class="text has-text-weight-bold" readonly>
-                    {{ product.productname }}
-                  </p>
-                  <div class="content">
-                    {{ product.description }}
+                  <div class="card-content">
+                    <p class="text has-text-weight-bold" readonly>
+                      {{ product.productname }}
+                    </p>
+                    <div class="content">
+                      {{ product.description }}
+                    </div>
+                    <div>
+                      <span
+                        class="
+                          tag
+                          is-warning is-light
+                          has-text-weight-bold
+                          is-medium
+                        "
+                        >Stock: {{ product.stock }}</span
+                      >
+                    </div>
+                    <div>
+                      <span
+                        class="
+                          tag
+                          is-primary is-light
+                          has-text-weight-bold
+                          is-medium
+                          mt-2
+                        "
+                        >Price: ₱ {{ product.price }}</span
+                      >
+                    </div>
                   </div>
-                  <div>
-                    <span
-                      class="
-                        tag
-                        is-warning is-light
-                        has-text-weight-bold
-                        is-medium
-                      "
-                      >Stock: {{ product.stock }}</span
+                  <footer class="card-footer">
+                    <a
+                      (click)="onClickEditProduct(product)"
+                      class="card-footer-item"
+                      value="edit"
+                      >Edit</a
                     >
-                  </div>
-                  <div>
-                    <span
-                      class="
-                        tag
-                        is-primary is-light
-                        has-text-weight-bold
-                        is-medium
-                        mt-2
-                      "
-                      >Price: ₱ {{ product.price }}</span
+                    <a
+                      (click)="onClickDelete(product, i)"
+                      class="card-footer-item"
+                      value="delete"
+                      type="delete"
+                      >Delete</a
                     >
-                  </div>
-                </div>
-                <footer class="card-footer">
-                  <a
-                    (click)="onClickEditProduct(product)"
-                    class="card-footer-item"
-                    value="edit"
-                    >Edit</a
-                  >
-                  <a
-                    (click)="onClickDelete(product, i)"
-                    class="card-footer-item"
-                    value="delete"
-                    type="delete"
-                    >Delete</a
-                  >
-                </footer>
+                  </footer>
               </div>
             </div>
           </div>
@@ -285,6 +285,7 @@
 <app-add-product [openAddProductModal]="showAddProductModal" (reload)= "reloadPage($event)"></app-add-product>
 <app-add-product
   [openEditProductModal]="showEditProductModal" 
+  (reloadedit)= "reloadPage($event)"
 ></app-add-product>
 
 <!-- IMAGE MODAL -->

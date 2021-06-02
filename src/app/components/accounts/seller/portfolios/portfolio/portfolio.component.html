@@ -42,7 +42,7 @@
                     <div class="card"> 
                         <a class="card-image">
                             <figure class="image is-3by2" (click)="onClickOpen(item, i)">
-                                <img class="object-fit_cover" [src]= "item.images.imageBase64" alt="">
+                                <img class="object-fit_cover" [src]= "item.images.imageBase64">
                             </figure>
                         </a>
                         <div class="card-content">
@@ -64,8 +64,8 @@
         </div> 
     </div>
 </div>
-<app-portfolio-artwork [openAddArtworkModal] = 'showAddArtworkModal' ></app-portfolio-artwork>
-<app-portfolio-artwork [openEditArtworkModal] = 'showEditArtworkModal'></app-portfolio-artwork>
+
+<app-portfolio-artwork [openEditArtworkModal] = 'showEditArtworkModal' [openAddArtworkModal] = 'showAddArtworkModal'  (exited)="OnReload($event)" (exitedadd)="OnReloadadd($event)" ></app-portfolio-artwork>
 <app-footer></app-footer>
 
 <!-- IMAGE MODAL -->

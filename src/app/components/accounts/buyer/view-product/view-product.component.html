@@ -1,96 +1,9 @@
 <!-- copy pasta is da best pasta -->
-
-<style>
-    .slideshow {
-        margin: 0 auto;
-        position: relative;
-        background: 50% 50% no-repeat;
-        width: 414px;
-        height: 414px;
-        padding-bottom: 60%;
-    }
-
-    .slide_img {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-    }
-
-    .slide_img img {
-        width: 100%;
-        height: 100%;
-    }
-
-    #i1, #i2, #i3, #i4, #i5, #i6, #i7, #i8, #i9, #i10 {
-        display: none;
-    }
-
-    .prev, .next {
-        width: 12%;
-        height: 12%;
-        position: absolute;
-        top: 47%;
-        z-index: 99;
-        cursor: pointer;
-    }
-
-    .prev {
-        left: 0;
-    }
-
-    .next {
-        right: 0;
-    }
-
-    .navi {
-        width: 100%;
-        height: 11%;
-        bottom: 12%;
-        position: absolute;
-        text-align: center;
-        z-index: 99;
-        opacity: 0;
-    }
-
-    .dots {
-        top: -5px;
-        width: 18px;
-        height: 18px;
-        margin: 0 4px;
-        position: relative;
-        border-radius: 50%;
-        display: inline-block;
-        background: rgba(0,0,0,.6);
-    }
-
-    .slide_img {
-        z-index: -1;
-    }
-
-    #i1:checked ~ #one,
-    #i2:checked ~ #two,
-    #i3:checked ~ #three, 
-    #i4:checked ~ #four, 
-    #i5:checked ~ #five, 
-    #i6:checked ~ #six, 
-    #i7:checked ~ #seven, 
-    #i8:checked ~ #eight, 
-    #i9:checked ~ #nine, 
-    #i10:checked ~ #ten { 
-        z-index: 9;
-    }
-
-    .starchecked {
-        color: orange;
-    }
-
-</style>
-
 <app-headerbuyer></app-headerbuyer>
 
 <div class="container">
     <nav class="breadcrumb is-small" aria-label="breadcrumbs">
-        <li><a>
+        <li><a [routerLink]="['/marketplace']">
             <span class="icon is-small">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
                     <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
@@ -101,10 +14,10 @@
           </a></li>
     </nav>
 </div>
-
+<!--
 <div class="hero">
 
-    <!-- Category, Search Bar, Cart -->
+    Category, Search Bar, Cart 
     <div class="columns is-centered">
         <div class="column is-one-fifth">
             <div class="field has-addons">
@@ -136,7 +49,8 @@
                 </p>
             </div>
         </div>
-        <!-- CART and RESERVATIONS -->
+
+        CART and RESERVATIONS
         <div class="column is-narrow has-text-centered">
             <a title="Cart">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
@@ -154,7 +68,7 @@
         </div>
     </div>
 </div> 
-
+-->
 <div class="hero-body">
     <div class="columns is-centered is-multiline">
         <div class="column is-one-third has-text-centered">
@@ -174,7 +88,7 @@
                 
                 <!-- FIRST IMAGE -->
                 <div class="slide_img" id="one">
-                    <img style="object-fit: cover" src="https://scontent.fmnl4-5.fna.fbcdn.net/v/t31.18172-8/18156708_1964418080493498_6648545449313496907_o.jpg?_nc_cat=100&ccb=1-3&_nc_sid=174925&_nc_eui2=AeFvkFDT73v3Ai21JV1ZkeTA6384V1wpCFrrfzhXXCkIWlvK4RKjH-Fv6BIRPAz6r5GDWNOUIyOM9jF9mGoLlumH&_nc_ohc=SrXEB18_vfIAX9UQH2T&_nc_ht=scontent.fmnl4-5.fna&oh=9c188566010efd9d7db4290bb2e508db&oe=60C8BF12" alt="">
+                    <img style="object-fit: cover" [src] = "prod_item.images[0].imageBase64" (click)="onClickOpen(0)" alt="image">
                     <label for="i10" class="prev">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
@@ -187,140 +101,6 @@
                     </label>
                 </div>
 
-                <!-- SECOND IMAGE -->
-                <div class="slide_img" id="two">
-                    <img style="object-fit: cover" src="https://scontent.fmnl9-2.fna.fbcdn.net/v/t1.18169-0/p640x640/15823329_1843608555907785_4396420321329896867_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=174925&_nc_eui2=AeFAGYmX7q46GaOzQv7xNo3uV6pvkYg53bhXqm-RiDnduBYHIM-eDVbzWBnHfXw_IdchnVB_lW5Nmu-JM9M6T10c&_nc_ohc=978B0PrJm6gAX8jzvpZ&_nc_oc=AQlmO5d8__TEVs3vq_eyj6bLXoD3LCRPxNgDSZQL_RabYp_Af92SAwPIeLm4sbFlHEU&_nc_ht=scontent.fmnl9-2.fna&tp=6&oh=13112f5f90603331bd0034e46d3535d1&oe=60C9E1D0" alt="">
-                    <label for="i1" class="prev">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
-                          </svg>
-                    </label>
-                    <label for="i3" class="next">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
-                          </svg>
-                    </label>
-                </div>
-
-                <!-- THIRD IMAGE -->
-                <div class="slide_img" id="three">
-                    <img style="object-fit: cover" src="https://scontent.fmnl4-5.fna.fbcdn.net/v/t1.18169-0/p640x640/13240074_1732857306982911_4219193087751677379_n.jpg?_nc_cat=100&ccb=1-3&_nc_sid=174925&_nc_eui2=AeHOdoRMRcaV1qvhBkHBspPlNSUNa75fRzU1JQ1rvl9HNRWxhvYgP8fcT1FDO7njpfv_gTVJNtgoudC9L_fJfm7_&_nc_ohc=H_cOQekW2JkAX-5AgC7&_nc_ht=scontent.fmnl4-5.fna&tp=6&oh=f7435ac23834430f65313fc376e8bb40&oe=60C92E93" alt="">
-                    <label for="i2" class="prev">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
-                          </svg>
-                    </label>
-                    <label for="i4" class="next">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
-                          </svg>
-                    </label>
-                </div>
-
-                <!-- FOURTH IMAGE -->
-                <div class="slide_img" id="four">
-                    <img style="object-fit: cover" src="https://scontent.fmnl4-6.fna.fbcdn.net/v/t1.18169-9/1779301_1392170754384903_1394057998_n.jpg?_nc_cat=107&ccb=1-3&_nc_sid=09cbfe&_nc_eui2=AeHAiMEaDn12pq9zm6BxSXUglDM23PZt1vuUMzbc9m3W-9i708SdZlHEoebyfa-Lpd6AKQSuMhSbP12l_VEWj9Ah&_nc_ohc=j62bGicQcnEAX9GKxjs&_nc_ht=scontent.fmnl4-6.fna&oh=523aef1ce44370077e33360d4751bcac&oe=60CA04C8" alt="">
-                    <label for="i3" class="prev">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
-                          </svg>
-                    </label>
-                    <label for="i5" class="next">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
-                          </svg>
-                    </label>
-                </div>
-
-                <!-- FIFTH IMAGE -->
-                <div class="slide_img" id="five">
-                    <img style="object-fit: cover" src="https://scontent.fmnl4-6.fna.fbcdn.net/v/t1.18169-9/12821426_1704694819799160_921593318295485032_n.jpg?_nc_cat=107&ccb=1-3&_nc_sid=174925&_nc_eui2=AeGf7g67DbCtmgVkHDvSK6RsPswNM4poVnQ-zA0zimhWdLmD-xMWitN-j2nbA5bd2vA8buccygYCJIts0f6c24qQ&_nc_ohc=cAU7B3dFi9EAX-oCNMN&_nc_ht=scontent.fmnl4-6.fna&oh=8b729575b1fa3bc2cead50195f33d473&oe=60CA36D9" alt="">
-                    <label for="i4" class="prev">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
-                          </svg>
-                    </label>
-                    <label for="i6" class="next">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
-                          </svg>
-                    </label>
-                </div>
-
-                <!-- SIXTH IMAGE -->
-                <div class="slide_img" id="six">
-                    <img style="object-fit: cover" src="https://scontent.fmnl25-1.fna.fbcdn.net/v/t1.18169-9/11892114_1641344056134237_8183230798922687317_n.jpg?_nc_cat=105&ccb=1-3&_nc_sid=174925&_nc_eui2=AeFGLGeYxjczHtY_Nj7aqpgRjvqvpocLfiuO-q-mhwt-K3FgkyGK8p2Z7vX1g7ydg-tQl9Q_K2956meMLf1p81Ml&_nc_ohc=aY_1jy510QAAX-e7bx5&_nc_ht=scontent.fmnl25-1.fna&oh=4a0f9a28e29c81faf5f7f426f266f6fa&oe=60CA4B46" alt="">
-                    <label for="i5" class="prev">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
-                          </svg>
-                    </label>
-                    <label for="i7" class="next">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
-                          </svg>
-                    </label>
-                </div>
-
-                <!-- SEVENTH IMAGE -->
-                <div class="slide_img" id="seven">
-                    <img style="object-fit: cover" src="https://scontent.fmnl4-6.fna.fbcdn.net/v/t1.18169-9/10994933_1558881377713839_1675063558480656294_n.jpg?_nc_cat=107&ccb=1-3&_nc_sid=174925&_nc_eui2=AeGU4sWrBBn8-pPHcSBTnRlaqLla1tw5RqyouVrW3DlGrHdV9uMnYkIxUzcp44O-ebyi1MgOdWA5Cou5ci8ndRhj&_nc_ohc=LfPljOjb3EUAX-A5tIE&_nc_ht=scontent.fmnl4-6.fna&oh=016b4633be17a0b81719ee1eb13cb3cd&oe=60C86E76" alt="">
-                    <label for="i6" class="prev">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
-                          </svg>
-                    </label>
-                    <label for="i8" class="next">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
-                          </svg>
-                    </label>
-                </div>
-
-                <!-- EIGHTH IMAGE -->
-                <div class="slide_img" id="eight">
-                    <img style="object-fit: cover" src="https://scontent.fmnl4-1.fna.fbcdn.net/v/t31.18172-0/s640x640/20900700_2062037340731571_2378325627782196967_o.jpg?_nc_cat=104&ccb=1-3&_nc_sid=174925&_nc_eui2=AeEPBD7u8fRbiCJJQOaPePnIQOAkh8oAXARA4CSHygBcBJ1JyFn8ux_BEDlSPyy7la3kJbtkgKWxhATiC5o07ujo&_nc_ohc=8yNPMyTdaEIAX8i6PDY&_nc_ht=scontent.fmnl4-1.fna&tp=7&oh=c7853e3f9c758799d63e9ea7a5205670&oe=60C82D13" alt="">
-                    <label for="i7" class="prev">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
-                          </svg>
-                    </label>
-                    <label for="i9" class="next">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
-                          </svg>
-                    </label>
-                </div>
-
-                <!-- NINETH IMAGE -->
-                <div class="slide_img" id="nine">
-                    <img style="object-fit: cover" src="https://scontent.fmnl4-1.fna.fbcdn.net/v/t1.18169-9/13938598_1765777313690910_362231714288268028_n.jpg?_nc_cat=103&ccb=1-3&_nc_sid=174925&_nc_eui2=AeGePRR1U2fvfrQyFU3VNZEQW_sKqJIc6tJb-wqokhzq0jWCEyRcYnHEnYdC-FF2wpx7Eeo6L8-NSo2ZkzivR3kv&_nc_ohc=CQUdLVsMmKoAX_dGqnR&_nc_ht=scontent.fmnl4-1.fna&oh=ce7937fb4d439823a3fdb6ee20fb1d57&oe=60C7BAE8" alt="">
-                    <label for="i8" class="prev">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
-                          </svg>
-                    </label>
-                    <label for="i10" class="next">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
-                          </svg>
-                    </label>
-                </div>
-
-                <!-- TENTH IMAGE -->
-                <div class="slide_img" id="ten">
-                    <img style="object-fit: cover" src="https://scontent.fmnl25-1.fna.fbcdn.net/v/t1.18169-9/1896895_1403823306552981_63227962_n.jpg?_nc_cat=105&ccb=1-3&_nc_sid=09cbfe&_nc_eui2=AeFhJGvPBV6nIcNXD2No1Mc9X54m-gjk0rhfnib6COTSuN-VhWOUIdj8VxR-LQ-G3j0xRmlXB09KRN7FvUcBPj29&_nc_ohc=yjcmrLb0mdgAX9rXC6E&_nc_ht=scontent.fmnl25-1.fna&oh=8895e494a82fb9e4763135f792492b75&oe=60C91BB3" alt="">
-                    <label for="i9" class="prev">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
-                          </svg>
-                    </label>
-                    <label for="i1" class="next">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
-                          </svg>
-                    </label>
-                </div>
 
                 <div class="navi">
                     <label class="dots" id="dot1" for="i1"></label>
@@ -344,10 +124,10 @@
             <div class="box">
                 <!-- I suggest that there must be a character limit for the Item Name-->
                 <p class="text is-size-3 has-text-weight-bold" readonly>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed risus ex, consequat non luctus sed, posuere at sapien. 
+                    {{prod_item.itemname}} 
                 </p>
                 <p class="text has-text-primary is-size-3 has-text-weight-bold" readonly>
-                    ₱ 150.00
+                    ₱ {{prod_item.price}}
                 </p>
                 &nbsp;
                 <div class="block">
@@ -375,46 +155,58 @@
                     <div class="text is-size-6" readonly>
                         Category: 
                         <div class="tag is-danger is-light has-text-weight-bold is-small">
-                            Product
+                            {{prod_item.category}}
                         </div>
                     </div>
                     <div class="text is-size-6" readonly>
-                        Slots:
+                        Stocks:
                         <div class="tag is-success is-light has-text-weight-bold is-small">
-                            1 slot/s left
+                            {{prod_item.stock}} stock/s left
                         </div>
                     </div>
                 </div>
                 <!-- Buttons -->
                 <div class="buttons is-centered">
-                    <button class="button is-medium is-danger has-text-weight-bold">
+                    <button *ngIf="prod_stock == 0" class="button is-medium is-danger has-text-weight-bold" disabled>
+                        Sold Out
+                        &nbsp;
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+                            <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+                        </svg>
+                    </button>
+                    
+                    <button *ngIf="prod_stock != 0" (click)="addtoCart(prod_item)" class="button is-medium is-danger has-text-weight-bold">
                         Add to Cart
                         &nbsp;
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
                             <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
                         </svg>
                     </button>
-                    <!-- <button class="button is-medium is-info is-light is-outlined has-text-weight-bold">
+                    <!--
+                    <button class="button is-medium is-info is-light is-outlined has-text-weight-bold">
+
                         Chat
                         &nbsp;
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="42" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
                             <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                             <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
                           </svg>
-                    </button> -->
+                    </button>
+                    -->
+
                 </div>
                 <div class="columns">
                     <div class="column is-2 ">
                         <figure class="image is-64x64">
-                            <img class="is-rounded"
-                                src="https://scontent.fmnl4-5.fna.fbcdn.net/v/t1.18169-0/p640x640/13240074_1732857306982911_4219193087751677379_n.jpg?_nc_cat=100&ccb=1-3&_nc_sid=174925&_nc_eui2=AeHOdoRMRcaV1qvhBkHBspPlNSUNa75fRzU1JQ1rvl9HNRWxhvYgP8fcT1FDO7njpfv_gTVJNtgoudC9L_fJfm7_&_nc_ohc=H_cOQekW2JkAX-5AgC7&_nc_ht=scontent.fmnl4-5.fna&tp=6&oh=f7435ac23834430f65313fc376e8bb40&oe=60C92E93">
+                            <img class="profileImage"
+                                [src]="prod_item.profileImage">
                         </figure>
                     </div>
                     <div class="column is-narrow">
                         <div class="text is-size-6" readonly>
                             Seller Name: 
                             <a class="tag is-white is-light has-text-weight-bold is-medium">
-                                Carl David Reyes
+                                {{prod_item.sellername}}
                             </a>
                         </div>
                         <div class="text is-size-6" readonly>
@@ -441,9 +233,20 @@
                     Product Description
                 </div>
                 <div class="text is-size-6 " readonly>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed risus ex, consequat non luctus sed, posuere at sapien. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed consectetur diam feugiat elit aliquam, ac ullamcorper ligula auctor. Quisque eros lorem, tincidunt vel egestas a, volutpat non mi. Quisque consequat purus sed ultricies tincidunt. Phasellus vel augue sed ante bibendum pellentesque ut at elit. Integer sit amet purus quis tortor volutpat vulputate non laoreet sapien. Etiam lacus urna, interdum eu risus quis, gravida posuere lorem. Aliquam erat volutpat. Praesent laoreet, neque eget ultrices faucibus, lorem elit porta turpis, ut malesuada metus odio ac lorem.
+                    {{prod_item.description}}
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<!-- IMAGE MODAL -->
+<div class="modal" [ngClass]="openImageModal ? 'is-active' : ''">
+    <div class="modal-background" (click)="onClickExit()"></div>
+    <div class="modal-content">
+        <p class="image">
+            <img [src]="imageSRC" alt="">
+        </p>
+    </div>
+    <button class="modal-close is-large" aria-label="close" (click)="onClickExit()"></button>
 </div>

@@ -3,12 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { MarketService } from 'src/app/services/market';
 import { CartService } from 'src/app/services/cart';
-interface product {
-  _id: string;
+interface commission {
+  _id?: string;
   itemname:string;
   description: string;
   //stock?: number;
-  stock?: number;
+  slot?: number;
   price: number;
   images: [{
     filename: string;
@@ -20,16 +20,18 @@ interface product {
   profileImage: string;
 }
 @Component({
-  selector: 'app-view-product',
-  templateUrl: './view-product.component.html',
-  styleUrls: ['./view-product.component.css']
+  selector: 'app-viewcommission',
+  templateUrl: './viewcommission.component.html',
+  styleUrls: ['./viewcommission.component.css']
 })
-export class ViewProductComponent implements OnInit, OnDestroy{
+export class ViewcommissionComponent implements OnInit, OnDestroy {
 
-  prod_item:  product
-  prod_stock: any
+  comm_item:  commission
+  comm_slot: any;
   subs : Subscription[] = []
   image_list :any[] = []
+  slide_len: any ;
+  copy: BehaviorSubject<any> 
   imageSRC: string;
   openImageModal: boolean = false;
 
@@ -39,36 +41,38 @@ export class ViewProductComponent implements OnInit, OnDestroy{
     private cartServ: CartService,
   ) {
     
-    //this.copy = new BehaviorSubject<any>('')
+    this.copy = new BehaviorSubject<any>('')
    }
 
   ngOnInit(): void {
     const com_id = this.route.snapshot.paramMap.get('id');
-    //this.slide_len = "i"
+    this.slide_len = "i"
     //console.log("Item : " + JSON.stringify(com_id))
-    this.marketserv.getProduct(com_id)
-    
-    this.subs.push(this.marketserv.getproduct().subscribe((prod:product)=>{
-      this.prod_item = prod
-      this.prod_stock = prod.stock
-      this.image_list = prod.images
+    this.marketserv.getCommission(com_id)
+    this.subs.push(this.marketserv.getcommission().subscribe((com:commission)=>{
+      this.comm_item = com
+      this.comm_slot = com.slot
+      this.image_list = com.images
       //var len = com.images.length
       //this.slide_len = this.slide_len + String(len)
-      //this.slide_len.concat(String(this.comm_item.images.length))
+      this.slide_len.concat(String(this.comm_item.images.length))
       //\console.log("Item : " + JSON.stringify(this.comm_item))
-      //this.copy.next(com)
+      this.copy.next(com)
     })
     )
+    this.slide_len.concat(String(this.copy.value.images.length))
+    console.log("slide  : " + JSON.stringify(this.slide_len))
   }
 
-
-  ngOnDestroy():void{
+  ngOnDestroy(): void{
+    
+    
+    //this.marketserv.editReload(false)
     this.subs.forEach((x)=> x.unsubscribe())
   }
-
-  addtoCart(prod: any){
+  addReservation(prod: any){
     console.log("id: " + JSON.stringify(prod._id))
-    this.cartServ.addtoCart(prod._id)
+    this.cartServ.addReservation(prod._id)
   }
   onClickOpen (index: any) {
     this.openImageModal = true;

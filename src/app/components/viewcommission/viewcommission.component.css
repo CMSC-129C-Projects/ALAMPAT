@@ -1,12 +1,10 @@
-.slideshow {
+    .slideshow {
         margin: 0 auto;
         position: relative;
         background: 50% 50% no-repeat;
         width: 414px;
         height: 414px;
         padding-bottom: 60%;
-        display: flex;
-        flex-wrap: wrap;
     }
 
     .slide_img {
