@@ -72,6 +72,7 @@ export class CommissionItemComponent implements OnChanges, OnDestroy {
       this.reloadedit = new EventEmitter(false);
      }
 
+
   ngOnChanges(): void {
     //this.commissionService.getItemdata()
     this.serviceForm = this.formBuilder.group ({
@@ -83,8 +84,8 @@ export class CommissionItemComponent implements OnChanges, OnDestroy {
       commissionname: ['', Validators.required],
       commissiondescription: ['', Validators.required],
       category: ['Commission', Validators.required],
-      slot: ['', Validators.required],
-      price: ['', Validators.required]
+      slot: ['', [Validators.required, Validators.min(1)]],
+      price: ['', [Validators.required, Validators.min(1)]]
     });
 
     this.addService = this.formBuilder.group ({
@@ -96,8 +97,8 @@ export class CommissionItemComponent implements OnChanges, OnDestroy {
       commissionname: ['', Validators.required],
       commissiondescription: ['', Validators.required],
       category: ['Commission', Validators.required],
-      slot: ['', Validators.required],
-      price: ['', Validators.required]
+      slot: ['', [Validators.required, Validators.min(1)]],
+      price: ['', [Validators.required, Validators.min(1)]]
     });
 
     this.subscriptions = this.commissionService.comSource.asObservable().subscribe(currItem => {
@@ -231,6 +232,7 @@ export class CommissionItemComponent implements OnChanges, OnDestroy {
     this.addService.patchValue({"category": 'Commission'});
     console.log(this.addService.value);
     if(this.addService.invalid){
+      console.log("Add failed");
       return;
     }
     else{

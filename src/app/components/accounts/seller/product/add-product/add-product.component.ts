@@ -96,6 +96,7 @@ export class AddProductComponent implements OnChanges, OnDestroy {
       productDescription: ['', Validators.required],
       stock: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
       price: ['', Validators.required],
+
     });
 
     this.subs = this.prodServ.productSource.asObservable().subscribe(currProd =>{
