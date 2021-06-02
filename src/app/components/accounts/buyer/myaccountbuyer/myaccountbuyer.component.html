@@ -22,6 +22,7 @@
 
 <app-headerbuyer></app-headerbuyer>
 
+<!------------ SIDEBAR MENU --------------->
 <section class="main-content columns is-fullheight">
     <div class="column is-1"></div>
     <aside class="column is-2 is-narrow-mobile is-fullheight section is-hidden-mobile has-background-white-ter">
@@ -40,14 +41,14 @@
         <!--<p class="menu-label is-hidden-touch">Navigation</p>-->
         
       <ul class="menu-list">
-        <li >
-          <a href="#" class="is-active" data-target="account">
+        <li>
+          <a class="is-active" data-target="account">
             View Account
           </a>
         </li>
 
         <li >
-          <a href="#" data-target="order"> My Order
+          <a data-target="order"> My Order
           </a>
   
           <ul>
@@ -132,9 +133,34 @@
             </div>
             <br/>
         </div>
-    </div>
-
     
+
+    <!-------------------- ORDER SECTION ------------------------>
+    <!--------------- TABS ------------------->
+    
+        <div class="section" id="order">
+            <div class="tabs is-boxed is-centered" >
+                <ul>
+                    <li class="is-active" data-target="commission-live">
+                        <a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; All &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    </li>
+
+                    <li data-target="commission-live">
+                        <a> &nbsp;&nbsp;&nbsp;To Pay &nbsp;&nbsp;&nbsp;</a>
+                    </li>
+
+                    <li data-target="commission-live">
+                        <a>Completed</a>
+                    </li>
+
+                    <li data-target="commission-live">
+                        <a>&nbsp;Cancelled</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
     
   </section>
 

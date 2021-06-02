@@ -7,11 +7,12 @@
     }
 </style>
 
+
 <div class="modal" [ngClass]="openEditAccountBuyerModal ? 'is-active' : ''"> <!--insert "is-active" to view modal-->
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-            <p class="modal-card-title"><strong>Edit Account</strong></p>
+            <p class="modal-card-title has-text-centered"><strong>Edit Account</strong></p>
             <button (click)="onClickExit()" class="delete" aria-label="close"></button>
         </header>
         <!-- Modal Content -->
@@ -84,8 +85,8 @@
         <!-- Footer Buttons -->
         <footer class="modal-card-foot">
             <div class="tile"></div>
-            <button (click)="onClickSave()" class="button is-small is-success is-outlined">Save</button>
-            <button (click)="onClickExit()" class="button is-small is-danger is-outlined">Cancel</button>
+            <button (click)="onClickSave()" class="button is-success is-outlined">Save</button>
+            <button (click)="onClickExit()" class="button is-danger is-outlined">Cancel</button>
         </footer>
     </div>
 </div>
