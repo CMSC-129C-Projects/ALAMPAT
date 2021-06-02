@@ -121,7 +121,7 @@
         &nbsp;&nbsp;
         <!-- COMMISSION DETAILS -->
         <div class="column is-5">
-            <div class="box">
+            <div class="block">
                 <!-- I suggest that there must be a character limit for the Item Name-->
                 <p class="text is-size-3 has-text-weight-bold" readonly>
                     {{prod_item.itemname}} 
@@ -193,30 +193,32 @@
                     </button>
                     -->
                 </div>
-                <div class="columns">
-                    <div class="column is-2 ">
-                        <figure class="image is-64x64">
-                            <img class="profileImage"
-                                [src]="prod_item.profileImage">
-                        </figure>
-                    </div>
-                    <div class="column is-narrow">
-                        <div class="text is-size-6" readonly>
-                            Seller Name: 
-                            <a class="tag is-white is-light has-text-weight-bold is-medium">
-                                {{prod_item.sellername}}
-                            </a>
+                <div class="card is-shadowless has-background-success-light mt-5 pt-1">
+                    <div class="columns">
+                        <div class="column is-2 ml-4 mt-1">
+                            <figure class="image is-64x64">
+                                <img class="profileImage"
+                                    [src]="prod_item.profileImage">
+                            </figure>
                         </div>
-                        <div class="text is-size-6" readonly>
-                            Shop Rating: &nbsp;
-                            <!-- starchecked makes star orange-->
-                            <!-- star rating must be based on a value-->
-                            <span class="fa fa-star starchecked"></span>
-                            <span class="fa fa-star starchecked "></span>
-                            <span class="fa fa-star starchecked "></span>
-                            <span class="fa fa-star starchecked"></span>
-                            <span class="fa fa-star starchecked"></span>
-                            &nbsp;
+                        <div class="column is-narrow">
+                            <div class="text is-size-6" readonly>
+                                Seller Name: 
+                                <a class="tag is-white is-light has-text-weight-bold is-medium">
+                                    {{prod_item.sellername}}
+                                </a>
+                            </div>
+                            <div class="text is-size-6" readonly>
+                                Shop Rating: &nbsp;
+                                <!-- starchecked makes star orange-->
+                                <!-- star rating must be based on a value-->
+                                <span class="fa fa-star starchecked"></span>
+                                <span class="fa fa-star starchecked "></span>
+                                <span class="fa fa-star starchecked "></span>
+                                <span class="fa fa-star starchecked"></span>
+                                <span class="fa fa-star starchecked"></span>
+                                &nbsp;
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -226,11 +228,12 @@
     </div>
     <div class="columns is-centered is-multiline">
         <div class="column is-9">
-            <div class="box">
-                <div class="text is-size-5 has-text-weight-bold" readonly>
+            <hr style="background-color:#e8e6e6">
+            <div class="box is-shadowless">
+                <div class="text is-size-5 has-text-weight-bold mb-3 pl-5" readonly>
                     Product Description
                 </div>
-                <div class="text is-size-6 " readonly>
+                <div class="text is-size-6 pl-5" readonly>
                     {{prod_item.description}}
                 </div>
             </div>
