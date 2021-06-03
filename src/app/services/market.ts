@@ -4,6 +4,7 @@ import { Portfolio } from '../models/Portfolio'
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
+import Axios from 'axios-observable';
 
 interface item {
     _id?: string;
@@ -25,7 +26,7 @@ interface item {
   }
 
 const localAPI = 'https://alampat.herokuapp.com'
-
+const test_API = 'http://localhost:3000'
 
 @Injectable({
     providedIn: 'root',
@@ -51,7 +52,7 @@ export class MarketService {
            this.reload = new EventEmitter<boolean>(true)
            //this.getMarketdata()
            localStorage.setItem('reload', "true")
-           localStorage.setItem('curr_category', "All")
+           //localStorage.setItem('curr_category', "All")
          }
     
     public get marketValue(): any {
@@ -93,16 +94,16 @@ export class MarketService {
         return this.market.asObservable()
     }   
 
-    getproductMarket(): Observable<any>{
+    // getproductMarket(): Observable<any>{
 
-        this.getProductMarketdata()
-        return this.market.asObservable()
-    }  
+    //     this.getProductMarketdata()
+    //     return this.market.asObservable()
+    // }  
 
-    getcommissionMarket(): Observable<any>{
-        this.getCommissionMarketdata()
-        return this.market.asObservable()
-    }  
+    // getcommissionMarket(pg:any, limit:any, sortby:any, min:any, max:any, word:any): Observable<any>{
+    //     this.getCommissionMarketdata(pg, limit, sortby, min, max, word)
+    //     return this.market.asObservable()
+    // }  
 
     getcommission(): Observable<any>{
         
@@ -137,50 +138,51 @@ export class MarketService {
     
     }
 
-    getProductMarketdata() {
+    getProductMarketdata(pg:any, limit:any, sortby:any, min:any, max:any, word:any): Observable<any>  {
     
-        axios.get(`${localAPI}/buyer/productmarket`)
-        .then(resp => {
-            this.market.next([])
-            if(resp.status === 200){
-                this.market.next(resp.data.all)
-            }
+        return Axios.get(`${test_API}/buyer/productmarket2?page=${pg}&limit=${limit}&sort=${sortby}&p_min=${min}&p_max=${max}&s_word=${word}`)
+        // axios.get(`${localAPI}/buyer/productmarket`)
+        // .then(resp => {
+        //     this.market.next([])
+        //     if(resp.status === 200){
+        //         this.market.next(resp.data.all)
+        //     }
             
-            // /console.log("market value: " + JSON.stringify(this.market))
-            // /console.log("Market data: " + JSON.stringify(resp.data.all));
-            //return resp.data
-        })
-        .catch(err => {
-            // Handle Error Here
-            //this.error.emit(err)
-            console.log(err);
-            //return err
-        });
+        //     // /console.log("market value: " + JSON.stringify(this.market))
+        //     // /console.log("Market data: " + JSON.stringify(resp.data.all));
+        //     //return resp.data
+        // })
+        // .catch(err => {
+        //     // Handle Error Here
+        //     //this.error.emit(err)
+        //     console.log(err);
+        //     //return err
+        // });
     
     }
 
-    getCommissionMarketdata() {
+    getCommissionMarketdata(pg:any, limit:any, sortby:any, min:any, max:any, word:any): Observable<any> {
         
-        axios.get(`${localAPI}/buyer/commissionmarket`)
-        .then(resp => {
+        return Axios.get(`${test_API}/buyer/commissionmarket2?page=${pg}&limit=${limit}&sort=${sortby}&p_min=${min}&p_max=${max}&s_word=${word}`)
+        // .then(resp => {
             
-            if(resp.status === 200){
-                this.market.next(resp.data.all)
-            }
-            // /console.log("market value: " + JSON.stringify(this.market))
-            // /console.log("Market data: " + JSON.stringify(resp.data.all));
-            //return resp.data
-        })
-        .catch(err => {
-            // Handle Error Here
-            //this.error.emit(err)
-            console.log(err);
-            //return err
-        });
+        //     if(resp.status === 200){
+        //         this.market.next(resp.data.all)
+        //     }
+        //     // /console.log("market value: " + JSON.stringify(this.market))
+        //     // /console.log("Market data: " + JSON.stringify(resp.data.all));
+        //     //return resp.data
+        // })
+        // .catch(err => {
+        //     // Handle Error Here
+        //     //this.error.emit(err)
+        //     console.log(err);
+        //     //return err
+        // });
     
     }
 
-    getCommission(_id: string|null) {
+    getCommission(_id: string|null, ) {
         this.setItem()
         axios.get(`${localAPI}/buyer/getCommission/${_id}`)
         .then(resp => {

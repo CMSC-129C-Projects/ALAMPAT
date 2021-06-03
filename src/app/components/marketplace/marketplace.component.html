@@ -65,7 +65,7 @@
               "
               [value]="curr_category.value"
             >
-              <option value="All">All Items</option>
+              
               <option value="Product">Products Only</option>
               <option value="Commission">Commissions Only</option>
             </select>
@@ -169,7 +169,7 @@
         <p class="control is-expanded">
           <input
             [value]="pmin.value"
-            (input)="price_min = $event.target"
+            (input)="changepmin($event)"
             #minfield
             class="form-control"
             class="input is-small"
@@ -194,7 +194,7 @@
         <p class="control is-expanded">
           <input
             [value]="pmax.value"
-            (input)="price_max = $event.target"
+            (input)="changepmax($event)"
             #maxfield
             class="form-control"
             class="input is-small"
@@ -219,7 +219,7 @@
     </div>
     <div class="column is-2 mr-6">
       <div class="select is-small is-fullwidth">
-        <select [value]="sort_ord.value" #select (change)="ChooseSort($event)">
+        <select [value]="sort_value" #select (change)="ChooseSort($event)">
           <option value="" hidden>--Select Choice--</option>
           <option value="A-Z">Alphabetical (Asc.)</option>
           <option value="Z-A">Alphabetical (Desc.)</option>
@@ -260,7 +260,7 @@
             : {
                 id: 'listing_pagination',
                 itemsPerPage: 12,
-                currentPage: page,
+                currentPage: page.value,
                 totalItems: totalRecords
               }
       "
@@ -411,7 +411,7 @@
         nextLabel=""
         [maxSize]="5"
         [directionLinks]="true"
-        (pageChange)="page = $event"
+        (pageChange)="page.next($event); pageChanged()"
       ></pagination-controls>
     </div>
   </nav>

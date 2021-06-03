@@ -29,11 +29,15 @@ interface item {
 
 export class MarketplaceComponent implements OnInit, OnDestroy {
   @ViewChild('select') select: ElementRef
+  @ViewChild('minfield') min_price: ElementRef
+  @ViewChild('maxfield') max_price: ElementRef
 
   data: Array<any>;
   totalRecords: number;
-  page: number = 1;
-  
+  page: BehaviorSubject<any> ;
+  pagelimit: number = 12;
+
+
   marketdata: item[];
   temp_list: BehaviorSubject<item[]>;
   
@@ -52,6 +56,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   sort_ord: BehaviorSubject<any> 
   curr_category: BehaviorSubject<any> 
 
+  sort_value: string|null
   constructor(
     private marketserv: MarketService,
     private sortserv: SortService,
@@ -64,7 +69,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     this.pmax = new BehaviorSubject<string|number>('')
     this.sort_ord = new BehaviorSubject<string>('')
     this.temp_list = new BehaviorSubject<item[]>([])
-
+    this.sort_value = ''
     
     this.re_sub.push(this.marketserv.reload.subscribe((x)=>{
         this.reload = x
@@ -73,262 +78,310 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     console.log("I am here " )
-    this.curr_category = new BehaviorSubject<string>('')
     
-    if(localStorage.getItem('reload') == "true"){
-      //this.curr_category.next('All')
-      this.curr_category.next(localStorage.getItem('curr_category'))
-      this.load_wholemarket()
-      
+    if(!("pagenum" in localStorage)){
+      //const page = Number(localStorage.getItem('curr_category'))
+      this.page = new BehaviorSubject<number>(1)  
+      // this.sort_ord.next(localStorage.getItem('sort'))
     }
-    else if(localStorage.getItem('reload') == "false"){
-      const cat = localStorage.getItem('curr_category') ? localStorage.getItem('curr_category') : null
-      this.curr_category.next(cat)
       
-      this.categorizeData(this.curr_category.value)
-      if("searched_item" in localStorage){
-        const word = localStorage.getItem('searched_item') ? localStorage.getItem('searched_item') : null
-        this.word.next(word)
-        this.searchItem(localStorage.getItem("searched_item"))
+    // if(localStorage.getItem('reload') == "true"){
+    //   //this.curr_category.next('All')
+    //   this.curr_category = new BehaviorSubject<string>('Product')
+    //   //this.curr_category.next(localStorage.getItem('curr_category'))
+    //   this.load_wholemarket()
+      
+    // }
+    //else if(localStorage.getItem('reload') == "false"){
+      this.curr_category = new BehaviorSubject<string>('Product')
+
+      if("curr_category" in localStorage){
+        this.curr_category = new BehaviorSubject<string|null>(localStorage.getItem('curr_category'))
+        // this.sort_ord.next(localStorage.getItem('sort'))
       }
-      if("p_min" in localStorage && "p_max" in localStorage){
-        this.onReload_applyprice()
+
+      if("pagenum" in localStorage){
+        //const page = Number(localStorage.getItem('curr_category'))
+        this.page = new BehaviorSubject<any>(Number(localStorage.getItem('pagenum')))
+        //console.log("Page Number: " + this.page.value)
+        // this.sort_ord.next(localStorage.getItem('sort'))
       }
+      //const cat = localStorage.getItem('curr_category') ? localStorage.getItem('curr_category') : null
+
       if("sort" in localStorage){
-        this.Sortby(localStorage.getItem('sort'))
-
-        // /this.select.nativeElement.value = localStorage.getItem('sort')
+        this.sort_value = localStorage.getItem('sort')
+        if(localStorage.getItem('sort') == 'price'){
+          this.sort_value = 'L-H'
+        }
+        else if(localStorage.getItem('sort') == '-price'){
+          this.sort_value = 'H-L'
+        }
+        else if(localStorage.getItem('sort') == 'commissionname' || localStorage.getItem('sort') == 'productname'){
+          this.sort_value = 'A-Z'
+        }
+        else if(localStorage.getItem('sort') == '-commissionname' || localStorage.getItem('sort') == '-productname'){
+          this.sort_value = 'Z-A'
+        }
+        this.sort_ord.next(localStorage.getItem('sort'))
       }
-      this.marketserv.setmarket()
-      localStorage.setItem('reload', 'true')
-    }
+      
+      if("p_min" in localStorage && "p_max" in localStorage){
+        this.pmin.next(localStorage.getItem('p_min'))
+        this.pmax.next(localStorage.getItem('p_max'))
+        
+      }
+      if("searched_item" in localStorage){
+          // const word = localStorage.getItem('searched_item') ? localStorage.getItem('searched_item') : null
+          this.word.next(localStorage.getItem('searched_item'))
+          // this.searchItem(localStorage.getItem("searched_item"))
+        }
+      this.load_wholemarket()
+      // if("searched_item" in localStorage){
+      //   const word = localStorage.getItem('searched_item') ? localStorage.getItem('searched_item') : null
+      //   this.word.next(word)
+      //   this.searchItem(localStorage.getItem("searched_item"))
+      // }
+      // if("p_min" in localStorage && "p_max" in localStorage){
+      //   this.onReload_applyprice()
+      // }
+      // if("sort" in localStorage){
+      //   this.Sortby(localStorage.getItem('sort'))
 
+      //   // /this.select.nativeElement.value = localStorage.getItem('sort')
+      // }
+      // this.marketserv.setmarket()
+      //localStorage.setItem('reload', 'true')
+    //}
+    //console.log("Page Number 1 : " + this.page.value)
   }
 
   ngOnDestroy(): void {
     this.subs.forEach((x) => x.unsubscribe())
   }
 
-
   Categorizeby(event: Event  ){
     console.log("I am here 2")
     const category = event.target as HTMLInputElement
     const cat_choice = category.value
     //this.marketdata = []
-    console.log("Category choice:" + JSON.stringify(category.value))  
-    //
-    this.curr_category.next(cat_choice)
-    //this.ApplyPrice()
-    // /window.location.reload();
-    // if(localStorage.getItem('reload') == "false"){
-    //   this.subs.forEach((x)=> x.unsubscribe())
-    //   this.temp_list.next([])
-    //   this.marketserv.setmarket()
-    // }
-   
-    this.marketserv.market.next([])
-    this.categorizeData(cat_choice)
-    //this.subs.forEach((x)=> x.unsubscribe())
     localStorage.setItem('curr_category', cat_choice)
-    //this.router.navigate(['/marketplace'])
-    //window.location.reload()
-    //this.selectSortOption()
+    this.page.next(1)
+    this.pmin.next('')
+    this.pmax.next('')
+    this.sort_ord.next('')
+    this.word.next('')
+
     localStorage.removeItem("searched_item")
     localStorage.removeItem("p_min")
     localStorage.removeItem("p_max")
     localStorage.removeItem('sort')
+
+    //console.log("Category choice:" + JSON.stringify(category.value))  
+    
+    this.curr_category.next(cat_choice)
+  
+    this.marketserv.market.next([])
+    this.categorizeData(cat_choice)
+  }
+
+  load_wholemarket(){
+    console.log("I am here 4")
+    this.categorizeData(this.curr_category.value)
   }
 
   categorizeData(cat_choice: string){
     console.log("I am here 3 " , cat_choice)
     this.subs.forEach((x)=> x.unsubscribe())
+
+    var pmin = '0'
+    var pmax = '999999999999' 
+
+    if(this.pmin.value != '' && this.pmax.value != ''){
+      // this.pmin.next('0')
+      // this.pmax.next('999999999999')
+      pmin = this.pmin.value
+      pmax = this.pmax.value 
+    }
+
     this.marketdata = []
     if(cat_choice == "Product"){
       
       this.subs.push(
-        this.marketserv.getproductMarket().subscribe( (items: any[]) => {
+        this.marketserv.getProductMarketdata(String(this.page.value), this.pagelimit, this.sort_ord.value, pmin, pmax, this.word.value ).subscribe( (items) => {
         //this.marketdata = items
-       this.marketdata = items 
-        this.temp_list.next(this.marketdata)
+        this.marketdata = items.data.all
+        this.totalRecords = items.data.totalitems
+        //this.page = items.data.currpage
+        //this.temp_list.next(this.marketdata)
       })
       )
       //this.marketdata.push(item)
     }
     else if( cat_choice == "Commission"){
       this.subs.push(
-        this.marketserv.getcommissionMarket().subscribe( (items: any[]) => {
+        this.marketserv.getCommissionMarketdata(String(this.page.value), this.pagelimit, this.sort_ord.value, pmin, pmax, this.word.value  ).subscribe( (items) => {
         //this.marketdata = items
-        this.marketdata = items 
-        this.temp_list.next(this.marketdata)
+        this.marketdata = items.data.all
+        this.totalRecords = items.data.totalitems
+        //this.page = items.data.currpage
+        //this.temp_list.next(this.marketdata)
       })
       )
 
     }
-    else if(cat_choice == ''|| cat_choice == 'All' ){
-      this.subs.push(
-        this.marketserv.getallMarket().subscribe( (items: any[]) => {
-        //this.marketdata = items
-       this.marketdata = items 
-        this.temp_list.next(this.marketdata)
-      })
-      )
-      //this.marketdata.push(item)
-    }
+    // else if(cat_choice == ''|| cat_choice == 'All' ){
+    //   this.subs.push(
+    //     this.marketserv.getallMarket().subscribe( (items: any[]) => {
+    //     //this.marketdata = items
+    //    this.marketdata = items 
+    //     this.temp_list.next(this.marketdata)
+    //   })
+    //   )
+    //   //this.marketdata.push(item)
+    // }
     
   }
   
-  load_wholemarket(){
-    console.log("I am here 4")
-    this.subs.forEach((x)=>{
-      x.unsubscribe()
-    })
+ 
 
-    localStorage.removeItem("searched_item")
-    this.categorizeData(this.curr_category.value)
-    
+  changepmin(event:Event){
+    const input = (event.target as HTMLInputElement).value
+    this.pmin.next(input)
+  }
+
+  changepmax(event:Event){
+    const input = (event.target as HTMLInputElement).value
+    console.log("input : " + input )
+    this.pmax.next(input)
   }
 
   ApplyPrice(){
-    var p_min = this.price_min as HTMLInputElement
-    var p_max = this.price_max as HTMLInputElement
+    var p_min = this.pmin.value
+    var p_max = this.pmax.value
    
-    if(p_max == undefined || p_min == undefined || p_min.value == '' || p_max.value == ''){
-      // if("searched_item" in localStorage){
-      //   this.searchItem(localStorage.getItem("searched_item"))
-      // }
-      //this.categorizeData(this.curr_category.value)
+    this.page.next(1)
+    localStorage.setItem("pagenum", String(this.page.value))
+
+    if(p_max == undefined || p_min == undefined || p_min == '' || p_max== '' ){
+      console.log("Ayaw sulod ari")
+      this.pmin.next('')
+      this.pmax.next('')
+      this.load_wholemarket()
       return
     }
 
-    var min:number = Number(p_min.value)
-    var  max:number = Number(p_max.value)
+    console.log("Ayaw sulod ari 2")
+    var min:number = Number(p_min)
+    var  max:number = Number(p_max)
 
+    this.pmin.next(String(min))
+    this.pmax.next(String(max))
     console.log( "Value : " + min + "  " + max )
-    
+      
     localStorage.setItem("p_min", String(min))
     localStorage.setItem("p_max", String(max))
-    this.marketdata = []
+    // this.marketdata = []
+    this.load_wholemarket()
+  
 
-    //console.log("Inside data : " + JSON.stringify(this.temp_list.value))
-    if( min != undefined || max!= undefined  || (min > 0 || max > 0)){
-      this.temp_list.value.forEach((item,index) => {
-        if(min <= max){
-          if(item.price >= min  && item.price <= max  ){
-            this.marketdata.push(item)
-            //console.log("Inside data : " + JSON.stringify(item))
-          }
-        }
-        if(min > max){
-          if(item.price <= min  && item.price >= max  ){
-            this.marketdata.push(item)
-            //console.log("Inside data : " + JSON.stringify(item))
-          }
-        }
-        })
-    }
-
-    if(this.sort_ord.value == 'A-Z' || this.sort_ord.value == 'Z-A' || this.sort_ord.value == 'L-H' || this.sort_ord.value == 'H-L' ){
-      this.Sortby(this.sort_ord.value)
-    }
     console.log("I am here 5")
   }
 
-  onReload_applyprice(){
-    const min = Number(localStorage.getItem("p_min"))
-    const max = Number(localStorage.getItem("p_max"))
-    this.pmin.next(min)
-    this.pmax.next(max)
-    this.subs.forEach((x)=> x.unsubscribe())
-    this.marketdata = []
-    if( min != undefined || max!= undefined  || (min > 0 || max > 0)){
-      this.temp_list.value.forEach((item,index) => {
-        if(min <= max){
-          if(item.price >= min  && item.price <= max  ){
-            this.marketdata.push(item)
-            //console.log("Inside data : " + JSON.stringify(item))
-          }
-        }
-        if(min > max){
-          if(item.price <= min  && item.price >= max  ){
-            this.marketdata.push(item)
-            //console.log("Inside data : " + JSON.stringify(item))
-          }
-        }
-        })
-    }
-    console.log("Reloaded page with price")
-  }
-
-
   searchItem(word: string | null){
-    
+   
+    localStorage.removeItem("p_min")
+    localStorage.removeItem("p_max")
+    localStorage.removeItem('sort')
+    this.pmin.next('')
+    this.pmax.next('')
+    this.sort_ord.next('')
     if(word == null){
       //localStorage.removeItem("searched_item")
+      this.word.next('')
+      localStorage.setItem("searched_item", '')
+      this.load_wholemarket()
       return
     }
-
-    console.log("Search the word : " + word)
-    this.categorizeData(this.curr_category.value) 
-    this.marketdata = this.marketdata.filter(function(ele, i, array){
-      let arrayelement = ele.itemname.toLowerCase()
-      //console.log("Array element "+arrayelement)
-      return arrayelement.includes(word.toLowerCase())
-    })
-    this.subs.forEach((x)=>{
-        x.unsubscribe()
-      })
-    this.temp_list.next(this.marketdata)
-    // /console.log("Searched Items: " + JSON.stringify(this.marketdata))
+    this.word.next(word)
     localStorage.setItem("searched_item", word)
+    
+    this.load_wholemarket()
+    
   }
 
   ChooseSort(event:Event){
     const option = (event.target as HTMLInputElement).value
     console.log("sort option: " + option)
-    localStorage.setItem('sort', option)
-    this.Sortby(option)
-  }
+    this.sort_value = option
 
-  Sortby(option: string|null){
-    console.log("I am here 6")
-    this.sort_ord.next(option)
-    this.subs.forEach((x)=> x.unsubscribe())
-    //this.marketdata = this.temp_list.value
     if(option == 'A-Z'){
-      this.marketdata.sort(this.sortserv.getStrAscendingSortOrder("itemname"))
+      if( this.curr_category.value == 'Commission'){
+        this.sort_ord.next('commissionname')
+        
+      }
+      if( this.curr_category.value == 'Product'){
+        this.sort_ord.next('productname')
+      }
+      
     }
     if(option == 'Z-A'){
-      this.marketdata.sort(this.sortserv.getStrDescendingSortOrder("itemname"))
+      if( this.curr_category.value == 'Commission'){
+        this.sort_ord.next('-commissionname')
+      }
+      if( this.curr_category.value == 'Product'){
+        this.sort_ord.next('-productname')
+      }
     }
     if(option == 'H-L'){
-      this.marketdata.sort(this.sortserv.getNumDescendingSortOrder("price"))
+      this.sort_ord.next('-price')
     }
     if(option == 'L-H'){
-      this.marketdata.sort(this.sortserv.getNumAscendingSortOrder("price"))
+      this.sort_ord.next('price')
     }
-    
-    //console.log("Inside data : " + JSON.stringify(this.temp_list))
+    localStorage.setItem('sort', this.sort_ord.value)
+    this.categorizeData(this.curr_category.value)
+  }
 
+
+  pageChanged(){
+    this.subs.forEach((x) => x.unsubscribe())
+    localStorage.setItem("pagenum", String(this.page.value))
+    this.categorizeData(this.curr_category.value)
+    
   }
 
   resetFilter(){
+    this.pmin.next('')
+    this.pmax.next('')
+    this.sort_ord.next('')
+    this.word.next('')
+
     localStorage.removeItem("searched_item")
     localStorage.removeItem("p_min")
     localStorage.removeItem("p_max")
     localStorage.removeItem('sort')
+    this.load_wholemarket()
   }
 
   onResetsearch(){
+    this.pmin.next('')
+    this.pmax.next('')
+    this.sort_ord.next('')
+    this.word.next('')
+
     localStorage.removeItem("searched_item")
     localStorage.removeItem("p_min")
     localStorage.removeItem("p_max")
     localStorage.removeItem('sort')
+    this.load_wholemarket()
   }
 
   ViewItem(item: item){
     const _id = item ? item._id : null;
     this.marketdata = []
     this.subs.forEach((x)=> x.unsubscribe())
+
+   
     localStorage.setItem("curr_category", this.curr_category.value)
     //console.log("View Item: " + JSON.stringify(_id))
 
