@@ -203,17 +203,17 @@ export class AddProductComponent implements OnChanges, OnDestroy {
       this.productForm.reset()
       this.prodServ.addswitch(false)
       this.addedFileName = ''
-      if(this.addedimagesrc){
-        this.afStorage.storage.refFromURL(this.addedimagesrc).delete();
-      }
+      // if(this.addedimagesrc){
+      //   this.afStorage.storage.refFromURL(this.addedimagesrc).delete();
+      // }
       this.addedFileName = ''
       this.addedimagesrc = ''
     }
     if(this.openEditProductModal) {
       this.editForm.reset()
-      if(this.imagesrc!== this.prev_image && this.prev_image!=""){
-        this.afStorage.storage.refFromURL(this.imagesrc).delete();
-      }
+      // if(this.imagesrc!== this.prev_image && this.prev_image!=""){
+      //   this.afStorage.storage.refFromURL(this.imagesrc).delete();
+      // }
       this.imagesrc = '';
       this.prev_image = '';
       this.filename=""

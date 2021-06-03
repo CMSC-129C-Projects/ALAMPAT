@@ -205,9 +205,9 @@ export class CommissionItemComponent implements OnChanges, OnDestroy {
     this.reload.emit(true)
     if(this.openAddServiceModal) {
       this.commissionService.addswitch(false)
-      if(this.addedimageSRC){
-        this.afStorage.storage.refFromURL(this.addedimageSRC).delete();
-      }
+      // if(this.addedimageSRC){
+      //   this.afStorage.storage.refFromURL(this.addedimageSRC).delete();
+      // }
       this.percentage = new Observable()
       this.addedimageSRC = '';
       this.submitted = false;
@@ -215,9 +215,9 @@ export class CommissionItemComponent implements OnChanges, OnDestroy {
     }
     if(this.openEditServiceModal) {
       this.commissionService.editswitch(false)
-      if(this.imageSRC != this.prev_image && this.prev_image !=""){
-        this.afStorage.storage.refFromURL(this.imageSRC).delete();
-      }
+      // if(this.imageSRC != this.prev_image && this.prev_image !=""){
+      //   this.afStorage.storage.refFromURL(this.imageSRC).delete();
+      // }
       this.imageSRC = '';
       this.percentage = new Observable()
       this.saved = false;
