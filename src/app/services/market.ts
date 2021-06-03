@@ -125,22 +125,17 @@ export class MarketService {
                 this.market.next(resp.data.all)
             }
             
-            // /console.log("market value: " + JSON.stringify(this.market))
-            // /console.log("Market data: " + JSON.stringify(resp.data.all));
-            //return resp.data
         })
         .catch(err => {
-            // Handle Error Here
-            //this.error.emit(err)
+
             console.log(err);
-            //return err
         });
     
     }
 
     getProductMarketdata(pg:any, limit:any, sortby:any, min:any, max:any, word:any): Observable<any>  {
     
-        return Axios.get(`${test_API}/buyer/productmarket2?page=${pg}&limit=${limit}&sort=${sortby}&p_min=${min}&p_max=${max}&s_word=${word}`)
+        return Axios.get(`${localAPI}/buyer/productmarket2?page=${pg}&limit=${limit}&sort=${sortby}&p_min=${min}&p_max=${max}&s_word=${word}`)
         // axios.get(`${localAPI}/buyer/productmarket`)
         // .then(resp => {
         //     this.market.next([])
@@ -163,7 +158,7 @@ export class MarketService {
 
     getCommissionMarketdata(pg:any, limit:any, sortby:any, min:any, max:any, word:any): Observable<any> {
         
-        return Axios.get(`${test_API}/buyer/commissionmarket2?page=${pg}&limit=${limit}&sort=${sortby}&p_min=${min}&p_max=${max}&s_word=${word}`)
+        return Axios.get(`${localAPI}/buyer/commissionmarket2?page=${pg}&limit=${limit}&sort=${sortby}&p_min=${min}&p_max=${max}&s_word=${word}`)
         // .then(resp => {
             
         //     if(resp.status === 200){
