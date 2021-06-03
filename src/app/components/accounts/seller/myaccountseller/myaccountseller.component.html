@@ -78,11 +78,14 @@
                     <input class="textarea has-fixed-size" rows="1" type="password"  maxlength="8" value="{{user?.password}}" readonly/>
                 </div>
             </div>
-            <div class="field">
-                <label class="label ">Phone Number</label>
-                <div class="control">
-                    <textarea class="textarea has-fixed-size" rows="1" maxlength ="10"readonly>{{user?.phoneNumber}}</textarea>
-                </div>
+            <label class="label ">Phone Number</label>
+            <div class="control field has-addons">
+                <a class="button is-static">
+                    +63
+                </a>
+                <p class="control is-expanded">
+                    <textarea formControlName="phoneNumber" class="input has-fixed-size" type="phoneNumber" readonly>{{user?.phoneNumber}}</textarea>
+                </p>
             </div>
             <div class="field">
                 <label class="label ">Seller Description</label>
