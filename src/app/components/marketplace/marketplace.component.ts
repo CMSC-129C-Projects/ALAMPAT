@@ -290,7 +290,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   searchItem(word: string | null){
     this.page.next(1)
     localStorage.setItem("pagenum", String(this.page.value))
-    
+
     localStorage.removeItem("p_min")
     localStorage.removeItem("p_max")
     localStorage.removeItem('sort')
@@ -353,6 +353,8 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   }
 
   resetFilter(){
+    this.page.next(1)
+    localStorage.setItem("pagenum", String(this.page.value))
     this.pmin.next('')
     this.pmax.next('')
     this.sort_ord.next('')
