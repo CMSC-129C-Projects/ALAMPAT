@@ -166,6 +166,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     //this.marketdata = []
     localStorage.setItem('curr_category', cat_choice)
     this.page.next(1)
+    localStorage.setItem("pagenum", String(this.page.value))
     this.pmin.next('')
     this.pmax.next('')
     this.sort_ord.next('')
