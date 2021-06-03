@@ -53,6 +53,27 @@ export class MyaccountbuyerComponent implements OnInit, OnDestroy {
         console.log("Error", error)
     })
     )
+
+    //For sidebar menu
+    const menu = document.querySelectorAll('.menu-list a');
+    const menuContent = document.querySelectorAll('#menu-content > div');
+
+    menu.forEach((m: any) => {
+      m.addEventListener('click', () => {
+        menu.forEach(item => item.classList.remove('is-active'))
+        m.classList.add('is-active');
+
+        const target = m.dataset.target;
+        menuContent.forEach( box => {
+          console.log(target);
+          if (box.getAttribute('id') == target) {
+            box.classList.remove('is-hidden');
+          } else {
+            box.classList.add('is-hidden');
+          }
+        });
+      })
+    })
   }
 
   ngOnDestroy(): void{

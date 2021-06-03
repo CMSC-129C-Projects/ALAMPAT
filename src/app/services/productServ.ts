@@ -4,9 +4,9 @@ import { Products } from '../models/products'
 import { Router } from '@angular/router';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
+import Axios from 'axios-observable';
 
-
-const localAPI = 'http://localhost:3000'
+const localAPI = 'https://alampat.herokuapp.com'
 
 interface uploadResponse {
     message: string;
@@ -24,7 +24,7 @@ export class ProductService {
     isUploaded: boolean = false;
     isDeleted: boolean = false;
     uploadError: string = '';
-    productSource = new Subject<any>();
+    productSource: BehaviorSubject<any>;
     productlist = new Subject<any>();
     showAddmodal: EventEmitter<boolean> = new EventEmitter();
     showEditmodal: EventEmitter<boolean> = new EventEmitter();
@@ -32,7 +32,7 @@ export class ProductService {
     userID: string | null = '607fe491958fa65f08f14d0e';
 
     constructor(private router: Router, private domSanitizer: DomSanitizer) {
-
+        this.productSource = new BehaviorSubject<any>({});
     }
 
     refresh(): Observable<any> {
@@ -66,6 +66,7 @@ export class ProductService {
             this.uploadError = error
         }
     }
+
     updateProductdata = async (product: Products, id: any) => {
         try {
             this.userID = localStorage.getItem('id')
@@ -93,22 +94,23 @@ export class ProductService {
         }
     }
 
-    getProductdata() {
+    getProductdata():Observable<any> {
         try {
             this.userID = localStorage.getItem('id')
-            axios.get(`${localAPI}/seller/${this.userID}/product`)
-                .then(resp => {
-                    this.productlist.next(resp.data.productsArray)
+            // axios.get(`${localAPI}/seller/${this.userID}/product`)
+            //     .then(resp => {
+            //         this.productlist.next(resp.data.productsArray)
 
-                    //console.log("Get prodlist " + JSON.stringify(resp.data.productsArray));
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-
+            //         //console.log("Get prodlist " + JSON.stringify(resp.data.productsArray));
+            //     })
+            //     .catch(err => {
+            //         console.log(err);
+            //     });
+            return Axios.get(`${localAPI}/seller/${this.userID}/product`)
         } catch (error) {
             console.log(error)
             this.uploadError = error
+            return error
         }
     }
     deleteProductdata = async (id: any) => {

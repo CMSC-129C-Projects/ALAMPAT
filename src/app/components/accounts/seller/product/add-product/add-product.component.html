@@ -1,6 +1,6 @@
 <!-- ADD PRODUCT MODAL -->
 <div class="modal" [ngClass]="openAddProductModal ? 'is-active' : ''">
-    <div class="modal-background"></div>
+    <div class="modal-background" (click)="onClickExit()"></div>
     <div class="modal-card">
         <header class="modal-card-head is-light">
             <p class="modal-card-title has-text-centered">Add Product</p>
@@ -35,7 +35,7 @@
                     <div class="control">
                         <div class="file is-primary is-fullwidth">
                             <label class="file-label">
-                                <input class="file-input" #image type="file" accept="image/*" (change)="uploadFile($event)"
+                                <input class="file-input" #addimage id= "addImage" type="file" accept="image/*" (change)="uploadFile($event)"
                                     name="productImage" formControlName="productImage" placeholder="No file uploaded."
                                     required>
                                 <span class="file-cta">
@@ -98,8 +98,8 @@
                                     formControlName="price" type="number" min="1" required>
                                 <div *ngIf="submitted || (formControls.price?.touched || formControls.price?.dirty) && formControls.price?.errors"
                                     class="help is-danger">
-                                    <div *ngIf="formControls.price?.errors?.required">Price for the product is required.
-                                    </div>
+                                    <div *ngIf="formControls.price?.errors?.required">Price for the product is required.</div>
+                                    <div *ngIf="formControls.price?.errors?.min">Price cannot be less than 1</div>
                                 </div>
                             </div>
                         </div>
@@ -110,14 +110,16 @@
                             <div class="control">
                                 <input class="textarea" [ngClass]="{'has-error': formControls.stock?.errors }"
                                     class="input" placeholder="Input product stocks" formControlName="stock"
-                                    type="number" min="1" max="100" required>
+                                    type="number" min="0" max="100" required>
                                 <div *ngIf="submitted || (formControls.stock?.touched || formControls.stock?.dirty) && formControls.stock?.errors"
                                     class="help is-danger">
-                                    <div *ngIf="formControls.stock?.errors?.required">Stock for the product is required.
-                                    </div>
+                                    <div *ngIf="formControls.stock?.errors?.required">Stock for the product is required.</div>
+                                    <div *ngIf="formControls.stock?.errors?.min">Stock cannot be less than 1</div>
+                                <div *ngIf="formControls.stock?.errors?.max">Stock cannot be more than 100</div>
                                 </div>
-                                <div *ngIf="formControls.stock?.errors?.min">Stock cannot be less than 1.</div>
+                                <div *ngIf="formControls.stock?.errors?.min">Stock cannot be less than 0.</div>
                                 <div *ngIf="formControls.stock?.errors?.max">Stock cannot be more than 100.</div>
+
                             </div>
                         </div>
                     </div>
@@ -147,7 +149,7 @@
 
 <!------------------------------ EDIT PRODUCT MODAL ----------------------------------------------------->
 <div class="modal" [ngClass]="openEditProductModal ? 'is-active' : '' ">
-    <div class="modal-background"></div>
+    <div class="modal-background" (click)="onClickExit()"></div>
     <div class="modal-card">
         <header class="modal-card-head is-light">
             <p class="modal-card-title has-text-centered">Edit Product</p>
@@ -181,7 +183,7 @@
                     <div class="control">
                         <div class="file is-primary is-fullwidth">
                             <label class="file-label">
-                                <input class="file-input" #image type="file" accept="image/*" (change)="uploadFile_edit($event)"
+                                <input class="file-input" #editimage  id= "editImage" type="file" accept="image/*" (change)="uploadFile_edit($event)"
                                     name="productImage" formControlName="productImage" placeholder="No file uploaded."
                                     required>
                                 <span class="file-cta">
@@ -254,13 +256,13 @@
                             <div class="control">
                                 <input class="textarea" [ngClass]="{'has-error': formControls.stock?.errors }"
                                     class="input" placeholder="Input new product stocks" formControlName="stock"
-                                    type="number" min="1" max="100" required>
+                                    type="number" min="0" max="100" required>
                                 <div *ngIf="submitted || (formControls.stock?.touched || formControls.stock?.dirty) && formControls.stock?.errors"
                                     class="help is-danger">
                                     <div *ngIf="formControls.stock?.errors?.required">Stock for the product is required.
                                     </div>
                                 </div>
-                                <div *ngIf="formControls.stock?.errors?.min">Stock cannot be less than 1.</div>
+                                <div *ngIf="formControls.stock?.errors?.min">Stock cannot be less than 0.</div>
                                 <div *ngIf="formControls.stock?.errors?.max">Stock cannot be more than 100.</div>
                             </div>
                         </div>

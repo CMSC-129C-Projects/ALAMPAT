@@ -32,7 +32,7 @@
                     <div class="control">
                         <div class="file is-primary is-fullwidth" >
                             <label class="file-label">
-                                <input [ngClass]="{ 'has-error': formControls.commissionimage?.errors }" class="file-input" #image type="file" id="UploadFile" accept="image/*" (change)="uploadFileInAddForm($event)" name="commissionimage" formControlName="commissionimage" required>
+                                <input [ngClass]="{ 'has-error': formControls.commissionimage?.errors }" class="file-input" #addimage type="file" id="UploadFile" accept="image/*" (change)="uploadFileInAddForm($event)" name="commissionimage" formControlName="commissionimage" required>
                                 <span class="file-cta">
                                     <span class="file-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
@@ -86,6 +86,7 @@
                             </div>
                             <div *ngIf="submitted || (formControls.price?.touched || formControls.price?.dirty) && formControls.price?.errors" class="help is-danger">
                                 <div *ngIf="formControls.price?.errors?.required">Price is required</div>
+                                <div *ngIf="formControls.price?.errors?.min">Price cannot be less than 1</div>
                             </div>
                         </div>
                     </div>
@@ -96,6 +97,7 @@
                                 <input [ngClass]="{ 'has-error': formControls.slot?.errors }" class="input" placeholder="Input no. of slots" formControlName="slot" type="number" min="1" required>
                                 <div *ngIf="submitted || (formControls.slot?.touched || formControls.slot?.dirty) && formControls.slot?.errors" class="help is-danger pt-2">
                                     <div *ngIf="formControls.slot?.errors?.required">Number of slots is required</div>
+                                    <div *ngIf="formControls.slot?.errors?.min">Slot cannot be less than 1</div>
                                 </div>
                             </div>
                         </div>
@@ -150,7 +152,7 @@
                     <div class="control">
                         <div class="file is-primary is-fullwidth">
                             <label class="file-label">
-                                <input class="file-input" #image type="file" accept="image/*" (change)="uploadFile($event)" name="commissionimage" formControlName="commissionimage" required>
+                                <input class="file-input" #editimage type="file" accept="image/*" (change)="uploadFile($event)" name="commissionimage" formControlName="commissionimage" required>
                                 <span class="file-cta">
                                     <span class="file-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">

@@ -1,6 +1,6 @@
 <!-- ADD ARTWORK MODAL -->
 <div class="modal" [ngClass]="openAddArtworkModal ? 'is-active' : ''">
-    <div class="modal-background"></div>
+    <div class="modal-background" (click)="onClickExit()"></div>
     <div class="modal-card">
         <header class="modal-card-head is-light">
             <p class="modal-card-title has-text-centered">Add Artwork</p>
@@ -30,7 +30,7 @@
                     <div class="control">
                         <div class="file is-primary is-fullwidth" >
                             <label class="file-label">
-                                <input  class="file-input"  #image [ngClass]="{ 'has-error': formControls.artworkimage?.errors }" type="file" id="UploadFile" accept="image/*" (change)="uploadFileInAddForm($event)" name="artworkimage" formControlName="artworkimage" required>
+                                <input  class="file-input"  #addimage [ngClass]="{ 'has-error': formControls.artworkimage?.errors }" type="file" id="UploadFile" accept="image/*" (change)="uploadFileInAddForm($event)" name="artworkimage" formControlName="artworkimage" required>
                                 <span class="file-cta">
                                     <span class="file-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
@@ -86,7 +86,7 @@
 
 <!------------------------------ EDIT ARTWORK MODAL ----------------------------------------------------->
 <div class="modal" [ngClass]="openEditArtworkModal ? 'is-active' : ''">
-    <div class="modal-background"></div>
+    <div class="modal-background" (click)="onClickExit()"></div>
     <div class="modal-card">
         <header class="modal-card-head is-light">
             <p class="modal-card-title has-text-centered">Edit Artwork</p>
@@ -112,7 +112,7 @@
                     <div class="control">
                         <div class="file is-primary is-fullwidth">
                             <label class="file-label">
-                                <input class="file-input" #image type="file" accept="image/*" (change)="uploadFile($event)" name="artworkimage" formControlName="artworkimage" required>
+                                <input class="file-input" #editimage type="file" accept="image/*" (change)="uploadFile($event)" name="artworkimage" formControlName="artworkimage" required>
                                 <span class="file-cta">
                                     <span class="file-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">

@@ -6,7 +6,7 @@ import { Observable, BehaviorSubject, Subject } from 'rxjs';
 
 
 
-const localAPI = 'http://localhost:3000'
+const localAPI = 'https://alampat.herokuapp.com'
 
 interface uploadResponse {
     message: string;

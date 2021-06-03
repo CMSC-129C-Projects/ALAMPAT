@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire';
@@ -37,6 +38,7 @@ import { SellershopComponent } from './components/accounts/seller/sellershop/sel
 import { CommissionComponent } from './components/accounts/seller/commissions/commission/commission.component';
 import { CommissionItemComponent } from './components/accounts/seller/commissions/commission-item/commission-item.component';
 import { ViewProductComponent } from './components/accounts/buyer/view-product/view-product.component';
+import { OrderbuyerComponent } from './components/accounts/buyer/orderbuyer/orderbuyer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,12 +61,14 @@ import { ViewProductComponent } from './components/accounts/buyer/view-product/v
     SellershopComponent,
     CommissionComponent,
     CommissionItemComponent,
-    ViewProductComponent
+    ViewProductComponent,
+    OrderbuyerComponent
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp({
       apiKey: "AIzaSyAYsXEKw9iqkrLxKgItK3_BxS94pWyLY9I",
@@ -76,7 +80,9 @@ import { ViewProductComponent } from './components/accounts/buyer/view-product/v
       measurementId: "G-M7VWRJ4WN7"
     }),
     AngularFireStorageModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    RouterModule.forRoot([]),
+
   ],
   exports: [
     WelcomeComponent,

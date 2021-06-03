@@ -24,7 +24,7 @@ interface item {
     profileImage?: string;
   }
 
-const localAPI = 'http://localhost:3000'
+const localAPI = 'https://alampat.herokuapp.com'
 
 
 @Injectable({
@@ -86,6 +86,7 @@ export class MarketService {
     setmarket(){
         this.market.next([])
     }
+
     getallMarket(): Observable<any>{
         //this.market = new BehaviorSubject<any>([])
         this.getallMarketdata()
@@ -115,10 +116,14 @@ export class MarketService {
     }  
 
     getallMarketdata() {
-    
+        
         axios.get(`${localAPI}/buyer/market`)
         .then(resp => {
-            this.market.next(resp.data.all)
+            this.market.next([])
+            if(resp.status === 200){
+                this.market.next(resp.data.all)
+            }
+            
             // /console.log("market value: " + JSON.stringify(this.market))
             // /console.log("Market data: " + JSON.stringify(resp.data.all));
             //return resp.data
@@ -136,7 +141,11 @@ export class MarketService {
     
         axios.get(`${localAPI}/buyer/productmarket`)
         .then(resp => {
-            this.market.next(resp.data.all)
+            this.market.next([])
+            if(resp.status === 200){
+                this.market.next(resp.data.all)
+            }
+            
             // /console.log("market value: " + JSON.stringify(this.market))
             // /console.log("Market data: " + JSON.stringify(resp.data.all));
             //return resp.data
@@ -154,7 +163,10 @@ export class MarketService {
         
         axios.get(`${localAPI}/buyer/commissionmarket`)
         .then(resp => {
-            this.market.next(resp.data.all)
+            
+            if(resp.status === 200){
+                this.market.next(resp.data.all)
+            }
             // /console.log("market value: " + JSON.stringify(this.market))
             // /console.log("Market data: " + JSON.stringify(resp.data.all));
             //return resp.data
