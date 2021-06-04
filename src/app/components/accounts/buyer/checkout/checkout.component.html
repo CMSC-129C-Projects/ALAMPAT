@@ -1,11 +1,17 @@
 <style>
     .limitedText {
-      white-space: nowrap;
-      overflow: hidden;
-      width: 440px; /* adjust according to the length you wish to limit the text */
-      text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 440px; /* adjust according to the length you wish to limit the text */
+        text-overflow: ellipsis;
     }
-  </style>
+
+    .previewImage {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+    }
+</style>
 
 <app-headerbuyer></app-headerbuyer>
 
@@ -104,6 +110,7 @@
     </div>
     <div class="column is-2"></div>
 </div>
+
 <!-- ORDER DETAILS -->
 <div class="columns is-paddingless is-centered is-mobile">
     <div class="column is-2"></div> <!-- SIDEBAR-->
@@ -111,12 +118,12 @@
         <div class="box">
         <article class="media">
             <div class="media-left">
-            <figure class="image is-100x100">
-                <img
-                src="https://bulma.io/images/placeholders/128x128.png"
+            <div class="container">
+                <img class="previewImage"
+                src="https://images2.minutemediacdn.com/image/fetch/w_736,h_485,c_fill,g_auto,f_auto/https%3A%2F%2Flakeshowlife.com%2Fwp-content%2Fuploads%2Fgetty-images%2F2020%2F10%2F1279732568-850x560.jpeg"
                 alt="Image"
                 />
-            </figure>
+            </div>
             </div>
             <div class="media-content">
                 <div class="content">
