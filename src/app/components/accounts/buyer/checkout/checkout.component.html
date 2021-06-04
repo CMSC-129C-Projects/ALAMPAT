@@ -1,5 +1,42 @@
+<style>
+    .limitedText {
+      white-space: nowrap;
+      overflow: hidden;
+      width: 440px; /* adjust according to the length you wish to limit the text */
+      text-overflow: ellipsis;
+    }
+  </style>
+
 <app-headerbuyer></app-headerbuyer>
 
+<!-- BACK ARROW -->
+<div class="container">
+    <nav class="breadcrumb is-small" aria-label="breadcrumbs">
+      <li>
+        <a>
+          <span class="icon is-small">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-caret-left-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"
+              />
+            </svg>
+            <i class="bi bi-caret-left-fill" aria-hidden="true"></i>
+          </span>
+          <span>Back</span>
+        </a>
+      </li>
+    </nav>
+    <div class="container"></div>
+  </div>
+
+<!-- TITLE -->
 <div class="hero">
     <div class="columns is-mobile">
         <div class="column is-10 is-offset-1">
@@ -19,9 +56,153 @@
     </div>
 </div>
 
-<div class="hero-body">
+<!-- CHECKOUT DETAILS -->
+    <!-- DELIVERY DETAILS-->
+<div class="columns is-centered is-mobile">
+    <div class="column is-2"></div> <!-- INSERT SIDE BAR HERE-->
+    <div class="column">
+        <div class="container">
+        <div class="text is-size-5 has-text-weight-bold">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                </svg>
+            Delivery Details
+        </div>&nbsp;
+        <div class="text is-size-6">
+            Customer Name: &nbsp;<strong>Earl John Tagalog</strong>
+        </div>
+        <div class="text is-size-6">
+            Phone Number: &nbsp;<strong>09123456789</strong>
+        </div>
+        <div class="text is-size-6">
+            Delivery Address: &nbsp;<strong>221B Baker St, Marylebone, London NW1 6XE, United Kingdom
+            </strong>
+        </div>
+        </div>
+        <div class="container">&nbsp;</div>
+        <div class="container has-text-centered">
+            <div class="control">
+                <div class="select is-primary">
+                    <select name="category">
+                        <option>Payment Options</option>
+                        <option value="COD">Cash On Delivery</option>
+                        <option value="Card">Debit / Credit Card</option>
+                        <option value="Online">Online Payment</option>
+                    </select>
+                </div>
+                &nbsp;
+                <div class="select is-info">
+                    <select name="category">
+                        <option>Delivery Options</option>
+                        <option value="COD">Ambot</option>
+                        <option value="Card">Unsa</option>
+                        <option value="Online">Diri</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="column is-2"></div>
+</div>
+<!-- ORDER DETAILS -->
+<div class="columns is-paddingless is-centered is-mobile">
+    <div class="column is-2"></div> <!-- SIDEBAR-->
+    <div class="column">
+        <div class="box">
+        <article class="media">
+            <div class="media-left">
+            <figure class="image is-100x100">
+                <img
+                src="https://bulma.io/images/placeholders/128x128.png"
+                alt="Image"
+                />
+            </figure>
+            </div>
+            <div class="media-content">
+                <div class="content">
+                    <p
+                    class="limitedText has-text-weight-bold is-size-4 is-marginless"
+                    readonly
+                    >
+                    Item Name
+                    </p>
+                    
+                    <div class="block">
+                        <div class="text is-size-6" readonly>
+                            Seller Name:
+                            <a class="tag is-white is-light has-text-weight-bold is-small">
+                            Name of the Seller
+                            </a>
+                        </div>
+                        <div class="text is-size-6" readonly>
+                            Category: 
+                            <!-- NGIF -->
+                            <div
+                            class="tag is-link is-light has-text-weight-bold is-small">
+                            Product
+                            </div>
+                            <div
+                            class="tag is-danger is-light has-text-weight-bold is-small">
+                            Commission
+                            </div>
+                        </div>
+                        <div class="text is-size-6" readonly>
+                            Quantity: 
+                            <div
+                            class="tag is-warning is-light is-outlined has-text-weight-bold is-small">
+                                12
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- RIGHT SIDE -->
+            <div class="media-right">
+            <p
+                class="
+                    text
+                    has-text-primary
+                    is-size-4
+                    has-text-weight-bold
+                    is-marginless
+                "
+                readonly
+                >
+                ₱ 351.00
+                </p>
+            </div>
+        </article>
+        </div>
+    </div>
+    <div class="column is-2"></div> <!-- INSERT SIDE BAR HERE-->
+</div>
 
-    
+<div class="column">&nbsp;</div> <!-- just a regular empty space here -->
+
+<div class="block has-background-info-light">
+    <div class="columns is-centered is-mobile">
+        <div class="column is-2"></div> <!-- INSERT SIDE BAR HERE-->
+        <div class="column">
+            <div class="block">
+                <div class="text is-size-6 has-text-right">
+                    Order Amount: <strong>₱ 351.00</strong>
+                </div>
+                <div class="text is-size-6 has-text-right">
+                    Shipping Fee: <strong>₱ 69.00</strong>
+                </div>
+                <div class="text is-size-4 has-text-weight-bold has-text-right">
+                    TOTAL AMOUNT: ₱ 420.00
+                </div>
+                &nbsp;
+                <div class="block has-text-right">
+                    <button class="button is-fullwidth is-info is-medium has-text-weight-bold">
+                        PLACE ORDER
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="column is-2"></div>
+    </div>
 </div>
 
 <app-footer></app-footer>
