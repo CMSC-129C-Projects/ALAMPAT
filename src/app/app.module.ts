@@ -39,6 +39,7 @@ import { CommissionComponent } from './components/accounts/seller/commissions/co
 import { CommissionItemComponent } from './components/accounts/seller/commissions/commission-item/commission-item.component';
 import { ViewProductComponent } from './components/accounts/buyer/view-product/view-product.component';
 import { OrderbuyerComponent } from './components/accounts/buyer/orderbuyer/orderbuyer.component';
+import { CheckoutComponent } from './components/accounts/buyer/checkout/checkout.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +63,8 @@ import { OrderbuyerComponent } from './components/accounts/buyer/orderbuyer/orde
     CommissionComponent,
     CommissionItemComponent,
     ViewProductComponent,
-    OrderbuyerComponent
+    OrderbuyerComponent,
+    CheckoutComponent
 
   ],
   imports: [
