@@ -38,14 +38,14 @@ const register = async (req, res, next) => {
                 token: hashedPass,
                 description: '',
                 
-                portfolio: [null],
-                cart: [null],
-                reservation: [null],
-                orders: [null],
+                portfolio: [],
+                cart: [],
+                reservation: [],
+                orders: [],
 
                 //for seller type user
-                commissions: [null],
-                products: [null]
+                commissions: [],
+                products: []
             })
             
             user.save(function(err,user){

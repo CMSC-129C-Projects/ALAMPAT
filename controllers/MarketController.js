@@ -3,6 +3,7 @@ const Commission = require('../models/commissions')
 const User = require('../models/user')
 
 const getProductList = (req, res, next) => {
+  try{
   Product.find({}, async function (err, allProducts){
       if(err) throw err;
       var all = [];
@@ -27,9 +28,16 @@ const getProductList = (req, res, next) => {
       }
       return res.json({ all: all})
   })
+  }catch(error){
+    console.log(error)
+    res.status(404).json({ 
+        error,
+        success: false, })
+  }
 }
 
 const getProduct = (req, res, next) => {
+  try{
   Product.findById(req.params._id, async function (err, product){
       if(err) throw err;
       
@@ -49,11 +57,17 @@ const getProduct = (req, res, next) => {
         } 
         return res.json({ product: prod})
       }
-      
   })
+  }catch(error){
+    console.log(error)
+    res.status(404).json({ 
+        error,
+        success: false, })
+  }
 }
 
 const getCommissionList = (req, res, next) => {
+  try{
     Commission.find({},async  function (err, allCommissions){
         if(err) throw err;
         var all = [];
@@ -79,36 +93,48 @@ const getCommissionList = (req, res, next) => {
           all: all
         })
     })
+  }catch(error){
+    console.log(error)
+    res.status(404).json({ 
+        error,
+        success: false, })
   }
+}
   
-  const getCommission = (req, res, next) => {
-    Commission.findById(req.params._id, async  function (err, commission){
-        if(err) throw err;
-        
-        
-        const user = await User.findOne({commissions: commission._id } , 'name profileImage').exec()
-        if(user){
-          let com = {
-            _id:commission._id ,
-            itemname:commission.commissionname , 
-            images: [commission.images],
-            description:commission.description,
-            slot:commission.slot,
-            price:commission.price,
-            category:commission.category,
-            sellername: user.name,
-            profileImage: user.profileImage.imageBase64
-          }
-          return res.json({
-            commission: com
-          })
-          
+const getCommission = (req, res, next) => {
+  try{
+  Commission.findById(req.params._id, async  function (err, commission){
+      if(err) throw err;
+      
+      const user = await User.findOne({commissions: commission._id } , 'name profileImage').exec()
+      if(user){
+        let com = {
+          _id:commission._id ,
+          itemname:commission.commissionname , 
+          images: [commission.images],
+          description:commission.description,
+          slot:commission.slot,
+          price:commission.price,
+          category:commission.category,
+          sellername: user.name,
+          profileImage: user.profileImage.imageBase64
         }
+        return res.json({
+          commission: com
+        })
         
-    })
+      }
+  })
+  }catch(error){
+    console.log(error)
+    res.status(404).json({ 
+        error,
+        success: false, })
   }
+}
 
 const getAll =  (req, res, next) => {
+  try{
   Product.find({}, function (err, allProducts){
     if(err) throw err;
     Commission.find({}, async function (err, allCommissions){
@@ -157,6 +183,12 @@ const getAll =  (req, res, next) => {
     })
    
   })
+  }catch(error){
+    console.log(error)
+    res.status(404).json({ 
+        error,
+        success: false, })
+  }
 }
 
 module.exports = { 

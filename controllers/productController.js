@@ -149,6 +149,7 @@ const deleteProduct = async(req, res, next) => {
 
         //updates the user object data to the database 
         Product.findByIdAndRemove(req.body._id, function(err, result){
+            if(err) throw err;
             if(!err){
                 User.findByIdAndUpdate( req.params.id , { $pull: { products: result._id } })
                 .then((data)=>{

@@ -43,7 +43,6 @@ app.use(morgan('dev'))
 
 //app.use(bodyParser.json())
 
-
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
@@ -58,8 +57,6 @@ app.use((req, res, next) => {
   });
 
 app.post('/', (req,res) =>{})
-
-
 
 app.use('/auth', AuthRoute)
 app.use('/users', UserRoute)
@@ -83,8 +80,8 @@ app.use((req, res, next) => {
   });
 
 
-app.listen(3000, () => {
-    console.log("Listening to 3000");
+app.listen( process.env.PORT || 3000 ,  () => {
+    console.log("Listening to 3000 ", process.env.PORT);
 })
 
 

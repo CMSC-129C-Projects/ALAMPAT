@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+//update the schema for quantity attribute in items array
+
+
 const orderSchema = new Schema({
     _id: {
         type: mongoose.Schema.Types.ObjectId,

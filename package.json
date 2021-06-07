@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "async": "^3.2.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
@@ -19,6 +20,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.10.0",
     "get-age": "^1.0.1",
+    "heroku": "^7.54.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.5",
     "morgan": "^1.10.0",

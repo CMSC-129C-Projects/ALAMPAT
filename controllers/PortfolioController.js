@@ -19,6 +19,7 @@ const addArtwork = async(req, res, next) => {
 
             
             art.save(function(err, result){
+                if(err) throw err;
                 if(!err){
                 
                 User.findByIdAndUpdate( req.params.id , { $push: { portfolio: result._id } })
@@ -89,6 +90,24 @@ const getArtworkList = async(req, res, next) => {
     }
 }
 
+const getArtwork = (req, res, next) => {
+    try{
+    Portfolio.findById(req.params._id, async  function (err, art){
+        if(err) throw err;
+        
+        return res.json({
+            artwork: art
+        })
+          
+    })
+  } catch(error){
+    console.log(error)
+    res.status(404).json({ 
+        error,
+        success: false, })
+  }
+}
+
 const updateArtwork = async(req, res, next) => {
     try {
         
@@ -141,6 +160,7 @@ const deleteArtwork = async(req, res, next) => {
            
         //updates the user object data to the database 
         Portfolio.findByIdAndRemove(req.body._id, function(err, result){
+            if(err) throw err;
             if(!err){
                 User.findByIdAndUpdate( req.params.id , { $pull: { portfolio: result._id } })
                 .then((data)=>{
@@ -173,5 +193,5 @@ const deleteArtwork = async(req, res, next) => {
 
 
 module.exports = { 
-    addArtwork, getArtworkList, updateArtwork,deleteArtwork
+    addArtwork, getArtworkList, updateArtwork,deleteArtwork,getArtwork
 }
