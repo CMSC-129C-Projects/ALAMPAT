@@ -8,6 +8,7 @@ const buyerController = require('../controllers/BuyerController');
 const marketController = require('../controllers/MarketController');
 const marketController2 = require('../controllers/MarketController2');
 
+
 router.post('/:id/addtoCart/:_id', buyerController.addtoCart)
 router.get('/:id/getCart/', buyerController.getCartItems)
 router.delete('/:id/removeCartitem/', buyerController.deleteCartitem)
@@ -26,4 +27,8 @@ router.get('/productmarket2', marketController2.paginatedResults(Product) ,marke
 router.get('/commissionmarket2', marketController2.paginatedResults(Commission) ,marketController2.getCommissionList)
 router.get('/getCommission2/:_id', marketController2.getCommission)
 router.get('/getProduct2/:_id', marketController2.getProduct)
-module.exports = router;    
+
+module.exports = router;   
+
+   
+
