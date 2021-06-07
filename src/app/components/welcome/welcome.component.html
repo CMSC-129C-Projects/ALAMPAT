@@ -7,7 +7,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 30px;
   }
 
   .span-spaces {
@@ -16,18 +15,16 @@
   }
 </style>
 
-<section class="hero is-halfheight">
+<section class="hero is-halfheight is-paddingless">
   <!-- Navigation bar header -->
   <div class="hero-head">
-    <nav class="navbar">
+    <nav class="navbar has-shadow">
       <div class="container">
         <div class="navbar-brand">
           <a class="navbar-item">
-            <img src="assets/alampat-icon.ico" alt="hakdog" width="29">
+            <img src="assets/smologo.png" alt="hakdog" width="120">
           </a>
-          <span class="navbar-item">
-            ALAMPAT
-          </span>
+
           <span class="navbar-burger" data-target="navbarMenuHeroA">
             <span> </span>
             <span></span>
@@ -36,10 +33,15 @@
         </div>
         <div id="navbarMenuHeroA" class="navbar-menu">
           <div class="navbar-end">
+            <!--
             <a fragment="LogIn" (click)="navigateToLogin('LogIn')" class="navbar-item">
               Log In
             </a>
-            <a (click)="onClickSignUp()" class="navbar-item">
+            -->
+            <p class="navbar-item">
+              New to Alampat?
+            </p>
+            <a (click)="onClickSignUp()" class="navbar-item has-text-weight-medium">
               Sign Up
             </a>
           </div>
@@ -50,47 +52,52 @@
   </div>
 
   <!-- Hero content: will be in the middle -->
-  <div class="hero-body" id="alampat">
-    <div class="container has-text-centered has-text-weight-bold">
-      <p class="title is-size-1 is-family-primary">
+  <div class="hero-body py-6 is-paddingless" id="alampat">
+    <div class="container has-text-centered">
+      <p class="title is-size-2 has-text-weight-medium is-family-primary">
         Welcome to
       </p>
 
-      <figure class="image has-ratio">
-        <img src="assets/alogo.png">
+      <figure class="image has-ratio px-6 mx-3">
+        <img src="assets/logo.png">
       </figure>
 
-      <p class="subtitle is-italic">
+      <p class="subtitle has-text-weight-medium">
         "Where art flows from the heart."
       </p>
     </div>
+    <!-- Login form -->
+    <div class="mr-6 pr-6 pt-6" id = "LogIn" name = "LogIn">
+      <div class="box has-background-white-bis">
+        <app-login></app-login>
+        <!-- Sign Up button-->
+        <hr style="background-color: #e8e6e6">
+        <div class="card-container">
+          <span class="span-spaces">
+            <p class="subtitle is-6 has-text-centered mt-1">
+              Don't have an account yet?
+            </p>
+          </span>
+          <button (click)="onClickSignUp()" class="button is-small is-success is-outlined has-text-weight-bold">SIGN UP</button>
+        </div>
+      </div>
+     
+    </div>
   </div>
+
+  
 
 </section>
 
 <!-- Wave bg-->
-<div class="background-image">
-  <img src="assets/bg.png">
-</div>
-
-<!-- Login form -->
-<div id = "LogIn" name = "LogIn">
-  <app-login></app-login>
+<div class="background-image mt-4">
+  <img src="assets/waveebg.png">
 </div>
 
 
-<!-- Sign Up button-->
 
-<div class="card-container">
-  <span class="span-spaces">
-    <p class="subtitle is-10 has-text-centered pt-6">
-      Don't have an account yet?
-    </p>
-  </span>
-  <p class="mt-4 pt-5">
-  <button (click)="onClickSignUp()" class="button button is-success is-outlined ">Sign Up</button>
-</div>
-<div class="column is-4"></div>
+
+
 
 <app-contact [openRegisterModal]='showSignUp'></app-contact>
 
