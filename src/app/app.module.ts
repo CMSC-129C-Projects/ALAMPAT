@@ -14,7 +14,7 @@ import { AccountService } from './services/account';
 import { ProductService } from './services/productServ';
 import { UserService } from './services/auth';
 import { MarketService } from './services/market';
-import { CartService } from './services/cart';
+import { ReservationService } from './services/reservation';
 import { AuthGuard } from './auth.guard';
 
 import { AppComponent } from './app.component';
@@ -95,7 +95,7 @@ import { OrderbuyerComponent } from './components/accounts/buyer/orderbuyer/orde
     ProductService,
     AuthGuard,
     MarketService,
-    CartService,
+    ReservationService,
   
   ],
   bootstrap: [AppComponent]

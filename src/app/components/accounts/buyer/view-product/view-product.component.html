@@ -210,7 +210,7 @@
                                     [src]="prod_item.profileImage">
                                 </div>
                                 <div *ngIf="!prod_item.profileImage">
-                                    <img class="profileImage"  src= "assets/noimg.png" alt="">
+                                    <img class="profileImage"  src= "assets/noprofpic.png" alt="">
                                 </div>
                             </figure>
                         </div>
@@ -262,7 +262,7 @@
             <img [src]="imageSRC" alt="">
         </p>
         <p class= "image" *ngIf="!imageSRC">
-            <img  src= "assets/noprofpic.png" alt="">
+            <img  src= "assets/noimg.png" alt="">
         </p>
     </div>
     <button class="modal-close is-large" aria-label="close" (click)="onClickExit()"></button>

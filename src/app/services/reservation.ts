@@ -7,6 +7,7 @@ import { Observable, BehaviorSubject, Subject } from 'rxjs';
 
 
 const localAPI = 'https://alampat.herokuapp.com'
+const test_API = 'http://localhost:3000'
 
 interface uploadResponse {
     message: string;
@@ -18,7 +19,7 @@ interface uploadResponse {
     providedIn: 'root',
 })
 
-export class CartService {
+export class ReservationService {
     
     userID: string|null;
     prod_added: boolean
@@ -48,13 +49,14 @@ export class CartService {
         }
     }
 
-    addReservation = async (id: any) => {
+    addReservation = async (body: any) => {
         try {
             this.userID = localStorage.getItem('id')
 
-            const response = await axios.post<uploadResponse>(`${localAPI}/buyer/${this.userID}/addReservation/${id}`);
+           
+            const response = await axios.post<uploadResponse>(`${test_API}/buyer/${this.userID}/addReservation/`, body );
             const { message, result, success } = response.data
-            console.log("" + JSON.stringify(result))
+            console.log("Reservation" + JSON.stringify(result))
             if (success) {
                 this.prod_added = true;
             } else {
