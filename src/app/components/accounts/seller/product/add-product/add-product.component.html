@@ -35,7 +35,7 @@
                     <div class="control">
                         <div class="file is-primary is-fullwidth">
                             <label class="file-label">
-                                <input class="file-input" #addimage id= "addImage" type="file" accept="image/*" (change)="uploadFile($event)"
+                                <input class="file-input" #addimage id= "addImage" type="file" accept="image/*" (change)="uploadFile($event); addedimagesrc = ''"
                                     name="productImage" formControlName="productImage" placeholder="No file uploaded."
                                     required>
                                 <span class="file-cta">
@@ -68,9 +68,10 @@
                 </div>
                 <figure class="image">
                     <div *ngIf="percentage | async as pct">
-                        <progress [value]="pct" max="100"></progress>
-                        {{pct | number}} %
-
+                        <div *ngIf = "!addedimagesrc ">
+                            <progress [value] = "pct" max = "100"></progress>
+                            {{pct | number}} %
+                        </div>
                     </div>
                     <div *ngIf="snapshot | async as snap">
                         <img class="productImage" [src]="addedimagesrc">
@@ -183,7 +184,7 @@
                     <div class="control">
                         <div class="file is-primary is-fullwidth">
                             <label class="file-label">
-                                <input class="file-input" #editimage  id= "editImage" type="file" accept="image/*" (change)="uploadFile_edit($event)"
+                                <input class="file-input" #editimage  id= "editImage" type="file" accept="image/*" (change)="uploadFile_edit($event); imagesrc = ''"
                                     name="productImage" formControlName="productImage" placeholder="No file uploaded."
                                     required>
                                 <span class="file-cta">
@@ -214,9 +215,10 @@
                 </div>
                 <figure class="image">
                     <div *ngIf="percentage | async as pct">
-                        <progress [value]="pct" max="100"></progress>
-                        {{pct | number}} %
-
+                        <div *ngIf = "!imagesrc ">
+                            <progress [value] = "pct" max = "100"></progress>
+                            {{pct | number}} %
+                        </div>
                     </div>
                     <div *ngIf="snapshot | async as snap">
                         <img class="productImage" [src]="imagesrc">
