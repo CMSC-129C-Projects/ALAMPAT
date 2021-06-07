@@ -109,6 +109,9 @@ function paginatedResults(model){
                     } 
                     all.push(prod)
                     }
+                    else if(!user){
+                      res.status(404).json({ message: "Seller not found!" })
+                    }
         
                 }
             }
@@ -160,26 +163,25 @@ const getCommissionList = (req, res, next) => {
 
 const getProduct = (req, res, next) => {
   try{
-  Product.findById(req.params._id, async function (err, product){
-      if(err) throw err;
-      
-        
-      const user = await User.findOne({products: product._id } , 'name profileImage').exec()
-      if(user){
-        let prod = {
-          _id: product._id,
-          itemname: product.productname, 
-          images: [product.images],
-          description:product.description,
-          stock:product.stock,
-          price:product.price,
-          category:product.category,
-          sellername: user.name,
-          profileImage: user.profileImage.imageBase64
-        } 
-        return res.json({ product: prod})
-      }
-  })
+    Product.findById(req.params._id, async function (err, product){
+        if(err) throw err;
+
+        const user = await User.findOne({products: product._id } , 'name profileImage').exec()
+        if(user){
+          let prod = {
+            _id: product._id,
+            itemname: product.productname, 
+            images: [product.images],
+            description:product.description,
+            stock:product.stock,
+            price:product.price,
+            category:product.category,
+            sellername: user.name,
+            profileImage: user.profileImage.imageBase64
+          } 
+          return res.json({ product: prod})
+        }
+    })
   }catch(error){
     console.log(error)
     res.status(404).json({ 

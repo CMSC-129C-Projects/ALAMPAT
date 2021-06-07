@@ -7,13 +7,13 @@ const User = require('../models/user')
 const buyerController = require('../controllers/BuyerController');
 const marketController = require('../controllers/MarketController');
 const marketController2 = require('../controllers/MarketController2');
-
+const ReservationController = require('../controllers/ReservationController');
 
 router.post('/:id/addtoCart/:_id', buyerController.addtoCart)
 router.get('/:id/getCart/', buyerController.getCartItems)
 router.delete('/:id/removeCartitem/', buyerController.deleteCartitem)
 
-router.post('/:id/addReservation/:_id', buyerController.addReservation)
+router.post('/:id/addReservation/', ReservationController.addReservation)
 //router.get('/products', marketController.getCommissionList, marketController.getProductList)
 
 router.get('/market', marketController.getAll)

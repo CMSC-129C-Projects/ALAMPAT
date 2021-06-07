@@ -6,30 +6,49 @@ const Reserve = require('../models/reservations')
 const addReservation = async(req, res, next) => {
 
     try{
+        //getting the user id of the seller of the commission
+        const user = await User.findOne({commissions: req.body.service_id } , '_id').exec()
         let rese = new Reserve({
             _id: new ObjectId(),
-            service: req.body.service,
-            seller: req.body.seller,
-            buyer: req.body.buyer,
+            service: req.body.service_id,
+            seller: user._id,
+            buyer: req.params.id,
             reservationStatus: req.body.reservationstatus,
-        })        
+        })
+
         
+
          rese.save(function(err, result){
              if(!err){
-
-            User.findByIdAndUpdate( req.params.id, { $push:{ reservations: result._id}})
-                .then((result)=>{
-                    res.json({
-                        message:"Reservation Id added",
-                        success:true
-                    })          
-                }).catch((error)=>{
+            
+            //saving the commission in buyer's reservation
+            User.findByIdAndUpdate( req.params.id , { $push:{ reservation: result._id}})
+                .catch((error)=>{
                     res.status(400).json({
                         message:"Failed",
                         error: error,
                         success: false
                     })
                 })
+
+            //saving the commission in seller's reservation
+            User.findByIdAndUpdate(user._id, { $push:{ reservation: result._id}})
+            .catch((error)=>{
+                res.status(400).json({
+                    message:"Failed",
+                    error: error,
+                    success: false
+                })
+            })
+
+            
+            res.json({
+                message:"Reservation Id added",
+                result: result,
+                success: true
+            })          
+        
+
             }else{
                 res.json({
                     message: "Reservation already exists.",
@@ -80,15 +99,11 @@ const updateReservation = async(req, res, next) => {
     try {
         
             //creates a new user object together with the final image object
-            let rese = new Reserve ({
-                _id: new ObjectID(),
-                service: req.body.service,
-                seller: req.body.seller,
-                buyer: req.body.buyer,
+            let rese = {
                 reservationStatus: req.body.reservationstatus,
-            })
+            }
         //updates the user object data to the database 
-            Reserve.findByIdAndUpdate( req.params.reservationid , rese)
+            Reserve.findByIdAndUpdate( req.params.reservationid , { $set: rese})
                 .then((result) => {
                     //console.log(result)
                     res.json({
