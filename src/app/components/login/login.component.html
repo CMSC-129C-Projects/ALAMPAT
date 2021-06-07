@@ -1,12 +1,12 @@
 <div class="container has-text-centered" id="login">
-    <p class="title is-size-3 is-family-primary has-text-success-dark mb-5">
+    <p class="title is-size-4 is-family-primary has-text-weight-bold has-text-success-dark mb-3">
     Log In
     </p>
     
 </div>
 
 <div class="columns is-mobile is-centered">
-    <form [formGroup]="loginForm" (ngSubmit)="login()" class="box" style="width: 450px" novalidate autocomplete="false">
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="box is-shadowless has-background-white-bis" style="width: 380px" novalidate autocomplete="false">
     <div *ngIf="userService.showErrorMessage" class = "notification is-danger is-light has-text-centered">
         Invalid email and/or password. Please try again.
     </div>
@@ -47,12 +47,12 @@
 
     
 
-    <div class="field is-grouped is-grouped-right">
+    
         <div class="control">
-        <button (onClick) ="login()" class="button is-hovered is-success is-outlined" value="Log in" type="submit">
+        <button (onClick) ="login()" class="button is-fullwidth is-hovered is-success is-outlined" value="Log in" type="submit">
             LOG IN
         </button>
-    </div>
+   
     </div>
     </form>
 </div>
