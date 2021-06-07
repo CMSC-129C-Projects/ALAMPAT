@@ -59,7 +59,12 @@
                 <div class="tile is-3 is-child"><!--EMPTY SPACE--></div>
                 <div class="tile is-1 is-child">
                     <figure class="image">
-                        <img class="profileImage" [src]= "imageSRC">
+                        <div *ngIf = "imageSRC">
+                            <img class="profileImage" [src]= "imageSRC">
+                        </div>
+                        <div *ngIf = "!imageSRC">
+                            <img class="profileImage" src=  "assets/noprofpic.png">
+                        </div>
                     </figure>
                 </div>
                 <span>&nbsp;&nbsp;&nbsp;</span>
