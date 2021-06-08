@@ -1,7 +1,7 @@
 const Product = require('../models/products')
 const Commission = require('../models/commissions')
 const User = require('../models/user')
-const { search } = require('../routes/buyer')
+
 const asyncs =require('async');
 
 function paginatedResults(model){
