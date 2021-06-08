@@ -15,7 +15,7 @@ jobs:
           node-version: 16
 
       - name: Install Node.js dependencies
-        run: npm ci
+        run: npm i nyc
 
       - name: Run tests
         run: npm run test
