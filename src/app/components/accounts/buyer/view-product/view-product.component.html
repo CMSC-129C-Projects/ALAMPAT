@@ -71,7 +71,10 @@
 -->
 <div class="hero-body">
     <div class="columns is-centered is-multiline">
-        <div class="column is-one-third has-text-centered">
+        <div class="column is-1"></div>
+        <div class="column">
+            <article class="media">
+                <figure class="media-left">
         <!-- IMAGE SLIDESHOW -->            
 
             <div class="slideshow">
@@ -88,12 +91,13 @@
                 
                 <!-- FIRST IMAGE -->
                 <div class="slide_img" id="one">
-                    <div *ngIf="prod_item.images[0]?.imageBase64">
-                        <img style="object-fit: cover" [src] = "prod_item.images[0].imageBase64" (click)="onClickOpen(0)" alt="image">
-                    </div>
-                    
-                    <div *ngIf="!prod_item.images[0]?.imageBase64">
-                        <img class="object-fit_cover"  src= "assets/noimg.png" (click)="onClickOpen(0)" alt="">
+                    <div class="container">
+                        <div *ngIf="prod_item.images[0]?.imageBase64">
+                            <img style="height:414px; width:414px; object-fit:cover;" [src] = "prod_item.images[0].imageBase64" (click)="onClickOpen(0)" alt="image">
+                        </div>
+                        <div *ngIf="!prod_item.images[0]?.imageBase64">
+                            <img style="height:414px; width:414px; object-fit:cover;"  src= "assets/noimg.png" (click)="onClickOpen(0)" alt="">
+                        </div>
                     </div>
                     <label for="i10" class="prev">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
@@ -122,11 +126,10 @@
                 </div>
             </div>
 
-
-        </div>
+            </figure>
         &nbsp;&nbsp;
         <!-- COMMISSION DETAILS -->
-        <div class="column is-5">
+            <div class="media-content">
             <div class="block">
                 <!-- I suggest that there must be a character limit for the Item Name-->
                 <p class="text is-size-3 has-text-weight-bold" readonly>
@@ -238,6 +241,10 @@
                 </div>
             </div>
         </div>
+        </article>
+        
+    </div>
+    <div class="column is-1"></div>
     </div>
     <div class="columns is-centered is-multiline">
         <div class="column is-9">

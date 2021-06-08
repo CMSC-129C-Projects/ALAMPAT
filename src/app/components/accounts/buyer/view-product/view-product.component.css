@@ -28,6 +28,7 @@
         width: 12%;
         height: 12%;
         position: absolute;
+        text-align: center;
         top: 47%;
         z-index: 99;
         cursor: pointer;

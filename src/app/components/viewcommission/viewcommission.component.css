@@ -23,10 +23,11 @@
     }
 
     .prev, .next {
-        width: 12%;
+        width: 10%;
         height: 12%;
         position: absolute;
-        top: 47%;
+        text-align: center;
+        top: 46%;
         z-index: 99;
         cursor: pointer;
     }
