@@ -95,7 +95,8 @@ import { OrderdetailsbuyerComponent } from './components/accounts/buyer/orderdet
   ],
   exports: [
     WelcomeComponent,
-    
+    HeaderbuyerComponent,
+    FooterComponent,
   ],
   providers: [
     UserService,
