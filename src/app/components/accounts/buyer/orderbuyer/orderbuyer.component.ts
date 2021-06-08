@@ -122,39 +122,39 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
     this.orderdata = []
     if(tab_choice == "All"){
       
-      this.subs.push(
-        this.orderserv.getAlldata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
-        //this.marketdata = items
-        this.orderdata = items.data.all
-        this.totalRecords = items.data.totalitems
-        //this.page = items.data.currpage
-        //this.temp_list.next(this.marketdata)
-      })
-      )
+      // this.subs.push(
+      //   this.orderserv.getAlldata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
+      //   //this.marketdata = items
+      //   this.orderdata = items.data.all
+      //   this.totalRecords = items.data.totalitems
+      //   //this.page = items.data.currpage
+      //   //this.temp_list.next(this.marketdata)
+      // })
+      // )
       //this.marketdata.push(item)
     }
     else if( tab_choice == "Processing"){
-      this.subs.push(
-        this.orderserv.getProcessingdata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
-        //this.marketdata = items
-        this.orderdata = items.data.all
-        this.totalRecords = items.data.totalitems
-        //this.page = items.data.currpage
-        //this.temp_list.next(this.marketdata)
-      })
-      )
+      // this.subs.push(
+      //   this.orderserv.getProcessingdata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
+      //   //this.marketdata = items
+      //   this.orderdata = items.data.all
+      //   this.totalRecords = items.data.totalitems
+      //   //this.page = items.data.currpage
+      //   //this.temp_list.next(this.marketdata)
+      // })
+      // )
     }
 
     else if( tab_choice == "Completed"){
-      this.subs.push(
-        this.orderserv.getCompleteddata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
-        //this.marketdata = items
-        this.orderdata = items.data.all
-        this.totalRecords = items.data.totalitems
-        //this.page = items.data.currpage
-        //this.temp_list.next(this.marketdata)
-      })
-      )
+      // this.subs.push(
+      //   this.orderserv.getCompleteddata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
+      //   //this.marketdata = items
+      //   this.orderdata = items.data.all
+      //   this.totalRecords = items.data.totalitems
+      //   //this.page = items.data.currpage
+      //   //this.temp_list.next(this.marketdata)
+      // })
+      // )
     }
 
     else if( tab_choice == "Cancelled"){
