@@ -14,10 +14,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [15.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+#     strategy:
+#       matrix:
+#         node-version: [15.x]
+#         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
     - uses: actions/checkout@v2
@@ -30,14 +30,17 @@ jobs:
     - run: npm ci
     - run: npm run build
     - run: npm test
+      env:
+        CI: true
+ 
   windows-build:
 
     runs-on: windows-latest
 
-    strategy:
-      matrix:
-        node-version: [15.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+#     strategy:
+#       matrix:
+#         node-version: [15.x]
+#         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
     - uses: actions/checkout@v2
@@ -50,3 +53,6 @@ jobs:
     - run: npm ci
     - run: npm run build
     - run: npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+    
+      env:
+        CI: true
