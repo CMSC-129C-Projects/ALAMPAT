@@ -18,4 +18,4 @@ jobs:
         run: npm i nyc
 
       - name: Run tests
-        run: npm test -- --no-watch --no-progress #--browsers=ChromeHeadlessCI
+        run: npm run test #-- --no-watch --no-progress #--browsers=ChromeHeadlessCI
