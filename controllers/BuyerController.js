@@ -2,6 +2,7 @@ const User = require('../models/user')
 const Order  = require('../models/order')
 const Product = require('../models/products')
 const ObjectId = require("mongodb").ObjectID
+const Reserve = require('../models/reservations')
 //const mongoose = require('mongoose')
 
 const addtoCart = (req, res, next) => {
@@ -101,19 +102,19 @@ const deleteCartitem = async(req, res, next) => {
 }
 
 
-const addReservation = async(req, res, next) => {
+const updateReservation = async(req, res, next) => {
     try{
 
-        User.findByIdAndUpdate(req.params.id , { $push: { reservation: req.params._id } })
+        Reserve.findByIdAndUpdate(req.query.id , { $set: { reservationStatus: req.query.status } })
         .then((result) => {
             res.json({
-                message: 'Commission  added to Reservation successfully!',
-                result: result.reservation,
+                message: ' Reservation cancelled successfully!',
+                result: result,
                 success: true,
             })
         }).catch((error) =>{
             res.status(400).json({
-                message: 'Failed to add commission in Reservation',
+                message: 'Failed to cancel Reservation',
                 error: error,
                 success: false,
             })
@@ -123,12 +124,12 @@ const addReservation = async(req, res, next) => {
     
         console.log(error)
         res.status(404).json({ 
-            error,
+            error: error.message,
             success: false, })
     
     }
 }
 
 module.exports = { 
-   addtoCart, getCartItems, deleteCartitem, addReservation
+   addtoCart, getCartItems, deleteCartitem, updateReservation
 }

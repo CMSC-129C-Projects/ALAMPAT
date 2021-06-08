@@ -71,12 +71,57 @@ const addReservation = async(req, res, next) => {
 const getReservationList = async(req, res, next) => {
     try{
         const user = await User.findById(req.params.id)
-            .populate( 'reservations')
+            .populate({ 
+                path: 'reservation' , 
+                populate: [{
+                    path: 'service',
+                    select: 'images _id commissionname price'
+                    //model: 'Commissions'
+                },{
+                    path: 'seller',
+                    select: 'name _id'
+                }]
+        })
             
         if(user){
         //console.log(results);
         res.status(200).json({
-            reservationsArray: user.reservations
+            reservationsArray: user.reservation
+        })
+
+        }else{
+            res.status(400).json({
+                message: "Can't get reservation data",
+                error: err,
+                success: false,
+            })
+        }
+            
+    } catch(error){
+        console.log(error)
+        res.status(404).json({ 
+            error,
+            success: false, })
+    }
+}
+
+const getReservation = async(req, res, next) => {
+    try{
+        const reservation = await Reserve.findById(req.query.id)
+            .populate([{
+                    path: 'service',
+                    select: 'images _id commissionname price'
+                    //model: 'Commissions'
+                },{
+                    path: 'seller',
+                    select: 'name _id'
+                }]
+        )
+            
+        if(reservation){
+        //console.log(results);
+        res.status(200).json({
+            reserv_data: reservation
         })
 
         }else{
@@ -172,5 +217,9 @@ const deleteReservation = async(req, res, next) => {
 
 
 module.exports = { 
-    addReservation, getReservationList, updateReservation,deleteReservation
+    addReservation, 
+    getReservationList, 
+    updateReservation,
+    deleteReservation,
+    getReservation,
 }

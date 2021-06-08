@@ -14,6 +14,9 @@ router.get('/:id/getCart/', buyerController.getCartItems)
 router.delete('/:id/removeCartitem/', buyerController.deleteCartitem)
 
 router.post('/:id/addReservation/', ReservationController.addReservation)
+router.get('/:id/getReservationList/', ReservationController.getReservationList)
+router.get('/:id/getReservation/', ReservationController.getReservation)
+router.patch('/:id/cancelReservation/', buyerController.updateReservation)
 //router.get('/products', marketController.getCommissionList, marketController.getProductList)
 
 router.get('/market', marketController.getAll)
