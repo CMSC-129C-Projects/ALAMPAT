@@ -37,7 +37,7 @@
             <hr style="background-color:#e8e6e6">
             
             <!--------------- TABS ------------------->
-            <div class="tabs is-boxed is-centered" >
+            <div class="tabs is-boxed">
                 <ul>
                     <li class="is-active" data-target="commission-live">
                         <a>
@@ -59,7 +59,7 @@
                             </svg>
                             <i class="bi bi-exclamation-diamond"></i>
                             </span>
-                        <span>Sold Out</span>
+                        <span class="pr-6">Sold Out</span>
                         </a>
                     </li>
                 </ul>
@@ -77,8 +77,8 @@
                     <!-- <option disabled>Select Choice</option> -->
                         <option  value="--Select Choice--" hidden>--Select Choice--</option>
                         <option  value="Alphabetical">Alphabetical</option>
-                        <option  value="Date Created">Date Created</option>
-                        <option  value="Date Modified">Date Modified</option>
+                        <option  value="Date Created">Date Created (Oldest to Newest)</option>
+                        <option  value="Date Modified">Date Modified (Latest) </option>
 
                     <!-- <option *ngFor="let choice of Choices">{{ choice }}</option> -->
                     </select>
@@ -95,7 +95,12 @@
                             <div class="card"> 
                                 <a class="card-image">
                                     <figure class="image is-3by2" (click)="onClickOpen(item, i, 0)">
-                                        <img class="object-fit_cover" [src]= "item.images.imageBase64" alt="">
+                                        <div *ngIf="item.images?.imageBase64">
+                                            <img class="object-fit_cover" [src]= "item.images?.imageBase64" alt="">
+                                        </div>
+                                        <div *ngIf="!item.images?.imageBase64">
+                                            <img class="object-fit_cover"  src= "assets/noimg.png" alt="">
+                                        </div>
                                     </figure>
                                 </a>
                                 <div class="card-content">
@@ -127,7 +132,12 @@
                         <div class="card"> 
                             <a class="card-image">
                                 <figure class="image is-3by2" (click)="onClickOpen(item, i, 1)">
-                                    <img class="object-fit_cover" [src]= "item.images.imageBase64" alt="">
+                                    <div *ngIf="item.images?.imageBase64">
+                                        <img class="object-fit_cover" [src]= "item.images?.imageBase64" alt="">
+                                    </div>
+                                    <div *ngIf="!item.images?.imageBase64">
+                                        <img class="object-fit_cover"  src= "assets/noimg.png" alt="">
+                                    </div>
                                 </figure>
                             </a>
                             <div class="card-content">
@@ -154,15 +164,18 @@
     </div>
 </div>
 
-<app-commission-item [openAddServiceModal] = 'showAddServiceModal'></app-commission-item>
-<app-commission-item [openEditServiceModal] = 'showEditServiceModal'></app-commission-item>
+<app-commission-item [openAddServiceModal] = 'showAddServiceModal' (reload)="reloadPage($event)"></app-commission-item>
+<app-commission-item [openEditServiceModal] = 'showEditServiceModal' (reloadedit)="reloadPage($event)"></app-commission-item>
 
 <!-- IMAGE MODAL -->
 <div class="modal" [ngClass]="openImageModal ? 'is-active' : ''">
     <div class="modal-background" (click)="onClickExit()"></div>
     <div class="modal-content">
-        <p class="image">
+        <p class="image" *ngIf="imageSRC">
             <img [src]="imageSRC" alt="">
+        </p>
+        <p class= "image" *ngIf="!imageSRC">
+            <img class="object-fit_cover"  src= "assets/noimg.png" alt="">
         </p>
     </div>
     <button class="modal-close is-large" aria-label="close" (click)="onClickExit()"></button>

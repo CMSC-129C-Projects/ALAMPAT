@@ -1,13 +1,9 @@
 <style>
-    html {
-      scroll-behavior: smooth;
-    }
-
     .card-container {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      margin-top: 30px;
+      margin-top: 10px;
     }
   
     .span-spaces {
@@ -16,87 +12,147 @@
     }
 
     .profileImage {
-        height:64px;
-        width:64px;
+        height:80px;
+        width:80px;
         object-fit:cover;
         border-radius: 50%;
     }
+    
 </style>
 
 <app-headerbuyer></app-headerbuyer>
 
-<!-- PROFILE PICTURE and NAME-->
-<section>
-    <div class="container">
-        <div class="tile is-ancestor ">
-            <div class="tile is-8 is-parent">
-                <div class="tile is-3 is-child"><!--EMPTY SPACE--></div>
-                <div class="tile is-1 is-child">
-                    <figure class="image">
-                        <img class="profileImage" [src]= "imageSRC">
-                    </figure>
-                </div>
-                <span>&nbsp;&nbsp;&nbsp;</span>
-                <div class="tile is-5 is-child">
-                    <p class="title">
-                        {{user?.name}}
-                    </p>
-                    <p class="subtitle">
-                        <button class="button is-small is-rounded is-static"><strong>Buyer Account</strong></button>
-                    </p>
-                </div>
+<!------------ SIDEBAR MENU --------------->
+<section class="main-content columns is-fullheight">
+    <div class="column is-1"></div>
+    <aside class="column is-2 is-narrow-mobile is-fullheight section is-hidden-mobile has-background-success-light">
+        <br/>
+        <div class="column">
+            <div *ngIf = "imageSRC">
+                <img class="profileImage" [src]= "imageSRC">
+            </div>
+            <div *ngIf = "!imageSRC">
+                <img class="profileImage" src=  "assets/noprofpic.png">
+            </div>
+        </div>
+        <div class="column is-centered">
+            <p class="subtitle pt-2 has-text-weight-medium has-text-centered">
+                {{user?.name}}
+                <button class="button mt-2 is-small is-rounded is-static"><strong>Buyer Account</strong></button>
+            </p>
+        </div>
+       
+        <hr style="background-color:#e8e6e6">
+        <!--<p class="menu-label is-hidden-touch">Navigation</p>-->
+        
+        <ul class="menu-list">
+            <li>
+                <a class="is-active" data-target="account">
+                    View Account
+                </a>
+            </li>
 
-                <!-- EDIT BUTTON -->
-                <div class="tile is-5 is-child"><!--EMPTY SPACE--></div>
-                <div class="tile is-5 is child">
+            <li >
+                <a data-target="order"> My Order
+                </a>
+                <!--
+                <ul>
+                    <li>
+                        <a href="#"> Link1
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"> Link2
+                        </a>
+                    </li>
+                </ul> -->
+            </li>
+        </ul>
+    </aside>
+    
+    <!------------------- MY ACCOUNT ---------------------->
+    <div class="column is-8" id="menu-content">
+        <div class="section" id="account">
+            <div class="card-container">
+                <span class="span-spaces">
+                    <div class="title is-family-primary has-icons-left">
+                        My Profile
+                    </div>
+                </span>
+                <div class="container">
                     <div class="buttons is-right">
-                        <button (click)="onClickEditAccountBuyer();" class="button is-warning is-light is-small is-outlined">
+                        <button (click)="onClickEditAccountBuyer()" class="button is-warning is-light is-outlined">
                             <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                 <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                             </svg>
                             &nbsp;
-                            <strong>Edit</strong>
+                            <strong>Edit Profile
+                            </strong>
                             
                         </button>
                     </div>
                 </div>
             </div>
+            <p> &nbsp;Manage and protect your account</p>
+            <hr style="background-color:#e8e6e6">
+            <!-- PROFILE PICTURE and NAME-->
+            <div class="card is-shadowless">
+                <div class="card-content">
+                    <div class="content">
+                        <div class="columns is-mobile is-centered">
+                            <div class="block " style="width: 800px">
+                                <div class="field">
+                                    <label class="label ">Name</label>
+                                    <div class="control has-icons-left">
+                                        <textarea class="textarea has-fixed-size" rows="1" readonly>{{user?.name}}</textarea>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label ">Email Address</label>
+                                    <div class="control has-icons-left">
+                                        <textarea class="textarea has-fixed-size" rows="1" readonly>{{user?.email}}</textarea>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label ">Password</label>
+                                    <div class="control has-icons-left">
+                                        <input class="textarea has-fixed-size" rows="1" type="password" value="{{user?.password}}" readonly>
+                                    </div>
+                                </div>
+                                <label class="label ">Phone Number</label>
+                                <div class="control field has-addons">
+                                    <a class="button is-static">
+                                        +63
+                                    </a>
+                                    <p class="control is-expanded">
+                                        <textarea formControlName="phoneNumber" class="input has-fixed-size" type="phoneNumber" readonly>{{user?.phoneNumber}}</textarea>
+                                    </p>
+                                </div>
+                                <div class="field">
+                                    <label class="label ">Shipping Address</label>
+                                    <div class="control">
+                                        <textarea class="textarea" rows="1" readonly>{{user?.address}}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
         </div>
-    </div>
-</section>
+    
 
-<!-- ACCOUNT INFO -->
-<!-- info will most likely be linked from the database-->
-<section class="section">
-    <div class="columns is-mobile is-centered">
-        <div class="box" style="width: 800px">
-            <div class="field">
-                <label class="label ">Email Address</label>
-                <div class="control has-icons-left">
-                    <textarea class="textarea has-fixed-size" rows="1" readonly>{{user?.email}}</textarea>
-                </div>
-            </div>
-            <div class="field">
-                <label class="label ">Password</label>
-                <div class="control has-icons-left">
-                    <input class="textarea has-fixed-size" rows="1" type="password" value="{{user?.password}}" readonly>
-                </div>
-            </div>
-            <div class="field">
-                <label class="label ">Phone Number</label>
-                <div class="control">
-                    <textarea class="textarea has-fixed-size" rows="1" readonly>{{user?.phoneNumber}}</textarea>
-                </div>
-            </div>
-            <div class="field">
-                <label class="label ">Shipping Address</label>
-                <div class="control">
-                    <textarea class="textarea" rows="1" readonly>{{user?.address}}</textarea>
-                </div>
-            </div>
+    <!-------------------- ORDER SECTION ------------------------>  
+        <div class="section is-hidden" id="order">
+            <app-orderbuyer ></app-orderbuyer>
         </div>
     </div>
-</section>
+    
+  </section>
+
+
+
 
 <app-footer></app-footer>
 

@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, OnDestroy, EventEmitter,ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, Output, OnInit, OnDestroy, EventEmitter,ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Commission } from 'src/app/models/Commission';
 import { CommissionService } from 'src/app/services/comService';
@@ -28,13 +28,16 @@ interface commission {
   styleUrls: ['./commission-item.component.css']
 })
 
-export class CommissionItemComponent implements OnInit, OnDestroy {
+export class CommissionItemComponent implements OnChanges, OnDestroy {
   @Input() openAddServiceModal: boolean;
   @Input() openEditServiceModal: boolean;
   @Input() openSuccessModal: boolean;
-  @Output() reload: EventEmitter<boolean> = new EventEmitter(false)
-  @ViewChild('image') image: ElementRef
-
+  @Output() reload: EventEmitter<boolean> ;
+  @Output() reloadedit: EventEmitter<boolean>;
+  
+  @ViewChild('addimage') addimage: ElementRef
+  @ViewChild('editimage') editimage: ElementRef
+  
   saved: boolean = false;
   submitted: boolean = false;
   serviceForm: FormGroup;
@@ -66,20 +69,14 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
 
   constructor(private formBuilder: FormBuilder,
     private commissionService: CommissionService,
-    private afStorage: AngularFireStorage) { }
-  
-  ngOnInit(): void {
-    this.commissionService.getItemdata()
+    private afStorage: AngularFireStorage) {
+      this.reload = new EventEmitter(false);
+      this.reloadedit = new EventEmitter(false);
+     }
 
-    this.subscriptions = this.commissionService.comSource.asObservable().subscribe(currItem => {
-      this.service = currItem
-      this.imageSRC = this.service.images.imageBase64
-      this.initForm()
-    })
 
-    this.fileName = '';
-    this.imageSRC = '';
-
+  ngOnChanges(): void {
+    //this.commissionService.getItemdata()
     this.serviceForm = this.formBuilder.group ({
       commissionimage: this.formBuilder.group({
         filename: [''],
@@ -105,6 +102,17 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
       slot: ['', [Validators.required, Validators.min(1)]],
       price: ['', [Validators.required, Validators.min(1)]]
     });
+
+    this.subscriptions = this.commissionService.comSource.asObservable().subscribe(currItem => {
+      this.service = currItem
+      this.imageSRC = this.service.images.imageBase64
+      this.initForm()
+    })
+
+    this.fileName = '';
+    this.imageSRC = '';
+
+    
   }
 
   ngOnDestroy():void{
@@ -147,7 +155,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
         console.log("Here: " + JSON.stringify(this.url) );
       })
     )
-    this.image.nativeElement.value = null
+    this.editimage.nativeElement.value = null
   } 
   
   //upload file function for add forms
@@ -182,7 +190,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
         console.log("Here: " + JSON.stringify(this.url) );
       })
     )
-    this.image.nativeElement.value = null
+    this.addimage.nativeElement.value = null
   }
 
   //functions when the modal exits or cancels
@@ -197,9 +205,9 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
     this.reload.emit(true)
     if(this.openAddServiceModal) {
       this.commissionService.addswitch(false)
-      if(this.addedimageSRC){
-        this.afStorage.storage.refFromURL(this.addedimageSRC).delete();
-      }
+      // if(this.addedimageSRC){
+      //   this.afStorage.storage.refFromURL(this.addedimageSRC).delete();
+      // }
       this.percentage = new Observable()
       this.addedimageSRC = '';
       this.submitted = false;
@@ -207,9 +215,9 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
     }
     if(this.openEditServiceModal) {
       this.commissionService.editswitch(false)
-      if(this.imageSRC != this.prev_image && this.prev_image !=""){
-        this.afStorage.storage.refFromURL(this.imageSRC).delete();
-      }
+      // if(this.imageSRC != this.prev_image && this.prev_image !=""){
+      //   this.afStorage.storage.refFromURL(this.imageSRC).delete();
+      // }
       this.imageSRC = '';
       this.percentage = new Observable()
       this.saved = false;
@@ -243,7 +251,7 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
 
       this.commissionService.uploadItem(service);
       this.commissionService.getItemdata()
-      this.ngOnInit()
+      //this.ngOnInit()
       this.commissionService.addswitch(false)
       this.percentage = new Observable()
       this.snapshot = new Observable()
@@ -265,12 +273,14 @@ export class CommissionItemComponent implements OnInit, OnDestroy {
         if(this.imageSRC != this.prev_image && this.prev_image!=""){
           this.afStorage.storage.refFromURL(this.prev_image).delete();
         }
-        this.ngOnInit();
+        this.saved = true
+        //this.ngOnInit();
         this.percentage = new Observable()
         this.snapshot = new Observable()
         this.fileName = '';
         this.imageSRC = '';
         this.commissionService.editswitch(false)
+        this.reloadedit.emit(true)
       }
       else{
         this.initForm();

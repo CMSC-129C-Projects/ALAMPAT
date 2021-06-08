@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from 'src/app/services/productServ';
-import { Subscription } from 'rxjs';
+import { Subscription, BehaviorSubject } from 'rxjs';
 import {AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask} from '@angular/fire/storage';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SortService } from 'src/app/services/sortingService';
@@ -33,7 +33,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   sureDeleteModal: boolean = false;
   showed: boolean = false;
 
-  option: string = "" ;
+  option: string|null = "" ;
   sortForm: FormGroup
 
   @Input() productList: product[] = [];
@@ -41,7 +41,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
 
   imageSRC: any;
-  itemID: any;
+  itemID: string;
   item: any;
   index: any;
   products: any;
@@ -53,55 +53,18 @@ export class ProductsComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private sortserv: SortService,
     ) {
-    //Refresh
-    this.subs.push(
-      this.prodServ.refresh().subscribe((m:any) => {
-      this.prodServ.getProductdata()
-      console.log(m);
-      this.ngOnInit();
-      })
-    )
-    //Add
-    this.subs.push(
-      this.prodServ.showAddmodal.subscribe((x) => {
-        this.showAddProductModal = x
-      })
-    )
-    //Edit
-    this.subs.push(
-      this.prodServ.showEditmodal.subscribe((x) => {
-        this.showEditProductModal = x
-      })
-    )
+    
+    this.subscribebuttons()
   }
 
   ngOnInit(): void {
-    // /this.prodServ.getProductdata()
     
-    this.subs.push(
-      this.prodServ.productlist.asObservable().subscribe((prod) => {
-
-        this.soldoutList = [];
-        this.productList = []; 
-        prod.forEach((item:product) => {
-          if (item.stock == 0) {
-            this.soldoutList.push(item);
-          }
-          if(item.stock > 0) {
-            this.productList.push(item);
-          }
-        })
-        this.selectSortOption(this.option)
-        //this.productList = products.productsArray
-        //console.log("Products: " + JSON.stringify(this.productList))
-      }, (error) => {
-        console.log("Error", error)
-      })
-    )
-      //for sort Form
     this.sortForm = this.formBuilder.group({
       button: ['--Select Choice--']
     });
+    this.subscribeProducts()
+      //for sort Form
+   
 
     //For Tabs
     const tabs = document.querySelectorAll('.tabs li');
@@ -127,12 +90,36 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   get formControls() { return this.sortForm.controls; }
 
-  loadPage(option:string){
+  subscribeProducts(){
+    if("sort_prod" in localStorage){
+      this.sortForm.patchValue({
+        button: localStorage.getItem('sort_prod')
+      })
+      this.option = localStorage.getItem('sort_prod')
+    }
     
+    this.subs.push(
+      this.prodServ.getProductdata().subscribe( prods =>{
+        this.soldoutList = [];
+        this.productList = []; 
+        prods.data.productsArray.forEach((item:product) => {
+          if (item.stock == 0) {
+            this.soldoutList.push(item);
+          }
+          if(item.stock > 0) {
+            this.productList.push(item);
+          }
+        })
+        this.selectSortOption(this.option)
+        //this.productList = products.productsArray
+        //console.log("Products: " + JSON.stringify(this.productList))
+      })
+    )
   }
 
   ngOnDestroy(): void {
     this.subs.forEach(sub => sub.unsubscribe())
+    localStorage.removeItem('sort_prod')
   }
 
   onClickOpen(item: any, index: any, tabId: any) {
@@ -182,48 +169,59 @@ export class ProductsComponent implements OnInit, OnDestroy {
     
     this.prodServ.selectProduct(this.item);
     this.prodServ.deleteProductdata(this.itemID);
-    this.ngOnInit()
-    if(this.index !== -1) {
-      this.productList.splice(this.index, 1);
-    }
+    
+    this.productList.forEach(x =>{
+      if(this.itemID == x._id){
+        if(this.index !== -1) {
+          this.productList.splice(this.index, 1);
+        }
+      }
+    })
+    this.soldoutList.forEach(x =>{
+      if(this.itemID == x._id){
+        if(this.index !== -1) {
+          this.soldoutList.splice(this.index, 1);
+        }
+      }
+    })
+    
     this.openDeleteModal = false;
   }
 
   reloadPage(refresh: boolean){
     
     if(refresh == true){
-      this.prodServ.getProductdata()
+      this.subs.forEach(sub => sub.unsubscribe())
+      //this.prodServ.getProductdata()
       this.ngOnInit()
+      this.subscribebuttons()
     }
   }
 
   Orderby(event: Event){
     const option = event.target as HTMLInputElement
     this.option = option.value
-    this.prodServ.getProductdata()
-    this.subs.push(
-      this.prodServ.productlist.asObservable().subscribe((prod) => {
-
-        this.soldoutList = [];
-        this.productList = []; 
-        prod.forEach((item:product) => {
-          if (item.stock == 0) {
-            this.soldoutList.push(item);
-          }
-          if(item.stock > 0) {
-            this.productList.push(item);
-          }
-        })
-
-        this.selectSortOption(option.value)
-      }, (error) => {
-        console.log("Error", error)
-      })
-    )
+    localStorage.setItem('sort_prod', option.value)
+    this.subscribeProducts()
    
   }
 
-  selectSortOption(option:string){
+  subscribebuttons(){
+    //Add
+    this.subs.push(
+      this.prodServ.showAddmodal.subscribe((x) => {
+        this.showAddProductModal = x
+      })
+    )
+    //Edit
+    this.subs.push(
+      this.prodServ.showEditmodal.subscribe((x) => {
+        this.showEditProductModal = x
+      })
+    )
+  }
+
+  selectSortOption(option:string|null){
     if(option == "Alphabetical"){
       this.productList.sort(this.sortserv.getStrAscendingSortOrder("productname"))
       this.soldoutList.sort(this.sortserv.getStrAscendingSortOrder("productname"))

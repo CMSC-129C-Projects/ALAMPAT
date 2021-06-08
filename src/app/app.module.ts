@@ -7,11 +7,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire';
 
+import { NgxPaginationModule } from 'ngx-pagination'
+
 import { UploadService } from './services/upload';
 import { AccountService } from './services/account';
 import { ProductService } from './services/productServ';
 import { UserService } from './services/auth';
-
+import { MarketService } from './services/market';
+import { ReservationService } from './services/reservation';
 import { AuthGuard } from './auth.guard';
 
 import { AppComponent } from './app.component';
@@ -28,7 +31,8 @@ import { PortfolioComponent } from './components/accounts/seller/portfolios/port
 import { PortfolioArtworkComponent } from './components/accounts/seller/portfolios/portfolio-artwork/portfolio-artwork.component';
 import { ProductsComponent } from './components/accounts/seller/product/products/products.component';
 import { AddProductComponent } from './components/accounts/seller/product/add-product/add-product.component';
-
+import { ViewcommissionComponent } from './components/viewcommission/viewcommission.component';
+import { MarketplaceComponent } from './components/marketplace/marketplace.component'
 import { SellershopComponent } from './components/accounts/seller/sellershop/sellershop.component';
 
 import { CommissionComponent } from './components/accounts/seller/commissions/commission/commission.component';
@@ -36,12 +40,18 @@ import { CommissionItemComponent } from './components/accounts/seller/commission
 import { ViewProductComponent } from './components/accounts/buyer/view-product/view-product.component';
 import { ReservationsComponent } from './components/accounts/buyer/reservations/reservations.component';
 
+import { OrderbuyerComponent } from './components/accounts/buyer/orderbuyer/orderbuyer.component';
+import { OrderdetailsbuyerComponent } from './components/accounts/buyer/orderdetailsbuyer/orderdetailsbuyer.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
     FooterComponent,
     ContactComponent,
+    routingComponents,
+    MarketplaceComponent,
+    ViewcommissionComponent,
     MyaccountbuyerComponent,
     MyaccountsellerComponent,
     HeaderbuyerComponent,
@@ -53,13 +63,12 @@ import { ReservationsComponent } from './components/accounts/buyer/reservations/
     ProductsComponent,
     AddProductComponent,  
     SellershopComponent,
-    routingComponents,
     CommissionComponent,
     CommissionItemComponent,
     ViewProductComponent,
     ReservationsComponent,
-
-
+    OrderbuyerComponent,
+    OrderdetailsbuyerComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +85,9 @@ import { ReservationsComponent } from './components/accounts/buyer/reservations/
       measurementId: "G-M7VWRJ4WN7"
     }),
     AngularFireStorageModule,
+    NgxPaginationModule,
     RouterModule.forRoot([]),
+
   ],
   exports: [
     WelcomeComponent,
@@ -87,7 +98,9 @@ import { ReservationsComponent } from './components/accounts/buyer/reservations/
     UploadService,
     AccountService,
     ProductService,
-    AuthGuard
+    AuthGuard,
+    MarketService,
+    ReservationService,
   
   ],
   bootstrap: [AppComponent]

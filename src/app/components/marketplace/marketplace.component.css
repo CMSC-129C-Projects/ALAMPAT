@@ -1,0 +1,12 @@
+.starchecked {
+  color: orange;
+}
+
+.object-fit_cover {
+  object-fit: contain;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}

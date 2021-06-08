@@ -35,7 +35,7 @@
                     <div class="control">
                         <div class="file is-primary is-fullwidth">
                             <label class="file-label">
-                                <input class="file-input" #image type="file" accept="image/*" (change)="uploadFile($event)"
+                                <input class="file-input" #addimage id= "addImage" type="file" accept="image/*" (change)="uploadFile($event); addedimagesrc = ''"
                                     name="productImage" formControlName="productImage" placeholder="No file uploaded."
                                     required>
                                 <span class="file-cta">
@@ -68,9 +68,10 @@
                 </div>
                 <figure class="image">
                     <div *ngIf="percentage | async as pct">
-                        <progress [value]="pct" max="100"></progress>
-                        {{pct | number}} %
-
+                        <div *ngIf = "!addedimagesrc ">
+                            <progress [value] = "pct" max = "100"></progress>
+                            {{pct | number}} %
+                        </div>
                     </div>
                     <div *ngIf="snapshot | async as snap">
                         <img class="productImage" [src]="addedimagesrc">
@@ -110,13 +111,16 @@
                             <div class="control">
                                 <input class="textarea" [ngClass]="{'has-error': formControls.stock?.errors }"
                                     class="input" placeholder="Input product stocks" formControlName="stock"
-                                    type="number" min="1" max="100" required>
+                                    type="number" min="0" max="100" required>
                                 <div *ngIf="submitted || (formControls.stock?.touched || formControls.stock?.dirty) && formControls.stock?.errors"
                                     class="help is-danger">
                                     <div *ngIf="formControls.stock?.errors?.required">Stock for the product is required.</div>
                                     <div *ngIf="formControls.stock?.errors?.min">Stock cannot be less than 1</div>
                                 <div *ngIf="formControls.stock?.errors?.max">Stock cannot be more than 100</div>
                                 </div>
+                                <div *ngIf="formControls.stock?.errors?.min">Stock cannot be less than 0.</div>
+                                <div *ngIf="formControls.stock?.errors?.max">Stock cannot be more than 100.</div>
+
                             </div>
                         </div>
                     </div>
@@ -180,7 +184,7 @@
                     <div class="control">
                         <div class="file is-primary is-fullwidth">
                             <label class="file-label">
-                                <input class="file-input" #image type="file" accept="image/*" (change)="uploadFile_edit($event)"
+                                <input class="file-input" #editimage  id= "editImage" type="file" accept="image/*" (change)="uploadFile_edit($event); imagesrc = ''"
                                     name="productImage" formControlName="productImage" placeholder="No file uploaded."
                                     required>
                                 <span class="file-cta">
@@ -211,9 +215,10 @@
                 </div>
                 <figure class="image">
                     <div *ngIf="percentage | async as pct">
-                        <progress [value]="pct" max="100"></progress>
-                        {{pct | number}} %
-
+                        <div *ngIf = "!imagesrc ">
+                            <progress [value] = "pct" max = "100"></progress>
+                            {{pct | number}} %
+                        </div>
                     </div>
                     <div *ngIf="snapshot | async as snap">
                         <img class="productImage" [src]="imagesrc">
@@ -253,13 +258,13 @@
                             <div class="control">
                                 <input class="textarea" [ngClass]="{'has-error': formControls.stock?.errors }"
                                     class="input" placeholder="Input new product stocks" formControlName="stock"
-                                    type="number" min="1" max="100" required>
+                                    type="number" min="0" max="100" required>
                                 <div *ngIf="submitted || (formControls.stock?.touched || formControls.stock?.dirty) && formControls.stock?.errors"
                                     class="help is-danger">
                                     <div *ngIf="formControls.stock?.errors?.required">Stock for the product is required.
                                     </div>
                                 </div>
-                                <div *ngIf="formControls.stock?.errors?.min">Stock cannot be less than 1.</div>
+                                <div *ngIf="formControls.stock?.errors?.min">Stock cannot be less than 0.</div>
                                 <div *ngIf="formControls.stock?.errors?.max">Stock cannot be more than 100.</div>
                             </div>
                         </div>

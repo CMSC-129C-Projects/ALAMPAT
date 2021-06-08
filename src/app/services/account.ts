@@ -3,7 +3,7 @@ import axios from 'axios'
 import { User } from '../models/User'
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-const localAPI = 'http://localhost:3000'
+const localAPI = 'https://alampat.herokuapp.com'
 
 
 interface getUserResponse {

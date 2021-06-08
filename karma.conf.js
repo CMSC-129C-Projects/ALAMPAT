@@ -40,11 +40,19 @@ module.exports = function (config) {
     browsers: ['Chrome'],
     singleRun: false,
     restartOnFileChange: true,
-    // customLaunchers:{
+    failOnEmptyTestSuite: false,
+     customLaunchers:{
+      browsers: ['ChromeHeadlessCI'],
+      customLaunchers: {
+        ChromeHeadlessCI: {
+          base: 'ChromeHeadless',
+          flags: ['--no-sandbox']
+        }
+      }
     //   chromeHeadLessPuppeteer:{
     //     base: 'ChromeHeadless',
     //     flags: ['--no-sandbox', '--disable-gpu']
     //   }
-    // }
+     }
   });
 };

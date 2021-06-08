@@ -47,12 +47,33 @@ export class MyaccountbuyerComponent implements OnInit, OnDestroy {
     this.accountService.getUserdata()
     this.subs.push(this.accountService.user.subscribe((user)=>{
         this.user = user 
-        this.imageSRC = this.domSanitizer.bypassSecurityTrustUrl(this.user.profileImage?.imageBase64)
+        this.imageSRC = this.user.profileImage?.imageBase64
         //console.log("User image: " + JSON.stringify(this.imageSRC))
     }, (error) => {
         console.log("Error", error)
     })
     )
+
+    //For sidebar menu
+    const menu = document.querySelectorAll('.menu-list a');
+    const menuContent = document.querySelectorAll('#menu-content > div');
+
+    menu.forEach((m: any) => {
+      m.addEventListener('click', () => {
+        menu.forEach(item => item.classList.remove('is-active'))
+        m.classList.add('is-active');
+
+        const target = m.dataset.target;
+        menuContent.forEach( box => {
+          console.log(target);
+          if (box.getAttribute('id') == target) {
+            box.classList.remove('is-hidden');
+          } else {
+            box.classList.add('is-hidden');
+          }
+        });
+      })
+    })
   }
 
   ngOnDestroy(): void{

@@ -1,13 +1,10 @@
 <!--HEADER-->
-<section class="section">
-    <nav class="navbar is-white is-fixed-top">
+<section>
+    <nav class="navbar is-white is-fixed-top has-shadow">
         <div class="container">
             <div class="navbar-brand">
                 <a class="navbar-item">
-                    <img src="assets/alampat-icon.ico" alt="alampatIcon" width="29">
-                </a>
-                <a class="navbar-item ">
-                    ALAMPAT
+                    <img src="assets/smologo.png" alt="alampatIcon" width="120">
                 </a>
                 <span class="navbar-burger" data-target="navbarMenuHeroA">
                     <span> </span>
@@ -17,11 +14,8 @@
             </div>
             <div class="navbar-menu" id="navbarMenuHeroA">
                 <div class="navbar-end">
-                    <a class="navbar-item ">
+                    <a  (click)="GotoMarketPlace()" class="navbar-item ">
                         Marketplace
-                    </a>
-                    <a class="navbar-item ">
-                        Commissions
                     </a>
                     <div class="navbar-item has-dropdown is-hoverable is-right">
                         <a routerLink="/my-accounts-buyer" class="navbar-link ">
@@ -29,10 +23,10 @@
                         </a>
                         <div class="navbar-dropdown">
                             <a class="navbar-item">
-                                Hatdog
+                                View Account
                             </a>
                             <a class="navbar-item">
-                                Hamburjer
+                                My Order
                             </a>
                             <a (click) = "Logout()" class="navbar-item">
                                 Logout
@@ -43,4 +37,7 @@
             </div>
         </div>
     </nav>
+    <br/>
+    <br/>
+    <br/>
 </section>

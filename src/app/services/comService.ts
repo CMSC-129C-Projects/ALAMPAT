@@ -4,8 +4,9 @@ import { Commission } from '../models/Commission'
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
+import Axios from 'axios-observable';
 
-const localAPI = 'http://localhost:3000'
+const localAPI = 'https://alampat.herokuapp.com'
 
 interface uploadResponse {
     message: string;
@@ -20,18 +21,20 @@ interface uploadResponse {
 export class CommissionService {
     isUploaded: boolean = false;
     isDeleted: boolean = false;
-    userID: string = '607fe491958fa65f08f14d0e';
+    userID: string|null ;
     commissionID: string = '';
     uploadError: string = '';
 
-    comSource = new Subject<any>();
+    comSource: BehaviorSubject<any>;
     showAdd: EventEmitter<boolean> = new EventEmitter();
     showEdit: EventEmitter<boolean> = new EventEmitter();
     commission = new Subject<any>();
 
     constructor(private router:Router,
         private domSanitizer: DomSanitizer, 
-        ) { }
+        ) {
+                this.comSource = new BehaviorSubject<any>({})
+         }
     
     refresh(): Observable<any> {
         return this.comSource.asObservable();
@@ -51,6 +54,7 @@ export class CommissionService {
 
     uploadItem = async (commission: Commission) => {
         console.log('in get commission service')
+        this.userID = localStorage.getItem('id')
         try {
             const response = await axios.post<uploadResponse>(`${localAPI}/seller/${this.userID}/addcommission`, commission)
             const { message, success } = response.data
@@ -67,27 +71,30 @@ export class CommissionService {
         }
     }
     
-    getItemdata() {
+    getItemdata():Observable<any> {
         try {
-            axios.get(`${localAPI}/seller/${this.userID}/commission`)
-            .then(resp => {
-                this.commission.next(resp.data.commissionsArray)
+            this.userID = localStorage.getItem('id')
+            // axios.get(`${localAPI}/seller/${this.userID}/commission`)
+            // .then(resp => {
+            //     this.commission.next(resp.data.commissionsArray)
                 
-                console.log(this.commission);
-            })
-            .catch(err => {
-                console.log(err);
-            });
-            
+            //     console.log(this.commission);
+            // })
+            // .catch(err => {
+            //     console.log(err);
+            // });
+            return Axios.get(`${localAPI}/seller/${this.userID}/commission`)
 
         } catch (error) {
             console.log(error)
             this.uploadError = error
+            return error
         }
     }
     
     updateItemdata = async (commission: Commission, id: any ) => {
         try {
+            this.userID = localStorage.getItem('id')
             const response = await axios.patch(`${localAPI}/seller/${this.userID}/editcommission/${id}`, commission);
             const { message, success } = response.data
             //console.log(response.data)
@@ -114,6 +121,7 @@ export class CommissionService {
 
     deleteItemdata = async (id: any ) => {
         try {
+            this.userID = localStorage.getItem('id')
             const response = await axios.delete(`${localAPI}/seller/${this.userID}/removecommission/`,{data : { _id :id}});
             const { message, success } = response.data
             console.log(response.data)

@@ -28,12 +28,43 @@
 <!-- PROFILE PICTURE and NAME-->
 <section>
     <div class="container">
+        <div class="column is-10 is-offset-1">
+            <div class="card-container">
+                <span class="span-spaces">
+                    <div class="title is-family-primary has-icons-left">
+                        My Profile
+                    </div>
+                </span>
+                <div class="container">
+                    <div class="buttons is-right">
+                        <button (click)="onClickEditAccountSeller()" class="button is-warning is-light is-outlined">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                            </svg>
+                            &nbsp;
+                            <strong>Edit Profile
+                            </strong>
+                            
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <p> &nbsp;Manage and protect your account</p>
+            <hr style="background-color:#e8e6e6">
+        </div>
+        
+
         <div class="tile is-ancestor ">
             <div class="tile is-8 is-parent">
                 <div class="tile is-3 is-child"><!--EMPTY SPACE--></div>
                 <div class="tile is-1 is-child">
                     <figure class="image">
-                        <img class="profileImage" [src]= "imageSRC">
+                        <div *ngIf = "imageSRC">
+                            <img class="profileImage" [src]= "imageSRC">
+                        </div>
+                        <div *ngIf = "!imageSRC">
+                            <img class="profileImage" src=  "assets/noprofpic.png">
+                        </div>
                     </figure>
                 </div>
                 <span>&nbsp;&nbsp;&nbsp;</span>
@@ -46,16 +77,16 @@
                     </p>
                 </div>
 
-                <!-- EDIT BUTTON -->
-                <div class="tile is-5 is-child"><!--EMPTY SPACE--></div>
+                <!-- EDIT BUTTON 
+                <div class="tile is-5 is-child">EMPTY SPACE</div>
                 <div class="tile is-5 is child">
                     <div class="buttons is-right">
                         &nbsp; &nbsp;
-                        <button (click)="onClickEditAccountSeller();" class="button is-warning is-small is-light is-outlined">
+                        <button (click)="onClickEditAccountSeller()" class="button is-warning is-small is-light is-outlined">
                             <strong>Edit</strong>
                         </button>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -78,11 +109,14 @@
                     <input class="textarea has-fixed-size" rows="1" type="password"  maxlength="8" value="{{user?.password}}" readonly/>
                 </div>
             </div>
-            <div class="field">
-                <label class="label ">Phone Number</label>
-                <div class="control">
-                    <textarea class="textarea has-fixed-size" rows="1" maxlength ="10"readonly>{{user?.phoneNumber}}</textarea>
-                </div>
+            <label class="label ">Phone Number</label>
+            <div class="control field has-addons">
+                <a class="button is-static">
+                    +63
+                </a>
+                <p class="control is-expanded">
+                    <textarea formControlName="phoneNumber" class="input has-fixed-size" type="phoneNumber" readonly>{{user?.phoneNumber}}</textarea>
+                </p>
             </div>
             <div class="field">
                 <label class="label ">Seller Description</label>

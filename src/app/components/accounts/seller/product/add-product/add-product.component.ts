@@ -1,4 +1,4 @@
-import { Component, Input, OnInit,OnDestroy, Output,EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit,OnDestroy, Output,EventEmitter, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Products } from 'src/app/models/products';
 import { ProductService } from 'src/app/services/productServ';
@@ -26,13 +26,14 @@ interface product {
   styleUrls: ['./add-product.component.css']
 })
 
-export class AddProductComponent implements OnInit, OnDestroy {
+export class AddProductComponent implements OnChanges, OnDestroy {
   @Input() openAddProductModal: boolean;
   @Input() openEditProductModal: boolean;
   @Input() openSuccessModal: boolean;
-  @Output() reload: EventEmitter<boolean> = new EventEmitter(false)
-  @ViewChild('image') image: ElementRef
-
+  @Output() reload: EventEmitter<boolean> 
+  @Output() reloadedit: EventEmitter<boolean>
+  @ViewChild('addimage') addimage: ElementRef
+  @ViewChild('editimage') editimage: ElementRef
   submitted: boolean = false;
   productForm: FormGroup;
   editForm: FormGroup;
@@ -62,22 +63,15 @@ export class AddProductComponent implements OnInit, OnDestroy {
     private prodServ: ProductService,
     private afStorage: AngularFireStorage,
     ) {
-      this.imagesrc = ""
+      this.imagesrc = "";
+      this.reload =  new EventEmitter(false);
+      this.reloadedit =  new EventEmitter(false);
      }
 
-  ngOnInit(): void {
-    this.prodServ.getProductdata()
-
-    this.subs = this.prodServ.productSource.asObservable().subscribe(currProd =>{
-
-      this.prod = currProd
-      //this.fileName = this.artwork.images.filename
-      //this.imagesrc = this.prod.images.imageBase64
-      this.prev_image = this.prod.images.imageBase64
-      this.initForm()
-      console.log("Selected Product: " + JSON.stringify(this.prod))
-    })
-    
+  ngOnChanges(): void {
+    //this.prodServ.getProductdata()
+    const img = document.getElementById('editImage')
+    console.log("Selected img: " + img)
     this.productForm = this.formBuilder.group({
       productImage: this.formBuilder.group({
         filename: [''],
@@ -87,11 +81,11 @@ export class AddProductComponent implements OnInit, OnDestroy {
       category: ['Product'],
       productName: ['', Validators.required],
       productDescription: ['', Validators.required],
-      stock: ['', [Validators.required, Validators.min(1), Validators.max(1000)]],
-      price: ['', [Validators.required, Validators.min(1)]],
+      stock: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      price: ['', Validators.required],
       button: ['']
     });
-
+    
     this.editForm = this.formBuilder.group({
       productImage: this.formBuilder.group({
         filename: [''],
@@ -101,9 +95,21 @@ export class AddProductComponent implements OnInit, OnDestroy {
       category: ['Product'],
       productName: ['', Validators.required],
       productDescription: ['', Validators.required],
-      stock: ['', [Validators.required, Validators.min(1), Validators.max(1000)]],
-      price: ['', [Validators.required, Validators.min(1)]],
+      stock: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      price: ['', Validators.required],
+
     });
+
+    this.subs = this.prodServ.productSource.asObservable().subscribe(currProd =>{
+
+      this.prod = currProd
+      //this.fileName = this.artwork.images.filename
+      //this.imagesrc = this.prod.images.imageBase64
+      this.prev_image = this.prod.images.imageBase64
+      this.initForm()
+      //console.log("Selected Product: " + JSON.stringify(this.prod))
+    })
+   
   }
 
   get formControls() { return this.productForm.controls; }
@@ -144,11 +150,11 @@ export class AddProductComponent implements OnInit, OnDestroy {
         this.addedFileName = file.name
         
         this.addedimagesrc = this.url
-        
+        this.addimage.nativeElement.value = null
         console.log("Here: " + JSON.stringify(this.url) );
       })
     )
-    this.image.nativeElement.value = null
+    
   }
 
   //upload file function for editing product
@@ -182,11 +188,11 @@ export class AddProductComponent implements OnInit, OnDestroy {
         this.filename = file.name
         
         this.imagesrc = this.url
-        
+        this.editimage.nativeElement.value = null
         console.log("Here: " + JSON.stringify(this.url) );
       })
     )
-    this.image.nativeElement.value = null
+    
   }
 
   onClickExit = () => {
@@ -197,17 +203,17 @@ export class AddProductComponent implements OnInit, OnDestroy {
       this.productForm.reset()
       this.prodServ.addswitch(false)
       this.addedFileName = ''
-      if(this.addedimagesrc!=""){
-        this.afStorage.storage.refFromURL(this.addedimagesrc).delete();
-      }
+      // if(this.addedimagesrc){
+      //   this.afStorage.storage.refFromURL(this.addedimagesrc).delete();
+      // }
       this.addedFileName = ''
       this.addedimagesrc = ''
     }
     if(this.openEditProductModal) {
       this.editForm.reset()
-      if(this.imagesrc!== this.prev_image && this.imagesrc!=""){
-        this.afStorage.storage.refFromURL(this.imagesrc).delete();
-      }
+      // if(this.imagesrc!== this.prev_image && this.prev_image!=""){
+      //   this.afStorage.storage.refFromURL(this.imagesrc).delete();
+      // }
       this.imagesrc = '';
       this.prev_image = '';
       this.filename=""
@@ -218,6 +224,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
       this.openSuccessModal = false;
       this.submitted = false;
     }
+    //this.image.nativeElement.value = null
   }
   
 
@@ -241,12 +248,12 @@ export class AddProductComponent implements OnInit, OnDestroy {
     this.prodServ.uploadProduct(product);
     this.prodServ.addswitch(false)
     this.productForm.reset();
-    this.ngOnInit()
+    //this.ngOnInit()
     this.percentage = new Observable();
     this.snapshot = new Observable();
     this.addedFileName = '';
     this.addedimagesrc = '';
-    this.reload.emit(true)
+    //this.reload.emit(true)
     //this.userService.login(this.loginForm.value);
   }
   
@@ -261,12 +268,12 @@ export class AddProductComponent implements OnInit, OnDestroy {
       if (proddata) {
         //console.log("On Save Art: " + JSON.stringify(this.editForm))
         //this.portfolioForm.get('artowkimage')?.reset();
-        if(this.imagesrc != this.prev_image && this.imagesrc!=""){
+        if(this.imagesrc != this.prev_image && this.prev_image!=""){
           this.afStorage.storage.refFromURL(this.prev_image).delete();
         }
         //this.afStorage.storage.refFromURL(this.prev_image).delete();
         this.prev_image = '';
-        this.ngOnInit();
+        //this.ngOnInit();
         //this.portfolioForm.reset(); 
         this.saved = true
         this.percentage = new Observable()
@@ -274,7 +281,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
         this.filename = '';
         this.imagesrc = '';
         this.prodServ.editswitch(false)
-        this.reload.emit(true)
+        this.reloadedit.emit(true)
       }
       else{
         this.initForm();

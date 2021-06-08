@@ -1,0 +1,93 @@
+.slideshow {
+        margin: 0 auto;
+        position: relative;
+        background: 50% 50% no-repeat;
+        width: 414px;
+        height: 414px;
+        padding-bottom: 60%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .slide_img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    .slide_img img {
+        width: 100%;
+        height: 100%;
+    }
+
+    #i1, #i2, #i3, #i4, #i5, #i6, #i7, #i8, #i9, #i10 {
+        display: none;
+    }
+
+    .prev, .next {
+        width: 12%;
+        height: 12%;
+        position: absolute;
+        text-align: center;
+        top: 47%;
+        z-index: 99;
+        cursor: pointer;
+    }
+
+    .prev {
+        left: 0;
+    }
+
+    .next {
+        right: 0;
+    }
+
+    .navi {
+        width: 100%;
+        height: 11%;
+        bottom: 12%;
+        position: absolute;
+        text-align: center;
+        z-index: 99;
+        opacity: 0;
+    }
+
+    .dots {
+        top: -5px;
+        width: 18px;
+        height: 18px;
+        margin: 0 4px;
+        position: relative;
+        border-radius: 50%;
+        display: inline-block;
+        background: rgba(0,0,0,.6);
+    }
+
+    .slide_img {
+        z-index: -1;
+    }
+
+    #i1:checked ~ #one,
+    #i2:checked ~ #two,
+    #i3:checked ~ #three, 
+    #i4:checked ~ #four, 
+    #i5:checked ~ #five, 
+    #i6:checked ~ #six, 
+    #i7:checked ~ #seven, 
+    #i8:checked ~ #eight, 
+    #i9:checked ~ #nine, 
+    #i10:checked ~ #ten { 
+        z-index: 9;
+    }
+
+    .starchecked {
+        color: orange;
+    }
+
+    .profileImage {
+        height:64px;
+        width:64px;
+        object-fit:cover;
+        /* border: 1px solid rgb(0, 0, 0); */
+        border-radius: 50%;
+    }
