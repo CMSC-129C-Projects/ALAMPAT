@@ -38,7 +38,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   pagelimit: number = 12;
 
 
-  marketdata: item[];
+  marketdata: item[] = [];
   temp_list: BehaviorSubject<item[]>;
   
   subs: Subscription[] = [];
@@ -46,6 +46,8 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   price_min: EventTarget | null ;
   price_max: EventTarget | null ;
   reload: boolean
+
+  loading:boolean = false
 
   min: number;
   max: number
@@ -212,6 +214,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
         //this.marketdata = items
         this.marketdata = items.data.all
         this.totalRecords = items.data.totalitems
+        this.loading = true
         //this.page = items.data.currpage
         //this.temp_list.next(this.marketdata)
       })
@@ -224,12 +227,14 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
         //this.marketdata = items
         this.marketdata = items.data.all
         this.totalRecords = items.data.totalitems
+        this.loading = true
         //this.page = items.data.currpage
         //this.temp_list.next(this.marketdata)
       })
       )
 
     }
+    this.loading = false
     // else if(cat_choice == ''|| cat_choice == 'All' ){
     //   this.subs.push(
     //     this.marketserv.getallMarket().subscribe( (items: any[]) => {

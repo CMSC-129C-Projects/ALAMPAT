@@ -97,7 +97,7 @@ export class ReservationsComponent implements OnInit, OnDestroy{
     this.subs.push(
       this.reserv.getReservation(item_id).subscribe( reserv => {
         this.reservation = reserv.data.reserv_data
-        console.log("Reservation: " + JSON.stringify(this.reservation))
+        //console.log("Reservation: " + JSON.stringify(this.reservation))
       })
     )
   }

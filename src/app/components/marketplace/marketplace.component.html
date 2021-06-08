@@ -250,6 +250,7 @@
 <!-- SUGGESSTION: -->
 <!-- Item Name adn Description should only be limited to a number of characters -->
 <!-- to preserve the length of the item card, so it would look clean -->
+
 <div class="column is-10 is-offset-1 pt-5">
   <div class="columns is-multiline is-mobile">
     <div
@@ -383,7 +384,16 @@
 </div>
 <!-- </div> -->
 <!-- Pagination -->
-<section class="section is-centered">
+<section class="section is-centered"  *ngIf= "!loading">
+  <div>
+
+    <img  class = "center"  src= "assets/loading1.gif" alt="">
+    <p style="text-align:center;">
+      Loading...
+    </p>
+  </div>
+</section>
+<section class="section is-centered"  *ngIf= "loading">
   <nav
     class="pagination is-centered is-small is-rounded"
     role="navigation"
