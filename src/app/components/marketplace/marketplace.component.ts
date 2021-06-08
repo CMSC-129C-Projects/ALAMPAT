@@ -253,6 +253,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   changepmin(event:Event){
     const input = (event.target as HTMLInputElement).value
     this.pmin.next(input)
+    
   }
 
   changepmax(event:Event){
@@ -264,7 +265,10 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   ApplyPrice(){
     var p_min = this.pmin.value
     var p_max = this.pmax.value
-   
+
+    localStorage.setItem("p_min", p_min)
+    localStorage.setItem("p_max", p_max)
+
     this.page.next(1)
     localStorage.setItem("pagenum", String(this.page.value))
 
@@ -284,8 +288,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     this.pmax.next(String(max))
     console.log( "Value : " + min + "  " + max )
       
-    localStorage.setItem("p_min", String(min))
-    localStorage.setItem("p_max", String(max))
+    
     // this.marketdata = []
     this.load_wholemarket()
   
