@@ -26,8 +26,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install -g @angular/cli@latest
-    - run: npm i
-    - run: npm ci
+    - run: npm i nyc
     - run: npm run build
     - run: npm test
       env:
@@ -49,8 +48,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install -g @angular/cli@latest
-    - run: npm i    
-    - run: npm ci
+    - run: npm i nyc    
     - run: npm run build
     - run: npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
     
