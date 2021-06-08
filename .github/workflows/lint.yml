@@ -16,7 +16,7 @@ jobs:
 
       - name: Install Node.js dependencies
         run: npm ci
-        run: npm update
+             npm update
 
       - name: Run linters
         uses: wearerequired/lint-action@v1.9.0
