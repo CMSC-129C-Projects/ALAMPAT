@@ -41,6 +41,7 @@ import { ViewProductComponent } from './components/accounts/buyer/view-product/v
 import { ReservationsComponent } from './components/accounts/buyer/reservations/reservations.component';
 
 import { OrderbuyerComponent } from './components/accounts/buyer/orderbuyer/orderbuyer.component';
+import { CheckoutComponent } from './components/accounts/buyer/checkout/checkout.component';
 import { OrderdetailsbuyerComponent } from './components/accounts/buyer/orderdetailsbuyer/orderdetailsbuyer.component';
 
 @NgModule({
@@ -66,6 +67,8 @@ import { OrderdetailsbuyerComponent } from './components/accounts/buyer/orderdet
     CommissionComponent,
     CommissionItemComponent,
     ViewProductComponent,
+    OrderbuyerComponent,
+    CheckoutComponent
     ReservationsComponent,
     OrderbuyerComponent,
     OrderdetailsbuyerComponent

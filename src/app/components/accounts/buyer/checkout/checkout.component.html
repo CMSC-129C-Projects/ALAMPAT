@@ -1,0 +1,195 @@
+<style>
+    .limitedText {
+        white-space: nowrap;
+        overflow: hidden;
+        width: 440px; /* adjust according to the length you wish to limit the text */
+        text-overflow: ellipsis;
+    }
+
+    .previewImage {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+    }
+</style>
+
+<app-headerbuyer></app-headerbuyer>
+
+<!-- BACK ARROW -->
+<div class="container">
+    <nav class="breadcrumb is-small" aria-label="breadcrumbs">
+      <li>
+        <a>
+          <span class="icon is-small">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-caret-left-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"
+              />
+            </svg>
+            <i class="bi bi-caret-left-fill" aria-hidden="true"></i>
+          </span>
+          <span>Back</span>
+        </a>
+      </li>
+    </nav>
+    <div class="container"></div>
+  </div>
+
+<!-- TITLE -->
+<div class="hero">
+    <div class="columns is-mobile">
+        <div class="column is-10 is-offset-1">
+            <div class="card-container">
+                <span class="span-spaces">
+                    <div class="title is-family-primary has-icons-left">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-receipt-cutoff" viewBox="0 0 16 16">
+                            <path d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zM11.5 4a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
+                            <path d="M2.354.646a.5.5 0 0 0-.801.13l-.5 1A.5.5 0 0 0 1 2v13H.5a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1H15V2a.5.5 0 0 0-.053-.224l-.5-1a.5.5 0 0 0-.8-.13L13 1.293l-.646-.647a.5.5 0 0 0-.708 0L11 1.293l-.646-.647a.5.5 0 0 0-.708 0L9 1.293 8.354.646a.5.5 0 0 0-.708 0L7 1.293 6.354.646a.5.5 0 0 0-.708 0L5 1.293 4.354.646a.5.5 0 0 0-.708 0L3 1.293 2.354.646zm-.217 1.198.51.51a.5.5 0 0 0 .707 0L4 1.707l.646.647a.5.5 0 0 0 .708 0L6 1.707l.646.647a.5.5 0 0 0 .708 0L8 1.707l.646.647a.5.5 0 0 0 .708 0L10 1.707l.646.647a.5.5 0 0 0 .708 0L12 1.707l.646.647a.5.5 0 0 0 .708 0l.509-.51.137.274V15H2V2.118l.137-.274z"/>
+                        </svg>
+                        Checkout
+                    </div>
+                </span>
+            </div>
+            <hr style="background-color:#e8e6e6">
+        </div> 
+    </div>
+</div>
+
+<!-- CHECKOUT DETAILS -->
+    <!-- DELIVERY DETAILS-->
+<div class="columns is-centered is-mobile">
+    <div class="column is-2"></div> <!-- INSERT SIDE BAR HERE-->
+    <div class="column">
+        <div class="container">
+            <div class="text is-size-5 has-text-weight-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                    </svg>
+                Delivery Details
+            </div>&nbsp;
+            <div class="text is-size-6">
+                Customer Name: &nbsp;<strong>Earl John Tagalog</strong>
+            </div>
+            <div class="text is-size-6">
+                Phone Number: &nbsp;<strong>09123456789</strong>
+            </div>
+            <div class="text is-size-6">
+                Email Address: &nbsp;<strong>erlito2@gmail.com</strong>
+            </div>
+            <div class="text is-size-6">
+                Delivery Address: &nbsp;<strong>221B Baker St, Marylebone, London NW1 6XE, United Kingdom
+                </strong>
+            </div>
+        </div>
+    </div>
+    <div class="column is-2"></div> <!-- INSERT SIDE BAR HERE-->
+</div>
+
+<!-- ORDER DETAILS -->
+<div class="columns is-paddingless is-centered is-mobile">
+    <div class="column is-2"></div> <!-- SIDEBAR-->
+    <div class="column">
+        <div class="box">
+        <article class="media">
+            <div class="media-left">
+            <div class="container">
+                <img class="previewImage"
+                src="https://crystalplazagroup.com/wp-content/uploads/2016/11/placeholder-635x635.jpg"
+                alt="Image"
+                title="something"
+                />
+            </div>
+            </div>
+            <div class="media-content">
+                <div class="content">
+                    <p
+                    class="limitedText has-text-weight-bold is-size-4 is-marginless"
+                    readonly
+                    >
+                    Item Name
+                    </p>
+                    
+                    <div class="block">
+                        <div class="text is-size-6" readonly>
+                            Seller Name:
+                            <a class="tag is-white is-light has-text-weight-bold is-small">
+                            Name of the Seller
+                            </a>
+                        </div>
+                        <div class="text is-size-6" readonly>
+                            Category: 
+                            <!-- NGIF -->
+                            <div
+                            class="tag is-link is-light has-text-weight-bold is-small">
+                            Product
+                            </div>
+                            <!-- <div
+                            class="tag is-danger is-light has-text-weight-bold is-small">
+                            Commission
+                            </div> -->
+                        </div>
+                        <div class="text is-size-6" readonly>
+                            Quantity:&nbsp;
+                            <input class="input is-small is-warning" style="width: 48px; height: 24px; margin-top: 3px" type="text" placeholder="Enter">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- RIGHT SIDE -->
+            <div class="media-right">
+            <p
+                class="
+                    text
+                    has-text-primary
+                    is-size-4
+                    has-text-weight-bold
+                    is-marginless
+                "
+                readonly
+                >
+                ₱ 351.00
+                </p>
+            </div>
+        </article>
+        </div>
+    </div>
+    <div class="column is-2"></div> <!-- INSERT SIDE BAR HERE-->
+</div>
+
+<div class="column">&nbsp;</div> <!-- just a regular empty space here -->
+
+<div class="block has-background-info-light">
+    <div class="columns is-centered is-mobile">
+        <div class="column is-2"></div> <!-- INSERT SIDE BAR HERE-->
+        <div class="column">
+            <div class="block">
+                <div class="text is-size-6 has-text-right">
+                    Order Amount: <strong>₱ 351.00</strong>
+                </div>
+                <div class="text is-size-6 has-text-right">
+                    Shipping Fee: <strong>₱ 69.00</strong>
+                </div>
+                <div class="text is-size-4 has-text-danger-dark has-text-weight-bold has-text-right">
+                    TOTAL AMOUNT: ₱ 420.00
+                </div>
+                &nbsp;
+                <div class="block has-text-right">
+                    <button class="button is-fullwidth is-info is-medium has-text-weight-bold">
+                        PLACE ORDER
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="column is-2"></div>
+    </div>
+</div>
+
+<app-footer></app-footer>
