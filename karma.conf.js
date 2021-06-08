@@ -40,19 +40,31 @@ module.exports = function (config) {
     browsers: ['Chrome'],
     singleRun: false,
     restartOnFileChange: true,
-    failOnEmptyTestSuite: false,
-     customLaunchers:{
-      browsers: ['ChromeHeadlessCI'],
-      customLaunchers: {
-        ChromeHeadlessCI: {
-          base: 'ChromeHeadless',
-          flags: ['--no-sandbox']
-        }
+    //failOnEmptyTestSuite: false,
+    customLaunchers: {
+      ChromeHeadlessCustom: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox', '--disable-gpu']
       }
+    },
+    //customLaunchers:{
+    //  browsers: ['ChromeHeadless'],
+    //  customLaunchers: {
+    //    ChromeHeadless: {
+    //      base: 'Chrome',
+    //      flags: [
+    //        '--headless',
+    //        '--disable-gpu',
+    //        '--no-sandbox',
+    //        '--remote-debugging-port=9222',
+    //      ]
+    //    },
+        //singleRun: true
+    //  }
     //   chromeHeadLessPuppeteer:{
     //     base: 'ChromeHeadless',
     //     flags: ['--no-sandbox', '--disable-gpu']
     //   }
-     }
+    // }
   });
 };

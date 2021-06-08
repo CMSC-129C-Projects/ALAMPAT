@@ -14,8 +14,8 @@ jobs:
         with:
           node-version: 16
 
-      - name: Install Node.js dependencies
-        run: npm ci
+      - name: Install Node modules and dependencies
+        run: npm i nyc
 
       - name: Run tests
-        run: npm run test
+        run: npm run test #-- --no-watch --no-progress #--browsers=ChromeHeadlessCI
