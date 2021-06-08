@@ -68,7 +68,7 @@ import { OrderdetailsbuyerComponent } from './components/accounts/buyer/orderdet
     CommissionItemComponent,
     ViewProductComponent,
     OrderbuyerComponent,
-    CheckoutComponent
+    CheckoutComponent,
     ReservationsComponent,
     OrderbuyerComponent,
     OrderdetailsbuyerComponent
