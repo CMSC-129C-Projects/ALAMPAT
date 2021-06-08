@@ -39,8 +39,12 @@ import { SellershopComponent } from './components/accounts/seller/sellershop/sel
 import { CommissionComponent } from './components/accounts/seller/commissions/commission/commission.component';
 import { CommissionItemComponent } from './components/accounts/seller/commissions/commission-item/commission-item.component';
 import { ViewProductComponent } from './components/accounts/buyer/view-product/view-product.component';
+import { ReservationsComponent } from './components/accounts/buyer/reservations/reservations.component';
+
 import { OrderbuyerComponent } from './components/accounts/buyer/orderbuyer/orderbuyer.component';
+import { CheckoutComponent } from './components/accounts/buyer/checkout/checkout.component';
 import { OrderdetailsbuyerComponent } from './components/accounts/buyer/orderdetailsbuyer/orderdetailsbuyer.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,8 +69,10 @@ import { OrderdetailsbuyerComponent } from './components/accounts/buyer/orderdet
     CommissionItemComponent,
     ViewProductComponent,
     OrderbuyerComponent,
+    CheckoutComponent,
+    ReservationsComponent,
+    OrderbuyerComponent,
     OrderdetailsbuyerComponent
-
   ],
   imports: [
     BrowserModule,
