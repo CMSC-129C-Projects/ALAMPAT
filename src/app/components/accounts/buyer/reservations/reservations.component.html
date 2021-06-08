@@ -13,7 +13,7 @@
 <div class="container">
   <nav class="breadcrumb is-small" aria-label="breadcrumbs">
     <li>
-      <a>
+      <a routerLink="/marketplace">
         <span class="icon is-small">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -63,18 +63,20 @@
 </div>
 
 <!-- RESERVED ITEMS -->
-<div class="columns is-centered is-mobile">
-  <!-- *ngFor="let item of reservationsList; index as i"> -->
+<div class="columns is-centered is-mobile" *ngFor="let item of reserv_List; index as i">
+
   <div class="column is-2"></div>
   <div class="column">
     <div class="box">
       <article class="media">
         <div class="media-left">
           <figure class="image is-100x100">
-            <img
-              src="https://bulma.io/images/placeholders/128x128.png"
-              alt="Image"
-            />
+            <div *ngIf="item.service.images?.imageBase64">
+              <img class="object-fit_cover" [src]= "item.service.images?.imageBase64" alt="">
+            </div>
+            <div *ngIf="!item.service.images?.imageBase64">
+                <img class="object-fit_cover"  src= "assets/noimg.png" alt="">
+            </div>
             <!-- <img class="object-fit_cover" [src]= "item.images.imageBase64" alt=""> -->
           </figure>
         </div>
@@ -85,7 +87,8 @@
               readonly
             >
               <!-- notice the class limitedText, when the text is too long, it ends with "..." -->
-              This happens if text is too long weeeeeeeeeeeeeeee
+              <!-- Commission title -->
+              {{item.service.commissionname}}
             </p>
             <p
               class="
@@ -97,13 +100,15 @@
               "
               readonly
             >
-              ₱ 150.00
+              <!-- Price -->
+              {{item.service.price}}
             </p>
             <div class="block">
               <div class="text is-size-6" readonly>
                 Seller Name:
                 <a class="tag is-white is-light has-text-weight-bold is-small">
-                  Name of the Seller
+                <!-- Name of the Seller -->
+                {{item.seller.name}}
                 </a>
               </div>
               <div class="text is-size-6" readonly>
@@ -112,7 +117,8 @@
                 <div
                   class="tag is-warning is-light has-text-weight-bold is-small"
                 >
-                  Waiting for Seller's Approval
+                  <!-- Waiting for Seller's Approval -->
+                  {{item.reservationStatus}}
                 </div>
                 <!-- NGIF part
                                 <div class="tag is-success has-text-weight-bold is-small">
@@ -130,7 +136,7 @@
         <div class="media-right">
           <!-- NGIF -->
           <button
-            (click)="onClickInfo()"
+            (click)="onClickInfo(item._id)"
             class="button is-primary has-text-weight-bold"
           >
             See Reservation Info
@@ -148,6 +154,7 @@
     </div>
   </div>
   <div class="column is-2"></div>
+  
 </div>
 
 <!-- VIEW RESERVATION MODAL -->
@@ -165,10 +172,12 @@
       <article class="media">
         <div class="media-left">
           <figure class="image">
-            <img
-              src="https://bulma.io/images/placeholders/128x128.png"
-              alt="Image"
-            />
+            <div *ngIf="reservation.service.images?.imageBase64">
+              <img class="object-fit_cover" [src]= "reservation.service.images?.imageBase64" alt="">
+            </div>
+            <div *ngIf="!reservation.service.images?.imageBase64">
+                <img class="object-fit_cover"  src= "assets/noimg.png" alt="">
+            </div>
             <!-- <img class="object-fit_cover" [src]= "item.images.imageBase64" alt=""> -->
           </figure>
         </div>
@@ -178,7 +187,8 @@
               class="text has-text-weight-bold is-size-4 is-marginless"
               readonly
             >
-              Commission Name
+              <!-- Commission Name -->
+              {{reservation.service.commissionname}}
             </p>
             <p
               class="
@@ -190,13 +200,15 @@
               "
               readonly
             >
-              ₱ 150.00
+              <!-- Price -->
+              {{reservation.service.price}}
             </p>
             <div class="block">
               <div class="text is-size-6" readonly>
                 Seller Name:
                 <a class="tag is-white is-light has-text-weight-bold is-small">
-                  Name of the Seller
+                  <!-- Name of the Seller -->
+                  {{reservation.seller.name}}
                 </a>
               </div>
               <div class="text is-size-6" readonly>
@@ -204,7 +216,8 @@
                 <div
                   class="tag is-warning is-light has-text-weight-bold is-small"
                 >
-                  Waiting for Seller's Approval
+                  <!-- Waiting for Seller's Approval -->
+                  {{reservation.reservationStatus}}
                 </div>
                 <!-- NGIF part
                                 <div class="tag is-success has-text-weight-bold is-small">
@@ -236,9 +249,12 @@
         <button class="button is-link has-text-weight-bold">
           Proceed To Checkout
         </button> -->
-        <button class="button is-danger has-text-weight-bold">
+       
+        <button *ngIf = "reservation.reservationStatus != 'Cancelled'" class="button is-danger has-text-weight-bold" (click)="onCancellation(reservation._id)">
           Cancel Reservation
         </button>
+        
+        
       </div>
     </footer>
   </div>

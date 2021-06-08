@@ -37,7 +37,7 @@ const routes: Routes = [
   { path: 'commission-item', component: ViewcommissionComponent },
   { path: 'product-item', component: ViewProductComponent }, //wala pa na connect sa object na naas marketplace
 
-  
+  { path: 'reservation', component: ReservationsComponent, canActivate:[AuthGuard]},
   { path: 'notfound', component: NoPageFoundComponent},
   { path: '**', redirectTo:'notfound' }
 ];

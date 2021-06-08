@@ -403,6 +403,12 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     //   this.router.navigate(['/marketplace/' ])
     // }
   }
+
+  GotoReservation(){
+    if(localStorage.getItem('userType') == 'buyer' && localStorage.getItem('isloggedIn') == 'true'){
+      this.router.navigate(['/reservation/'])
+    }
+  }
 }
 
 

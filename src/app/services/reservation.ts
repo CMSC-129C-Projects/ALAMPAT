@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter, } from '@angular/core';
 import axios from 'axios'
-
+import Axios from 'axios-observable';
 import { Router } from '@angular/router';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 
@@ -69,6 +69,27 @@ export class ReservationService {
         }
     }
 
+    getReservationList (): Observable<any>{
+        this.userID = localStorage.getItem('id')
+        return Axios.get(`${test_API}/buyer/${this.userID}/getReservationList`)
+    }
+
+    getReservation(res_id: string): Observable<any>{
+        this.userID = localStorage.getItem('id')
+        return Axios.get(`${test_API}/buyer/${this.userID}/getReservation?id=${res_id}`)
+    }
+
+    cancelReservation = async (res_id: string) => {
+        try{
+            this.userID = localStorage.getItem('id')
+            const response = await axios.patch(`${test_API}/buyer/${this.userID}/cancelReservation?id=${res_id}&status=Cancelled`)
+            console.log("Response: " + response.data.message)
+        }
+        catch(error){
+            console.error("Error: " + error)
+        }
+        
+    }
     // updateProductdata = async (product: Products, id: any) => {
     //     try {
     //         this.userID = localStorage.getItem('id')
