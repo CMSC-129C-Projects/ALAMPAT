@@ -7,8 +7,6 @@ import Axios from 'axios-observable';
 
 interface item {
     _id?: string;
-    // productname?: string;
-    // commissioname?:string;
     itemname:string;
     description: string;
     stock?: number;
@@ -22,7 +20,8 @@ interface item {
     category:string;
     sellername?: string;
     profileImage?: string;
-  }
+    status: string;
+}
 
 const localAPI = 'https://alampat.herokuapp.com'
 const test_API = 'http://localhost:3000'
@@ -31,66 +30,57 @@ const test_API = 'http://localhost:3000'
     providedIn: 'root',
 })
 
-export class MarketService {
-    market: BehaviorSubject<any> ;
+@Injectable({
+    providedIn: 'root',
+})
+
+export class OrderService {
+    order: BehaviorSubject<any> ;
     item: BehaviorSubject<item>
-    // artSource = new Subject<any>();
-    // //currArt = this.artSource.asObservable();
-    // //currArt: EventEmitter<any> = new EventEmitter();
-    // //portfolio: EventEmitter<any> = new EventEmitter();
-    // showAdd: EventEmitter<boolean> = new EventEmitter();
-    // showEdit: EventEmitter<boolean> = new EventEmitter();
-    // portfolio = new Subject<any>();
-    // //error: EventEmitter<any> = new EventEmitter();
     reload: EventEmitter<boolean> ;
 
-    constructor(
-        ) {
-           this.market = new BehaviorSubject<any>([])
-           this.setItem()
-           this.reload = new EventEmitter<boolean>(true)
-           //this.getMarketdata()
-           localStorage.setItem('reload', "true")
-           //localStorage.setItem('curr_category', "All")
-         }
+    constructor() {
+        this.order = new BehaviorSubject<any>([])
+        this.reload = new EventEmitter<boolean>(true)
+    }
     
-    public get marketValue(): any {
-        
-        return this.market.value;
+    public get orderValue(): any {
+        return this.order.value;
     }
 
-    setItem(){
-        this.item = new BehaviorSubject<item>({
-            _id: '',
+    //setItem(){
+    //    this.item = new BehaviorSubject<item>({
+    //        _id: '',
             // productname?: string;
             // commissioname?:string;
-            itemname:'',
-            description: '',
-            stock: 0,
-            slot: 0,
-            price: 0,
-            images: {
-              filename: '',
-              contentType: '',
-              imageBase64: '',
-            },
-            category:'',
-            sellername: '',
-            profileImage: '',
-           })
-    }
+    //        itemname:'',
+    //        description: '',
+    //        stock: 0,
+    //        slot: 0,
+    //        price: 0,
+    //        images: {
+    //          filename: '',
+    //         contentType: '',
+    //          imageBase64: '',
+    //        },
+    //        category:'',
+    //        sellername: '',
+    //        profileImage: '',
+    //       })
+    //}
+
     editReload(reload:boolean){
         this.reload.emit(reload)
     }
     
-    setmarket(){
-        this.market.next([])
+    setorder(){
+        this.order.next([])
     }
 
-    getallMarket(): Observable<any>{
-        //this.market = new BehaviorSubject<any>([])
-        this.getallMarketdata()
-        return this.market.asObservable()
+    getallOrder(): Observable<any>{
+        //this.order = new BehaviorSubject<any>([])
+        this.getallOrderdata()
+        return this.order.asObservable()
     }   
 
     // getproductMarket(): Observable<any>{
@@ -115,13 +105,13 @@ export class MarketService {
         return this.item.asObservable()
     }  
 
-    getallMarketdata() {
+    getallOrderdata() {
         
-        axios.get(`${localAPI}/buyer/market`)
+        axios.get(`${localAPI}/buyer/order`)
         .then(resp => {
-            this.market.next([])
+            this.order.next([])
             if(resp.status === 200){
-                this.market.next(resp.data.all)
+                this.order.next(resp.data.all)
             }
             
         })
@@ -131,10 +121,10 @@ export class MarketService {
         });
     
     }
-
-    getProductMarketdata(pg:any, limit:any, sortby:any, min:any, max:any, word:any): Observable<any>  {
+    //For ALL TAB
+    getAlldata(pg:any, limit:any, status:any): Observable<any>  {
     
-        return Axios.get(`${localAPI}/buyer/productmarket2?page=${pg}&limit=${limit}&sort=${sortby}&p_min=${min}&p_max=${max}&s_word=${word}`)
+        return Axios.get(`${localAPI}/buyer/productmarket2?page=${pg}&limit=${limit}&status=${status}`)
         // axios.get(`${localAPI}/buyer/productmarket`)
         // .then(resp => {
         //     this.market.next([])
@@ -152,32 +142,25 @@ export class MarketService {
         //     console.log(err);
         //     //return err
         // });
-    
+    }
+    //FOR PROCESSING TAB
+    getProcessingdata(pg:any, limit:any, status:any): Observable<any>  {
+        return Axios.get(`${localAPI}/buyer/productmarket2?page=${pg}&limit=${limit}&status=${status}`)
     }
 
-    getCommissionMarketdata(pg:any, limit:any, sortby:any, min:any, max:any, word:any): Observable<any> {
-        
-        return Axios.get(`${localAPI}/buyer/commissionmarket2?page=${pg}&limit=${limit}&sort=${sortby}&p_min=${min}&p_max=${max}&s_word=${word}`)
-        // .then(resp => {
-            
-        //     if(resp.status === 200){
-        //         this.market.next(resp.data.all)
-        //     }
-        //     // /console.log("market value: " + JSON.stringify(this.market))
-        //     // /console.log("Market data: " + JSON.stringify(resp.data.all));
-        //     //return resp.data
-        // })
-        // .catch(err => {
-        //     // Handle Error Here
-        //     //this.error.emit(err)
-        //     console.log(err);
-        //     //return err
-        // });
-    
+    //FOR COMPLETED TAB
+    getCompleteddata(pg:any, limit:any, status:any): Observable<any>  {
+        return Axios.get(`${localAPI}/buyer/productmarket2?page=${pg}&limit=${limit}&status=${status}`)
     }
 
-    getCommission(_id: string|null, ) {
-        this.setItem()
+    //FOR CANCELLED TAB
+    getCancelleddata(pg:any, limit:any, status:any): Observable<any>  {
+        return Axios.get(`${localAPI}/buyer/productmarket2?page=${pg}&limit=${limit}&status=${status}`)
+    }
+
+
+    getCommissionOrder(_id: string|null, ) {
+       // this.setItem()
         axios.get(`${localAPI}/buyer/getCommission/${_id}`)
         .then(resp => {
             this.item.next(resp.data.commission)
@@ -194,8 +177,8 @@ export class MarketService {
     
     }
    
-    getProduct(_id: string|null) {
-        this.setItem()
+    getProductOrder(_id: string|null) {
+        //this.setItem()
         axios.get(`${localAPI}/buyer/getProduct/${_id}`)
         .then(resp => {
             this.item.next(resp.data.product)

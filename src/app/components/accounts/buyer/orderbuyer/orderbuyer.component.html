@@ -5,30 +5,39 @@
       width: 550px; /* adjust according to the length you wish to limit the text */
       text-overflow: ellipsis;
     }
-  </style>
+    .my-pagination /deep/ .ngx-pagination .current {
+    background: rgb(67, 236, 194);
+    margin: 10px;
+  }
+</style>
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
 
 <!--------------- TABS ------------------->
 <div class="tabs is-boxed is-centered is-fullwidth">
     <ul>
-        <li class="is-active" data-target="order-all">
+        <li class="is-active" data-target="order-all" value="All">
             <a class="has-text-weight-medium"> 
                 All
             </a>
         </li>
 
-        <li data-target="order-processing">
+        <li data-target="order-processing" value="Processing">
             <a class="has-text-weight-medium">
                 Processing
             </a>
         </li>
 
-        <li data-target="order-completed">
+        <li data-target="order-completed" value="Completed">
             <a class="has-text-weight-medium">
                 Completed
             </a>
         </li>
 
-        <li data-target="order-cancelled">
+        <li data-target="order-cancelled" value="Cancelled">
             <a class="has-text-weight-medium">
                 Cancelled
             </a>
@@ -39,13 +48,21 @@
 
 <!-- ORDER ITEMS -->
     <!-- *ngFor="let item of orderList; index as i"> -->
-    <div class="column">
+    <div class="column"
+    *ngFor=" let item of orderdata | paginate: {
+            id: 'listing_pagination',
+            itemsPerPage: 10,
+            currentPage: page.value,
+            totalItems: totalRecords
+          }"
+    >
         <div class="box is-clickable">
             <div class="level is-marginless">
                 <div class="level-left">
                     <div class="level-item">
-                        <p class= "is-size-7 has-text-weight-medium is-italic"> Order ID: </p>
-                        
+                        <p class= "is-size-7 has-text-weight-medium is-italic"> 
+                            Order ID: {{item._id}}
+                        </p>
                     </div>
                 </div>
                 <div class="level-right">
@@ -53,17 +70,20 @@
                         <div class="is-size-7 has-text-weight-medium is-marginless">
                             Status:
                             <!-- NGIF -->
-                            <div class="tag is-warning is-light has-text-weight-bold">
-                            Processing
-                            <!-- NGIF part
-                                    <div class="tag is-success has-text-weight-bold is-small">
-                                        Completed
-                                    </div> 
-                                    <div class="tag is-danger is-light has-text-weight-bold is-small">
-                                        Cancelled
-                                    </div>
-                                    -->
+                            <div class="tag is-warning is-light has-text-weight-bold" 
+                            *ngIf="item.status=='Processing'">
+                                Processing
                             </div>
+                            <div class="tag is-success has-text-weight-bold is-small"
+                            *ngIf="item.status=='Completed'">
+                                Completed
+                            </div> 
+                            <div class="tag is-danger is-light has-text-weight-bold is-small"
+                            *ngIf="item.status=='Cancelled'">
+                                Cancelled
+                            </div>
+                                    
+                            
                         </div>
                     </div>
                 </div>
@@ -71,42 +91,52 @@
             
             
             <article class="media">
-            <div class="media-left">
-                <figure class="image is-100x100">
-                <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image"/>
-                <!-- <img class="object-fit_cover" [src]= "item.images.imageBase64" alt=""> -->
-                </figure>
-            </div>
-            <div class="media-content">
-                <div class="content">
-                <p class="limitedText has-text-weight-bold is-size-4">
-                    <!-- notice the class limitedText, when the text is too long, it ends with "..." -->
-                    This happens if text is too long weeeeeeeeeee eeeee eftf rtgrg mao mao mao
-                </p>
-                
-                <p class="is-size-5 has-text-weight-medium is-marginless">
-                    Total:
-                    <span class="text has-text-weight-bold has-text-warning-dark">₱ 150.00</span>
-                </p>
-                <div class="block">
-                    <div class="text is-size-6">
-                    Seller Name:
-                    <a class="tag is-white is-light has-text-weight-bold is-small">
-                        Name of the Seller
-                    </a>
+                <div class="media-left">
+                    <figure class="image is-100x100">
+                        <div *ngIf="item.images?.imageBase64">
+                            <img class="object-fit_cover" [src]="item.images.imageBase64" alt="Image"/>
+                        </div>
+                        <div *ngIf="!item.images?.imageBase64">
+                            <img class="object-fit_cover"  src= "assets/noimg.png" alt="NoImage">
+                        </div>
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <div class="content">
+                    <p class="limitedText has-text-weight-bold is-size-4">
+                        <!-- notice the class limitedText, when the text is too long, it ends with "..." -->
+                        {{item.itemname}}
+                    </p>
+                    
+                    <p class="is-size-5 has-text-weight-medium is-marginless">
+                        Total:
+                        <span class="text has-text-weight-bold has-text-warning-dark">
+                            ₱ {{item.price}}
+                        </span>
+                    </p>
+                    <div class="block">
+                        <div class="text is-size-6">
+                            Seller Name:
+                        <a class="tag is-white is-light has-text-weight-bold is-small">
+                            {{item.sellername}}
+                        </a>
+                        </div>
+                    </div>
                     </div>
                 </div>
-                </div>
-            </div>
-            
             </article>
 
             <div class="level is-marginless">
                 <div class="level-left">
                     <div class="level-item">
                         <div class="tags has-addons is-marginless">
-                            <div class="tag is-link is-light has-text-weight-bold is-small" > <!--*ngIf="item.category == 'Product'"-->
-                            Product
+                            <div class="tag is-link is-light has-text-weight-bold is-small" 
+                                *ngIf="item.category == 'Product'"> 
+                                Product
+                            </div>
+                            <div class="tag is-danger is-light has-text-weight-bold is-small" 
+                                *ngIf="item.category == 'Commission'"> 
+                                Commission
                             </div>
                         </div>
                     </div>
@@ -129,94 +159,27 @@
         </div>
     </div>
 
-    <div class="column">
-        <div class="box is-clickable">
-            <div class="level is-marginless">
-                <div class="level-left">
-                    <div class="level-item">
-                        <p class= "is-size-7 has-text-weight-medium is-italic"> Order ID: </p>
-                        
-                    </div>
-                </div>
-                <div class="level-right">
-                    <div class="level-item">
-                        <div class="is-size-7 has-text-weight-medium is-marginless">
-                            Status:
-                            <!-- NGIF -->
-                            <div class="tag is-warning is-light has-text-weight-bold">
-                            Processing
-                            <!-- NGIF part
-                                    <div class="tag is-success has-text-weight-bold is-small">
-                                        Completed
-                                    </div> 
-                                    <div class="tag is-danger is-light has-text-weight-bold is-small">
-                                        Cancelled
-                                    </div>
-                                    -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <article class="media">
-            <div class="media-left">
-                <figure class="image is-100x100">
-                <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image"/>
-                <!-- <img class="object-fit_cover" [src]= "item.images.imageBase64" alt=""> -->
-                </figure>
-            </div>
-            <div class="media-content">
-                <div class="content">
-                <p class="limitedText has-text-weight-bold is-size-4">
-                    <!-- notice the class limitedText, when the text is too long, it ends with "..." -->
-                    This happens if text is too long weeeeeeeeeee eeeee eftf rtgrg mao mao mao
-                </p>
-                
-                <p class="is-size-5 has-text-weight-medium is-marginless">
-                    Total:
-                    <span class="text has-text-weight-bold has-text-warning-dark">₱ 150.00</span>
-                </p>
-                <div class="block">
-                    <div class="text is-size-6">
-                    Seller Name:
-                    <a class="tag is-white is-light has-text-weight-bold is-small">
-                        Name of the Seller
-                    </a>
-                    </div>
-                </div>
-                </div>
-            </div>
-            
-            </article>
+ <!-- Pagination -->
+<section class="section is-centered">
+    <nav
+      class="pagination is-centered is-small is-rounded"
+      role="navigation"
+      aria-label="pagination"
+    >
 
-            <div class="level is-marginless">
-                <div class="level-left">
-                    <div class="level-item">
-                        <div class="tags has-addons is-marginless">
-                            <div class="tag is-link is-light has-text-weight-bold is-small" > <!--*ngIf="item.category == 'Product'"-->
-                            Product
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="level-right">
-                    <div class="level-item">
-                        <div class="field is-grouped is-grouped-right">
-                            <div class="buttons is-centered pl-4 ml-4 ">
-                                <button class="button is-success is-hovered has-text-weight-bold">
-                                    RECEIVED
-                                </button>
-                                <button class="button is-danger is-outlined has-text-weight-bold">
-                                    CANCEL
-                                </button>
-                            </div>   
-                        </div>
-                    </div>
-                </div>
-            </div>  
-        </div>
-    </div>
- 
+      <div class="buttons">
+        <pagination-controls
+          class="my-pagination"
+          id="listing_pagination"
+          previousLabel=""
+          nextLabel=""
+          [maxSize]="5"
+          [directionLinks]="true"
+          (pageChange)="page.next($event); pageChanged()"
+        ></pagination-controls>
+      </div>
+    </nav>
+  </section>
+  
+  <app-footer></app-footer>
   
