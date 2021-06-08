@@ -22,4 +22,8 @@ describe('ReservationsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  afterEach(() => {
+    fixture.destroy();
+    TestBed.resetTestingModule();
+  });
 });
