@@ -241,8 +241,8 @@
       </article>
     </div>
     <footer class="modal-card-foot">
-      <div class="column has-text-centered is-paddingless is-marginless">
-        <button class="button is-link has-text-weight-bold" disabled>
+      <div *ngIf = "reservation.reservationStatus" class="column has-text-centered is-paddingless is-marginless">
+        <button *ngIf = "reservation.reservationStatus == 'Waiting for Approval'" class="button is-link has-text-weight-bold" disabled>
           Pending Approval
         </button>
         <!-- NGIF part
