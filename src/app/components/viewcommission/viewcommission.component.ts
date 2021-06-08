@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy, Input} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { MarketService } from 'src/app/services/market';
@@ -25,6 +25,7 @@ interface commission {
   styleUrls: ['./viewcommission.component.css']
 })
 export class ViewcommissionComponent implements OnInit, OnDestroy {
+  @Input() openSuccessModal: boolean;
 
   comm_item:  commission
   comm_slot: any;
@@ -65,12 +66,12 @@ export class ViewcommissionComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void{
-    
-    
     //this.marketserv.editReload(false)
     this.subs.forEach((x)=> x.unsubscribe())
   }
   addReservation(comm: any){
+    this.openSuccessModal = true;
+
     console.log("id: " + JSON.stringify(comm))
     let reservation = {
       service_id: comm._id,
@@ -80,13 +81,18 @@ export class ViewcommissionComponent implements OnInit, OnDestroy {
 
     this.resServ.addReservation(reservation)
   }
+
   onClickOpen (index: any) {
     this.openImageModal = true;
     this.imageSRC = this.image_list[index].imageBase64;
   }
 
   onClickExit () {
-      this.openImageModal = false;
-      this.imageSRC = '';
+    this.openImageModal = false;
+    this.imageSRC = '';
+
+    if(this.openSuccessModal) {
+      this.openSuccessModal = false;
+    }
   }
 }

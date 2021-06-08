@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy, Input} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { MarketService } from 'src/app/services/market';
@@ -25,7 +25,8 @@ interface product {
   styleUrls: ['./view-product.component.css']
 })
 export class ViewProductComponent implements OnInit, OnDestroy{
-
+  @Input() openSuccessModal: boolean;
+  
   prod_item:  product
   prod_stock: any
   subs : Subscription[] = []
@@ -67,6 +68,7 @@ export class ViewProductComponent implements OnInit, OnDestroy{
   }
 
   addtoCart(prod: any){
+    this.openSuccessModal = true;
     console.log("id: " + JSON.stringify(prod._id))
     this.cartServ.addtoCart(prod._id)
   }
@@ -78,5 +80,9 @@ export class ViewProductComponent implements OnInit, OnDestroy{
   onClickExit () {
       this.openImageModal = false;
       this.imageSRC = '';
+
+      if(this.openSuccessModal) {
+        this.openSuccessModal = false;
+      }
   }
 }
