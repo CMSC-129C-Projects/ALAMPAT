@@ -23,10 +23,11 @@
     }
 
     .prev, .next {
-        width: 12%;
+        width: 10%;
         height: 12%;
         position: absolute;
-        top: 47%;
+        text-align: center;
+        top: 46%;
         z-index: 99;
         cursor: pointer;
     }
@@ -85,5 +86,6 @@
         height:64px;
         width:64px;
         object-fit:cover;
+        /* border: 1px solid rgb(49, 45, 45); */
         border-radius: 50%;
-    }
+    }   

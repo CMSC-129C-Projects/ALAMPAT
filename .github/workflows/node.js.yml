@@ -14,10 +14,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [15.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+#     strategy:
+#       matrix:
+#         node-version: [15.x]
+#         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
     - uses: actions/checkout@v2
@@ -25,18 +25,22 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
+    - run: npm install -g @angular/cli@latest
     - run: npm i
     - run: npm ci
     - run: npm run build
     - run: npm test
+      env:
+        CI: true
+ 
   windows-build:
 
     runs-on: windows-latest
 
-    strategy:
-      matrix:
-        node-version: [15.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+#     strategy:
+#       matrix:
+#         node-version: [15.x]
+#         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
     - uses: actions/checkout@v2
@@ -44,7 +48,11 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
+    - run: npm install -g @angular/cli@latest
     - run: npm i    
     - run: npm ci
     - run: npm run build
-    - run: npm test
+    - run: npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+    
+      env:
+        CI: true

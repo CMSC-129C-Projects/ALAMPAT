@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { MarketService } from 'src/app/services/market';
-import { CartService } from 'src/app/services/cart';
+import { ReservationService } from 'src/app/services/reservation';
 interface product {
   _id: string;
   itemname:string;
@@ -36,7 +36,7 @@ export class ViewProductComponent implements OnInit, OnDestroy{
   constructor(
     private route:ActivatedRoute,
     private marketserv: MarketService,
-    private cartServ: CartService,
+    private cartServ: ReservationService,
   ) {
     
     //this.copy = new BehaviorSubject<any>('')

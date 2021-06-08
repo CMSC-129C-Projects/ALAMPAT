@@ -14,7 +14,7 @@ import { AccountService } from './services/account';
 import { ProductService } from './services/productServ';
 import { UserService } from './services/auth';
 import { MarketService } from './services/market';
-import { CartService } from './services/cart';
+import { ReservationService } from './services/reservation';
 import { AuthGuard } from './auth.guard';
 
 import { AppComponent } from './app.component';
@@ -38,8 +38,12 @@ import { SellershopComponent } from './components/accounts/seller/sellershop/sel
 import { CommissionComponent } from './components/accounts/seller/commissions/commission/commission.component';
 import { CommissionItemComponent } from './components/accounts/seller/commissions/commission-item/commission-item.component';
 import { ViewProductComponent } from './components/accounts/buyer/view-product/view-product.component';
+import { ReservationsComponent } from './components/accounts/buyer/reservations/reservations.component';
+
 import { OrderbuyerComponent } from './components/accounts/buyer/orderbuyer/orderbuyer.component';
 import { CheckoutComponent } from './components/accounts/buyer/checkout/checkout.component';
+import { OrderdetailsbuyerComponent } from './components/accounts/buyer/orderdetailsbuyer/orderdetailsbuyer.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +69,9 @@ import { CheckoutComponent } from './components/accounts/buyer/checkout/checkout
     ViewProductComponent,
     OrderbuyerComponent,
     CheckoutComponent
-
+    ReservationsComponent,
+    OrderbuyerComponent,
+    OrderdetailsbuyerComponent
   ],
   imports: [
     BrowserModule,
@@ -97,7 +103,7 @@ import { CheckoutComponent } from './components/accounts/buyer/checkout/checkout
     ProductService,
     AuthGuard,
     MarketService,
-    CartService,
+    ReservationService,
   
   ],
   bootstrap: [AppComponent]

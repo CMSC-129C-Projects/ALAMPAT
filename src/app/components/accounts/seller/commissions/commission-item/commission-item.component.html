@@ -32,7 +32,8 @@
                     <div class="control">
                         <div class="file is-primary is-fullwidth" >
                             <label class="file-label">
-                                <input [ngClass]="{ 'has-error': formControls.commissionimage?.errors }" class="file-input" #addimage type="file" id="UploadFile" accept="image/*" (change)="uploadFileInAddForm($event)" name="commissionimage" formControlName="commissionimage" required>
+                                <input [ngClass]="{ 'has-error': formControls.commissionimage?.errors }" class="file-input" #addimage type="file" id="UploadFile" 
+                                accept="image/*" (change)="uploadFileInAddForm($event); addedimageSRC = ''" name="commissionimage" formControlName="commissionimage" required>
                                 <span class="file-cta">
                                     <span class="file-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
@@ -58,8 +59,10 @@
                 </div>
                 <figure class="image">
                     <div *ngIf = "percentage | async as pct">
-                        <progress [value] = "pct" max = "100"></progress>
-                        {{pct | number}} %
+                        <div *ngIf = "!addedimageSRC ">
+                            <progress [value] = "pct" max = "100"></progress>
+                            {{pct | number}} %
+                        </div>
                     </div>
                     <div *ngIf = "snapshot | async as snap">
                         <img class="commissionimage" [src]= "addedimageSRC">
@@ -152,7 +155,8 @@
                     <div class="control">
                         <div class="file is-primary is-fullwidth">
                             <label class="file-label">
-                                <input class="file-input" #editimage type="file" accept="image/*" (change)="uploadFile($event)" name="commissionimage" formControlName="commissionimage" required>
+                                <input class="file-input" #editimage type="file" accept="image/*" (change)="uploadFile($event); imageSRC= ''" 
+                                name="commissionimage" formControlName="commissionimage" required>
                                 <span class="file-cta">
                                     <span class="file-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
@@ -172,8 +176,10 @@
                 </div>
                 <figure class="image">
                     <div *ngIf = "percentage | async as pct">
-                        <progress [value] = "pct" max = "100"></progress>
-                        {{pct | number}} %
+                        <div *ngIf = "!imageSRC ">
+                            <progress [value] = "pct" max = "100"></progress>
+                            {{pct | number}} %
+                        </div>
                     </div>
                     <div *ngIf = "snapshot | async as snap">
                         <div *ngIf = "fileName">

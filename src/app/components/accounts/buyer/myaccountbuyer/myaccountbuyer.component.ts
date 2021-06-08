@@ -47,7 +47,7 @@ export class MyaccountbuyerComponent implements OnInit, OnDestroy {
     this.accountService.getUserdata()
     this.subs.push(this.accountService.user.subscribe((user)=>{
         this.user = user 
-        this.imageSRC = this.domSanitizer.bypassSecurityTrustUrl(this.user.profileImage?.imageBase64)
+        this.imageSRC = this.user.profileImage?.imageBase64
         //console.log("User image: " + JSON.stringify(this.imageSRC))
     }, (error) => {
         console.log("Error", error)
