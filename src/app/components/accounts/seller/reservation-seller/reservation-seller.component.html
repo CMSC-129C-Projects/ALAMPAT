@@ -1,1 +1,243 @@
-<p>reservation-seller works!</p>
+<style>
+    .limitedText {
+      white-space: nowrap;
+      overflow: hidden;
+      width: 550px; /* adjust according to the length you wish to limit the text */
+      text-overflow: ellipsis;
+    }
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+  
+    .span-spaces {
+      padding-left: 5px;
+      padding-right: 10px;
+    }
+
+</style>
+
+<app-headerseller></app-headerseller>
+<section>
+    <div class="container">
+        <div class="column is-10 is-offset-1 ">
+            <div class="card-container ">
+                <div class="title is-family-primary">
+                    Reservations
+                </div>  
+            </div>
+            <p> &nbsp;something explaination</p>
+            
+        
+            <div class="box mt-5 px-6 is-shadowless has-background-success-light"> 
+            <!------- EACH RESERVATION --------->
+                <div class="box is-clickable">
+                    <div class="level is-marginless">
+                        <!---->
+                        <div class="level-left">
+                            <div class="level-item">
+                                <p class= "is-size-7 has-text-weight-medium is-italic"> 
+                                    Order ID: 
+                                </p>
+                            </div>
+                        </div>
+                        <div class="level-right">
+                            <div class="level-item">
+                                <div class="is-size-7 has-text-weight-medium is-marginless">
+                                    Status:
+                                    <!-- NGIF -->
+                                    <div class="tag is-warning is-light has-text-weight-bold">
+                                    <!--*ngIf="item.status=='Processing'"> -->
+                                        Waiting for seller's approval
+                                    </div>
+                                    <!--
+                                    <div class="tag is-success has-text-weight-bold is-small"
+                                    *ngIf="item.status=='Completed'">
+                                        Completed
+                                    </div> 
+                                    <div class="tag is-danger is-light has-text-weight-bold is-small"
+                                    *ngIf="item.status=='Cancelled'">
+                                        Cancelled
+                                    </div>
+                                    -->        
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <article class="media">
+                        <div class="media-left">
+                            <figure class="image is-100x100">
+                                <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image"/>
+                                <!--
+                                <div *ngIf="item.images?.imageBase64">
+                                    <img class="object-fit_cover" [src]="item.images.imageBase64" alt="Image"/>
+                                </div>
+                                <div *ngIf="!item.images?.imageBase64"> 
+                                    <img class="object-fit_cover"  src= "assets/noimg.png" alt="NoImage">
+                                </div>-->
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <div class="content">
+                            <p class="limitedText has-text-weight-bold is-size-4">
+                                <!-- notice the class limitedText, when the text is too long, it ends with "..." 
+                                {{item.itemname}} -->
+                                Item Name
+                            </p>
+                            
+                            <p class="is-size-5 has-text-weight-medium is-marginless">
+                                Total:
+                                <span class="text has-text-weight-bold has-text-warning-dark">
+                                    ₱ 158.99
+                                </span>
+                            </p>
+                            <div class="block">
+                                <div class="text is-size-6">
+                                    Availed by:
+                                <a class="tag is-white is-light has-text-weight-bold is-small">
+                                    Someone
+                                </a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </article>
+        
+                    <div class="level is-marginless">
+                        <div class="level-left">
+                            <div class="level-item">
+                                <p class= "is-size-7 has-text-weight-medium is-right"> 
+                                    Reservation Days Remaining: 
+                                </p>
+                            </div>
+                        </div>
+                        <div class="level-right">
+                            <div class="level-item">
+                                <div class="field is-grouped is-grouped-right">
+                                    <div class="buttons is-centered pl-4 ml-4 ">
+                                        <button class="button is-success is-hovered has-text-weight-bold">
+                                            ACCEPT
+                                        </button>
+                                        <button class="button is-danger is-outlined has-text-weight-bold">
+                                            REJECT
+                                        </button>
+                                    </div>   
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+
+                <div class="box is-clickable">
+                    <div class="level is-marginless">
+                        <!---->
+                        <div class="level-left">
+                            <div class="level-item">
+                                <p class= "is-size-7 has-text-weight-medium is-italic"> 
+                                    Order ID: 
+                                </p>
+                            </div>
+                        </div>
+                        <div class="level-right">
+                            <div class="level-item">
+                                <div class="is-size-7 has-text-weight-medium is-marginless">
+                                    Status:
+                                    <!-- NGIF -->
+                                    <div class="tag is-warning is-light has-text-weight-bold">
+                                    <!--*ngIf="item.status=='Processing'"> -->
+                                        Waiting for seller's approval
+                                    </div>
+                                    <!--
+                                    <div class="tag is-success has-text-weight-bold is-small"
+                                    *ngIf="item.status=='Completed'">
+                                        Completed
+                                    </div> 
+                                    <div class="tag is-danger is-light has-text-weight-bold is-small"
+                                    *ngIf="item.status=='Cancelled'">
+                                        Cancelled
+                                    </div>
+                                    -->        
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <article class="media">
+                        <div class="media-left">
+                            <figure class="image is-100x100">
+                                <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image"/>
+                                <!--
+                                <div *ngIf="item.images?.imageBase64">
+                                    <img class="object-fit_cover" [src]="item.images.imageBase64" alt="Image"/>
+                                </div>
+                                <div *ngIf="!item.images?.imageBase64"> 
+                                    <img class="object-fit_cover"  src= "assets/noimg.png" alt="NoImage">
+                                </div>-->
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <div class="content">
+                            <p class="limitedText has-text-weight-bold is-size-4">
+                                <!-- notice the class limitedText, when the text is too long, it ends with "..." 
+                                {{item.itemname}} -->
+                                Item Name
+                            </p>
+                            
+                            <p class="is-size-5 has-text-weight-medium is-marginless">
+                                Total:
+                                <span class="text has-text-weight-bold has-text-warning-dark">
+                                    ₱ 158.99
+                                </span>
+                            </p>
+                            <div class="block">
+                                <div class="text is-size-6">
+                                    Availed by:
+                                <a class="tag is-white is-light has-text-weight-bold is-small">
+                                    Someone
+                                </a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </article>
+        
+                    <div class="level is-marginless">
+                        <div class="level-left">
+                            <div class="level-item">
+                                <p class= "is-size-7 has-text-weight-medium is-right"> 
+                                    Reservation Days Remaining: 
+                                </p>
+                            </div>
+                        </div>
+                        <div class="level-right">
+                            <div class="level-item">
+                                <div class="field is-grouped is-grouped-right">
+                                    <div class="buttons is-centered pl-4 ml-4 ">
+                                        <button class="button is-success is-hovered has-text-weight-bold">
+                                            ACCEPT
+                                        </button>
+                                        <button class="button is-danger is-outlined has-text-weight-bold">
+                                            REJECT
+                                        </button>
+                                    </div>   
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+        
+  
