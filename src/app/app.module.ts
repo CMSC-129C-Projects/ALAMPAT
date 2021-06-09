@@ -44,6 +44,7 @@ import { ReservationsComponent } from './components/accounts/buyer/reservations/
 import { OrderbuyerComponent } from './components/accounts/buyer/orderbuyer/orderbuyer.component';
 import { CheckoutComponent } from './components/accounts/buyer/checkout/checkout.component';
 import { OrderdetailsbuyerComponent } from './components/accounts/buyer/orderdetailsbuyer/orderdetailsbuyer.component';
+import { ReservationSellerComponent } from './components/accounts/seller/reservation-seller/reservation-seller.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { OrderdetailsbuyerComponent } from './components/accounts/buyer/orderdet
     CheckoutComponent,
     ReservationsComponent,
     OrderbuyerComponent,
-    OrderdetailsbuyerComponent
+    OrderdetailsbuyerComponent,
+    ReservationSellerComponent
   ],
   imports: [
     BrowserModule,
