@@ -18,6 +18,7 @@ interface commission {
   slot: number,
   price: number, 
   category: string, 
+  showShortDesciption: boolean,
   createdAt: Date
 }
 @Component({
@@ -41,6 +42,7 @@ export class CommissionComponent implements OnInit, OnDestroy {
   service: any;
   imageSRC: any;
 
+  //curr_tab: any;
   option: string|null = "";
   sortForm: FormGroup;
 
@@ -69,6 +71,7 @@ export class CommissionComponent implements OnInit, OnDestroy {
     this.subscribeComms()
     //For tabs
     const tabs = document.querySelectorAll('.tabs li');
+    //this.tabs = tabs
     const tabContentBoxes = document.querySelectorAll('#tab-content > div');
 
     tabs.forEach((tab: any) => {
@@ -77,8 +80,10 @@ export class CommissionComponent implements OnInit, OnDestroy {
         tab.classList.add('is-active');
 
         const target = tab.dataset.target;
+        //this.curr_tab = target
+        console.log(tab);
         tabContentBoxes.forEach( box => {
-          console.log(target);
+          
           if (box.getAttribute('id') == target) {
             box.classList.remove('is-hidden');
           } else {
@@ -124,8 +129,23 @@ export class CommissionComponent implements OnInit, OnDestroy {
     )
   }
 
-  alterDescriptionText() {
-      this.showShortDesciption = !this.showShortDesciption
+  alterDescriptionText(i:any) {
+    const tabs = document.querySelectorAll('.tabs li');
+    //this.curr_tab = tabs
+    //console.log("Error", tabs)
+
+    tabs.forEach((tab:any) => {
+      if(tab.dataset.target == 'commission-live' && tab.classList.value == 'is-active'){
+        this.serviceList[i].showShortDesciption = ! this.serviceList[i].showShortDesciption
+        return
+      }
+      if(tab.dataset.target =='commission-soldout' && tab.classList.value == 'is-active'){
+        console.log("I am in soldout")
+        this.soldoutList[i].showShortDesciption = ! this.soldoutList[i].showShortDesciption
+      }
+    })
+    
+    
   }
 
   onClickOpen (item:any, index:any, tabId:any) {

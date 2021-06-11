@@ -110,11 +110,11 @@
                                     <p class="text has-text-weight-bold" readonly>
                                         {{item?.commissionname}}
                                     </p>
-                                    <div class="content format is-marginless" [ngClass]="{'show-less': showShortDesciption}">
+                                    <div class="content format is-marginless" [ngClass]="{'show-less': !item?.showShortDesciption}">
                                         {{item?.description}}  
                                     </div>
-                                    <a class="is-pulled-right has-text-danger-dark is-size-7" (click)="alterDescriptionText()">
-                                        {{ showShortDesciption ? 'See more': 'See less' }}
+                                    <a class="is-pulled-right has-text-danger-dark is-size-7" (click)="alterDescriptionText(i)">
+                                        {{ item?.showShortDesciption ? 'See less': 'See more' }}
                                     </a> 
                                     
                                     <div> <span class="tag mt-4 is-warning is-light has-text-weight-bold is-medium">Slot: {{item?.slot}}</span></div>
@@ -149,11 +149,11 @@
                                 <p class="text has-text-weight-bold" readonly>
                                     {{item?.commissionname}}
                                 </p>
-                                <div class="content format is-marginless" [ngClass]="{'show-less': showShortDesciption}">
+                                <div class="content format is-marginless" [ngClass]="{'show-less': !item?.showShortDesciption}">
                                     {{item?.description}}
                                 </div> 
-                                <a class="is-pulled-right has-text-danger-dark is-size-7" (click)="alterDescriptionText()">
-                                    {{ showShortDesciption ? 'See more': 'See less' }}
+                                <a class="is-pulled-right has-text-danger-dark is-size-7" (click)="alterDescriptionText(i)">
+                                    {{ item?.showShortDesciption ? 'See less': 'See more' }}
                                 </a> 
                                 <div> <span class="tag mt-4 is-danger is-light has-text-weight-bold is-medium">Slot: {{item?.slot}}</span></div>
                                     <div> <span class="tag is-primary is-light has-text-weight-bold is-medium">Price: ₱{{item?.price}}</span></div>
