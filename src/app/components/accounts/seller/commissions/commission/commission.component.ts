@@ -81,7 +81,7 @@ export class CommissionComponent implements OnInit, OnDestroy {
 
         const target = tab.dataset.target;
         //this.curr_tab = target
-        console.log(tab);
+        //console.log(tab);
         tabContentBoxes.forEach( box => {
           
           if (box.getAttribute('id') == target) {
