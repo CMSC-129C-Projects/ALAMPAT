@@ -17,6 +17,7 @@ interface product {
     imageBase64: string;
   };
   category:string;
+  showShortDesciption: boolean;
 }
 
 @Component({
@@ -123,8 +124,21 @@ export class ProductsComponent implements OnInit, OnDestroy {
     localStorage.removeItem('sort_prod')
   }
 
-  alterDescriptionText() {
-    this.showShortDesciption = !this.showShortDesciption
+  alterDescriptionText(i) {
+    const tabs = document.querySelectorAll('.tabs li');
+    //this.curr_tab = tabs
+    //console.log("Error", tabs)
+
+    tabs.forEach((tab:any) => {
+      if(tab.dataset.target == 'product-live' && tab.classList.value == 'is-active'){
+        this.productList[i].showShortDesciption = ! this.productList[i].showShortDesciption
+        return
+      }
+      if(tab.dataset.target =='product-soldout' && tab.classList.value == 'is-active'){
+        //console.log("I am in soldout")
+        this.soldoutList[i].showShortDesciption = ! this.soldoutList[i].showShortDesciption
+      }
+    })
   }
   
   onClickOpen(item: any, index: any, tabId: any) {

@@ -164,11 +164,11 @@
                     <p class="text has-text-weight-bold" readonly>
                       {{ product.productname }}
                     </p>
-                    <div class="content format is-marginless" [ngClass]="{'show-less': showShortDesciption}">
+                    <div class="content format is-marginless" [ngClass]="{'show-less': !product.showShortDesciption}">
                       {{ product.description }}
                     </div>
-                    <a class="is-pulled-right has-text-danger-dark is-size-7" (click)="alterDescriptionText()">
-                      {{ showShortDesciption ? 'See more': 'See less' }}
+                    <a class="is-pulled-right has-text-danger-dark is-size-7" (click)="alterDescriptionText(i)">
+                      {{ product.showShortDesciption ? 'See less': 'See more...' }}
                     </a> 
                     <div>
                       <span
@@ -246,11 +246,11 @@
                 <p class="text has-text-weight-bold" readonly>
                   {{ product.productname }}
                 </p>
-                <div class="content format is-marginless" [ngClass]="{'show-less': showShortDesciption}">
+                <div class="content format is-marginless" [ngClass]="{'show-less': !product.showShortDesciption}">
                   {{ product.description }}
                 </div>
-                <a class="is-pulled-right has-text-danger-dark is-size-7" (click)="alterDescriptionText()">
-                  {{ showShortDesciption ? 'See more': 'See less' }}
+                <a class="is-pulled-right has-text-danger-dark is-size-7" (click)="alterDescriptionText(i)">
+                  {{ product.showShortDesciption ? 'See less': 'See more...' }}
               </a> 
                 <div>
                   <span
