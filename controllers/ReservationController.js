@@ -80,6 +80,9 @@ const getReservationList = async(req, res, next) => {
                 },{
                     path: 'seller',
                     select: 'name _id'
+                },{
+                    path: 'buyer',
+                    select: 'name _id'
                 }]
         })
             
