@@ -1,8 +1,7 @@
 <style>
     .limitedText {
-      white-space: nowrap;
+      white-space: pre-wrap;
       overflow: hidden;
-      width: 550px; /* adjust according to the length you wish to limit the text */
       text-overflow: ellipsis;
     }
     .card-container {
@@ -23,21 +22,27 @@
     <div class="container">
         <div class="column is-10 is-offset-1 ">
             <div class="card-container ">
-                <div class="title is-family-primary">
+                <div class="title is-family-primary has-icons-left">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-clipboard-data" viewBox="0 0 16 16">
+                        <path d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z"/>
+                        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                        <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                    </svg>
+                    <i class="bi bi-clipboard-data"></i>
                     Reservations
                 </div>  
             </div>
-            <p> &nbsp;something explaination</p>
-            
+            <p class="ml-5">&nbsp;&nbsp;&nbsp; Requests are awaiting for your confirmation</p>
+            <hr style="background-color:#a9c5b2" class=" mt-4 is-marginless">
         
-            <div class="box mt-5 px-6 is-shadowless has-background-success-light" *ngFor="let item of reserv_List; index as i"> 
+            <div class="block px-6 py-4 is-shadowless has-background-success-light" > 
             <!------- EACH RESERVATION --------->
-                <div class="box is-clickable">
-                    <div class="level is-marginless">
+                <div class="box" *ngFor="let item of reserv_List; index as i">
+                    <div class="level pb-2 is-marginless">
                         <!---->
                         <div class="level-left">
                             <div class="level-item">
-                                <p class= "is-size-7 has-text-weight-medium is-italic"> 
+                                <p class= "is-size-7 has-text-weight-medium has-text-grey"> 
                                     Reservation ID: {{item._id}}
                                 </p>
                             </div>
@@ -81,7 +86,7 @@
                                 </div>
                             </figure>
                         </div>
-                        <div class="media-content">
+                        <div class="media-content is-mobile">
                             <div class="content">
                             <p class="limitedText has-text-weight-bold is-size-4">
                                 <!-- notice the class limitedText, when the text is too long, it ends with "..." 
@@ -106,6 +111,18 @@
                             </div>
                             </div>
                         </div>
+                        <div class="container is-size-2">
+                            <div class="field is-grouped is-grouped-right">
+                                <div class="buttons is-right pl-4 ml-4 mt-6 pt-6">
+                                    <button class="button is-success is-hovered has-text-weight-bold">
+                                        ACCEPT
+                                    </button>
+                                    <button class="button is-danger is-outlined has-text-weight-bold">
+                                        REJECT
+                                    </button>
+                                </div> 
+                            </div>  
+                        </div>
                     </article>
         
                     <div class="level is-marginless">
@@ -116,6 +133,7 @@
                                 </p>
                             </div> -->
                         </div>
+                        <!--
                         <div class="level-right">
                             <div class="level-item">
                                 <div class="field is-grouped is-grouped-right">
@@ -130,6 +148,7 @@
                                 </div>
                             </div>
                         </div>
+                        -->
                     </div>  
                 </div>
 
