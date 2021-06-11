@@ -140,7 +140,7 @@ export class CommissionComponent implements OnInit, OnDestroy {
         return
       }
       if(tab.dataset.target =='commission-soldout' && tab.classList.value == 'is-active'){
-        console.log("I am in soldout")
+        //console.log("I am in soldout")
         this.soldoutList[i].showShortDesciption = ! this.soldoutList[i].showShortDesciption
       }
     })
