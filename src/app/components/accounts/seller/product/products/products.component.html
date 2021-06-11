@@ -59,9 +59,9 @@
           </div>
         </div>
       </div>
-      <hr style="background-color: #e8e6e6">
+      <hr style="background-color: #e8e6e6" class="is-marginless mt-4">
       <!--------------- TABS ------------------->
-      <div class="tabs is-boxed">
+      <div class="tabs is-boxed has-background-white-bis">
         <ul>
           <li class="is-active" data-target="product-live">
             <a>
@@ -119,15 +119,17 @@
         </div>
         <form [formGroup]="sortForm">
           <div class="form-group">
-            <select formControlName="button" class="form-control" (change)="Orderby($event)">
-              <!-- <option disabled>Select Choice</option> -->
-              <option  value="--Select Choice--" hidden>--Select Choice--</option>
-              <option  value="Alphabetical">Alphabetical</option>
-              <option  value="Date Created">Date Created</option>
-              <option  value="Date Modified">Date Modified</option>
-
-              <!-- <option *ngFor="let choice of Choices">{{ choice }}</option> -->
-            </select>
+            <div class="select">
+              <select formControlName="button" class="form-control" (change)="Orderby($event)">
+                <!-- <option disabled>Select Choice</option> -->
+                <option  value="--Select Choice--" hidden>Select Choice</option>
+                <option  value="Alphabetical">Alphabetical</option>
+                <option  value="Date Created">Date Created (Oldest to Newest)</option>
+                <option  value="Date Modified">Date Modified (Latest)</option>
+  
+                <!-- <option *ngFor="let choice of Choices">{{ choice }}</option> -->
+              </select>
+            </div>
           </div>
         </form>
       </div>
@@ -162,13 +164,16 @@
                     <p class="text has-text-weight-bold" readonly>
                       {{ product.productname }}
                     </p>
-                    <div class="content">
+                    <div class="content format is-marginless" [ngClass]="{'show-less': showShortDesciption}">
                       {{ product.description }}
                     </div>
+                    <a class="is-pulled-right has-text-danger-dark is-size-7" (click)="alterDescriptionText()">
+                      {{ showShortDesciption ? 'See more': 'See less' }}
+                    </a> 
                     <div>
                       <span
                         class="
-                          tag
+                          tag mt-4
                           is-warning is-light
                           has-text-weight-bold
                           is-medium
@@ -241,14 +246,17 @@
                 <p class="text has-text-weight-bold" readonly>
                   {{ product.productname }}
                 </p>
-                <div class="content">
+                <div class="content format is-marginless" [ngClass]="{'show-less': showShortDesciption}">
                   {{ product.description }}
                 </div>
+                <a class="is-pulled-right has-text-danger-dark is-size-7" (click)="alterDescriptionText()">
+                  {{ showShortDesciption ? 'See more': 'See less' }}
+              </a> 
                 <div>
                   <span
                     class="
-                      tag
-                      is-warning is-light
+                      tag mt-4
+                      is-danger is-light
                       has-text-weight-bold
                       is-medium
                     "

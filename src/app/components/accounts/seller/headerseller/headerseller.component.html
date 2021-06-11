@@ -3,9 +3,9 @@
     <nav class="navbar is-white is-fixed-top has-shadow">
         <div class="container">
             <div class="navbar-brand">
-                <a class="navbar-item">
+                <div class="navbar-item">
                     <img src="assets/smologo.png" alt="alampatIcon" width="120">
-                </a>
+                </div>
                 <span class="navbar-burger" data-target="navbarMenuHeroA">
                     <span> </span>
                     <span></span>
@@ -28,11 +28,8 @@
                             My Account
                         </a>
                         <div class="navbar-dropdown">
-                            <a class="navbar-item">
-                                Hatdog
-                            </a>
-                            <a class="navbar-item">
-                                Hamburjer
+                            <a class="navbar-item" routerLink="/my-accounts-seller">
+                                View Account
                             </a>
                             <a (click) = "Logout()" class="navbar-item">
                                 Logout

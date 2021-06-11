@@ -19,6 +19,8 @@ interface commission {
   slot: number,
   price: number, 
   category: string,
+  days: number,
+  terms: string,
 }
 
 
@@ -87,7 +89,9 @@ export class CommissionItemComponent implements OnChanges, OnDestroy {
       commissiondescription: ['', Validators.required],
       category: ['Commission', Validators.required],
       slot: ['', [Validators.required, Validators.min(1)]],
-      price: ['', [Validators.required, Validators.min(1)]]
+      price: ['', [Validators.required, Validators.min(1)]],
+      days: ['', [Validators.required, Validators.min(1)]],
+      terms: ['', Validators.required],
     });
 
     this.addService = this.formBuilder.group ({
@@ -100,7 +104,9 @@ export class CommissionItemComponent implements OnChanges, OnDestroy {
       commissiondescription: ['', Validators.required],
       category: ['Commission', Validators.required],
       slot: ['', [Validators.required, Validators.min(1)]],
-      price: ['', [Validators.required, Validators.min(1)]]
+      price: ['', [Validators.required, Validators.min(1)]],
+      days: ['', [Validators.required, Validators.min(1)]],
+      terms: ['', Validators.required],
     });
 
     this.subscriptions = this.commissionService.comSource.asObservable().subscribe(currItem => {
@@ -246,7 +252,9 @@ export class CommissionItemComponent implements OnChanges, OnDestroy {
         commissiondescription: this.addService.get('commissiondescription')?.value,
         category: this.addService.get('category')?.value,
         slot: this.addService.get('slot')?.value,
-        price: this.addService.get('price')?.value
+        price: this.addService.get('price')?.value,
+        days: this.addService.get('days')?.value,
+        terms: this.addService.get('terms')?.value
       }
 
       this.commissionService.uploadItem(service);
@@ -296,6 +304,8 @@ export class CommissionItemComponent implements OnChanges, OnDestroy {
       category: this.service?.category,
       slot: this.service?.slot,
       price: this.service?.price,
+      days: this.service?.price,
+      terms: this.service?.price,
       commissionimage:{
         filename: this.service?.images.filename,
         contentType: this.service?.images.contentType,

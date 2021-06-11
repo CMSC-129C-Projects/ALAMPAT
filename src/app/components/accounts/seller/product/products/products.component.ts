@@ -32,6 +32,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   openDeleteModal: boolean = false;
   sureDeleteModal: boolean = false;
   showed: boolean = false;
+  showShortDesciption = true;
 
   option: string|null = "" ;
   sortForm: FormGroup
@@ -122,6 +123,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
     localStorage.removeItem('sort_prod')
   }
 
+  alterDescriptionText() {
+    this.showShortDesciption = !this.showShortDesciption
+  }
+  
   onClickOpen(item: any, index: any, tabId: any) {
     this.openImageModal = true;
     if(tabId == 0) {

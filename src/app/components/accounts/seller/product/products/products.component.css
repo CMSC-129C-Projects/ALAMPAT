@@ -9,5 +9,19 @@
 }
 
   .object-fit_cover {
-    object-fit: contain
+    object-fit: contain;
   }  
+
+  .format {
+    white-space: pre-wrap;
+}
+
+.show-less {
+    height: 2rem;
+    overflow: hidden;
+}
+
+.show {
+    overflow: visible;
+    height: auto;
+}

@@ -33,7 +33,8 @@ export class CommissionComponent implements OnInit, OnDestroy {
   openImageModal: boolean = false;
   showed: boolean = false;
   sureDelete: boolean = false;
-
+  showShortDesciption = true;
+ 
   itemID: any;
   item: any;
   index: any;
@@ -121,6 +122,10 @@ export class CommissionComponent implements OnInit, OnDestroy {
         console.log("Error", error)
       })
     )
+  }
+
+  alterDescriptionText() {
+      this.showShortDesciption = !this.showShortDesciption
   }
 
   onClickOpen (item:any, index:any, tabId:any) {

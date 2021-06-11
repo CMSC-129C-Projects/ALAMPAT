@@ -4,7 +4,7 @@
         <div class="container">
             <div class="navbar-brand">
                 <a class="navbar-item">
-                    <img src="assets/smologo.png" alt="alampatIcon" width="120">
+                    <img src="assets/smologo.png" (click)="GotoMarketPlace()" alt="alampatIcon" width="120">
                 </a>
                 <span class="navbar-burger" data-target="navbarMenuHeroA">
                     <span> </span>
@@ -22,7 +22,7 @@
                             My Account
                         </a>
                         <div class="navbar-dropdown">
-                            <a class="navbar-item">
+                            <a class="navbar-item" routerLink="/my-accounts-buyer">
                                 View Account
                             </a>
                             <a class="navbar-item">

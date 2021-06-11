@@ -15,3 +15,13 @@
 .format {
     white-space: pre-wrap;
 }
+
+.show-less {
+    height: 2rem;
+    overflow: hidden;
+}
+
+.show {
+    overflow: visible;
+    height: auto;
+}

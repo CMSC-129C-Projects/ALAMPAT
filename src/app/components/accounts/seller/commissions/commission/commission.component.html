@@ -34,10 +34,10 @@
                     </div>
                 </div>
             </div>
-            <hr style="background-color:#e8e6e6">
+            <hr style="background-color:#e8e6e6" class="is-marginless mt-4">
             
             <!--------------- TABS ------------------->
-            <div class="tabs is-boxed">
+            <div class="tabs is-boxed has-background-white-bis">
                 <ul>
                     <li class="is-active" data-target="commission-live">
                         <a>
@@ -73,15 +73,18 @@
                 </div>
                 <form [formGroup]="sortForm">
                 <div class="form-group">
-                    <select formControlName="button" class="form-control" (change)="Orderby($event)">
-                    <!-- <option disabled>Select Choice</option> -->
-                        <option  value="--Select Choice--" hidden>--Select Choice--</option>
-                        <option  value="Alphabetical">Alphabetical</option>
-                        <option  value="Date Created">Date Created (Oldest to Newest)</option>
-                        <option  value="Date Modified">Date Modified (Latest) </option>
-
-                    <!-- <option *ngFor="let choice of Choices">{{ choice }}</option> -->
-                    </select>
+                    <div class="select">
+                        <select formControlName="button" class="form-control" (change)="Orderby($event)">
+                            <!-- <option disabled>Select Choice</option> -->
+                                <option  value="--Select Choice--" hidden>Select Choice</option>
+                                <option  value="Alphabetical">Alphabetical</option>
+                                <option  value="Date Created">Date Created (Oldest to Newest)</option>
+                                <option  value="Date Modified">Date Modified (Latest) </option>
+        
+                            <!-- <option *ngFor="let choice of Choices">{{ choice }}</option> -->
+                            </select>
+                    </div>
+                    
                 </div>
                 </form>
             </div>
@@ -107,12 +110,14 @@
                                     <p class="text has-text-weight-bold" readonly>
                                         {{item?.commissionname}}
                                     </p>
-                                    <div class="content format">
-                                        {{item?.description}}
-                                        <!--<p class="text has-text-weight-medium is-italic pt-3" readonly> Price: ₱{{item?.price}} 
-                                        <br> Slot: {{item?.slot}} </p> -->
-                                    </div> 
-                                    <div> <span class="tag is-warning is-light has-text-weight-bold is-medium">Slot: {{item?.slot}}</span></div>
+                                    <div class="content format is-marginless" [ngClass]="{'show-less': showShortDesciption}">
+                                        {{item?.description}}  
+                                    </div>
+                                    <a class="is-pulled-right has-text-danger-dark is-size-7" (click)="alterDescriptionText()">
+                                        {{ showShortDesciption ? 'See more': 'See less' }}
+                                    </a> 
+                                    
+                                    <div> <span class="tag mt-4 is-warning is-light has-text-weight-bold is-medium">Slot: {{item?.slot}}</span></div>
                                     <div> <span class="tag is-primary is-light has-text-weight-bold is-medium">Price: ₱{{item?.price}}</span></div>
                                 </div>
                                 <footer class="card-footer">
@@ -144,13 +149,14 @@
                                 <p class="text has-text-weight-bold" readonly>
                                     {{item?.commissionname}}
                                 </p>
-                                <div class="content format">
+                                <div class="content format is-marginless" [ngClass]="{'show-less': showShortDesciption}">
                                     {{item?.description}}
-                                    <!--<p class="text has-text-weight-medium is-italic pt-3" readonly> Price: ₱{{item?.price}} 
-                                        <br> Slot: {{item?.slot}} </p> -->
                                 </div> 
-                                <div> <span class="tag is-warning is-light has-text-weight-bold is-medium">Slot: {{item?.slot}}</span></div>
-                                <div> <span class="tag is-primary is-light has-text-weight-bold is-medium">Price: ₱{{item?.price}}</span></div>
+                                <a class="is-pulled-right has-text-danger-dark is-size-7" (click)="alterDescriptionText()">
+                                    {{ showShortDesciption ? 'See more': 'See less' }}
+                                </a> 
+                                <div> <span class="tag mt-4 is-danger is-light has-text-weight-bold is-medium">Slot: {{item?.slot}}</span></div>
+                                    <div> <span class="tag is-primary is-light has-text-weight-bold is-medium">Price: ₱{{item?.price}}</span></div>
                             </div>
                             <footer class="card-footer">
                                 <a (click)="onClickEditService(item)" class="card-footer-item">Edit</a>

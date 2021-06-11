@@ -9,6 +9,8 @@ export class Commission {
     slot: number;
     price: number;
     category: Category;
+    days: number;
+    terms: string;
 
     commissionimage: {
         filename: string,
@@ -20,7 +22,9 @@ export class Commission {
         this.commissionname = '';
         this.commissiondescription = '';
         this.slot = 0;
-        this.price = 0 ;
+        this.price = 0;
+        this.days = 0;
+        this.terms = "";
         this.commissionimage = {
             filename : '',
             contentType : '',

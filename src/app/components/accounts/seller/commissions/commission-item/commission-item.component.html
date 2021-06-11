@@ -116,6 +116,34 @@
                         </div>
                     </div>
                 </div>
+                <!------------------ RESERVATION DAYS --------------------->  
+                <div class="field mt-4">
+                    <label class="label is-marginless">Reservation Days</label>
+                    <p class="is-size-7 has-text-grey mb-1">Indicate maximum days a customer can reserve</p>
+                    <div class="column is-3 is-paddingless">
+                        <div class="control">
+                            <input [ngClass]="{ 'has-error': formControls.days?.errors }" class="input" 
+                            placeholder="No. of days" formControlName="days" type="number" min="1" required>
+                            <div *ngIf="submitted || (formControls.days?.touched || formControls.days?.dirty) && formControls.days?.errors" 
+                            class="help is-danger pt-2">
+                                <div *ngIf="formControls.days?.errors?.required">Number of days is required</div>
+                                <div *ngIf="formControls.days?.errors?.min">Input cannot be less than 1</div>
+                            </div>
+                        </div>
+                    </div>           
+                </div>
+                <!------------------ TERMS AND CONDITIONS --------------------->
+                <div class="field mt-4">
+                    <label class="label">Terms and Conditions</label>
+                    <div class="control">
+                        <textarea class="textarea" [ngClass]="{'has-error': formControls.terms?.errors }" class="input" 
+                        placeholder="Specify your Terms and Conditions" formControlName="terms" type="text" required></textarea> 
+                        <div *ngIf="submitted || (formControls.terms?.touched || formControls.terms?.dirty) && formControls.terms?.errors" 
+                        class="help is-danger">
+                            <div *ngIf="formControls.terms?.errors?.required">Terms and conditions are required</div>
+                        </div>
+                    </div>
+                </div>
             </form>
         </section>
         <footer class="modal-card-foot buttons is-right">
@@ -155,7 +183,8 @@
                     <div class="control">
                         <div class="file is-primary is-fullwidth">
                             <label class="file-label">
-                                <input class="file-input" #editimage type="file" accept="image/*" (change)="uploadFile($event); imageSRC= ''" 
+                                <input class="file-input" #editimage type="file" accept="image/*" 
+                                (change)="uploadFile($event); imageSRC= ''" 
                                 name="commissionimage" formControlName="commissionimage" required>
                                 <span class="file-cta">
                                     <span class="file-icon">
@@ -204,7 +233,8 @@
                             <div class="control field has-addons">
                                 <a class="button is-static">₱</a>
                                 <p class="control">
-                                    <input class="input" placeholder="Input price" formControlName="price" type="number" min="1" required>
+                                    <input class="input" placeholder="Input price" formControlName="price" 
+                                    type="number" min="1" required>
                             </div>
                         </div>
                     </div>
@@ -212,7 +242,8 @@
                         <div class="field mt-4">
                             <label class="label">Slot</label>
                             <div class="control">
-                                <input class="input" placeholder="Input no. of slots" formControlName="slot" type="number" min="0" required>
+                                <input class="input" placeholder="Input no. of slots" formControlName="slot" 
+                                type="number" min="0" required>
                             </div>
                         </div>
                     </div>
@@ -221,7 +252,27 @@
                 <div class="field mt-4">
                     <label class="label">Description</label>
                     <div class="control">
-                        <textarea class="textarea" class="input" placeholder="Input description of commission here" formControlName="commissiondescription" required></textarea> 
+                        <textarea class="textarea" class="input" placeholder="Input description of commission here" 
+                        formControlName="commissiondescription" required></textarea> 
+                    </div>
+                </div>
+                <!------------------ RESERVATION DAYS --------------------->  
+                <div class="field mt-4">
+                    <label class="label is-marginless">Reservation Days</label>
+                    <p class="is-size-7 has-text-grey mb-1">Indicate maximum days a customer can reserve</p>
+                    <div class="column is-3 is-paddingless">
+                        <div class="control">
+                            <input [ngClass]="{ 'has-error': formControls.days?.errors }" class="input" 
+                            placeholder="No. of days" formControlName="days" type="number" min="1" required>
+                        </div>
+                    </div>           
+                </div>
+                <!------------------ TERMS AND CONDITIONS --------------------->
+                <div class="field mt-4">
+                    <label class="label">Terms and Conditions</label>
+                    <div class="control">
+                        <textarea class="textarea" [ngClass]="{'has-error': formControls.terms?.errors }" class="input" 
+                        placeholder="Specify your Terms and Conditions" formControlName="terms" type="text" required></textarea> 
                     </div>
                 </div>
 
