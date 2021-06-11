@@ -18,7 +18,10 @@ interface reservation {
     _id: string,
     name: string,
   }
-  buyer: string,
+  buyer:{
+    _id: string,
+    name: string,
+  },
   reservationStatus: string,
 }
 @Component({
@@ -65,7 +68,10 @@ export class ReservationsComponent implements OnInit, OnDestroy{
         _id: "",
         name: "",
       },
-      buyer: "",
+      buyer: {
+        _id: "",
+        name: "",
+      },
       reservationStatus: "",
     }
   }
