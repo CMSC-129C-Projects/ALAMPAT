@@ -1,0 +1,45 @@
+<app-headerbuyer></app-headerbuyer>
+<!-- header-->
+<div class="columns the-header is-marginless">
+    <div class="column is-6 is-offset-3 is-12-mobile">
+      <!--<p class="title">Browse Our <br> Collection!</p>
+      <br>
+      <p class="subtitle has-text-black">
+        Tap on any product to view the specification. For further detail, feel free to get in touch.
+      </p> -->
+      <img class="header-background" src="https://unsplash.it/1000/1000/?random&pic=1" id="header-background-id" alt="background-img">
+    </div>
+  </div>
+  
+  <!-- header ends -->
+  <!-- test -->
+  <div class="column is-12 has-text-centered">
+    <img class="profile-picture" src="https://unsplash.it/300/300/?random&pic=1(14 kB)" alt="profile-picture">
+  </div>
+  <!-- test -->
+  <div class="container">
+    <div>Some tags before</div>
+    <owl-carousel-o [options]="customOptions">
+        <ng-template carouselSlide>
+            <img src="assets/smologo.png">
+        </ng-template>  
+        <ng-template carouselSlide>
+            <img src="https://unsplash.it/1000/1000/?random&pic=1">
+        </ng-template>  
+        <ng-template carouselSlide>
+            <img src="https://unsplash.it/1000/1000/?random&pic=1">
+        </ng-template>  
+    </owl-carousel-o>
+    <div>Some tags after</div>
+  </div>
+
+  <div class="container">
+    <div class="owl-carousel">
+    <div class="slides"><img src="https://unsplash.it/400/300/?image=121" alt="img1" /></div>
+    <div class="slides"><img src="https://unsplash.it/400/300/?image=232" alt="img1" /></div>
+    <div class="slides"><img src="https://unsplash.it/400/300/?image=343" alt="img1" /></div>
+    <div class="slides"><img src="https://unsplash.it/400/300/?image=454" alt="img1" /></div>
+    </div>
+    <div id="counter"></div> 
+      </div>
+  

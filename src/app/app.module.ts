@@ -7,7 +7,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire';
 
-import { NgxPaginationModule } from 'ngx-pagination'
+import { NgxPaginationModule } from 'ngx-pagination';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 import { UploadService } from './services/upload';
 import { AccountService } from './services/account';
@@ -45,6 +46,7 @@ import { OrderbuyerComponent } from './components/accounts/buyer/orderbuyer/orde
 import { CheckoutComponent } from './components/accounts/buyer/checkout/checkout.component';
 import { OrderdetailsbuyerComponent } from './components/accounts/buyer/orderdetailsbuyer/orderdetailsbuyer.component';
 import { ReservationSellerComponent } from './components/accounts/seller/reservation-seller/reservation-seller.component';
+import { SellerPageComponent } from './components/accounts/buyer/seller-page/seller-page.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,8 @@ import { ReservationSellerComponent } from './components/accounts/seller/reserva
     ReservationsComponent,
     OrderbuyerComponent,
     OrderdetailsbuyerComponent,
-    ReservationSellerComponent
+    ReservationSellerComponent,
+    SellerPageComponent
   ],
   imports: [
     BrowserModule,
@@ -92,6 +95,7 @@ import { ReservationSellerComponent } from './components/accounts/seller/reserva
     }),
     AngularFireStorageModule,
     NgxPaginationModule,
+    CarouselModule,
     RouterModule.forRoot([]),
 
   ],
