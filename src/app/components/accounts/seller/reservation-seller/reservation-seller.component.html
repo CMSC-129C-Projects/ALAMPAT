@@ -51,22 +51,9 @@
                             <div class="level-item">
                                 <div class="is-size-7 has-text-weight-medium is-marginless">
                                     Status:
-                                    <!-- NGIF -->
                                     <div class="tag is-warning is-light has-text-weight-bold">
-                                    <!--*ngIf="item.status=='Processing'"> -->
                                         {{item.reservationStatus}}
-                                    </div>
-                                    <!--
-                                    <div class="tag is-success has-text-weight-bold is-small"
-                                    *ngIf="item.status=='Completed'">
-                                        Completed
-                                    </div> 
-                                    <div class="tag is-danger is-light has-text-weight-bold is-small"
-                                    *ngIf="item.status=='Cancelled'">
-                                        Cancelled
-                                    </div>
-                                    -->        
-                                    
+                                    </div>    
                                 </div>
                             </div>
                         </div>
@@ -111,8 +98,15 @@
                             </div>
                             </div>
                         </div>
-                        <div class="container is-size-2">
-                            <div class="field is-grouped is-grouped-right">
+                        <div class="block is-3">
+                            <div class="buttons is-right pl-4 ml-4 mt-6 pt-6"
+                                *ngIf="item.reservationStatus == 'Cancelled'">
+                                <button class="button is-danger is-outlined has-text-weight-bold"> 
+                                    REMOVE
+                                </button>
+                            </div>
+                            
+                            <div class="field is-grouped is-grouped-right" *ngIf="item.reservationStatus != 'Cancelled'">
                                 <div class="buttons is-right pl-4 ml-4 mt-6 pt-6">
                                     <button class="button is-success is-hovered has-text-weight-bold">
                                         ACCEPT
