@@ -76,6 +76,7 @@ export class ContactComponent implements OnInit {
         this.regSuccess = false;
       }
     }
+    this.onReset();
   }
   onReset() {
     this.submitted = false;
