@@ -1,24 +1,7 @@
-<style>
-    .limitedText {
-      white-space: pre-wrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .card-container {
-      display: flex;
-      flex-wrap: wrap;
-      margin-top: 30px;
-    }
-  
-    .span-spaces {
-      padding-left: 5px;
-      padding-right: 10px;
-    }
-
-</style>
-
 <app-headerseller></app-headerseller>
+
 <section>
+    <!------------ HEADER --------------------->
     <div class="container">
         <div class="column is-10 is-offset-1 ">
             <div class="card-container ">
@@ -35,11 +18,10 @@
             <p class="ml-5">&nbsp;&nbsp;&nbsp; Requests are awaiting for your confirmation</p>
             <hr style="background-color:#a9c5b2" class=" mt-4 is-marginless">
         
-            <div class="block px-6 py-4 is-shadowless has-background-success-light" > 
-            <!------- EACH RESERVATION --------->
+            <div class="block px-6 py-4 is-shadowless has-background-success-light"> 
+            <!------------ EACH RESERVATION --------------------->
                 <div class="box" *ngFor="let item of reserv_List; index as i">
                     <div class="level pb-2 is-marginless">
-                        <!---->
                         <div class="level-left">
                             <div class="level-item">
                                 <p class= "is-size-7 has-text-weight-medium has-text-grey"> 
@@ -58,13 +40,9 @@
                             </div>
                         </div>
                     </div>
-                    
-                    
                     <article class="media">
                         <div class="media-left">
                             <figure class="image is-100x100">
-                                <!-- <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image"/> -->
-                                
                                 <div *ngIf="item.service.images?.imageBase64">
                                     <img class="object-fit_cover" [src]= "item.service.images?.imageBase64" alt="">
                                 </div>
@@ -75,37 +53,33 @@
                         </div>
                         <div class="media-content is-mobile">
                             <div class="content">
-                            <p class="limitedText has-text-weight-bold is-size-4">
-                                <!-- notice the class limitedText, when the text is too long, it ends with "..." 
-                                {{item.itemname}} -->
-                                <!-- Item Name -->
-                                {{item.service.commissionname}}
-                            </p>
-                            
-                            <p class="is-size-5 has-text-weight-medium is-marginless">
-                                Total:
-                                <span class="text has-text-weight-bold has-text-warning-dark">
-                                    ₱ {{item.service.price}}
-                                </span>
-                            </p>
-                            <div class="block">
-                                <div class="text is-size-6">
-                                    Availed by:
-                                <a class="tag is-white is-light has-text-weight-bold is-small">
-                                    {{item.buyer.name}}
-                                </a>
+                                <p class="limitedText has-text-weight-bold is-size-4">
+                                    {{item.service.commissionname}}
+                                </p>
+                                <p class="is-size-5 has-text-weight-medium is-marginless">
+                                    Total:
+                                    <span class="text has-text-weight-bold has-text-warning-dark">
+                                        ₱ {{item.service.price}}
+                                    </span>
+                                </p>
+                                <div class="block">
+                                    <div class="text is-size-6">
+                                        Availed by:
+                                    <a class="tag is-white is-light has-text-weight-bold is-small">
+                                        {{item.buyer.name}}
+                                    </a>
+                                    </div>
                                 </div>
                             </div>
-                            </div>
                         </div>
+                        <!------------ BUTTONS --------------------->
                         <div class="block is-3">
                             <div class="buttons is-right pl-4 ml-4 mt-6 pt-6"
                                 *ngIf="item.reservationStatus == 'Cancelled'">
                                 <button class="button is-danger is-outlined has-text-weight-bold"> 
                                     REMOVE
                                 </button>
-                            </div>
-                            
+                            </div>      
                             <div class="field is-grouped is-grouped-right" *ngIf="item.reservationStatus != 'Cancelled'">
                                 <div class="buttons is-right pl-4 ml-4 mt-6 pt-6">
                                     <button class="button is-success is-hovered has-text-weight-bold">
@@ -118,37 +92,9 @@
                             </div>  
                         </div>
                     </article>
-        
-                    <div class="level is-marginless">
-                        <div class="level-left">
-                            <!-- <div class="level-item">
-                                <p class= "is-size-7 has-text-weight-medium is-right"> 
-                                    Reservation Days Remaining: 
-                                </p>
-                            </div> -->
-                        </div>
-                        <!--
-                        <div class="level-right">
-                            <div class="level-item">
-                                <div class="field is-grouped is-grouped-right">
-                                    <div class="buttons is-centered pl-4 ml-4 ">
-                                        <button class="button is-success is-hovered has-text-weight-bold">
-                                            ACCEPT
-                                        </button>
-                                        <button class="button is-danger is-outlined has-text-weight-bold">
-                                            REJECT
-                                        </button>
-                                    </div>   
-                                </div>
-                            </div>
-                        </div>
-                        -->
-                    </div>  
                 </div>
-
             </div>
         </div>
-
     </div>
 </section>
 
