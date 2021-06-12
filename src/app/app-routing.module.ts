@@ -21,7 +21,7 @@ import { CommissionComponent } from './components/accounts/seller/commissions/co
 
 import { ViewProductComponent } from './components/accounts/buyer/view-product/view-product.component';
 import { ReservationsComponent } from './components/accounts/buyer/reservations/reservations.component';
-
+import { CheckoutComponent } from './components/accounts/buyer/checkout/checkout.component';
 import { ReservationSellerComponent } from './components/accounts/seller/reservation-seller/reservation-seller.component';
 
 const routes: Routes = [
@@ -38,9 +38,9 @@ const routes: Routes = [
   { path: 'marketplace', component: MarketplaceComponent },
   { path: 'commission-item', component: ViewcommissionComponent },
   { path: 'product-item', component: ViewProductComponent }, //wala pa na connect sa object na naas marketplace
-
+  { path: 'checkout', component: CheckoutComponent, canActivate:[AuthGuard]},
   { path: 'reservation', component: ReservationsComponent, canActivate:[AuthGuard]},
-  { path: 'reservation-seller', component: ReservationSellerComponent},
+  { path: 'reservation-seller', component: ReservationSellerComponent, canActivate:[AuthGuard]},
   { path: 'notfound', component: NoPageFoundComponent},
   { path: '**', redirectTo:'notfound' }
 ];
