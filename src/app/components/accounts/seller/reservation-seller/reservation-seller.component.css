@@ -3,3 +3,18 @@ figure img{
     height: 150px; 
     object-fit: scale-down;
 }
+.limitedText {
+    white-space: pre-wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 30px;
+  }
+
+  .span-spaces {
+    padding-left: 5px;
+    padding-right: 10px;
+  }
