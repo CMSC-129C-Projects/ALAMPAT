@@ -17,7 +17,9 @@ const addCommission = async(req, res, next) => {
                 category: req.body.category,
                 description:req.body.commissiondescription,
                 slot:req.body.slot,
-                price:req.body.price
+                price:req.body.price,
+                days: req.body.days,
+                terms: req.body.terms,
             })
             if (commission.length <= 0){
                 return res.send('You must select atleast 1 file.')
@@ -110,7 +112,9 @@ const updateCommission = async(req, res, next) => {
                 description:req.body.commissiondescription,
                 slot:req.body.slot,
                 price: req.body.price,
-                category: req.body.category
+                category: req.body.category,
+                days: req.body.days,
+                terms: req.body.terms,
             })
         //updates the user object data to the database 
             Commission.findByIdAndUpdate( req.params.commissionid , commission)

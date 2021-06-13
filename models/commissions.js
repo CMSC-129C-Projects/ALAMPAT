@@ -47,6 +47,16 @@ const commissionSchema = new Schema({
         required: 'Price can\'t be empty'
     },
 
+    days:{
+        type: Number,
+        required: 'Reservation days can\'t be empty'
+    },
+
+    terms:{
+        type: String,
+        required: 'Terms can\'t be empty'
+    },
+
     
 }, { timestamps: true });
 
