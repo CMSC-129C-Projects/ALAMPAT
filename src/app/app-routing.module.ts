@@ -23,6 +23,7 @@ import { ViewProductComponent } from './components/accounts/buyer/view-product/v
 import { ReservationsComponent } from './components/accounts/buyer/reservations/reservations.component';
 import { CheckoutComponent } from './components/accounts/buyer/checkout/checkout.component';
 import { ReservationSellerComponent } from './components/accounts/seller/reservation-seller/reservation-seller.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
@@ -42,6 +43,7 @@ const routes: Routes = [
   { path: 'reservation', component: ReservationsComponent, canActivate:[AuthGuard]},
   { path: 'reservation-seller', component: ReservationSellerComponent, canActivate:[AuthGuard]},
   { path: 'notfound', component: NoPageFoundComponent},
+  { path: 'about-us', component: AboutusComponent },
   { path: '**', redirectTo:'notfound' }
 ];
 
@@ -64,5 +66,6 @@ export const routingComponents = [
   ProductsComponent,
   AddProductComponent,
   ReservationsComponent,
-  ReservationSellerComponent
+  ReservationSellerComponent,
+  AboutusComponent
 ]
