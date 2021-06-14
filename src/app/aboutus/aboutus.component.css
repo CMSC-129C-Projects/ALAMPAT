@@ -1,0 +1,54 @@
+.profileImage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    width: 200px;
+    height: 200px;
+}
+
+.profileBox {
+    width: 320px;
+}
+
+hr.solid {
+    border-top: 3px solid #eeeeee;
+  }
+
+.button.is-facebook {
+    background-color: #ecf2ff;
+    border-color: #ffffff;
+    color: #4267B2;
+}
+
+.button.is-twitter {
+    background-color: #edf5fa;
+    border-color: #ffffff;
+    color: #1DA1F2;
+}
+
+.button.is-instagram {
+    background-color: #fff0f8;
+    border-color: #ffffff;
+    color: #ea4aaa;
+}
+
+.button.is-email {
+    background-color: #fffaec;
+    border-color: #ffffff;
+    color: #F4B400;
+}
+
+.button.is-linkedin {
+    background-color: #eef5ff;
+    border-color: #ffffff;
+    color: #2867B2;
+}
+
+.button.is-github {
+    background-color: #f1f1f1;
+    border-color: #ffffff;
+    color: #000000;
+}
