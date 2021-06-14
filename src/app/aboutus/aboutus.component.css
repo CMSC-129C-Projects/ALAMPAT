@@ -44,5 +44,11 @@ hr.solid {
 .button.is-github {
     background-color: #f1f1f1;
     border-color: #ffffff;
-    color: #000000;
+    color: #161b22;
+}
+
+.button.is-discord {
+    background-color: #f0f4ff;;
+    border-color: #ffffff;
+    color: #7289DA;;
 }
