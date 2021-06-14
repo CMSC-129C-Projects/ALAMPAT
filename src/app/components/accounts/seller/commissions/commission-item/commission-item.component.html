@@ -264,6 +264,11 @@
                         <div class="control">
                             <input [ngClass]="{ 'has-error': formControls.days?.errors }" class="input" 
                             placeholder="No. of days" formControlName="days" type="number" min="1" required>
+                            <div *ngIf="submitted || (formControls.days?.touched || formControls.days?.dirty) && formControls.days?.errors" 
+                            class="help is-danger pt-2">
+                                <div *ngIf="formControls.days?.errors?.required">Number of days is required</div>
+                                <div *ngIf="formControls.days?.errors?.min">Input cannot be less than 1</div>
+                            </div>
                         </div>
                     </div>           
                 </div>
@@ -273,6 +278,10 @@
                     <div class="control">
                         <textarea class="textarea" [ngClass]="{'has-error': formControls.terms?.errors }" class="input" 
                         placeholder="Specify your Terms and Conditions" formControlName="terms" type="text" required></textarea> 
+                        <div *ngIf="submitted || (formControls.terms?.touched || formControls.terms?.dirty) && formControls.terms?.errors" 
+                        class="help is-danger">
+                            <div *ngIf="formControls.terms?.errors?.required">Terms and conditions are required</div>
+                        </div>
                     </div>
                 </div>
 

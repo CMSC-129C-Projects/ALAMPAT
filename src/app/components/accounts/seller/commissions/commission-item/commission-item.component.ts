@@ -274,7 +274,7 @@ export class CommissionItemComponent implements OnChanges, OnDestroy {
     if (this.serviceForm.invalid) {
       this.saved = true;
       console.log("Error in updating commission")
-      this.initForm();
+      // this.initForm();
     } else {
       const userdata = await this.commissionService.updateItemdata(this.serviceForm.value, this.service._id);
       if (userdata) {
