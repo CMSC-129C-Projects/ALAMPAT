@@ -75,7 +75,7 @@ const getReservationList = async(req, res, next) => {
                 path: 'reservation' , 
                 populate: [{
                     path: 'service',
-                    select: 'images _id commissionname price'
+                    select: 'images _id commissionname price days'
                     //model: 'Commissions'
                 },{
                     path: 'seller',
@@ -113,7 +113,7 @@ const getReservation = async(req, res, next) => {
         const reservation = await Reserve.findById(req.query.id)
             .populate([{
                     path: 'service',
-                    select: 'images _id commissionname price'
+                    select: 'images _id commissionname price days terms'
                     //model: 'Commissions'
                 },{
                     path: 'seller',
@@ -148,21 +148,21 @@ const updateReservation = async(req, res, next) => {
         
             //creates a new user object together with the final image object
             let rese = {
-                reservationStatus: req.body.reservationstatus,
+                reservationStatus: req.query.status,
             }
         //updates the user object data to the database 
-            Reserve.findByIdAndUpdate( req.params.reservationid , { $set: rese})
+            Reserve.findByIdAndUpdate( req.query.res_id , { $set: rese})
                 .then((result) => {
                     //console.log(result)
                     res.json({
-                        message: 'Reservation data updated successfully!',
+                        message: 'Reservation status updated successfully!',
                         result,
                         success: true,
                     })
                     
                 }).catch((error)=>{
                     res.status(400).json({
-                        message: 'Reservation data update failed!',
+                        message: 'Reservation status update failed!',
                         error:error,
                         user,
                         success: false,
@@ -187,25 +187,32 @@ const deleteReservation = async(req, res, next) => {
             //creates a new user object together with the final image object
            
         //updates the user object data to the database 
-        Reservation.findByIdAndRemove(req.body._id, function(err, result){
-            if(!err){
-                User.findByIdAndUpdate( req.params.id , { $pull: { reservations: result._id } })
-                .then((data)=>{
+        
+        User.findByIdAndUpdate( req.params.id , { $pull: { reservation: req.query.reserv_id } })
+        .then((data)=>{
+            Reserve.findByIdAndUpdate( req.query.reserv_id , { $set: {reservationStatus: "Invalid"}})
+                .then((result) => {
+                    //console.log(result)
                     res.json({
-                        message: 'Reservation data removed successfully!',
-                        data: data,
+                        message: 'Reservation data updated successfully!',
+                        result,
                         success: true,
                     })
-                }).catch((error)=>{
-                    res.status(400).json({
-                        message: 'Reservation data removing failed!',
-                        error:error,
-                        user,
-                        success: false,
-                    })
                 })
-            }
+            res.json({
+                message: 'Reservation data removed successfully!',
+                data: data,
+                success: true,
+            })
+        }).catch((error)=>{
+            res.status(400).json({
+                message: 'Reservation data removing failed!',
+                error:error,
+                user,
+                success: false,
+            })
         })
+         
 
         
     }

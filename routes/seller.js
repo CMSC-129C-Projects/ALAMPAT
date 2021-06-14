@@ -28,7 +28,7 @@ router.delete('/:id/removecommission/', commissionController.deleteCommission)
 
 //router.post('/:id/addreservation', reservationController.addReservation)
 router.get('/:id/reservations', reservationController.getReservationList)
-router.patch('/:id/editreservation/:reservationid', reservationController.updateReservation)
+router.patch('/:id/updateReservation/', reservationController.updateReservation)
 router.delete('/:id/removereservation/', reservationController.deleteReservation)
 
 router.patch('/updateOrder/:order_id', OrderController.updateOrder)

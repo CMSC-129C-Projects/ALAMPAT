@@ -4,6 +4,7 @@ const checkAuth = require('../middleware/checkAuth');
 
 const userController = require('../controllers/UserController');
 const OrderController = require('../controllers/OrderController');
+const ReservationController = require('../controllers/ReservationController');
 
 router.get('/getUserByEmail', (req, res, next) => {
 
@@ -23,5 +24,7 @@ router.get('/:id/getOrders/', OrderController.getOrderList)
 router.post('/:id/addprod_orders/', OrderController.addProductOrder)
 
 router.post('/:id/addcomm_orders/', OrderController.addCommissionOrder)
+
+router.delete('/:id/removeReservation', ReservationController.deleteReservation)
 module.exports = router;
 
