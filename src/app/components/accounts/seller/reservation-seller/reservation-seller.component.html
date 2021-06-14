@@ -75,17 +75,17 @@
                         <!------------ BUTTONS --------------------->
                         <div class="block is-3">
                             <div class="buttons is-right pl-4 ml-4 mt-6 pt-6"
-                                *ngIf="item.reservationStatus == 'Cancelled'">
-                                <button class="button is-danger is-outlined has-text-weight-bold"> 
+                                *ngIf="item.reservationStatus == 'Cancelled' || item.reservationStatus == 'Rejected' || item.reservationStatus == 'Invalid'">
+                                <button class="button is-danger is-outlined has-text-weight-bold" (click) = "removeReservation(item)"> 
                                     REMOVE
                                 </button>
                             </div>      
-                            <div class="field is-grouped is-grouped-right" *ngIf="item.reservationStatus != 'Cancelled'">
+                            <div class="field is-grouped is-grouped-right" *ngIf="item.reservationStatus == 'Waiting for Approval' ">
                                 <div class="buttons is-right pl-4 ml-4 mt-6 pt-6">
-                                    <button class="button is-success is-hovered has-text-weight-bold">
+                                    <button class="button is-success is-hovered has-text-weight-bold"  (click) = "acceptReservation(item)">
                                         ACCEPT
                                     </button>
-                                    <button class="button is-danger is-outlined has-text-weight-bold">
+                                    <button class="button is-danger is-outlined has-text-weight-bold" (click) = "rejectReservation(item)">
                                         REJECT
                                     </button>
                                 </div> 

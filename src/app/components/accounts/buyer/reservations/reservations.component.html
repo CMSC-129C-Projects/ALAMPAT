@@ -234,7 +234,9 @@
                 Terms & Conditions
               </p>
               <p class="text is-size-7">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean cursus, ligula quis facilisis convallis, nibh mauris ultrices nibh, rhoncus fringilla erat felis vitae neque. Mauris blandit elit non nisl interdum ultrices. Vestibulum mollis est non rhoncus mattis. Donec tincidunt odio dolor, lacinia commodo arcu luctus ut. Aenean tincidunt nibh quis orci vestibulum, quis mattis ipsum sagittis. Quisque quis ante porttitor, ullamcorper ligula sit amet, auctor nulla. Ut cursus, ex nec euismod accumsan, mauris massa facilisis felis, sed suscipit metus enim mattis nibh. Praesent nec ex imperdiet, sagittis nunc vitae, scelerisque dui. Nulla auctor risus sem, vitae venenatis lorem faucibus ut. Mauris iaculis suscipit posuere. Morbi non sem consectetur leo mattis bibendum. Nullam id semper nisi. Mauris dolor urna, tristique a finibus ac, sollicitudin a nisl. Etiam non tellus pharetra, dignissim purus quis, bibendum felis. Aliquam erat volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.              </p>
+                {{reservation.service?.terms}}
+                <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean cursus, ligula quis facilisis convallis, nibh mauris ultrices nibh, rhoncus fringilla erat felis vitae neque. Mauris blandit elit non nisl interdum ultrices. Vestibulum mollis est non rhoncus mattis. Donec tincidunt odio dolor, lacinia commodo arcu luctus ut. Aenean tincidunt nibh quis orci vestibulum, quis mattis ipsum sagittis. Quisque quis ante porttitor, ullamcorper ligula sit amet, auctor nulla. Ut cursus, ex nec euismod accumsan, mauris massa facilisis felis, sed suscipit metus enim mattis nibh. Praesent nec ex imperdiet, sagittis nunc vitae, scelerisque dui. Nulla auctor risus sem, vitae venenatis lorem faucibus ut. Mauris iaculis suscipit posuere. Morbi non sem consectetur leo mattis bibendum. Nullam id semper nisi. Mauris dolor urna, tristique a finibus ac, sollicitudin a nisl. Etiam non tellus pharetra, dignissim purus quis, bibendum felis. Aliquam erat volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.-->
+              </p>
             </div>
           </div>
         </div>
@@ -250,11 +252,18 @@
           Proceed To Checkout
         </button> -->
        
-        <button *ngIf = "reservation.reservationStatus != 'Cancelled'" class="button is-danger has-text-weight-bold" (click)="onCancellation(reservation._id)">
+        <button *ngIf = "reservation.reservationStatus == 'Waiting for Approval'" class="button is-danger has-text-weight-bold" (click)="onCancellation(reservation._id)">
           Cancel Reservation
         </button>
+
+        <button *ngIf = "reservation.reservationStatus == 'Invalid' || reservation.reservationStatus == 'Rejected' || reservation.reservationStatus == 'Cancelled' " class="button is-danger has-text-weight-bold" (click)="onRemoval(reservation._id)">
+          Remove Reservation
+        </button>
         
-        
+        <button *ngIf = "reservation.reservationStatus == 'Approved' " class="button is-danger has-text-weight-bold" (click)="onRemoval(reservation._id)">
+          Proceed to Checkout
+        </button>
+
       </div>
     </footer>
   </div>

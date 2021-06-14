@@ -24,6 +24,7 @@ export class ReservationService {
     userID: string|null;
     prod_added: boolean
     additem_error: string;
+    isDeleted: boolean = false
     constructor(
       ) {
 
@@ -90,6 +91,45 @@ export class ReservationService {
         }
         
     }
+
+    removeReservation = async (res_id: string) => {
+        try {
+            this.userID = localStorage.getItem('id')
+            const response = await axios.delete(`${test_API}/users/${this.userID}/removeReservation?reserv_id=${res_id}`);
+            const { message, success } = response.data
+            console.log(response.data)
+            if (success) {
+                this.isDeleted = true;
+                console.log(JSON.stringify(message))
+                return this.isDeleted
+
+            } else {
+                this.isDeleted = false;
+                console.error(JSON.stringify(message))
+
+                return this.isDeleted
+            }
+
+        } catch (error) {
+            this.isDeleted = false
+            console.error(error.message)
+            //console.log("faaaill")
+            return this.isDeleted;
+        }
+    }
+
+    updateReservation = async (res_id: string, status_res: string) => {
+        try{
+            this.userID = localStorage.getItem('id')
+            const response = await axios.patch(`${test_API}/seller/${this.userID}/updateReservation?res_id=${res_id}&status=${status_res}`)
+            console.log("Response: " + response.data.message)
+        }
+        catch(error){
+            console.error("Error: " + error)
+        }
+        
+    }
+
     // updateProductdata = async (product: Products, id: any) => {
     //     try {
     //         this.userID = localStorage.getItem('id')

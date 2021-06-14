@@ -12,7 +12,9 @@ interface reservation {
     }
     _id: string, 
     commissionname: string,
-    price: number
+    price: number,
+    days: number,
+    terms: string
   }
   seller:{
     _id: string,
@@ -62,7 +64,9 @@ export class ReservationsComponent implements OnInit, OnDestroy{
         },
         _id: "", 
         commissionname: "",
-        price: 0
+        price: 0,
+        days: 0,
+        terms: ''
       },
       seller:{
         _id: "",
@@ -120,6 +124,10 @@ export class ReservationsComponent implements OnInit, OnDestroy{
     
   }
 
+  onRemoval(reserve_id: string){
+    this.reserv.removeReservation(reserve_id)
+    this.onClickExit()
+  }
   onClickExit = () => {
     this.subs.forEach(x => x.unsubscribe())
     this.subscribeReserveList()

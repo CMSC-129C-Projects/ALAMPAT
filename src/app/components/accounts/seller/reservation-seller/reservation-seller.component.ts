@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { ReservationService } from 'src/app/services/reservation';
 import { Subscription } from 'rxjs';
 
@@ -29,7 +29,7 @@ interface reservation {
   templateUrl: './reservation-seller.component.html',
   styleUrls: ['./reservation-seller.component.css']
 })
-export class ReservationSellerComponent implements OnInit {
+export class ReservationSellerComponent implements OnInit, OnChanges {
   
   reserv_List: reservation[] = []
   reservation: reservation
@@ -45,6 +45,9 @@ export class ReservationSellerComponent implements OnInit {
     this.subscribeReserveList()
   }
 
+  ngOnChanges(): void {
+    
+  }
   setreservation(){
     this.reservation = {
       _id: '',
@@ -78,5 +81,30 @@ export class ReservationSellerComponent implements OnInit {
        
       })
     )
+  }
+
+  acceptReservation(item:any){
+    this.reserv.updateReservation(item._id, "Approved")
+    setTimeout( ()=>{
+      this.subs.forEach( x=> x.unsubscribe())
+      this.subscribeReserveList()
+    }, 500)
+  }
+
+  rejectReservation(item:any){
+    this.reserv.updateReservation(item._id, "Rejected")
+    setTimeout( ()=>{
+      this.subs.forEach( x=> x.unsubscribe())
+      this.subscribeReserveList()
+    }, 500)
+  }
+
+  removeReservation(item:any){
+    this.reserv.removeReservation(item._id)
+    setTimeout( ()=>{
+      this.subs.forEach( x=> x.unsubscribe())
+      this.subscribeReserveList()
+    }, 500)
+    
   }
 }
