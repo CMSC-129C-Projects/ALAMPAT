@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { MarketService } from 'src/app/services/market';
 import { ReservationService } from 'src/app/services/reservation';
@@ -38,6 +38,7 @@ export class ViewProductComponent implements OnInit, OnDestroy{
     private route:ActivatedRoute,
     private marketserv: MarketService,
     private cartServ: ReservationService,
+    private router: Router,
   ) {
     
     //this.copy = new BehaviorSubject<any>('')
@@ -84,5 +85,11 @@ export class ViewProductComponent implements OnInit, OnDestroy{
       if(this.openSuccessModal) {
         this.openSuccessModal = false;
       }
+  }
+
+  ViewSeller(item:  any){ 
+    this.subs.forEach((x)=> x.unsubscribe())
+    console.log(item.seller_id)
+    this.router.navigate(['/seller/'], {queryParams: { id: item.seller_id}} )
   }
 }
