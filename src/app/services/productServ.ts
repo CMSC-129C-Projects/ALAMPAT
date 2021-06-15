@@ -113,6 +113,20 @@ export class ProductService {
             return error
         }
     }
+
+    // for getting the product list data in seller page 
+    getProductdata_SP(seller_id: string):Observable<any> {
+        try {
+           
+            return Axios.get(`${localAPI}/seller/${seller_id}/product`)
+
+        } catch (error) {
+            console.log(error)
+            this.uploadError = error
+            return error
+        }
+    }
+
     deleteProductdata = async (id: any) => {
         try {
             this.userID = localStorage.getItem('id')

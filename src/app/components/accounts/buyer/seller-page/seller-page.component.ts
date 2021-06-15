@@ -5,7 +5,8 @@ import { UploadService } from 'src/app/services/upload';
 import { Subscription } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { ProductService } from 'src/app/services/productServ';
+import { CommissionService } from 'src/app/services/comService';
 const localAPI = 'http://localhost:3000'
 
 interface User {
@@ -49,11 +50,17 @@ export class SellerPageComponent implements OnInit, OnDestroy {
 
   @Input() portfolioList: Portfolio[] = [];
 
+  commissionList: any
+  productList: any
+
   constructor(
-    private router: Router,
-    private route: ActivatedRoute, 
-    private accountService: AccountService,
-    private uploadService: UploadService) { }
+      private router: Router,
+      private route: ActivatedRoute, 
+      private accountService: AccountService,
+      private uploadService: UploadService,
+      private productserv: ProductService,
+      private commserv: CommissionService,
+    ) { }
 
   ngOnInit(): void {
 
@@ -61,8 +68,8 @@ export class SellerPageComponent implements OnInit, OnDestroy {
       .subscribe(params => {
         this.seller_id = params.id
       })
-    //getting and displaying the data of the  logged in user by UserId
-    
+
+    //getting and displaying the data of the  seller by UserId
     this.subs.push(this.accountService.getUserdata_SP(this.seller_id).subscribe((user)=>{
         this.user = user.data.userData
         this.imageSRC = this.user.profileImage?.imageBase64
@@ -70,12 +77,29 @@ export class SellerPageComponent implements OnInit, OnDestroy {
         console.log("Error", error)
       })
     )
-    //Getting and displaying portfolio of user
+
+    //Getting and displaying portfolio of seller
     this.subs.push(
       this.uploadService.getPortfolio_SP(this.seller_id).subscribe( artwork => {
         this.portfolioList = artwork.data.portfolioArray;
       })
     )
+    
+    //Getting and displaying commissions  listof seller
+    this.subs.push(
+      this.commserv.getItemdata_SP(this.seller_id).subscribe( commlist => {
+        this.commissionList = commlist.data.commissionsArray;
+        console.log("Comms: " + JSON.stringify(commlist.data.commissionsArray))
+      })
+    )
+    
+    //Getting and displaying product list  of seller
+    this.subs.push(
+      this.productserv.getProductdata_SP(this.seller_id).subscribe( prodlist => {
+        this.productList = prodlist.data.productsArray;
+        console.log("Products: " + JSON.stringify(prodlist.data.productsArray))
+      })
+    ) 
     //For Tabs
     const tabs = document.querySelectorAll('.tabs li');
     const tabContentBoxes = document.querySelectorAll('#tab-content > div');
