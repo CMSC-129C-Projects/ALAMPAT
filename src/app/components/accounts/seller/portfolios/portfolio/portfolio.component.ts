@@ -1,9 +1,8 @@
 import { Component, Input, OnInit,OnDestroy } from '@angular/core';
-//import { Portfolio } from 'src/app/models/Portfolio';
 import { UploadService } from 'src/app/services/upload';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
-import {AngularFireStorage} from '@angular/fire/storage'
+import {AngularFireStorage} from '@angular/fire/storage';
 import { max } from 'rxjs/operators';
 
 interface Portfolio {
