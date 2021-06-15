@@ -17,6 +17,7 @@ interface commission {
   }];
   category:string;
   sellername?: string;
+  seller_id?: string;
   profileImage: string;
 }
 
@@ -113,10 +114,10 @@ export class ViewcommissionComponent implements OnInit, OnDestroy {
     }
   }
 
-  ViewSeller(seller:  any){ //how dis
-    const _id = seller ? seller._id : null;
+  ViewSeller(item:  any){ //how dis
+    //const _id = seller ? seller._id : null;
     this.subs.forEach((x)=> x.unsubscribe())
-
-    this.router.navigate(['/seller/', {id: _id} ])
+    console.log(item.seller_id)
+    this.router.navigate(['/seller/'], {queryParams: { id: item.seller_id}} )
   }
 }

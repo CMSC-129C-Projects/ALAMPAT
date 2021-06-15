@@ -3,8 +3,10 @@ import axios from 'axios'
 import { User } from '../models/User'
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-const localAPI = 'https://alampat.herokuapp.com'
+import Axios from 'axios-observable';
 
+const localAPI = 'https://alampat.herokuapp.com'
+const test_API = 'http://localhost:3000'
 
 interface getUserResponse {
     message: string;
@@ -62,6 +64,12 @@ export class AccountService {
 
             //return error
         }
+    }
+
+    //for seller page component
+    getUserdata_SP = (seller_id: string): Observable<any> =>{
+            
+            return Axios.get(`${test_API}/users/profile/` + seller_id)
     }
 
     updateUserdata = async (user: User ) => {

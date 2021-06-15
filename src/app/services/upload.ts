@@ -114,6 +114,27 @@ export class UploadService {
         }
     }
 
+    //for Seller page component
+    getPortfolio_SP(id: string): Observable<any>{
+        try {
+            //this.userID = localStorage.getItem('id')
+            // axios.get(`${localAPI}/seller/${this.userID}/portfolio`)
+            // .then(resp => {
+            //     this.portfolio.next(resp.data.portfolioArray)
+                
+            //     console.log(this.portfolio);  
+            // })
+            // .catch(err => { 
+            //     console.log(err);
+            // });
+            return Axios.get(`${localAPI}/seller/${id}/portfolio`)
+            
+        } catch (error) {
+            console.log(error)
+            this.uploadError = error
+            return error
+        }
+    }
     
     updatePortfoliodata = async (portfolio: Portfolio, id: any ) => {
         try {

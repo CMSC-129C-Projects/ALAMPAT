@@ -111,7 +111,7 @@ export class CommissionItemComponent implements OnChanges, OnDestroy {
 
     this.subscriptions = this.commissionService.comSource.asObservable().subscribe(currItem => {
       this.service = currItem
-      this.imageSRC = this.service.images.imageBase64
+      this.imageSRC = this.service?.images?.imageBase64
       this.initForm()
     })
 
@@ -273,6 +273,7 @@ export class CommissionItemComponent implements OnChanges, OnDestroy {
   saveCommission = async () => {
     if (this.serviceForm.invalid) {
       this.saved = true;
+      console.log("Error in updating commission")
       this.initForm();
     } else {
       const userdata = await this.commissionService.updateItemdata(this.serviceForm.value, this.service._id);
@@ -304,8 +305,8 @@ export class CommissionItemComponent implements OnChanges, OnDestroy {
       category: this.service?.category,
       slot: this.service?.slot,
       price: this.service?.price,
-      days: this.service?.price,
-      terms: this.service?.price,
+      days: this.service?.days,
+      terms: this.service?.terms,
       commissionimage:{
         filename: this.service?.images.filename,
         contentType: this.service?.images.contentType,

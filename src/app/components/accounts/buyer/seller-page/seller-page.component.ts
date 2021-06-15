@@ -4,7 +4,7 @@ import { AccountService } from 'src/app/services/account';
 import { UploadService } from 'src/app/services/upload';
 import { Subscription } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
-import {AngularFireStorage} from '@angular/fire/storage';
+import { ActivatedRoute, Router } from '@angular/router';
 
 const localAPI = 'http://localhost:3000'
 
@@ -44,19 +44,27 @@ export class SellerPageComponent implements OnInit, OnDestroy {
   public imageSRC: any;
   public imageSRC_artwork: any;
 
+  seller_id: string
   subs: Subscription[] = []
 
   @Input() portfolioList: Portfolio[] = [];
 
-  constructor(private domSanitizer: DomSanitizer, 
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute, 
     private accountService: AccountService,
     private uploadService: UploadService) { }
 
   ngOnInit(): void {
+
+    this.route.queryParams
+      .subscribe(params => {
+        this.seller_id = params.id
+      })
     //getting and displaying the data of the  logged in user by UserId
-    this.accountService.getUserdata()
-    this.subs.push(this.accountService.user.subscribe((user)=>{
-        this.user = user 
+    
+    this.subs.push(this.accountService.getUserdata_SP(this.seller_id).subscribe((user)=>{
+        this.user = user.data.userData
         this.imageSRC = this.user.profileImage?.imageBase64
     }, (error) => {
         console.log("Error", error)
@@ -64,7 +72,7 @@ export class SellerPageComponent implements OnInit, OnDestroy {
     )
     //Getting and displaying portfolio of user
     this.subs.push(
-      this.uploadService.getPortfoliodata().subscribe( artwork => {
+      this.uploadService.getPortfolio_SP(this.seller_id).subscribe( artwork => {
         this.portfolioList = artwork.data.portfolioArray;
       })
     )

@@ -178,7 +178,7 @@ export class MarketService {
 
     getCommission(_id: string|null, ) {
         this.setItem()
-        axios.get(`${localAPI}/buyer/getCommission/${_id}`)
+        axios.get(`${localAPI}/buyer/getCommission2/${_id}`)
         .then(resp => {
             this.item.next(resp.data.commission)
             // /console.log("market value: " + JSON.stringify(this.market))
@@ -196,7 +196,7 @@ export class MarketService {
    
     getProduct(_id: string|null) {
         this.setItem()
-        axios.get(`${localAPI}/buyer/getProduct/${_id}`)
+        axios.get(`${localAPI}/buyer/getProduct2/${_id}`)
         .then(resp => {
             this.item.next(resp.data.product)
             // /console.log("market value: " + JSON.stringify(this.market))
