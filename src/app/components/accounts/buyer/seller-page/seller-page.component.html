@@ -8,9 +8,14 @@
 </div>
 
 <div class="column is-12 has-text-centered">
-  <img class="profile-picture" src="https://unsplash.it/300/300/?random&pic=1(14 kB)" alt="profile-picture">
+  <div *ngIf = "imageSRC">
+    <img class="profile-picture" [src]= "imageSRC" alt="profile-picture">
+  </div>
+  <div *ngIf = "!imageSRC">
+    <img class="profile-picture" src="assets/noprofpic.png" alt="profile-picture">
+  </div>
   <p class="title py-1">
-    Earl John Tagalog
+    {{user?.name}}
   </p>
 </div>
 <!--------------- RATING ------------------->
@@ -77,10 +82,13 @@
       About Shop
     </p>
     <div class="column is-10 is-offset-1 ">
+      {{user?.description}}
+      <!--
         Hi! I'm a self-learned full-stack developer from University of the Philippines- Cebu.
         I'm comfortable working on Angular framework and my main tech stack is MEAN stack.
         I'm also proficient in Python and C++ languages. 
         I have also worked with software companies Oracle, Accenture and Alliance Software Inc.
+        -->
     </div>
     <!------ IMAGE SLIDER FOR PORTFOLIO ----------->
     <div class="subtitle has-text-weight-bold pt-4 pl-6 is-marginless">
@@ -127,8 +135,30 @@
   
 
   <!----------- TAB | PORTFOLIO ------------------->
-  <div class="block is-hidden" id="portfolio">
-    portfolio works
+  <div class="block px-4 pt-5 is-hidden" id="portfolio">
+    <div class="columns is-multiline is-mobile" >
+      <!-- EACH ARTWORK -->
+      <div class="column is-6 is-paddingless" *ngFor="let item of portfolioList; index as i">
+        <div class="box is-paddingless mx-2 my-2">
+          <div class="has-background-white">
+            <figure class="image is-5by4" (click)="onClickOpen(item, i)">
+              <div *ngIf="item.images?.imageBase64" class="is-clickable">
+                  <img class="object-fit_contain" [src]= "item.images.imageBase64">
+              </div>
+              <div *ngIf="!item.images?.imageBase64">
+                  <img class="object-fit_contain"  src= "assets/noimg.png" alt="noimage">
+              </div>
+            </figure>
+            <div class="block has-text-centered px-1 py-1">
+              <p class="subtitle has-text-weight-bold" readonly>
+                {{item?.artworkname }}
+              </p>
+                {{item?.description}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!----------- TAB | ALL PRODUCTS ------------------->
@@ -141,6 +171,20 @@
     commission works
   </div>
 
+</div>
+
+<!-- IMAGE MODAL -->
+<div class="modal" [ngClass]="openImageModal ? 'is-active' : ''">
+  <div class="modal-background" (click)="onClickExit()"></div>
+  <div class="modal-content">
+      <p class="image" *ngIf="imageSRC">
+          <img [src]="imageSRC_artwork" alt="">
+      </p>
+      <p class= "image" *ngIf="!imageSRC_artwork">
+          <img class="object-fit_cover"  src= "assets/noimg.png" alt="">
+      </p>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="onClickExit()"></button>
 </div>
 
 
