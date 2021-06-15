@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { MarketService } from 'src/app/services/market';
 import { ReservationService } from 'src/app/services/reservation';
@@ -18,6 +18,22 @@ interface commission {
   category:string;
   sellername?: string;
   profileImage: string;
+}
+
+interface User {
+  _id?: string;
+  name: string;
+  profileImage:{
+      filename: string,
+      contentType: string, 
+      imageBase64: string
+  }
+  email: string;
+  phoneNumber: string;
+  address: string;
+  password: string;
+  userType: string;
+  description: string;
 }
 @Component({
   selector: 'app-viewcommission',
@@ -40,6 +56,7 @@ export class ViewcommissionComponent implements OnInit, OnDestroy {
     private route:ActivatedRoute,
     private marketserv: MarketService,
     private resServ: ReservationService,
+    private router: Router,
   ) {
     
     this.copy = new BehaviorSubject<any>('')
@@ -94,5 +111,12 @@ export class ViewcommissionComponent implements OnInit, OnDestroy {
     if(this.openSuccessModal) {
       this.openSuccessModal = false;
     }
+  }
+
+  ViewSeller(seller:  any){ //how dis
+    const _id = seller ? seller._id : null;
+    this.subs.forEach((x)=> x.unsubscribe())
+
+    this.router.navigate(['/seller/', {id: _id} ])
   }
 }

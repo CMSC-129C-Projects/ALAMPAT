@@ -134,13 +134,13 @@
   
   
 
-  <!----------- TAB | PORTFOLIO ------------------->
+  <!------------- TAB | PORTFOLIO ------------------->
   <div class="block px-4 pt-5 is-hidden" id="portfolio">
     <div class="columns is-multiline is-mobile" >
       <!-- EACH ARTWORK -->
       <div class="column is-6 is-paddingless" *ngFor="let item of portfolioList; index as i">
-        <div class="box is-paddingless mx-2 my-2">
-          <div class="has-background-white">
+        <div class="block mx-2 my-3"> <!-- <div class="box is-paddingless mx-2 my-2"> -->
+          <!--<div class="has-background-white"> -->
             <figure class="image is-5by4" (click)="onClickOpen(item, i)">
               <div *ngIf="item.images?.imageBase64" class="is-clickable">
                   <img class="object-fit_contain" [src]= "item.images.imageBase64">
@@ -155,25 +155,25 @@
               </p>
                 {{item?.description}}
             </div>
-          </div>
+          <!--</div>-->
         </div>
       </div>
     </div>
   </div>
 
-  <!----------- TAB | ALL PRODUCTS ------------------->
+  <!------------- TAB | ALL PRODUCTS ------------------->
   <div class="block is-hidden" id="product">
     product works
   </div>
 
-  <!----------- TAB | ALL COMMISSIONS ------------------->
+  <!------------- TAB | ALL COMMISSIONS ------------------->
   <div class="block is-hidden" id="commission">
     commission works
   </div>
 
 </div>
 
-<!-- IMAGE MODAL -->
+<!------------------- IMAGE MODAL ----------------------------->
 <div class="modal" [ngClass]="openImageModal ? 'is-active' : ''">
   <div class="modal-background" (click)="onClickExit()"></div>
   <div class="modal-content">
