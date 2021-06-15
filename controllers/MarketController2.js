@@ -166,7 +166,7 @@ const getProduct = (req, res, next) => {
     Product.findById(req.params._id, async function (err, product){
         if(err) throw err;
 
-        const user = await User.findOne({products: product._id } , 'name profileImage').exec()
+        const user = await User.findOne({products: product._id } , 'name profileImage _id').exec()
         if(user){
           let prod = {
             _id: product._id,
@@ -177,6 +177,7 @@ const getProduct = (req, res, next) => {
             price:product.price,
             category:product.category,
             sellername: user.name,
+            seller_id: user._id,
             profileImage: user.profileImage.imageBase64
           } 
           return res.json({ product: prod})
@@ -197,7 +198,7 @@ const getCommission = (req, res, next) => {
   Commission.findById(req.params._id, async  function (err, commission){
       if(err) throw err;
       
-      const user = await User.findOne({commissions: commission._id } , 'name profileImage').exec()
+      const user = await User.findOne({commissions: commission._id } , 'name profileImage _id').exec()
       if(user){
         let com = {
           _id:commission._id ,
@@ -208,6 +209,7 @@ const getCommission = (req, res, next) => {
           price:commission.price,
           category:commission.category,
           sellername: user.name,
+          seller_id: user._id,
           profileImage: user.profileImage.imageBase64
         }
         return res.json({
