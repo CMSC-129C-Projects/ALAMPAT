@@ -109,11 +109,6 @@ export class PortfolioArtworkComponent implements OnChanges, OnDestroy {
     //this.initForm()
     this.fileName = '';
     this.imageSRC = '';
-
-    
-
-    
-    
   }
   
   get formControls() { return this.addPortfolio.controls; }

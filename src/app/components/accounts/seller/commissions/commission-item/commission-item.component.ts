@@ -126,6 +126,7 @@ export class CommissionItemComponent implements OnChanges, OnDestroy {
   }
 
   get formControls() { return this.addService.controls; }
+  get formControlsEdit() { return this.serviceForm.controls; }
 
   //upload function for edit forms
   uploadFile(event: Event) {
