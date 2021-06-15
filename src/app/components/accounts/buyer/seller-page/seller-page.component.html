@@ -1,45 +1,149 @@
 <app-headerbuyer></app-headerbuyer>
 <!-- header-->
+
 <div class="columns the-header is-marginless">
-    <div class="column is-6 is-offset-3 is-12-mobile">
-      <!--<p class="title">Browse Our <br> Collection!</p>
-      <br>
-      <p class="subtitle has-text-black">
-        Tap on any product to view the specification. For further detail, feel free to get in touch.
-      </p> -->
-      <img class="header-background" src="https://unsplash.it/1000/1000/?random&pic=1" id="header-background-id" alt="background-img">
+  <div class="column is-6 is-offset-3 is-12-mobile">
+    <img class="header-background" src="https://unsplash.it/1000/1000/?random&pic=1" id="header-background-id" alt="background-img">
+  </div>
+</div>
+
+<div class="column is-12 has-text-centered">
+  <img class="profile-picture" src="https://unsplash.it/300/300/?random&pic=1(14 kB)" alt="profile-picture">
+  <p class="title py-1">
+    Earl John Tagalog
+  </p>
+</div>
+<!--------------- RATING ------------------->
+<div class="column is-centered is-half is-offset-one-quarter has-text-centered">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <div class="text is-size-4" readonly>
+
+        <!-- starchecked makes star orange-->
+        <!-- star rating must be based on a value-->
+        <span class="fa fa-star starchecked"></span>
+        <span class="fa fa-star starchecked"></span>
+        <span class="fa fa-star starchecked"></span>
+        <span class="fa fa-star starchecked"></span>
+        <span class="fa fa-star "></span>
+        &nbsp;
+        <!-- Number of People who have rated this item -->
+        <div class="tag is-warning is-dark is-medium has-text-weight-semibold">
+            2 &nbsp;
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+            </svg>
+        </div>
+  </div>
+</div>
+
+<!--------------------- TABS --------------------->
+<div class="column is-8 is-offset-2 mt-5 is-paddingless">
+  <hr style="background-color:#e8e6e6" class="is-marginless">
+  <div class="tabs is-boxed is-centered is-fullwidth">
+    <ul>
+      <li data-target="home" value="Home">
+        <a class="has-text-weight-medium">
+          Home
+        </a>
+      </li>
+      <li data-target="portfolio" value="Portfolio">
+        <a class="has-text-weight-medium">
+          Portfolio
+        </a>
+      </li>
+
+      <li data-target="product" value="Product">
+        <a class="has-text-weight-medium">
+          All Products
+        </a>
+      </li>
+
+      <li data-target="commission" value="Commission">
+        <a class="has-text-weight-medium">
+          All Commissions
+        </a>
+      </li>
+
+    </ul>
+  </div>
+</div>
+
+
+<div class="column is-8 is-offset-2 is-paddingless has-background-success-light"
+  id="tab-content">
+  <!----------- TAB | ALL ------------------->
+  <div class="block" id="home">
+    <p class="subtitle has-text-weight-bold pt-4 pl-6">
+      About Shop
+    </p>
+    <div class="column is-10 is-offset-1 ">
+        Hi! I'm a self-learned full-stack developer from University of the Philippines- Cebu.
+        I'm comfortable working on Angular framework and my main tech stack is MEAN stack.
+        I'm also proficient in Python and C++ languages. 
+        I have also worked with software companies Oracle, Accenture and Alliance Software Inc.
+    </div>
+    <!------ IMAGE SLIDER FOR PORTFOLIO ----------->
+    <div class="subtitle has-text-weight-bold pt-4 pl-6 is-marginless">
+      Sample Works
+    </div>
+    
+    <div class="column">
+      <div class="container px-6 pb-6">
+        <owl-carousel-o [options]="customOptions">
+            <ng-template carouselSlide>
+              <figure class="image is-2by1">
+                <img class="object-fit_cover" src="assets/smologo.png">
+              </figure>    
+            </ng-template> 
+      
+            <ng-template carouselSlide>
+              <figure class="image is-2by1">
+                <img class="object-fit_cover" src="https://unsplash.it/1000/1000/?random&pic=1">
+              </figure>
+            </ng-template> 
+      
+            <ng-template carouselSlide>
+              <figure class="image is-2by1">
+                <img class="object-fit_cover" src="https://unsplash.it/1000/1000/?random&pic=1">
+              </figure>
+            </ng-template>  
+      
+        </owl-carousel-o>
+      </div>
+      
+      <div class="container">
+        <div class="owl-carousel">
+        <div class="slides"><img src="https://unsplash.it/400/300/?image=121" alt="img1" /></div>
+        <div class="slides"><img src="https://unsplash.it/400/300/?image=232" alt="img1" /></div>
+        <div class="slides"><img src="https://unsplash.it/400/300/?image=343" alt="img1" /></div>
+        <div class="slides"><img src="https://unsplash.it/400/300/?image=454" alt="img1" /></div>
+        </div>
+        <div id="counter"></div> 
+      </div>
+  
     </div>
   </div>
   
-  <!-- header ends -->
-  <!-- test -->
-  <div class="column is-12 has-text-centered">
-    <img class="profile-picture" src="https://unsplash.it/300/300/?random&pic=1(14 kB)" alt="profile-picture">
-  </div>
-  <!-- test -->
-  <div class="container">
-    <div>Some tags before</div>
-    <owl-carousel-o [options]="customOptions">
-        <ng-template carouselSlide>
-            <img src="assets/smologo.png">
-        </ng-template>  
-        <ng-template carouselSlide>
-            <img src="https://unsplash.it/1000/1000/?random&pic=1">
-        </ng-template>  
-        <ng-template carouselSlide>
-            <img src="https://unsplash.it/1000/1000/?random&pic=1">
-        </ng-template>  
-    </owl-carousel-o>
-    <div>Some tags after</div>
+  
+
+  <!----------- TAB | PORTFOLIO ------------------->
+  <div class="block is-hidden" id="portfolio">
+    portfolio works
   </div>
 
-  <div class="container">
-    <div class="owl-carousel">
-    <div class="slides"><img src="https://unsplash.it/400/300/?image=121" alt="img1" /></div>
-    <div class="slides"><img src="https://unsplash.it/400/300/?image=232" alt="img1" /></div>
-    <div class="slides"><img src="https://unsplash.it/400/300/?image=343" alt="img1" /></div>
-    <div class="slides"><img src="https://unsplash.it/400/300/?image=454" alt="img1" /></div>
-    </div>
-    <div id="counter"></div> 
-      </div>
+  <!----------- TAB | ALL PRODUCTS ------------------->
+  <div class="block is-hidden" id="product">
+    product works
+  </div>
+
+  <!----------- TAB | ALL COMMISSIONS ------------------->
+  <div class="block is-hidden" id="commission">
+    commission works
+  </div>
+
+</div>
+
+
+
+
   
