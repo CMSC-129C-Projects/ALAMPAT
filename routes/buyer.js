@@ -17,6 +17,8 @@ router.post('/:id/addReservation/', ReservationController.addReservation)
 router.get('/:id/getReservationList/', ReservationController.getReservationList)
 router.get('/:id/getReservation/', ReservationController.getReservation)
 router.patch('/:id/cancelReservation/', buyerController.updateReservation)
+
+router.get('/:id/getCheckout/', buyerController.getCheckout)
 //router.get('/products', marketController.getCommissionList, marketController.getProductList)
 
 router.get('/market', marketController.getAll)

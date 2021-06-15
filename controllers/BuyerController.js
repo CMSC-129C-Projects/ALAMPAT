@@ -130,6 +130,40 @@ const updateReservation = async(req, res, next) => {
     }
 }
 
+const getCheckout = async( req, res, next )=>{
+    try{
+
+        const reservation = await Reserve.findById(req.query.id)
+            .populate([{
+                    path: 'service',
+                    select: 'images _id commissionname price category'
+                    //model: 'Commissions'
+                },{
+                    path: 'seller',
+                    select: 'name _id'
+                },{
+                    path: 'buyer',
+                    select: 'name _id email address phoneNumber'
+                }]
+        )
+            
+        if(reservation){
+        //console.log(results);
+        res.status(200).json({
+            details: reservation
+        })
+        }
+    }
+    catch(error){
+    
+        console.log(error)
+        res.status(404).json({ 
+            error: error.message,
+            success: false, })
+    
+    }
+}
+
 module.exports = { 
-   addtoCart, getCartItems, deleteCartitem, updateReservation
+   addtoCart, getCartItems, deleteCartitem, updateReservation, getCheckout
 }
