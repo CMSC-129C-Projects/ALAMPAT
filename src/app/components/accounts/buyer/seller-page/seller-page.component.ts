@@ -7,6 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/services/productServ';
 import { CommissionService } from 'src/app/services/comService';
+
 const localAPI = 'http://localhost:3000'
 
 interface User {
@@ -24,16 +25,42 @@ interface User {
     description: string;
 }
 
-interface Portfolio {
+interface product {
   _id?: string;
-  artworkname: string;
+  productname?: string;
+  // commissioname?:string;
+  itemname:string;
   description: string;
+  stock?: number;
+  slot?: number;
+  price: number;
   images: {
-      filename: string,
-      contentType: string, 
-      imageBase64: string
-  }
+    filename: string;
+    contentType: string;
+    imageBase64: string;
+  };
+  category:string;
+  sellername?: string;
 }
+
+interface commission {
+  _id?: string;
+  //productname?: string;
+  commissioname?:string;
+  itemname:string;
+  description: string;
+  stock?: number;
+  slot?: number;
+  price: number;
+  images: {
+    filename: string;
+    contentType: string;
+    imageBase64: string;
+  };
+  category:string;
+  sellername?: string;
+}
+
 @Component({
   selector: 'app-seller-page',
   templateUrl: './seller-page.component.html',
@@ -48,10 +75,9 @@ export class SellerPageComponent implements OnInit, OnDestroy {
   seller_id: string
   subs: Subscription[] = []
 
-  @Input() portfolioList: Portfolio[] = [];
-
-  commissionList: any
-  productList: any
+  portfolioList: any;
+  commissionList: any;
+  productList: any;
 
   constructor(
       private router: Router,
@@ -77,29 +103,7 @@ export class SellerPageComponent implements OnInit, OnDestroy {
         console.log("Error", error)
       })
     )
-
-    //Getting and displaying portfolio of seller
-    this.subs.push(
-      this.uploadService.getPortfolio_SP(this.seller_id).subscribe( artwork => {
-        this.portfolioList = artwork.data.portfolioArray;
-      })
-    )
     
-    //Getting and displaying commissions  listof seller
-    this.subs.push(
-      this.commserv.getItemdata_SP(this.seller_id).subscribe( commlist => {
-        this.commissionList = commlist.data.commissionsArray;
-        console.log("Comms: " + JSON.stringify(commlist.data.commissionsArray))
-      })
-    )
-    
-    //Getting and displaying product list  of seller
-    this.subs.push(
-      this.productserv.getProductdata_SP(this.seller_id).subscribe( prodlist => {
-        this.productList = prodlist.data.productsArray;
-        console.log("Products: " + JSON.stringify(prodlist.data.productsArray))
-      })
-    ) 
     //For Tabs
     const tabs = document.querySelectorAll('.tabs li');
     const tabContentBoxes = document.querySelectorAll('#tab-content > div');
@@ -122,6 +126,41 @@ export class SellerPageComponent implements OnInit, OnDestroy {
     })
   }
 
+  onClickPortfolio() {
+    //Getting and displaying portfolio of seller
+    this.subs.forEach(sub => sub.unsubscribe())
+
+    this.subs.push(
+      this.uploadService.getPortfolio_SP(this.seller_id).subscribe( artwork => {
+        this.portfolioList = artwork.data.portfolioArray;
+      })
+    )
+  }
+
+  onClickProduct () {
+    //Getting and displaying product list  of seller
+    this.subs.forEach(sub => sub.unsubscribe())
+
+    this.subs.push(
+      this.productserv.getProductdata_SP(this.seller_id).subscribe( prodlist => {
+        this.productList = prodlist.data.productsArray;
+        console.log("Products: " + JSON.stringify(prodlist.data.productsArray))
+      })
+    ) 
+  }
+
+  onClickCommission() {
+    //Getting and displaying commissions  listof seller
+    this.subs.forEach(sub => sub.unsubscribe())
+
+    this.subs.push(
+      this.commserv.getItemdata_SP(this.seller_id).subscribe( commlist => {
+        this.commissionList = commlist.data.commissionsArray;
+        console.log("Comms: " + JSON.stringify(commlist.data.commissionsArray))
+      })
+    )
+  }
+
   ngOnDestroy(): void {
     this.subs.forEach(sub => sub.unsubscribe())
   }
@@ -134,7 +173,36 @@ export class SellerPageComponent implements OnInit, OnDestroy {
   onClickExit () {
     this.openImageModal = false;
     this.imageSRC_artwork = '';
+  }
 
+  ViewProduct(item: product){
+    const _id = item ? item._id : null;
+    this.productList = []
+    this.commissionList = []
+    this.subs.forEach((x)=> x.unsubscribe())
+    //console.log("View Item: " + JSON.stringify(_id))
+    localStorage.setItem('reload', "false")
+    this.router.navigate(['/product-item/', {id: _id} ])
+    
+    // else{
+    //   localStorage.setItem('reload', "false")
+    //   this.router.navigate(['/marketplace/' ])
+    // }
+  }
+
+  ViewCommission(item: commission){
+    const _id = item ? item._id : null;
+    this.productList = []
+    this.commissionList = []
+    this.subs.forEach((x)=> x.unsubscribe())
+    //console.log("View Item: " + JSON.stringify(_id))
+    localStorage.setItem('reload', "false")
+    this.router.navigate(['/commission-item/', {id: _id} ])
+    
+    // else{
+    //   localStorage.setItem('reload', "false")
+    //   this.router.navigate(['/marketplace/' ])
+    // }
   }
 
   customOptions: OwlOptions = {

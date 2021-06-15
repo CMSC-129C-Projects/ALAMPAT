@@ -21,7 +21,7 @@
 <!--------------- RATING ------------------->
 <div class="column is-centered is-half is-offset-one-quarter has-text-centered">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <div class="text is-size-4" readonly>
+  <div class="text is-size-4">
 
         <!-- starchecked makes star orange-->
         <!-- star rating must be based on a value-->
@@ -51,19 +51,19 @@
           Home
         </a>
       </li>
-      <li data-target="portfolio" value="Portfolio">
+      <li data-target="portfolio" value="Portfolio" (click)="onClickPortfolio()">
         <a class="has-text-weight-medium">
           Portfolio
         </a>
       </li>
 
-      <li data-target="product" value="Product">
+      <li data-target="product" value="Product" (click)="onClickProduct()">
         <a class="has-text-weight-medium">
           All Products
         </a>
       </li>
 
-      <li data-target="commission" value="Commission">
+      <li data-target="commission" value="Commission" (click)="onClickCommission()">
         <a class="has-text-weight-medium">
           All Commissions
         </a>
@@ -162,13 +162,99 @@
   </div>
 
   <!------------- TAB | ALL PRODUCTS ------------------->
-  <div class="block is-hidden" id="product">
-    product works
+  <div class="block px-4 pt-5 is-hidden" id="product">
+    <div class="columns is-multiline is-mobile is-paddingless">
+      <div
+        class="column is-3"
+        *ngFor="
+          let item of productList">
+                <!--*ngFor="
+          let item of productList
+              | paginate: {
+                  id: 'listing_pagination',
+                  itemsPerPage: 12,
+                  currentPage: page.value,
+                  totalItems: totalRecords
+                } ">-->
+        <div class="card">
+          <a (click)="ViewProduct(item)" class="card-image">
+            <figure class="image is-3by2">
+              <div *ngIf="item.images?.imageBase64">
+                <img class="object-fit_cover" [src]="item.images.imageBase64" />
+            </div>
+              <div *ngIf="!item.images?.imageBase64">
+                <img class="object-fit_cover"  src= "assets/noimg.png" alt="">
+              </div>
+            </figure>
+          </a>
+          <div class="card-footer">
+            <div class="tags has-addons">
+              <div
+                class="tag is-link is-light has-text-weight-bold is-small">
+                {{ item.category }}
+              </div>
+            </div>
+          </div>
+          <div class="card-content" style="padding: 0.5rem 1.5rem 1.5rem">
+            <p class="text has-text-weight-bold">
+              {{ item.productname }}
+            </p>
+            <p
+              class="text has-text-primary is-size-5 has-text-weight-bold">
+              ₱{{ item.price }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!------------- TAB | ALL COMMISSIONS ------------------->
-  <div class="block is-hidden" id="commission">
-    commission works
+  <div class="block px-4 pt-5 is-hidden" id="commission">
+    <div class="columns is-multiline is-mobile is-paddingless">
+      <div
+        class="column is-3"
+        *ngFor="
+          let item of commissionList">
+                <!--*ngFor="
+          let item of productList
+              | paginate: {
+                  id: 'listing_pagination',
+                  itemsPerPage: 12,
+                  currentPage: page.value,
+                  totalItems: totalRecords
+                } ">-->
+        <div class="card">
+          <a (click)="ViewCommission(item)" class="card-image">
+            <figure class="image is-3by2">
+              <div *ngIf="item.images?.imageBase64">
+                <img class="object-fit_cover" [src]="item.images.imageBase64" />
+            </div>
+              <div *ngIf="!item.images?.imageBase64">
+                <img class="object-fit_cover"  src= "assets/noimg.png" alt="">
+              </div>
+            </figure>
+          </a>
+          <div class="card-footer">
+            <div class="tags has-addons">
+              <div
+                class="tag is-link is-light has-text-weight-bold is-small">
+                {{ item.category }}
+              </div>
+            </div>
+          </div>
+          <div class="card-content" style="padding: 0.5rem 1.5rem 1.5rem">
+            <p class="text has-text-weight-bold">
+              {{ item.commissionname }}
+            </p>
+            <p
+              class="text has-text-primary is-size-5 has-text-weight-bold">
+              ₱{{ item.price }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>
