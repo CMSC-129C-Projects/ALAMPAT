@@ -158,15 +158,15 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
     }
 
     else if( tab_choice == "Cancelled"){
-      this.subs.push(
-        this.orderserv.getCancelleddata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
-        //this.marketdata = items
-        this.orderdata = items.data.all
-        this.totalRecords = items.data.totalitems
-        //this.page = items.data.currpage
-        //this.temp_list.next(this.marketdata)
-      })
-      )
+      // this.subs.push(
+      //   this.orderserv.getCancelleddata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
+      //   //this.marketdata = items
+      //   this.orderdata = items.data.all
+      //   this.totalRecords = items.data.totalitems
+      //   //this.page = items.data.currpage
+      //   //this.temp_list.next(this.marketdata)
+      // })
+      // )
     }   
   }
 

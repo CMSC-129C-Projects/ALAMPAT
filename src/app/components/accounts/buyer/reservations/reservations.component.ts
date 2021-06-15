@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { ReservationService } from 'src/app/services/reservation';
 import { Subscription } from 'rxjs';
-
+import { Router, ActivatedRoute } from '@angular/router';
 interface reservation {
   _id: string;
   service: {
@@ -43,6 +43,7 @@ export class ReservationsComponent implements OnInit, OnDestroy{
 
   constructor(
     private reserv: ReservationService,
+    private router: Router,
   ) {
     this.showReservation = false;
     this.setreservation()
@@ -127,6 +128,10 @@ export class ReservationsComponent implements OnInit, OnDestroy{
   onRemoval(reserve_id: string){
     this.reserv.removeReservation(reserve_id)
     this.onClickExit()
+  }
+
+  onCheckout(reserv_id: string){
+    this.router.navigate(['/checkout/'], { queryParams: { id: reserv_id} })
   }
   onClickExit = () => {
     this.subs.forEach(x => x.unsubscribe())

@@ -38,7 +38,7 @@ export class OrderService {
     order: BehaviorSubject<any> ;
     item: BehaviorSubject<item>
     reload: EventEmitter<boolean> ;
-
+    user_id:string
     constructor() {
         this.order = new BehaviorSubject<any>([])
         this.reload = new EventEmitter<boolean>(true)
@@ -121,27 +121,18 @@ export class OrderService {
         });
     
     }
+
+    getCheckoutdetails(reserv_id: string): Observable<any>{
+            this.user_id = String(localStorage.getItem('id'))
+            return Axios.get(`${test_API}/buyer/${this.user_id}/getCheckout?id=${reserv_id}`)
+ 
+    }
+
     //For ALL TAB
     getAlldata(pg:any, limit:any, status:any): Observable<any>  {
     
         return Axios.get(`${localAPI}/buyer/productmarket2?page=${pg}&limit=${limit}&status=${status}`)
-        // axios.get(`${localAPI}/buyer/productmarket`)
-        // .then(resp => {
-        //     this.market.next([])
-        //     if(resp.status === 200){
-        //         this.market.next(resp.data.all)
-        //     }
-            
-        //     // /console.log("market value: " + JSON.stringify(this.market))
-        //     // /console.log("Market data: " + JSON.stringify(resp.data.all));
-        //     //return resp.data
-        // })
-        // .catch(err => {
-        //     // Handle Error Here
-        //     //this.error.emit(err)
-        //     console.log(err);
-        //     //return err
-        // });
+  
     }
     //FOR PROCESSING TAB
     getProcessingdata(pg:any, limit:any, status:any): Observable<any>  {

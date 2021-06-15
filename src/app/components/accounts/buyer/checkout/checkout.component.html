@@ -19,7 +19,7 @@
 <div class="container">
     <nav class="breadcrumb is-small" aria-label="breadcrumbs">
       <li>
-        <a>
+        <a (click)="onBack()"> 
           <span class="icon is-small">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -75,16 +75,16 @@
                 Delivery Details
             </div>&nbsp;
             <div class="text is-size-6">
-                Customer Name: &nbsp;<strong>Earl John Tagalog</strong>
+                Customer Name: &nbsp;<strong>{{checkout_details.buyer?.name}}</strong>
             </div>
             <div class="text is-size-6">
-                Phone Number: &nbsp;<strong>09123456789</strong>
+                Phone Number: &nbsp;<strong>0{{checkout_details.buyer?.phoneNumber}}</strong>
             </div>
             <div class="text is-size-6">
-                Email Address: &nbsp;<strong>erlito2@gmail.com</strong>
+                Email Address: &nbsp;<strong>{{checkout_details.buyer?.email}}</strong>
             </div>
             <div class="text is-size-6">
-                Delivery Address: &nbsp;<strong>221B Baker St, Marylebone, London NW1 6XE, United Kingdom
+                Delivery Address: &nbsp;<strong>{{checkout_details.buyer?.address}}
                 </strong>
             </div>
         </div>
@@ -99,11 +99,18 @@
         <div class="box">
         <article class="media">
             <div class="media-left">
-            <div class="container">
+            <div class="container" *ngIf = "!checkout_details.service?.images?.imageBase64">
                 <img class="previewImage"
                 src="https://crystalplazagroup.com/wp-content/uploads/2016/11/placeholder-635x635.jpg"
                 alt="Image"
-                title="something"
+                title="No Image"
+                />
+            </div>
+            <div class="container" *ngIf = "checkout_details.service?.images?.imageBase64">
+                <img class="previewImage"
+                [src]="checkout_details.service?.images?.imageBase64"
+                alt="Image"
+                title= "{{checkout_details.service?.images?.filename}}"
                 />
             </div>
             </div>
@@ -113,32 +120,33 @@
                     class="limitedText has-text-weight-bold is-size-4 is-marginless"
                     readonly
                     >
-                    Item Name
+                    {{checkout_details.service?.commissionname}}
                     </p>
                     
                     <div class="block">
                         <div class="text is-size-6" readonly>
                             Seller Name:
                             <a class="tag is-white is-light has-text-weight-bold is-small">
-                            Name of the Seller
+                                {{checkout_details.seller?.name}}
                             </a>
                         </div>
                         <div class="text is-size-6" readonly>
                             Category: 
                             <!-- NGIF -->
+                            
                             <div
                             class="tag is-link is-light has-text-weight-bold is-small">
-                            Product
+                            {{checkout_details.service?.category}}
                             </div>
                             <!-- <div
                             class="tag is-danger is-light has-text-weight-bold is-small">
                             Commission
                             </div> -->
                         </div>
-                        <div class="text is-size-6" readonly>
+                        <!-- <div class="text is-size-6" readonly>
                             Quantity:&nbsp;
                             <input class="input is-small is-warning" style="width: 48px; height: 24px; margin-top: 3px" type="text" placeholder="Enter">
-                        </div>
+                        </div> -->
 
                     </div>
                 </div>
@@ -155,7 +163,7 @@
                 "
                 readonly
                 >
-                ₱ 351.00
+                ₱ {{checkout_details.service?.price}}
                 </p>
             </div>
         </article>
@@ -172,7 +180,7 @@
         <div class="column">
             <div class="block">
                 <div class="text is-size-6 has-text-right">
-                    Order Amount: <strong>₱ 351.00</strong>
+                    Order Amount: <strong>₱ {{checkout_details.service?.price}}</strong>
                 </div>
                 <div class="text is-size-6 has-text-right">
                     Shipping Fee: <strong>₱ 69.00</strong>

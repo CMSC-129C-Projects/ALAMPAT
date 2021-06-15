@@ -260,7 +260,7 @@
           Remove Reservation
         </button>
         
-        <button *ngIf = "reservation.reservationStatus == 'Approved' " class="button is-danger has-text-weight-bold" (click)="onRemoval(reservation._id)">
+        <button *ngIf = "reservation.reservationStatus == 'Approved' " class="button is-danger has-text-weight-bold" (click)="onCheckout(reservation._id)">
           Proceed to Checkout
         </button>
 
