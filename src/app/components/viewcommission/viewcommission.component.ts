@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { MarketService } from 'src/app/services/market';
 import { ReservationService } from 'src/app/services/reservation';
+import {Location} from '@angular/common';
+
 interface commission {
   _id?: string;
   itemname:string;
@@ -58,6 +60,7 @@ export class ViewcommissionComponent implements OnInit, OnDestroy {
     private marketserv: MarketService,
     private resServ: ReservationService,
     private router: Router,
+    private _location: Location,
   ) {
     
     this.copy = new BehaviorSubject<any>('')
@@ -87,6 +90,11 @@ export class ViewcommissionComponent implements OnInit, OnDestroy {
     //this.marketserv.editReload(false)
     this.subs.forEach((x)=> x.unsubscribe())
   }
+
+  goBack(){
+    this._location.back();
+  }
+
   addReservation(comm: any){
     this.openSuccessModal = true;
 

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { MarketService } from 'src/app/services/market';
 import { ReservationService } from 'src/app/services/reservation';
+import {Location} from '@angular/common';
 interface product {
   _id: string;
   itemname:string;
@@ -39,6 +40,7 @@ export class ViewProductComponent implements OnInit, OnDestroy{
     private marketserv: MarketService,
     private cartServ: ReservationService,
     private router: Router,
+    private _location: Location,
   ) {
     
     //this.copy = new BehaviorSubject<any>('')
@@ -73,6 +75,11 @@ export class ViewProductComponent implements OnInit, OnDestroy{
     console.log("id: " + JSON.stringify(prod._id))
     this.cartServ.addtoCart(prod._id)
   }
+
+  goBack(){
+    this._location.back();
+  }
+
   onClickOpen (index: any) {
     this.openImageModal = true;
     this.imageSRC = this.image_list[index].imageBase64;
