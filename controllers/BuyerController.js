@@ -3,16 +3,13 @@ const Order  = require('../models/order')
 const Product = require('../models/products')
 const ObjectId = require("mongodb").ObjectID
 const Reserve = require('../models/reservations')
-//const mongoose = require('mongoose')
 
 const addtoCart = (req, res, next) => {
     try{
-        
-       // let id = new ObjectId(req.params._id)
         console.log("received id" + req.params._id)
-        //Product.findById( req.params_id, function( err, res ){
-            //if(err) throw err;
+      
         User.findByIdAndUpdate(req.params.id , { $push: { cart: req.params._id} })
+        //if product exists and found on the database
         .then((result) => {
             res.json({
                 message: 'Product added to Cart successfully!',
@@ -26,10 +23,6 @@ const addtoCart = (req, res, next) => {
                 success: false,
             })
         })
-        //})
-        //console.log("prod  id" + prod)
-        
-        
         
     }
     catch(error){
@@ -50,7 +43,7 @@ const getCartItems = async(req, res, next) => {
             .populate( 'cart')
             
         if(user){
-        //console.log(results);
+        //if user id is found, user cart is populated with items
         res.status(200).json({
             cartArray: user.cart
         })
@@ -76,7 +69,7 @@ const deleteCartitem = async(req, res, next) => {
     try{
 
            User.findByIdAndUpdate(req.params.id , { $pull: { cart: {$in: req.body.items_ids} } })
-           .then((result) => {
+           .then((result) => {//if user id and product id is found, product is deleted
                 res.json({
                     message: 'Item/s removed from Cart successfully!',
                     result: result.cart,
@@ -106,7 +99,7 @@ const updateReservation = async(req, res, next) => {
     try{
 
         Reserve.findByIdAndUpdate(req.query.id , { $set: { reservationStatus: req.query.status } })
-        .then((result) => {
+        .then((result) => {//if query for service id is found, cancel reservation
             res.json({
                 message: ' Reservation cancelled successfully!',
                 result: result,
@@ -134,10 +127,9 @@ const getCheckout = async( req, res, next )=>{
     try{
 
         const reservation = await Reserve.findById(req.query.id)
-            .populate([{
+            .populate([{//if query service id is found, populate the following
                     path: 'service',
                     select: 'images _id commissionname price category'
-                    //model: 'Commissions'
                 },{
                     path: 'seller',
                     select: 'name _id'
@@ -147,8 +139,7 @@ const getCheckout = async( req, res, next )=>{
                 }]
         )
             
-        if(reservation){
-        //console.log(results);
+        if(reservation){//get reservation details
         res.status(200).json({
             details: reservation
         })

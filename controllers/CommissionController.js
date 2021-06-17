@@ -5,12 +5,12 @@ const Commission = require('../models/commissions')
 
 const addCommission = async(req, res, next) => {
     try{
-
+        //save commission service for sellers   
             let commission = new Commission ({
                 _id: new ObjectId(),
                 commissionname: req.body.commissionname, 
                 images: {
-                    filename: req.body.commissionimage.filename, //hashedfile,
+                    filename: req.body.commissionimage.filename, 
                     contentType: req.body.commissionimage.contentType,
                     imageBase64: req.body.commissionimage.imageBase64
                 },
@@ -25,13 +25,12 @@ const addCommission = async(req, res, next) => {
                 return res.send('You must select atleast 1 file.')
             }
 
-            commission.save(function(err, result){
+            commission.save(function(err, result){//commission service details are saved in the database
                 if(err) throw err;
                 if(!err){
                 
                 User.findByIdAndUpdate( req.params.id , { $push: { commissions: result._id } })
                     .then((result) => {
-                        //console.log(result)
                         res.json({
                             message: "Commission Id added to User's Commissions and saved succesfully! ",
                             success: true,
@@ -54,8 +53,6 @@ const addCommission = async(req, res, next) => {
                     })
                 }
             })
-
-        //})
         
     }
     catch(error){
@@ -76,8 +73,7 @@ const getCommissionList = async(req, res, next) => {
         const user = await User.findById(req.params.id)
             .populate( 'commissions')
             
-        if(user){
-        //console.log(results);
+        if(user){//if user id is found in the database, populate commissions
         res.status(200).json({
             commissionsArray: user.commissions
         })
@@ -119,7 +115,6 @@ const updateCommission = async(req, res, next) => {
         //updates the user object data to the database 
             Commission.findByIdAndUpdate( req.params.commissionid , commission)
                 .then((result) => {
-                    //console.log(result)
                     res.json({
                         message: 'Commission data updated successfully!',
                         result,
@@ -150,10 +145,8 @@ const updateCommission = async(req, res, next) => {
 
 const deleteCommission = async(req, res, next) => {
     try {
-        
-            //creates a new user object together with the final image object
            
-        //updates the user object data to the database 
+        //finds user, then commission service id from the database to be deleted 
         Commission.findByIdAndRemove(req.body._id, function(err, result){
             if(err) throw err;
             if(!err){

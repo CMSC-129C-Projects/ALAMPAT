@@ -8,6 +8,7 @@ require("dotenv/config")
 
 const register = async (req, res, next) => {
     const existingUser = await userController.getUserByEmail(req.body.email)
+    //if email does not exist in database
     if (!existingUser) {
 
         bcrypt.hash(req.body.password, 10, function (err, hashedPass) {
@@ -47,7 +48,7 @@ const register = async (req, res, next) => {
                 commissions: [],
                 products: []
             })
-            
+            //save user data on database
             user.save(function(err,user){
                 if(err){
                     res.json({
@@ -68,7 +69,7 @@ const register = async (req, res, next) => {
   
 
     }
-    else {
+    else {//if email is already in database
         res.json({
             message: 'User Email exists',
             success: false
@@ -82,6 +83,7 @@ const login = (req, res, next) => {
     var password = req.body.password
 
     User.findOne({ $or: [{ email: username }] })
+    //if user exists, login 
         .then(user => {
             if (user) {
                 bcrypt.compare(password, user.token, function (err, result) {
@@ -92,7 +94,7 @@ const login = (req, res, next) => {
                             loggedin: false
                         })
                     }
-                    if (result) {
+                    if (result) {//if password input matches the user password on database
                         let token = jwt.sign({ password: user.password }, process.env.JWT_TOKEN, { expiresIn: '1h' })
                         
                         res.json({
@@ -105,12 +107,12 @@ const login = (req, res, next) => {
                     } 
                     else{    
                     res.status(401).json({
-                        message: 'Password does not matched!',
+                        message: 'Password does not match!',
                         loggedin: false
                     })
                     }
                 })
-            } else {
+            } else {//if input user credentials do not exist in the database
                 res.json({
                     message: 'No user found',
                     loggedin: false

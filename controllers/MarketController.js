@@ -3,12 +3,12 @@ const Commission = require('../models/commissions')
 const User = require('../models/user')
 
 const getProductList = (req, res, next) => {
-  try{
+  try{//finds all existing products in the database
   Product.find({}, async function (err, allProducts){
       if(err) throw err;
       var all = [];
 
-      for(var i in allProducts){
+      for(var i in allProducts){//iterates through all products
         
           const user = await User.findOne({products: allProducts[i]._id } , 'name').exec()
           if(user){
@@ -22,7 +22,7 @@ const getProductList = (req, res, next) => {
               category:allProducts[i].category,
               sellername: user.name
             } 
-            all.push(prod)
+            all.push(prod)//each product is pushed in all
           }
 
       }
@@ -37,13 +37,13 @@ const getProductList = (req, res, next) => {
 }
 
 const getProduct = (req, res, next) => {
-  try{
+  try{//finds a certain product 
   Product.findById(req.params._id, async function (err, product){
       if(err) throw err;
       
         
       const user = await User.findOne({products: product._id } , 'name profileImage').exec()
-      if(user){
+      if(user){//if product id exists and found
         let prod = {
           _id: product._id,
           itemname: product.productname, 
@@ -67,11 +67,11 @@ const getProduct = (req, res, next) => {
 }
 
 const getCommissionList = (req, res, next) => {
-  try{
+  try{//finds all existing commission services
     Commission.find({},async  function (err, allCommissions){
         if(err) throw err;
         var all = [];
-        for( var i in allCommissions){
+        for( var i in allCommissions){//iterates through all commission services
             const user = await User.findOne({commissions: allCommissions[i]._id } , 'name').exec()
             if(user){
               let com = {
@@ -85,7 +85,7 @@ const getCommissionList = (req, res, next) => {
                 sellername: user.name
               }
 
-              all.push(com)
+              all.push(com)//each commission service is pushed in all
             }
         }
 
@@ -102,12 +102,12 @@ const getCommissionList = (req, res, next) => {
 }
   
 const getCommission = (req, res, next) => {
-  try{
+  try{//finds a certain commission service from the database
   Commission.findById(req.params._id, async  function (err, commission){
       if(err) throw err;
       
       const user = await User.findOne({commissions: commission._id } , 'name profileImage').exec()
-      if(user){
+      if(user){//if commission id exists
         let com = {
           _id:commission._id ,
           itemname:commission.commissionname , 
@@ -134,14 +134,14 @@ const getCommission = (req, res, next) => {
 }
 
 const getAll =  (req, res, next) => {
-  try{
+  try{//gets all existing products and commission services
   Product.find({}, function (err, allProducts){
     if(err) throw err;
     Commission.find({}, async function (err, allCommissions){
       if(err) throw err;
       var all = [];
 
-      for(var i in allProducts){
+      for(var i in allProducts){//iterates through all products
           const user = await User.findOne({products: allProducts[i]._id } , 'name').exec()
           if(user){
             let prod = {
@@ -154,11 +154,11 @@ const getAll =  (req, res, next) => {
               category:allProducts[i].category,
               sellername: user.name
             } 
-            all.push(prod)
+            all.push(prod)//each product is pushed in all
           }
 
       }
-      for( var i in allCommissions){
+      for( var i in allCommissions){//iterates through all commission services
           const user = await User.findOne({commissions: allCommissions[i]._id } , 'name').exec()
           if(user){
             let com = {
@@ -171,14 +171,12 @@ const getAll =  (req, res, next) => {
               category:allCommissions[i].category,
               sellername: user.name
             }
-            all.push(com)
+            all.push(com)//each commission service is pushed in all
           }
 
       }
       return res.json({
         all : all,
-        //allproducts:allProducts,
-        //allcommissions:allCommissions
       })
     })
    

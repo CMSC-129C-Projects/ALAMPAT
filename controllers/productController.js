@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 const Product = require('../models/products')
 
 const addProduct = async(req, res, next) => {
-    try{
+    try{//adds new product
 
             let product = new Product ({
                 _id: new ObjectId(),
@@ -52,7 +52,6 @@ const addProduct = async(req, res, next) => {
                 }
             })
 
-        //})
         
     }
     catch(error){
@@ -60,21 +59,20 @@ const addProduct = async(req, res, next) => {
         console.log(error)
         res.status(404).json({ 
             error,
-            message: "duh",
+            message: "Error 404",
             success: false, })
     
     }
-    //updates the user object data to the database 
+   
     
 }
 
 const getProductList = async(req, res, next) => {
-    try{
+    try{//gets all products of a certain user
         const user = await User.findById(req.params.id)
             .populate('products')
             
         if(user){
-        //console.log(results);
         res.status(200).json({
             productsArray: user.products
         })
@@ -96,7 +94,7 @@ const getProductList = async(req, res, next) => {
 }
 
 const updateProduct = async(req, res, next) => {
-    try {
+    try { //updates the user object data to the database 
         
             //creates a new user object together with the final image object
             let product =  ({

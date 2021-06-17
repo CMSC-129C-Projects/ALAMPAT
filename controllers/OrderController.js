@@ -4,12 +4,11 @@ const ObjectId = require("mongodb").ObjectID
 
 //for getting orders data for all users
 const getOrderList = async(req, res, next) => {
-    try{
+    try{//finds user id and user orders is populated
         const user = await User.findById(req.params.id)
             .populate( 'orders')
             
         if(user){
-        //console.log(results);
         res.status(200).json({
             orderArray: user.orders
         })
@@ -44,7 +43,6 @@ const updateOrder = async(req, res, next) => {
         //updates the user object data to the database 
             Order.findByIdAndUpdate( req.params.order_id , order_updates)
                 .then((result) => {
-                    //console.log(result)
                     res.json({
                         message: 'Order data updated successfully!',
                         result: result,
@@ -93,7 +91,7 @@ const addProductOrder = async(req, res, next) => {
              if(!err){
                 User.findByIdAndUpdate( req.params.id , { $push: { orders: result._id } })
                 .then((result) => {
-                    //console.log(result)
+                    
                     res.json({
                         message: "Order added successfully! ",
                         orders: result.orders,
@@ -120,7 +118,7 @@ const addProductOrder = async(req, res, next) => {
     
     }
 }
-
+//adding new commssion order form
 const addCommissionOrder = async(req, res, next) => {
     try{
         let comm_order = new Order ({
@@ -141,7 +139,6 @@ const addCommissionOrder = async(req, res, next) => {
             if(!err){
             User.findByIdAndUpdate( req.params.id , { $push: { orders: result._id } })
             .then((result) => {
-                //console.log(result)
                 res.json({
                     message: "Order added successfully! ",
                     orders: result.orders,

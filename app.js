@@ -12,16 +12,12 @@ const BuyerRoute  = require('./routes/buyer')
 
 require("dotenv/config")
 
-mongoose.connect(
+mongoose.connect(//connects to the cloud database
     process.env.TEST_DB_CONNECTION_STRING,
     { useUnifiedTopology: true, useNewUrlParser: true, 
         useCreateIndex: true, useFindAndModify: false 
     })
    
-    //,(req,res)=> {
-    //console.log("Connected to the database");}
-
-
 const db = mongoose.connection
 
 db.on('error', (err) => {
@@ -38,10 +34,7 @@ app.use(cors())
 app.use(express.json({limit: '5mb'}))
 app.use(express.urlencoded({extended: false}))
 app.use(morgan('dev'))
-//app.use('/profileUploads', express.static('profileUploads'));
-//app.use(bodyParser.urlencoded({extended: false}))
 
-//app.use(bodyParser.json())
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");

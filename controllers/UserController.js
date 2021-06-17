@@ -3,42 +3,10 @@ const User = require('../models/user')
 const ObjectId = require("mongodb").ObjectID
 const bcrypt = require('bcryptjs')
 const multer = require('multer');
-const fs = require('fs');
 
-/*
-const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, './profileUploads');
-  },
-  filename: function(req, file, cb) {
-    const now = new Date().toISOString();
-    const date = now.replace(/:/g, "-");
-    cb(null, date + file.originalname);
-    
-  }
-});
-
-
-const fileFilter = (req, file, cb) => {
-  // reject a file
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-};
-
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1024 * 1024 * 20
-  },
-  fileFilter: fileFilter
-});
-*/
 
 const getUserByEmail = async (email) => {
-    try {
+    try {//finds user email in the database
         const user = await User.findOne({ email });
         return user
     }
@@ -49,7 +17,7 @@ const getUserByEmail = async (email) => {
 }
 
 const getUserList = (req, res, next) => {
-    User.find()
+    User.find()//gets all existing users in the database
         .then((users)=>{
             console.log(users);
             res.status(200).json({
@@ -59,7 +27,7 @@ const getUserList = (req, res, next) => {
 }
 
 const getUserByID = (req, res, next) =>{
-    User.findById(req.params.id)
+    User.findById(req.params.id)//gets a certain user by user id
         .then((user)=>{
             if (!user) {
                 console.log()
@@ -84,7 +52,7 @@ const getUserByID = (req, res, next) =>{
 }
 
 const updateAccount = async(req, res, next) => {
-    try {
+    try {//updates user object data
         bcrypt.hash(req.body.password, 10, function (err, hashedPass) {
             if (err) {
                 res.json({
@@ -114,11 +82,10 @@ const updateAccount = async(req, res, next) => {
                     description: req.body.description
               
              }
-                //console.log(new ObjectId(req.params.id))
+              
             //updates the user object data to the database 
                 User.findByIdAndUpdate( id , {$set: user})
                     .then((result) => {
-                        //console.log(result)
                         res.json({
                             message: 'User account data updated successfully!',
                             result,

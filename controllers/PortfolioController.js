@@ -5,12 +5,12 @@ const Portfolio = require('../models/portfolio')
 
 const addArtwork = async(req, res, next) => {
     try{
-
+        //adds new artwork in the portfolio
             let art = new Portfolio ({
                 _id: new ObjectId(),
                 artworkname: req.body.artworkname, 
                 images: {
-                    filename: req.body.artworkimage.filename, //hashedfile,
+                    filename: req.body.artworkimage.filename, 
                     contentType: req.body.artworkimage.contentType,
                     imageBase64: req.body.artworkimage.imageBase64
                 },
@@ -24,7 +24,6 @@ const addArtwork = async(req, res, next) => {
                 
                 User.findByIdAndUpdate( req.params.id , { $push: { portfolio: result._id } })
                     .then((result) => {
-                        //console.log(result)
                         res.json({
                             message: "Artwork Id added to User's Portfolio and saved succesfully! ",
                             success: true,
@@ -48,7 +47,7 @@ const addArtwork = async(req, res, next) => {
                 }
             })
 
-        //})
+        
         
     }
     catch(error){
@@ -59,17 +58,16 @@ const addArtwork = async(req, res, next) => {
             success: false, })
     
     }
-    //updates the user object data to the database 
+
     
 }
-
+ //updates the user object data to the database 
 const getArtworkList = async(req, res, next) => {
-    try{
+    try{//gets all existing artworks in a user's portfolio
         const user = await User.findById(req.params.id)
             .populate( 'portfolio')
             
         if(user){
-        //console.log(results);
         res.status(200).json({
             portfolioArray: user.portfolio
         })
@@ -91,7 +89,7 @@ const getArtworkList = async(req, res, next) => {
 }
 
 const getArtwork = (req, res, next) => {
-    try{
+    try{//gets a certain artwork
     Portfolio.findById(req.params._id, async  function (err, art){
         if(err) throw err;
         
@@ -124,7 +122,6 @@ const updateArtwork = async(req, res, next) => {
         //updates the user object data to the database 
             Portfolio.findByIdAndUpdate( req.params.artid , art)
                 .then((result) => {
-                    //console.log(result)
                     res.json({
                         message: 'Artwork data updated successfully!',
                         result,
