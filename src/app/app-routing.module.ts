@@ -67,5 +67,6 @@ export const routingComponents = [
   AddProductComponent,
   ReservationsComponent,
   ReservationSellerComponent,
+  CheckoutComponent,
   AboutusComponent
 ]
