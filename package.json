@@ -33,6 +33,7 @@
     "phoenix": "^1.5.9",
     "regex": "^0.1.1",
     "valid-url": "^1.0.9",
-    "validatorjs": "^3.22.1"
+    "validatorjs": "^3.22.1",
+    "ws": "^7.5.0"
   }
 }
