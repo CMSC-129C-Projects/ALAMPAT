@@ -201,17 +201,17 @@
                         </div>
                     </div>
                     <p class="has-text-danger-dark" *ngIf="payment_option == 'full'">
-                        Please pay full amount of {{checkout_details.service?.price}} then attach proof of payment.
+                        Please pay full amount of ₱{{checkout_details.service?.price}} then attach proof of payment.
                     </p>
                     <p class="has-text-danger-dark" *ngIf="payment_option == 'half'">
-                        Please pay half amount of {{halfprice}} then attach proof of payment.
+                        Please pay half amount of ₱{{halfprice}} then attach proof of payment.
                     </p>
                 </div>
 
                 <!---------------------- PROOF OF PAYMENT ----------------------------->
                 <div class="column is-8">
                     <div class="control">
-                        <div class="file is-primary is-fullwidth">
+                        <div class="file is-info is-fullwidth">
                             <label class="file-label">
                                 <input class="file-input" #editimage type="file" accept="image/*" 
                                 (change)="uploadFile($event); imageSRC= ''" 
