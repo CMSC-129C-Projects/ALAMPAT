@@ -53,6 +53,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   percentage: Observable<number|undefined> = new Observable();
   url: Promise<string>;
   payment_proof: FormGroup;
+  proofForm: FormGroup;
+  
 
   @ViewChild('proofimage') image_proof: ElementRef
 
@@ -74,15 +76,19 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       })
     
     this.payment_proof = this.formBuilder.group({
-        filename: ['', Validators.required],
-        contentType: ['', Validators.required],
-        imageBase64:['', Validators.required],
+        payment_option: ['', Validators.required],
+        proof: this.formBuilder.group ({
+          filename: ['', Validators.required],
+          contentType: ['', Validators.required],
+          imageBase64:['', Validators.required],
+        })  
     })
 
     this.getCheckoutdetails()
   }
 
   get formControls() { return this.payment_proof.controls; }
+  get formControlsProof() { return this.payment_proof.controls.proof as FormGroup}
 
   ngOnDestroy():void {
     this.checkout_sub.unsubscribe()
@@ -131,6 +137,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   selectChangeHandler (event: any) {
     //update the ui
     this.payment_option = event.target.value;
+    //Selected option in dropdown
+    //this.payment_option.setValue(event.target.value, {
+    //  onlySelf: true
+    //})
   }
 
   uploadFile(event: Event) {
@@ -155,9 +165,11 @@ export class CheckoutComponent implements OnInit, OnDestroy {
      finalize( async() => {
        this.url = await ref.getDownloadURL().toPromise()
        this.payment_proof.patchValue({
+         proof: {
           filename: file.name,
           contentType: file.type,
           imageBase64: this.url
+         }
        });
 
         this.fileName = file.name;

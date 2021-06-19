@@ -186,85 +186,90 @@
                 </svg>
                 Payment
             </div>&nbsp;
-            <div class="columns is-multilined">
+            
                 
                 <!---------------------- PAYMENT OPTION ----------------------------->
+            <form [formGroup]="payment_proof" (ngSubmit)="placeOrder()" *ngIf="this.payment_proof">
+                <div class="columns is-multilined">
+                    <div class="column is-4">
+                        <div class="control">
+                            <div class="select" >
+                                <select (change)="selectChangeHandler($event)"
+                                    formControlName="payment_option" 
+                                    [ngClass]="{'has-error': formControls.payment_option?.errors }">
+                                    <option  value="" disabled selected>Select Option</option>
+                                    <option value="full">Full Payment</option>
+                                    <option value="half">Half Payment</option>
+                                </select>
+                            </div>
+                            <div *ngIf="submitted
+                                && formControls.payment_option?.errors" class="help is-danger">
+                                <div *ngIf="formControls.payment_option?.errors?.required">Payment option is required</div>
+                            </div>
+                        </div>
+                        
+                        <p class="has-text-danger-dark" *ngIf="payment_option == 'full'">
+                            Please pay full amount of ₱{{checkout_details.service?.price}} then attach proof of payment.
+                        </p>
+                        <p class="has-text-danger-dark" *ngIf="payment_option == 'half'">
+                            Please pay half amount of ₱{{halfprice}} then attach proof of payment.
+                        </p>
+                       
+                   
+                    </div>
                 
-                <div class="column is-4">
-                    <div class="control">
-                        <div class="select">
-                            <select name="payment" id="payment" (change)="selectChangeHandler($event)">
-                                <option  value="option" hidden>Select Option</option>
-                                <option value="full">Full Payment</option>
-                                <option value="half">Half Payment</option>
-                            </select>
+
+                    <!---------------------- PROOF OF PAYMENT ----------------------------->
+                    <div class="column is-8">
+                        <div [formGroup]="proofForm">
+                            <div class="field">
+                                <div class="control">
+                                    <div class="file is-info is-fullwidth">
+                                        <label class="file-label">
+                                            <input class="file-input" #proofimage type="file" accept="image/*" 
+                                            (change)="uploadFile($event); imageSRC= ''" 
+                                            name="proof" formControlName="proof" 
+                                            [ngClass]="{'has-error': formControlsProof.controls['filename']?.errors }" required>
+                                            <span class="file-cta">
+                                                <span class="file-icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+                                                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                                        <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                                                    </svg>
+                                                    <i class="bi bi-upload"></i>
+                                                </span>
+                                                <span class="file-label has-text-centered">
+                                                    Upload proof of payment
+                                                </span>
+                                            </span>
+                                            <span class="file-name">
+                                                {{fileName}}
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div *ngIf="submitted || (formControlsProof.controls['filename']?.touched || formControlsProof.controls['filename']?.dirty)
+                                    && formControlsProof.controls['filename']?.errors" class="help is-danger">
+                                    <div *ngIf="formControlsProof.controls['filename']?.errors?.required">Proof of payment is required</div>
+                                </div>
+                            </div>
+                            <figure class="image">
+                                <div *ngIf = "percentage | async as pct">
+                                    <div *ngIf = "!imageSRC ">
+                                        <progress [value] = "pct" max = "100"></progress>
+                                        {{pct | number}} %
+                                    </div>
+                                </div>
+                                <div *ngIf = "snapshot | async as snap">
+                                    <div *ngIf = "fileName">
+                                    <img [src]= "imageSRC">
+                                    </div>
+                                </div>
+                            </figure>
                         </div>
                     </div>
-                    <p class="has-text-danger-dark" *ngIf="payment_option == 'full'">
-                        Please pay full amount of ₱{{checkout_details.service?.price}} then attach proof of payment.
-                    </p>
-                    <p class="has-text-danger-dark" *ngIf="payment_option == 'half'">
-                        Please pay half amount of ₱{{halfprice}} then attach proof of payment.
-                    </p>
                 </div>
-
-                <!---------------------- PROOF OF PAYMENT ----------------------------->
-                <div class="column is-8">
-                    <form [formGroup]="payment_proof" (ngSubmit)="placeOrder()">
-                        <div class="field">
-                            <div class="control">
-                                <div class="file is-info is-fullwidth">
-                                    <label class="file-label">
-                                        <input class="file-input" #proofimage type="file" accept="image/*" 
-                                        (change)="uploadFile($event); imageSRC= ''" 
-                                        name="commissionimage" formControlName="proof" required
-                                        [ngClass]="{'has-error': formControls.filename?.errors }">
-                                        <span class="file-cta">
-                                            <span class="file-icon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
-                                                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                                                    <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
-                                                </svg>
-                                                <i class="bi bi-upload"></i>
-                                            </span>
-                                            <span class="file-label has-text-centered">
-                                                Upload proof of payment
-                                            </span>
-                                        </span>
-                                        <span class="file-name">
-                                            {{fileName}}
-                                        </span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div *ngIf="submitted || (formControls.filename?.touched || formControls.filename?.dirty)
-                                && formControls.filename?.errors" class="help is-danger">
-                                <div *ngIf="formControls.filename?.errors?.required">Proof of payment is required</div>
-                            </div>
-                        </div>
-                        <figure class="image">
-                            <div *ngIf = "percentage | async as pct">
-                                <div *ngIf = "!imageSRC ">
-                                    <progress [value] = "pct" max = "100"></progress>
-                                    {{pct | number}} %
-                                </div>
-                            </div>
-                            <div *ngIf = "snapshot | async as snap">
-                                <div *ngIf = "fileName">
-                                <img [src]= "imageSRC">
-                                </div>
-                            </div>
-                            <!--
-                            
-                            <div *ngIf = "fileName">
-                                <img [src]= "imageSRC">
-                            </div>
-                            -->
-                            
-                        </figure>
-                    </form>
-                </div>
-            </div> 
+            </form> 
         </div>
     </div>
     <div class="column is-2"></div> <!-- INSERT SIDE BAR HERE-->
