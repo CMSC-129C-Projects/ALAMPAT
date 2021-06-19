@@ -2,8 +2,7 @@ import { Component, Input, Output, OnInit, OnDestroy, EventEmitter,ViewChild, El
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Commission } from 'src/app/models/Commission';
 import { CommissionService } from 'src/app/services/comService';
-import { DomSanitizer } from '@angular/platform-browser';
-import {AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask} from '@angular/fire/storage';
+import {AngularFireStorage, AngularFireUploadTask} from '@angular/fire/storage';
 import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
@@ -48,9 +47,10 @@ export class CommissionItemComponent implements OnChanges, OnDestroy {
 
   task: AngularFireUploadTask;
   snapshot: Observable<any>;
+  percentage: Observable<number|undefined> = new Observable();
   subscriptions: Subscription;
   subper: Subscription;
-  percentage: Observable<number|undefined> = new Observable();
+ 
 
   string64: any;
   filetype: any;
@@ -69,7 +69,8 @@ export class CommissionItemComponent implements OnChanges, OnDestroy {
 
   @Output() updatepf : EventEmitter<any> = new EventEmitter(true); 
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private commissionService: CommissionService,
     private afStorage: AngularFireStorage) {
       this.reload = new EventEmitter(false);
