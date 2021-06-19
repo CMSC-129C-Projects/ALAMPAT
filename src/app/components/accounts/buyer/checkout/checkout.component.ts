@@ -1,8 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { OrderService } from 'src/app/services/order';
-import { Subscription, BehaviorSubject} from 'rxjs';
-import {AngularFireStorage} from '@angular/fire/storage';
+import { Subscription, Observable} from 'rxjs';
+import {AngularFireStorage, AngularFireUploadTask} from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 interface details {
   _id: string;
   service: {
@@ -45,11 +47,20 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   fileName: string = '';
   halfprice: any;
 
+  task: AngularFireUploadTask;
+  snapshot: Observable<any>;
+  percentage: Observable<number|undefined> = new Observable();
+  url: Promise<string>;
+  payment_proof: FormGroup
+
+  @ViewChild('proofimage') image_proof: ElementRef
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private orderserv: OrderService,
-    private afStorage: AngularFireStorage
+    private afStorage: AngularFireStorage,
+    private formBuilder: FormBuilder
   ) {
     this.setDetails()
   }
@@ -61,6 +72,14 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         this.reserv_id = params.id
       })
     
+    this.payment_proof = this.formBuilder.group({
+      proof: this.formBuilder.group({
+        filename: [''],
+        contentType: [''],
+        imageBase64:[''],
+      }),
+    })
+
     this.getCheckoutdetails()
   }
 
@@ -117,36 +136,38 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     const target = event.target as HTMLInputElement
 
     const file: File = (target.files as FileList)[0]
+
     //Storage Path
-    const path =  `/Service/${Date.now()}_` + file.name
+    const path =  `/Order/${Date.now()}_` + file.name
     
     //reference to storage bucket
     const ref = this.afStorage.ref(path)
 
     //main task 
-    //this.task = this.afStorage.upload(path, file)
+    this.task = this.afStorage.upload(path, file)
 
     //upload progress monitoring
-    //this.percentage = this.task.percentageChanges() ;
+    this.percentage = this.task.percentageChanges() ;
     
 
-    //this.snapshot = this.task.snapshotChanges().pipe(
-    //  finalize( async() => {
-    //    this.url = await ref.getDownloadURL().toPromise()
-    //    this.serviceForm.patchValue({
-    //      commissionimage: {
-    //        filename: file.name,
-    //        contentType: file.type,
-    //        imageBase64: this.url
-    //      }
-    //    });
+    this.snapshot = this.task.snapshotChanges().pipe(
+     finalize( async() => {
+       this.url = await ref.getDownloadURL().toPromise()
+       this.payment_proof.patchValue({
+         proof: {
+           filename: file.name,
+           contentType: file.type,
+           imageBase64: this.url
+         }
+       });
+
         this.fileName = file.name
-    //    this.prev_image = this.imageSRC
-    //    this.imageSRC = this.url
-    //    console.log("Here: " + JSON.stringify(this.url) );
-    //  })
-    //)
-    //this.editimage.nativeElement.value = null
+       
+       this.imageSRC = this.url
+       console.log("Here: " + JSON.stringify(this.url) );
+     })
+    )
+    this.image_proof.nativeElement.value = null
   } 
 
 }
