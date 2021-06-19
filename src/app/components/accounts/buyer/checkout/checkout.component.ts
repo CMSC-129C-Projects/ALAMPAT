@@ -52,7 +52,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   snapshot: Observable<any>;
   percentage: Observable<number|undefined> = new Observable();
   url: Promise<string>;
-  payment_proof: FormGroup
+  payment_proof: FormGroup;
 
   @ViewChild('proofimage') image_proof: ElementRef
 
@@ -75,8 +75,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     
     this.payment_proof = this.formBuilder.group({
         filename: ['', Validators.required],
-        contentType: [''],
-        imageBase64:[''],
+        contentType: ['', Validators.required],
+        imageBase64:['', Validators.required],
     })
 
     this.getCheckoutdetails()
@@ -155,24 +155,26 @@ export class CheckoutComponent implements OnInit, OnDestroy {
      finalize( async() => {
        this.url = await ref.getDownloadURL().toPromise()
        this.payment_proof.patchValue({
-         proof: {
-           filename: file.name,
-           contentType: file.type,
-           imageBase64: this.url
-         }
+          filename: file.name,
+          contentType: file.type,
+          imageBase64: this.url
        });
 
-        this.fileName = file.name
+        this.fileName = file.name;
        
-       this.imageSRC = this.url
+       this.imageSRC = this.url;
        console.log("Here: " + JSON.stringify(this.url) );
      })
     )
-    this.image_proof.nativeElement.value = null
+    this.image_proof.nativeElement.value = null;
   }
   
   placeOrder () {
     this.submitted = true;
+    if (this.payment_proof.invalid) {
+      console.log("Error in placing order.")
+    } 
+    console.log("Successfully placed order!")
   }
 
 }
