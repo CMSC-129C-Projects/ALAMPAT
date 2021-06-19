@@ -46,6 +46,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   imageSRC : any = '';
   fileName: string = '';
   halfprice: any;
+  submitted: boolean = false;
 
   task: AngularFireUploadTask;
   snapshot: Observable<any>;
@@ -73,15 +74,15 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       })
     
     this.payment_proof = this.formBuilder.group({
-      proof: this.formBuilder.group({
-        filename: [''],
+        filename: ['', Validators.required],
         contentType: [''],
         imageBase64:[''],
-      }),
     })
 
     this.getCheckoutdetails()
   }
+
+  get formControls() { return this.payment_proof.controls; }
 
   ngOnDestroy():void {
     this.checkout_sub.unsubscribe()
@@ -168,6 +169,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
      })
     )
     this.image_proof.nativeElement.value = null
-  } 
+  }
+  
+  placeOrder () {
+    this.submitted = true;
+  }
 
 }
