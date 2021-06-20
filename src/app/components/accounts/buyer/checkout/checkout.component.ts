@@ -134,7 +134,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.checkout_sub = this.orderserv.getCheckoutdetails(this.reserv_id).subscribe( item => {
       this.checkout_details = item.data.details
       this.halfprice = item.data.details.service.price/2
-      this.amt_topay = item.data.details.service.price - this.halfprice
+      this.amt_topay =  item.data.details.service.price
+      //this.amt_topay = item.data.details.service.price - this.halfprice
       console.log( JSON.stringify(item.data))
     })
   }
@@ -202,6 +203,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.orderserv.addCommOrder(this.payment_proof.value, this.checkout_details.service._id, this.checkout_details.seller._id )
     console.log("Successfully placed order! " + JSON.stringify(this.payment_proof.value) )
   }
+
   //Function to close the successful modal
   onClickExit () {
     this.imageSRC = '';
