@@ -20,6 +20,8 @@ router.get('/profile/:id', userController.getUserByID)
 router.patch('/updateAccount/:id?', userController.updateAccount)
 
 router.get('/:id/getOrders/', OrderController.getOrderList)
+router.get('/:id/getOrderswithFilter/', OrderController.getOrderList_Filter)
+router.get('/:id/getOrder/:order_id', OrderController.getOrder)
 
 router.post('/:id/addprod_orders/', OrderController.addProductOrder)
 

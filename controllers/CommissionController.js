@@ -59,8 +59,7 @@ const addCommission = async(req, res, next) => {
     
         console.log(error)
         res.status(404).json({ 
-            error,
-            message: "duh",
+            message: error.message,
             success: false, })
     
     }
@@ -89,7 +88,7 @@ const getCommissionList = async(req, res, next) => {
     } catch(error){
         console.log(error)
         res.status(404).json({ 
-            error,
+            message: error.message,
             success: false, })
     }
 }
@@ -136,8 +135,7 @@ const updateCommission = async(req, res, next) => {
     catch (error) {
         console.log(error)
         res.status(400).json({ 
-            message: 'Commission update process failed',
-            error,
+            message: error.message,
             success: false, })
     }
 }
@@ -173,8 +171,7 @@ const deleteCommission = async(req, res, next) => {
     catch (error) {
         console.log(error)
         res.status(400).json({ 
-            message: 'Commission  data removing process failed',
-            error,
+            message: error.message,
             success: false, })
     }
 }

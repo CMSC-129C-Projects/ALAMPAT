@@ -18,11 +18,13 @@ router.post('/:id/addReservation/', ReservationController.addReservation)
 router.get('/:id/getReservationList/', ReservationController.getReservationList)
 router.get('/:id/getReservation/', ReservationController.getReservation)
 router.patch('/:id/cancelReservation/', buyerController.updateReservation)
+router.delete('/:id/removeReservation/', ReservationController.removeReservation_inUser)
 
 router.get('/:id/getCheckout/', buyerController.getCheckout)
 //router.get('/products', marketController.getCommissionList, marketController.getProductList)
 
 router.post('/:id/addCommOrder/', OrderController.addCommissionOrder)
+// router.get('/:id/getOrderList/', ReservationController.getReservationList)
 
 router.get('/market', marketController.getAll)
 router.get('/productmarket', marketController.getProductList)

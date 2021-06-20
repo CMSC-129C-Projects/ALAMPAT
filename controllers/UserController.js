@@ -12,7 +12,7 @@ const getUserByEmail = async (email) => {
     }
     catch (error) {
         console.log(error)
-        return { error }
+        return {  message: error.message, }
     }
 }
 
@@ -106,7 +106,7 @@ const updateAccount = async(req, res, next) => {
     }
     catch (error) {
         console.log(error)
-        res.status(400).json({ error,
+        res.status(400).json({  message: error.message,
             success: false, })
     }
 }

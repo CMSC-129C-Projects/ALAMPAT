@@ -58,8 +58,7 @@ const addProduct = async(req, res, next) => {
     
         console.log(error)
         res.status(404).json({ 
-            error,
-            message: "Error 404",
+            message: error.message,
             success: false, })
     
     }
@@ -88,7 +87,7 @@ const getProductList = async(req, res, next) => {
     } catch(error){
         console.log(error)
         res.status(404).json({ 
-            error,
+            message: error.message,
             success: false, })
     }
 }
@@ -134,8 +133,7 @@ const updateProduct = async(req, res, next) => {
     catch (error) {
         console.log(error)
         res.status(400).json({ 
-            message: 'Product update process failed',
-            error,
+            message: error.message,
             success: false, })
     }
 }
@@ -172,8 +170,7 @@ const deleteProduct = async(req, res, next) => {
     catch (error) {
         console.log(error)
         res.status(400).json({ 
-            message: 'Product  data removing process failed',
-            error,
+            message: error.message,
             success: false, })
     }
 }

@@ -21,7 +21,7 @@ const orderSchema = new Schema({
         type: String,
     },
     
-    proof: {
+    proof: [{
         filename : {
             type : String,
             sparse:true
@@ -34,10 +34,10 @@ const orderSchema = new Schema({
         imageBase64 : {
             type : String,
         }
-    }, 
+    }], 
 
-    payment_status: {
-        type: String
+    amount_paid: {
+        type: Number
     },
     
     items: [{

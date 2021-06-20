@@ -183,8 +183,6 @@ const updateReservation = async(req, res, next) => {
 
 const deleteReservation = async(req, res, next) => {
     try {
-        
-            //creates a new user object together with the final image object
            
         //updates the user object data to the database 
         
@@ -225,11 +223,33 @@ const deleteReservation = async(req, res, next) => {
     }
 }
 
+const removeReservation_inUser = async(req, res, next) => {
+    try{
 
+        const buyer  = await User.findByIdAndUpdate(req.params.id , { $pull: { reservation: req.query.reserv_id } })
+        const seller = await User.findByIdAndUpdate(req.query.seller_id , { $pull: { reservation: req.query.reserv_id } })
+        if(buyer && seller){
+            res.json({
+                message: 'Reservation removed in Buyer and Seller successfully!',
+                result: buyer,
+                success: true,
+            })
+        }
+    }
+    catch(error){
+    
+        console.log(error)
+        res.status(404).json({ 
+            message: error.message,
+            success: false, })
+    
+    }
+}
 module.exports = { 
     addReservation, 
     getReservationList, 
     updateReservation,
     deleteReservation,
     getReservation,
+    removeReservation_inUser
 }

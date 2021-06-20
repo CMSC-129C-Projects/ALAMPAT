@@ -18,9 +18,16 @@ const reservationSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
     },
+
     reservationStatus: {
         type: String
+    },
+
+    more_fees: {
+        type: String
     }
+
+
     
 }, { timestamps: true });
 

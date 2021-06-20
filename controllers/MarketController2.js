@@ -140,7 +140,7 @@ const getProductList = async (req, res, next) => {
   }catch(error){
     console.log(error)
     res.status(404).json({ 
-        error,
+        message: error.message,
         success: false, })
   }
 }
@@ -156,7 +156,7 @@ const getCommissionList = (req, res, next) => {
   }catch(error){
     console.log(error)
     res.status(404).json({ 
-        error,
+      message: error.message,
         success: false, })
   }
 }
@@ -186,7 +186,7 @@ const getProduct = (req, res, next) => {
   }catch(error){
     console.log(error)
     res.status(404).json({ 
-        error,
+      message: error.message,
         success: false, })
   }
 }
@@ -221,7 +221,7 @@ const getCommission = (req, res, next) => {
   }catch(error){
     console.log(error)
     res.status(404).json({ 
-        error,
+      message: error.message,
         success: false, })
   }
 }
@@ -279,7 +279,7 @@ const getAll =  (req, res, next) => {
   }catch(error){
     console.log(error)
     res.status(404).json({ 
-        error,
+        message: error.message,
         success: false, })
   }
 }

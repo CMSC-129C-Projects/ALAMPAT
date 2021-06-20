@@ -54,7 +54,7 @@ const addArtwork = async(req, res, next) => {
     
         console.log(error)
         res.status(404).json({ 
-            error,
+            message: error.message,
             success: false, })
     
     }
@@ -83,7 +83,7 @@ const getArtworkList = async(req, res, next) => {
     } catch(error){
         console.log(error)
         res.status(404).json({ 
-            error,
+            message: error.message,
             success: false, })
     }
 }
@@ -101,7 +101,7 @@ const getArtwork = (req, res, next) => {
   } catch(error){
     console.log(error)
     res.status(404).json({ 
-        error,
+        message: error.message,
         success: false, })
   }
 }
@@ -143,8 +143,7 @@ const updateArtwork = async(req, res, next) => {
     catch (error) {
         console.log(error)
         res.status(400).json({ 
-            message: 'Artwork update process failed',
-            error,
+            message: error.message,
             success: false, })
     }
 }
@@ -182,8 +181,7 @@ const deleteArtwork = async(req, res, next) => {
     catch (error) {
         console.log(error)
         res.status(400).json({ 
-            message: 'Artwork  data removing process failed',
-            error,
+            message: error.message,
             success: false, })
     }
 }
