@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Input} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { OrderService } from 'src/app/services/order';
 import { Subscription, Observable} from 'rxjs';
@@ -37,6 +37,7 @@ interface details {
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit, OnDestroy {
+  @Input() openSuccessModal: boolean;
   reserv_id: string = '';
 
   checkout_sub: Subscription;
@@ -150,13 +151,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     if(this.payment_option == 'full'){
       this.amt_topay = 0
     }
-   
-    //Selected option in dropdown
-    //this.payment_option.setValue(event.target.value, {
-    //  onlySelf: true
-    //})
   }
-
+  //Function for the uploading of proof of payment
   uploadFile(event: Event) {
     const target = event.target as HTMLInputElement
 
@@ -197,13 +193,22 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   
   placeOrder () {
     this.submitted = true;
+    this.openSuccessModal = true;
+
     if (this.payment_proof.invalid) {
       console.log("Error in placing order.")
       return
     }
-
     this.orderserv.addCommOrder(this.payment_proof.value, this.checkout_details.service._id, this.checkout_details.seller._id )
     console.log("Successfully placed order! " + JSON.stringify(this.payment_proof.value) )
+  }
+  //Function to close the successful modal
+  onClickExit () {
+    this.imageSRC = '';
+
+    if(this.openSuccessModal) {
+      this.openSuccessModal = false;
+    }
   }
 
 }

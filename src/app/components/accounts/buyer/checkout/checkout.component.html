@@ -132,22 +132,14 @@
                         </div>
                         <div class="text is-size-6" readonly>
                             Category: 
-                            <!-- NGIF -->
-                            
-                            <div
-                            class="tag is-link is-light has-text-weight-bold is-small">
-                            {{checkout_details.service?.category}}
+                            <div class="tag is-link is-light has-text-weight-bold is-small">
+                                {{checkout_details.service?.category}}
                             </div>
-                            <!-- <div
-                            class="tag is-danger is-light has-text-weight-bold is-small">
-                            Commission
-                            </div> -->
                         </div>
                         <!-- <div class="text is-size-6" readonly>
                             Quantity:&nbsp;
                             <input class="input is-small is-warning" style="width: 48px; height: 24px; margin-top: 3px" type="text" placeholder="Enter">
                         </div> -->
-
                     </div>
                 </div>
             </div>
@@ -188,7 +180,7 @@
             </div>&nbsp;
             
                 
-                <!---------------------- PAYMENT OPTION ----------------------------->
+            <!---------------------- PAYMENT OPTION ----------------------------->
             <form [formGroup]="payment_proof" (ngSubmit)="placeOrder()" *ngIf="this.payment_proof">
                 <div class="columns is-multilined">
                     <div class="column is-4">
@@ -209,10 +201,10 @@
                         </div>
                         
                         <p class="has-text-danger-dark" *ngIf="payment_option == 'full'">
-                            Please pay full amount of ₱{{checkout_details.service?.price}} then attach proof of payment.
+                            Please pay full amount of ₱{{checkout_details.service?.price?.toFixed(2)}} then attach proof of payment.
                         </p>
                         <p class="has-text-danger-dark" *ngIf="payment_option == 'half'">
-                            Please pay half amount of ₱{{halfprice}} then attach proof of payment.
+                            Please pay half amount of ₱{{halfprice?.toFixed(2)}} then attach proof of payment.
                         </p>
                        
                    
@@ -295,7 +287,7 @@
                     Shipping Fee: <strong>₱ 69.00</strong>
                 </div> -->
                 <div *ngIf = "amt_topay >=  0" class="text is-size-4 has-text-danger-dark has-text-weight-bold has-text-right">
-                     AMOUNT TO PAY: ₱ {{amt_topay.toFixed(2)}}
+                     AMOUNT TO PAY: ₱{{amt_topay.toFixed(2)}}
                 </div>
                 &nbsp;
                 <div class="block has-text-right">
@@ -307,6 +299,25 @@
         </div>
         <div class="column is-2"></div>
     </div>
+</div>
+
+<!-- SUCCESSFUL MODAL-->
+<div class="modal" [ngClass]="openSuccessModal ? 'is-active' : ''">
+    <div class="notification has-background-success-dark has-text-white" >
+        <button (click)="onClickExit()" class="delete"></button>
+        <div class="container has-text-centered"> 
+            <span class="icon is-inline-block is-centered mt-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                </svg>
+                <i class="bi bi-check-circle"></i>
+            </span>
+            <p class="is-size-6 has-text-weight-medium ml-3 my-4 size-4">
+                {{checkout_details.buyer?.name}}, thank you for your order!
+            </p>
+        </div>      
+    </div> 
 </div>
 
 <app-footer></app-footer>
