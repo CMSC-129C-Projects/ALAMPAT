@@ -8,6 +8,7 @@ const buyerController = require('../controllers/BuyerController');
 const marketController = require('../controllers/MarketController');
 const marketController2 = require('../controllers/MarketController2');
 const ReservationController = require('../controllers/ReservationController');
+const OrderController = require('../controllers/OrderController');
 
 router.post('/:id/addtoCart/:_id', buyerController.addtoCart)
 router.get('/:id/getCart/', buyerController.getCartItems)
@@ -20,6 +21,8 @@ router.patch('/:id/cancelReservation/', buyerController.updateReservation)
 
 router.get('/:id/getCheckout/', buyerController.getCheckout)
 //router.get('/products', marketController.getCommissionList, marketController.getProductList)
+
+router.post('/:id/addCommOrder/', OrderController.addCommissionOrder)
 
 router.get('/market', marketController.getAll)
 router.get('/productmarket', marketController.getProductList)

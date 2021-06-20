@@ -123,36 +123,40 @@ const addCommissionOrder = async(req, res, next) => {
     try{
         let comm_order = new Order ({
             _id: new ObjectId(),
-            orderStatus: req.body.orderStatus,
-            orderType: req.body.orderType,
+            orderStatus: req.query.orderStatus,
+            orderType: req.query.orderType,
             trackingNumber: '',
-            service: req.body.checkout_items,
+            reservation: req.query.reserv_id,
+            
+            proof: req.body.proof,
+            payment_status: req.body.payment_option,
             totalAmount: req.body.totalAmount, 
-            progressTrackerDescription: '',
-            cancellationReason: req.body.cancellationReason,
 
-            items: [''],
+            progressTrackerDescription: [],
+            cancellationReason: '',
+
+            items: [],
         })
 
          comm_order.save(function(err, result){
             if(err) throw err;
             if(!err){
             User.findByIdAndUpdate( req.params.id , { $push: { orders: result._id } })
-            .then((result) => {
-                res.json({
-                    message: "Order added successfully! ",
-                    orders: result.orders,
-                    success: true,
+            .then(() => {
+                User.findByIdAndUpdate( req.query.seller_id , { $push: { orders: result._id } })
+                .then(() => {
+                    res.json({
+                        success: true
+                    })
                 })
+            })//.catch((error)=>{
+            //     res.status(400).json({
+            //         message: "Failed to add order to the user!",
+            //         error: error,
+            //         success: false,
+            //     })
                 
-            }).catch((error)=>{
-                res.status(400).json({
-                    message: "Failed to add order to the user!",
-                    error: error,
-                    success: false,
-                })
-                
-            })
+            // })
             }
          })
     }
@@ -160,7 +164,7 @@ const addCommissionOrder = async(req, res, next) => {
     
         console.log(error)
         res.status(404).json({ 
-            error,
+            message : error.message,
             success: false, })
     
     }

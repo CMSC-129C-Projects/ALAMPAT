@@ -21,14 +21,33 @@ const orderSchema = new Schema({
         type: String,
     },
     
+    proof: {
+        filename : {
+            type : String,
+            sparse:true
+            
+        },
+        contentType : {
+            type: String,
+           
+        },
+        imageBase64 : {
+            type : String,
+        }
+    }, 
+
+    payment_status: {
+        type: String
+    },
+    
     items: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'products'
     }],
 
-    service: {
+    reservation: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'commissions'
+        ref: 'reservations'
     },
 
     progressTrackerDescription: [{
