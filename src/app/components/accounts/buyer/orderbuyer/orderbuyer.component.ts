@@ -253,7 +253,7 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
   ChangeTab(tab:string){
     this.curr_tab.next(tab)
     this.curritems_amt = 0
-    this.load = 'true'
+    this.load = 'false'
     this.orderStatusdata(tab)
   }
 
