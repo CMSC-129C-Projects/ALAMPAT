@@ -19,7 +19,7 @@ interface item {
   };
   category:string;
   sellername?: string;
-  status:string;
+  orderstatus:string;
 }
 @Component({
   selector: 'app-orderbuyer',
@@ -27,6 +27,8 @@ interface item {
   styleUrls: ['./orderbuyer.component.css']
 })
 export class OrderbuyerComponent implements OnInit, OnDestroy {
+  showOrderDetailsModal: boolean = false;
+
   totalRecords: number;
   page: BehaviorSubject<any> ;
   pagelimit: number = 10;
@@ -45,6 +47,12 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
     this.re_sub.push(this.orderserv.reload.subscribe((x)=>{
       this.reload = x
     }))
+    //Order Details Modal
+    this.re_sub.push(
+      this.orderserv.showDetails.subscribe((x)=>{
+        this.showOrderDetailsModal = x
+      })
+    )
   }
 
   ngOnInit(): void {
@@ -168,6 +176,11 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
       // })
       // )
     }   
+  }
+
+  //Function for the Order Details Modal
+  onClickOrderDetails () {
+    this.orderserv.detailsswitch(true);
   }
 
   pageChanged(){

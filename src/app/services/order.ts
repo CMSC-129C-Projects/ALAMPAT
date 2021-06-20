@@ -20,7 +20,8 @@ interface uploadResponse {
 export class OrderService {
     order: BehaviorSubject<any> ;
     //item: BehaviorSubject<item>
-    reload: EventEmitter<boolean> ;
+    reload: EventEmitter<boolean>;
+    showDetails: EventEmitter<boolean> = new EventEmitter();
 
     user_id:string|null
     constructor() {
@@ -30,6 +31,10 @@ export class OrderService {
     
     public get orderValue(): any {
         return this.order.value;
+    }
+
+    detailsswitch(resp: boolean){
+        this.showDetails.emit(resp)
     }
 
     //setItem(){

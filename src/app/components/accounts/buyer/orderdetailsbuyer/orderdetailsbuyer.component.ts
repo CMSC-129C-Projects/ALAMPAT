@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { OrderService } from 'src/app/services/order';
 
 @Component({
   selector: 'app-orderdetailsbuyer',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./orderdetailsbuyer.component.css']
 })
 export class OrderdetailsbuyerComponent implements OnInit {
+  @Input() openOrderDetailsModal: boolean;
 
-  constructor() { }
+  constructor(private orderserv: OrderService) { }
 
   ngOnInit(): void {
+  }
+
+  //Function when the modal exits or cancels
+  onClickExit () {
+    if(this.openOrderDetailsModal) {
+      this.orderserv.detailsswitch(false)
+    }
   }
 
 }

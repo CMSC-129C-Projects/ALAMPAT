@@ -1,1 +1,214 @@
-<p>orderdetailsbuyer works!</p>
+<!---------------- VIEW ORDER DETAILS ---------------------->
+
+<div class="modal" [ngClass]="openOrderDetailsModal ? 'is-active' : ''">
+    <div class="modal-background" (click)="onClickExit()"></div>
+    <div class="modal-card">
+        <header class="modal-card-head is-paddingless py-2 px-2 "> 
+            <div class="column has-text-right is-paddingless is-marginless">
+                <button (click)="onClickExit()" class="delete "></button>
+            </div>
+        </header>
+        
+        <div class="modal-card-body is-paddingless px-4">
+            <div class="level is-marginless">
+                <div class="level-left">
+                    <div class="level-item">
+                        <p class= "is-size-7 has-text-weight-medium is-italic"> 
+                            Order ID: <!--{{item._id}}--> 
+                        </p>
+                    </div>
+                </div>
+                <div class="level-right">
+                    <div class="level-item is-pulled-right">
+                        <div class="is-size-7 has-text-weight-medium is-marginless">
+                            Order Status:
+                            <!-- NGIF 
+                            <div class="tag is-warning is-light has-text-weight-bold" 
+                            *ngIf="item.orderstatus=='Processing'">
+                                Processing
+                            </div>
+                            <div class="tag is-success has-text-weight-bold is-small"
+                            *ngIf="item.orderstatus=='Completed'">
+                                Completed
+                            </div> 
+                            <div class="tag is-danger is-light has-text-weight-bold is-small"
+                            *ngIf="item.orderstatus=='Cancelled'">
+                                Cancelled
+                            </div> -->
+                            <div class="tag is-warning is-light has-text-weight-bold">
+                                Processing
+                            </div>       
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <article class="media">
+                <div class="media-left">
+                    <figure class="image">
+                        <!--
+                        <div *ngIf="reservation.service.images?.imageBase64">
+                            <img class="object-fit_cover" [src]= "reservation.service.images?.imageBase64" alt="">
+                        </div>
+                        <div *ngIf="!reservation.service.images?.imageBase64">
+                            <img class="object-fit_cover"  src= "assets/noimg.png" alt="">
+                        </div>
+                        -->
+                        <img class="previewImage"  src= "assets/noimg.png" alt="">
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <div class="content">
+                        <p class="text has-text-weight-bold is-size-4 is-marginless">
+                            Commission Name   
+                        </p>
+                        <p class=" text has-text-primary is-size-4 has-text-weight-bold is-marginless">
+                            ₱1000.00 <!--{{item.price?.toFixed(2)}}-->
+                        </p>
+                        <div class="block">
+                            <div class="text is-size-6">
+                                Seller Name:
+                                <a class="tag is-white is-light has-text-weight-bold is-small">
+                                    Name of the Seller
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <!------------- PROGRESS TRACKER -------------------->
+            <div class="block">
+                <hr style="background-color:#e8e6e6" class="is-marginless my-1">
+                <p class="is-size-5 has-text-weight-medium ">
+                    Progress Tracker
+                </p>
+                <div class="block my-2 mx-4">
+                    <progress class="progress is-primary is-marginless" 
+                        value="15" max="100">
+                        15%
+                    </progress>
+                    <p class="text is-size-7 has-text-black ml-2 mt-2">
+                        05/21/22: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
+                </div>
+            </div>
+            
+            <div class="block">
+                <hr style="background-color:#e8e6e6" class="is-marginless my-1">
+                <!---------------- PAYMENT DETAILS -------------------------->
+                <p class="is-size-5 has-text-weight-medium">
+                    Payment 
+                </p>
+                <!------------------- PROOF OF PAYMENT ---------------------->
+                <div class="column is-full">
+                    <!--<div [formGroup]="payment_proof">-->
+                        <div class="field">
+                            <div class="control">
+                                <div class="file is-info is-fullwidth is-small">
+                                    <label class="file-label">
+                                        <input class="file-input" #proofimage type="file" accept="image/*">
+                                        <span class="file-cta">
+                                            <span class="file-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+                                                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                                    <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                                                </svg>
+                                                <i class="bi bi-upload"></i>
+                                            </span>
+                                            <span class="file-label has-text-centered">
+                                                Upload proof of payment
+                                            </span>
+                                        </span>
+                                        <span class="file-name">
+                                            fileName
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <!--
+                            <div *ngIf="submitted || (formControlsProof.controls['filename']?.touched || formControlsProof.controls['filename']?.dirty)
+                                && formControlsProof.controls['filename']?.errors" class="help is-danger">
+                                <div *ngIf="formControlsProof.controls['filename']?.errors?.required">Proof of payment is required</div>
+                            </div>
+                            -->
+                        </div>
+                        <!--
+                        <figure class="image">
+                            <div *ngIf = "percentage | async as pct">
+                                <div *ngIf = "!imageSRC ">
+                                    <progress [value] = "pct" max = "100"></progress>
+                                    {{pct | number}} %
+                                </div>
+                            </div>
+                            <div *ngIf = "snapshot | async as snap">
+                                <div *ngIf = "fileName">
+                                <img [src]= "imageSRC">
+                                </div>
+                            </div>
+                        </figure>
+                        -->
+                    </div>
+                <!--</div>-->
+                <!------------- ORDER DETAILS -------------------->
+                <p class="is-size-5 has-text-weight-medium mt-2">
+                    Delivery Details
+                </p>
+                <p class="text is-size-6">
+                    Jaira Marimon   
+                </p>
+                <p class="text is-size-7">
+                    09228999585
+                </p>
+                <p class="text is-size-7">
+                    sample.email@gmail.com
+                </p>
+                <p class="text is-size-7">
+                    Unit 2-D, Sample, Sample City, Cebu
+                </p>
+            </div>
+            <!------------- TERMS AND CONDITIONS -------------------->
+            <div class="block">
+                <hr style="background-color:#e8e6e6" class="is-marginless my-1">
+                <p class="is-size-6 has-text-weight-medium has-text-grey">
+                    Terms & Conditions
+                </p>
+                <p class="text is-size-7 has-text-grey">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                <!--{{reservation.service?.terms}} -->
+                </p>
+            </div>
+        </div>
+        <!-------------FOOTER| PAYMENT DETAILS------------------->
+        <footer class="modal-card-foot">
+            <div class="column is-full is-paddingless">
+                <div  class="text is-size-6 has-text-right">
+                    <!--Order Amount: <strong>₱ {{checkout_details.service?.price?.toFixed>(2)}}</strong> -->
+                    Order Amount: <strong>₱1000.00</strong> 
+                </div>
+                <div class="text is-size-6 has-text-right">
+                    Paid Amount: <strong>₱1000.00</strong>
+                </div>
+                <div class="text is-size-6 has-text-right">
+                    Shipping Fee: <strong>₱ 150.00</strong>
+                </div>
+                <div class="text is-size-5 has-text-danger-dark has-text-weight-bold has-text-right">
+                    AMOUNT TO PAY: ₱150.00
+                </div>
+                <div class="block has-text-right">
+                    <button class="button is-fullwidth is-info is-outlined">
+                        PAY
+                    </button>
+                </div>
+            </div>
+                <!--
+                <div class="column is-full has-text-centered is-paddingless is-marginless">
+                    <button class="button is-link has-text-weight-bold" disabled>
+                        RECEIVED
+                    </button>
+                    <button class="button is-danger has-text-weight-bold">
+                        CANCEL
+                    </button>
+                </div>
+                -->
+        </footer>
+    </div>
+  </div>

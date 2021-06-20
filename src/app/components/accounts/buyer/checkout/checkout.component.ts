@@ -193,19 +193,18 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   
   placeOrder () {
     this.submitted = true;
-    this.openSuccessModal = true;
 
     if (this.payment_proof.invalid) {
       console.log("Error in placing order.")
       return
     }
+    this.openSuccessModal = true; 
     this.orderserv.addCommOrder(this.payment_proof.value, this.checkout_details.service._id, this.checkout_details.seller._id )
     console.log("Successfully placed order! " + JSON.stringify(this.payment_proof.value) )
   }
   //Function to close the successful modal
   onClickExit () {
-    this.imageSRC = '';
-
+    //this.imageSRC = '';
     if(this.openSuccessModal) {
       this.openSuccessModal = false;
     }

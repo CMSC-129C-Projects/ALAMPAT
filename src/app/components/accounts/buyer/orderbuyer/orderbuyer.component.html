@@ -1,23 +1,12 @@
-<style>
-    .limitedText {
-      white-space: nowrap;
-      overflow: hidden;
-      width: 550px; /* adjust according to the length you wish to limit the text */
-      text-overflow: ellipsis;
-    }
-    .my-pagination /deep/ .ngx-pagination .current {
-    background: rgb(67, 236, 194);
-    margin: 10px;
-  }
-</style>
-
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 />
 
 <!--------------- TABS ------------------->
-<div class="tabs is-boxed is-centered is-fullwidth">
+<hr style="background-color:#e8e6e6" class="is-marginless">
+<div class="tabs is-boxed is-centered is-fullwidth has-background-success-light">
+    
     <ul>
         <li class="is-active" data-target="order-all" value="All">
             <a class="has-text-weight-medium"> 
@@ -46,43 +35,45 @@
     </ul>
 </div>
 
-<!-- ORDER ITEMS -->
-    <!-- *ngFor="let item of orderList; index as i"> -->
+<!------------------------ ORDER ITEMS -------------------------------->
+    <!--
     <div class="column"
     *ngFor=" let item of orderdata | paginate: {
             id: 'listing_pagination',
             itemsPerPage: 10,
             currentPage: page.value,
-            totalItems: totalRecords
-          }"
-    >
-        <div class="box is-clickable">
+            totalItems: totalRecords }">
+    -->
+    <div class="column">
+        <div class="box is-clickable" (click)="onClickOrderDetails()">
             <div class="level is-marginless">
                 <div class="level-left">
                     <div class="level-item">
                         <p class= "is-size-7 has-text-weight-medium is-italic"> 
-                            Order ID: {{item._id}}
+                            Order ID: <!--{{item._id}}--> 
                         </p>
                     </div>
                 </div>
                 <div class="level-right">
                     <div class="level-item">
                         <div class="is-size-7 has-text-weight-medium is-marginless">
-                            Status:
-                            <!-- NGIF -->
+                            Order Status:
+                            <!-- NGIF 
                             <div class="tag is-warning is-light has-text-weight-bold" 
-                            *ngIf="item.status=='Processing'">
+                            *ngIf="item.orderstatus=='Processing'">
                                 Processing
                             </div>
                             <div class="tag is-success has-text-weight-bold is-small"
-                            *ngIf="item.status=='Completed'">
+                            *ngIf="item.orderstatus=='Completed'">
                                 Completed
                             </div> 
                             <div class="tag is-danger is-light has-text-weight-bold is-small"
-                            *ngIf="item.status=='Cancelled'">
+                            *ngIf="item.orderstatus=='Cancelled'">
                                 Cancelled
-                            </div>
-                                    
+                            </div> -->
+                            <div class="tag is-warning is-light has-text-weight-bold">
+                                Processing
+                            </div>       
                             
                         </div>
                     </div>
@@ -93,32 +84,37 @@
             <article class="media">
                 <div class="media-left">
                     <figure class="image is-100x100">
+                        <!--
                         <div *ngIf="item.images?.imageBase64">
                             <img class="object-fit_cover" [src]="item.images.imageBase64" alt="Image"/>
                         </div>
                         <div *ngIf="!item.images?.imageBase64">
                             <img class="object-fit_cover"  src= "assets/noimg.png" alt="NoImage">
                         </div>
+                        -->
+                        
+                            <img class="previewImage"  src= "assets/noimg.png" alt="NoImage">
+                        
                     </figure>
                 </div>
                 <div class="media-content">
                     <div class="content">
                     <p class="limitedText has-text-weight-bold is-size-4">
                         <!-- notice the class limitedText, when the text is too long, it ends with "..." -->
-                        {{item.itemname}}
+                        item.itemname <!--{{item.itemname}}-->
                     </p>
                     
                     <p class="is-size-5 has-text-weight-medium is-marginless">
                         Total:
-                        <span class="text has-text-weight-bold has-text-warning-dark">
-                            ₱ {{item.price}}
+                        <span class="text has-text-weight-bold has-text-primary">
+                            ₱ item.price <!--{{item.price?.toFixed(2)}}-->
                         </span>
                     </p>
                     <div class="block">
                         <div class="text is-size-6">
                             Seller Name:
                         <a class="tag is-white is-light has-text-weight-bold is-small">
-                            {{item.sellername}}
+                            item.sellername <!--{{item.sellername}}-->
                         </a>
                         </div>
                     </div>
@@ -130,12 +126,17 @@
                 <div class="level-left">
                     <div class="level-item">
                         <div class="tags has-addons is-marginless">
+                            <!--
                             <div class="tag is-link is-light has-text-weight-bold is-small" 
                                 *ngIf="item.category == 'Product'"> 
                                 Product
                             </div>
                             <div class="tag is-danger is-light has-text-weight-bold is-small" 
                                 *ngIf="item.category == 'Commission'"> 
+                                Commission
+                            </div>
+                            -->
+                            <div class="tag is-danger is-light has-text-weight-bold is-small"> 
                                 Commission
                             </div>
                         </div>
@@ -183,3 +184,7 @@
   
   <app-footer></app-footer>
   
+  <app-orderdetailsbuyer [openOrderDetailsModal] = 'showOrderDetailsModal'></app-orderdetailsbuyer>
+
+  <!--<app-orderdetailsbuyer [openOrderDetailseModal] = 'showOrderDetailsModal' 
+  (reloaddetails)="reloadPage($event)"></app-orderdetailsbuyer>-->

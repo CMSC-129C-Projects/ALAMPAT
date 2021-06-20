@@ -3,10 +3,28 @@
 }
 
 .object-fit_cover {
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .pagination {
     display: flex;
     justify-content: center;
+}
+
+.previewImage {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+
+.limitedText {
+    white-space: nowrap;
+    overflow: hidden;
+    width: 550px; /* adjust according to the length you wish to limit the text */
+    text-overflow: ellipsis;
+}
+
+.my-pagination /deep/ .ngx-pagination .current {
+    background: rgb(67, 236, 194);
+    margin: 10px;
 }
