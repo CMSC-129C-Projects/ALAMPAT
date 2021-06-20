@@ -82,6 +82,7 @@ export class OrderService {
     //     this.getCommissionMarketdata(pg, limit, sortby, min, max, word)
     //     return this.market.asObservable()
     // }  
+    
 
     addCommOrder = async(reservation: any, reserv_id: string, seller_id: string)=>{
         try {
@@ -136,24 +137,27 @@ export class OrderService {
     }
 
     //For ALL TAB
-    getAlldata(pg:any, limit:any, status:any): Observable<any>  {
-    
-        return Axios.get(`${localAPI}/buyer/productmarket2?page=${pg}&limit=${limit}&status=${status}`)
+    getAlldata(startindex: string): Observable<any>  {
+        this.user_id = String(localStorage.getItem('id'))
+        return Axios.get(`${test_API}/users/${this.user_id}/getOrders?startindex=${startindex}`)
   
     }
     //FOR PROCESSING TAB
-    getProcessingdata(pg:any, limit:any, status:any): Observable<any>  {
-        return Axios.get(`${localAPI}/buyer/productmarket2?page=${pg}&limit=${limit}&status=${status}`)
+    getProcessingdata(tab: string, startindex:string): Observable<any>  {
+        this.user_id = String(localStorage.getItem('id'))
+        return Axios.get(`${test_API}/users/${this.user_id}/getOrderswithFilter?tab=${tab}&startindex=${startindex}`)
     }
 
     //FOR COMPLETED TAB
-    getCompleteddata(pg:any, limit:any, status:any): Observable<any>  {
-        return Axios.get(`${localAPI}/buyer/productmarket2?page=${pg}&limit=${limit}&status=${status}`)
+    getCompleteddata(tab: string, startindex:string): Observable<any>  {
+        this.user_id = String(localStorage.getItem('id'))
+        return Axios.get(`${test_API}/users/${this.user_id}/getOrderswithFilter?tab=${tab}&startindex=${startindex}`)
     }
 
     //FOR CANCELLED TAB
-    getCancelleddata(pg:any, limit:any, status:any): Observable<any>  {
-        return Axios.get(`${localAPI}/buyer/productmarket2?page=${pg}&limit=${limit}&status=${status}`)
+    getCancelleddata(tab: string, startindex:string): Observable<any>  {
+        this.user_id = String(localStorage.getItem('id'))
+        return Axios.get(`${test_API}/users/${this.user_id}/getOrderswithFilter?tab=${tab}&startindex=${startindex}`)
     }
 
 

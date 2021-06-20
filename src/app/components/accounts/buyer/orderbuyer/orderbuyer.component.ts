@@ -1,25 +1,38 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {ViewContainerRef, ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
 import { OrderService } from 'src/app/services/order';
 import { Subscription, Subject, BehaviorSubject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 
-interface item {
+interface order_item {
   _id?: string;
-  // productname?: string;
-  // commissioname?:string;
-  itemname:string;
-  description: string;
-  stock?: number;
-  slot?: number;
-  price: number;
-  images: {
-    filename: string;
-    contentType: string;
-    imageBase64: string;
-  };
-  category:string;
-  sellername?: string;
-  orderstatus:string;
+  orderStatus: string,
+  orderType: string,
+  reservation: {
+    _id: string, 
+
+    service:{
+      images:{
+        filename: string,
+        contentType: string,
+        imageBase64: string,
+      },
+      _id: string,
+      commissionname: string,
+      price: number,
+    },
+
+    seller:{
+      _id: string,
+      name: string,
+    },
+
+    buyer:{
+          _id: string,
+          name: string,
+        },
+
+  }
+  totalAmount: number
 }
 @Component({
   selector: 'app-orderbuyer',
@@ -33,16 +46,23 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
   page: BehaviorSubject<any> ;
   pagelimit: number = 10;
 
-  orderdata: item[];
+  orderdata: order_item[];
   reload: boolean;
   subs: Subscription[] = [];
   re_sub:Subscription[] = [];
   curr_tab: BehaviorSubject<any>
 
+  curritems_amt: number = 0
+  items_limit = 5
+
+  load: string = "false"
+
   constructor(
     private orderserv: OrderService,
     private router: Router,
     private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef,
+    private vcrf: ViewContainerRef
   ) {
     this.re_sub.push(this.orderserv.reload.subscribe((x)=>{
       this.reload = x
@@ -55,6 +75,7 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
     )
   }
 
+
   ngOnInit(): void {
 
     if(!("pagenum" in localStorage)){
@@ -65,10 +86,10 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
 
     this.curr_tab = new BehaviorSubject<string>('All')
 
-      if("curr_tab" in localStorage){
-        this.curr_tab = new BehaviorSubject<string|null>(localStorage.getItem('curr_category'))
-        // this.sort_ord.next(localStorage.getItem('sort'))
-      }
+      // if("curr_tab" in localStorage){
+      //   this.curr_tab = new BehaviorSubject<string|null>(localStorage.getItem('curr_category'))
+      //   // this.sort_ord.next(localStorage.getItem('sort'))
+      // }
 
       if("pagenum" in localStorage){
         //const page = Number(localStorage.getItem('curr_category'))
@@ -130,6 +151,16 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
     this.orderdata = []
     if(tab_choice == "All"){
       
+      this.subs.push(
+        this.orderserv.getAlldata(String(this.curritems_amt)).subscribe(items => {
+          this.orderdata = items.data.orderArray
+          this.curritems_amt = this.curritems_amt + this.items_limit
+          if(items.data.orderArray.length > 0){
+            this.load = "true"
+            
+          }
+        })
+      )
       // this.subs.push(
       //   this.orderserv.getAlldata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
       //   //this.marketdata = items
@@ -142,6 +173,16 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
       //this.marketdata.push(item)
     }
     else if( tab_choice == "Processing"){
+      this.subs.push(
+        this.orderserv.getProcessingdata('P', String(this.curritems_amt)).subscribe(items => {
+          this.orderdata = items.data.orderArray
+          this.curritems_amt = this.curritems_amt + this.items_limit
+          if(items.data.orderArray.length > 0){
+            this.load = "true"
+            
+          }
+        })
+      )
       // this.subs.push(
       //   this.orderserv.getProcessingdata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
       //   //this.marketdata = items
@@ -154,6 +195,16 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
     }
 
     else if( tab_choice == "Completed"){
+      this.subs.push(
+        this.orderserv.getProcessingdata('Co', String(this.curritems_amt)).subscribe(items => {
+          this.orderdata = items.data.orderArray
+          this.curritems_amt = this.curritems_amt + this.items_limit
+          if(items.data.orderArray.length > 0){
+            this.load = "true"
+            
+          }
+        })
+      )
       // this.subs.push(
       //   this.orderserv.getCompleteddata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
       //   //this.marketdata = items
@@ -166,6 +217,16 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
     }
 
     else if( tab_choice == "Cancelled"){
+      this.subs.push(
+        this.orderserv.getProcessingdata('Ca', String(this.curritems_amt)).subscribe(items => {
+          this.orderdata = items.data.orderArray
+          this.curritems_amt = this.curritems_amt + this.items_limit
+          if(items.data.orderArray.length > 0){
+            this.load = "true"
+            
+          }
+        })
+      )
       // this.subs.push(
       //   this.orderserv.getCancelleddata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
       //   //this.marketdata = items
@@ -187,6 +248,124 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
     this.subs.forEach((x) => x.unsubscribe())
     localStorage.setItem("pagenum", String(this.page.value))
     this.orderStatusdata(this.curr_tab.value)
+  }
+
+  ChangeTab(tab:string){
+    this.curr_tab.next(tab)
+    this.curritems_amt = 0
+    this.load = 'true'
+    this.orderStatusdata(tab)
+  }
+
+  LoadMore(){
+    //this.vcrf.clear()
+    this.subs.forEach((x)=> x.unsubscribe())
+    setTimeout(()=>{
+      if(this.curr_tab.value == "All"){
+      
+        this.subs.push(
+          this.orderserv.getAlldata(String(this.curritems_amt)).subscribe(items => {
+            items.data.orderArray.forEach( order => {
+              this.orderdata.push(order)
+            })
+              // console.log("Added Info: " + JSON.stringify(this.orderdata))
+            if(items.data.orderArray.length == 0){
+              this.load = "false"
+              
+            }
+
+            this.curritems_amt = this.curritems_amt + this.items_limit
+          })
+          
+        )
+        // this.subs.push(
+        //   this.orderserv.getAlldata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
+        //   //this.marketdata = items
+        //   this.orderdata = items.data.all
+        //   this.totalRecords = items.data.totalitems
+        //   //this.page = items.data.currpage
+        //   //this.temp_list.next(this.marketdata)
+        // })
+        // )
+        //this.marketdata.push(item)
+      }
+      else if( this.curr_tab.value == "Processing"){
+        this.subs.push(
+          this.orderserv.getProcessingdata('P', String(this.curritems_amt)).subscribe(items => {
+            items.data.orderArray.forEach( order => {
+              this.orderdata.push(order)
+            })
+            if(items.data.orderArray.length == 0){
+              this.load = "false"
+              
+            }
+            this.curritems_amt = this.curritems_amt + this.items_limit
+          })
+        )
+        // this.subs.push(
+        //   this.orderserv.getProcessingdata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
+        //   //this.marketdata = items
+        //   this.orderdata = items.data.all
+        //   this.totalRecords = items.data.totalitems
+        //   //this.page = items.data.currpage
+        //   //this.temp_list.next(this.marketdata)
+        // })
+        // )
+      }
+  
+      else if( this.curr_tab.value == "Completed"){
+        this.subs.push(
+          this.orderserv.getProcessingdata('Co', String(this.curritems_amt)).subscribe(items => {
+            items.data.orderArray.forEach( order => {
+              this.orderdata.push(order)
+            })
+            if(items.data.orderArray.length == 0){
+              this.load = "false"
+              
+            }
+            this.curritems_amt = this.curritems_amt + this.items_limit
+          })
+        )
+        // this.subs.push(
+        //   this.orderserv.getCompleteddata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
+        //   //this.marketdata = items
+        //   this.orderdata = items.data.all
+        //   this.totalRecords = items.data.totalitems
+        //   //this.page = items.data.currpage
+        //   //this.temp_list.next(this.marketdata)
+        // })
+        // )
+      }
+  
+      else if( this.curr_tab.value == "Cancelled"){
+        this.subs.push(
+          this.orderserv.getProcessingdata('Ca', String(this.curritems_amt)).subscribe(items => {
+            items.data.orderArray.forEach( order => {
+              this.orderdata.push(order)
+            })
+            if(items.data.orderArray.length == 0){
+              this.load = "false"
+              
+            }
+            this.curritems_amt = this.curritems_amt + this.items_limit
+          }) 
+        )
+        // this.subs.push(
+        //   this.orderserv.getCancelleddata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
+        //   //this.marketdata = items
+        //   this.orderdata = items.data.all
+        //   this.totalRecords = items.data.totalitems
+        //   //this.page = items.data.currpage
+        //   //this.temp_list.next(this.marketdata)
+        // })
+        // )
+      } 
+      this.cdr.detectChanges()
+    }, 500)
+    
+    
+    
+    
   }
 
   //ViewItem(item: item){

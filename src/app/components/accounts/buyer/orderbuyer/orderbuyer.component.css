@@ -28,3 +28,9 @@
     background: rgb(67, 236, 194);
     margin: 10px;
 }
+
+figure img{
+    width: 150px;  
+    height: 150px; 
+    object-fit: scale-down;
+}

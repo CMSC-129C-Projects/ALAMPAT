@@ -126,7 +126,7 @@ export class ReservationsComponent implements OnInit, OnDestroy{
   }
 
   onRemoval(reserve_id: string){
-    this.reserv.removeReservation(reserve_id)
+    this.reserv.deleteReservation(reserve_id)
     this.onClickExit()
   }
 

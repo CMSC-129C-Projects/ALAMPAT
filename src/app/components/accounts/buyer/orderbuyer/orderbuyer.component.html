@@ -9,25 +9,25 @@
     
     <ul>
         <li class="is-active" data-target="order-all" value="All">
-            <a class="has-text-weight-medium"> 
+            <a class="has-text-weight-medium"  (click)= "ChangeTab('All')"> 
                 All
             </a>
         </li>
 
         <li data-target="order-processing" value="Processing">
-            <a class="has-text-weight-medium">
+            <a class="has-text-weight-medium" (click)= "ChangeTab('Processing')">
                 Processing
             </a>
         </li>
 
         <li data-target="order-completed" value="Completed">
-            <a class="has-text-weight-medium">
+            <a class="has-text-weight-medium" (click)= "ChangeTab('Completed')">
                 Completed
             </a>
         </li>
 
         <li data-target="order-cancelled" value="Cancelled">
-            <a class="has-text-weight-medium">
+            <a class="has-text-weight-medium" (click)= "ChangeTab('Cancelled')">
                 Cancelled
             </a>
         </li>
@@ -44,13 +44,13 @@
             currentPage: page.value,
             totalItems: totalRecords }">
     -->
-    <div class="column">
+    <div class="column" *ngFor=" let item of orderdata" >
         <div class="box is-clickable" (click)="onClickOrderDetails()">
             <div class="level is-marginless">
                 <div class="level-left">
                     <div class="level-item">
                         <p class= "is-size-7 has-text-weight-medium"> 
-                            Order ID: <!--{{item._id}}--> 
+                            Order ID: {{item._id}} 
                         </p>
                     </div>
                 </div>
@@ -58,22 +58,21 @@
                     <div class="level-item">
                         <div class="is-size-7 has-text-weight-medium is-marginless">
                             Order Status:
-                            <!-- NGIF 
                             <div class="tag is-warning is-light has-text-weight-bold" 
-                            *ngIf="item.orderstatus=='Processing'">
+                            *ngIf="item.orderStatus=='P'">
                                 Processing
                             </div>
                             <div class="tag is-success has-text-weight-bold is-small"
-                            *ngIf="item.orderstatus=='Completed'">
+                            *ngIf="item.orderStatus=='Co'">
                                 Completed
                             </div> 
                             <div class="tag is-danger is-light has-text-weight-bold is-small"
-                            *ngIf="item.orderstatus=='Cancelled'">
+                            *ngIf="item.orderStatus=='Ca'">
                                 Cancelled
-                            </div> -->
-                            <div class="tag is-warning is-light has-text-weight-bold">
+                            </div>
+                            <!-- <div class="tag is-warning is-light has-text-weight-bold">
                                 Processing
-                            </div>       
+                            </div>        -->
                             
                         </div>
                     </div>
@@ -84,16 +83,16 @@
             <article class="media">
                 <div class="media-left">
                     <figure class="image is-100x100">
-                        <!--
-                        <div *ngIf="item.images?.imageBase64">
-                            <img class="object-fit_cover" [src]="item.images.imageBase64" alt="Image"/>
+                        
+                        <div *ngIf="item.reservation?.service?.images?.imageBase64">
+                            <img class="object-fit_cover" [src]="item.reservation?.service?.images?.imageBase64" alt="Image"/>
                         </div>
-                        <div *ngIf="!item.images?.imageBase64">
+                        <div *ngIf="!item.reservation?.service?.images?.imageBase64">
                             <img class="object-fit_cover"  src= "assets/noimg.png" alt="NoImage">
                         </div>
-                        -->
+                       
                         
-                            <img class="previewImage"  src= "assets/noimg.png" alt="NoImage">
+                            <!-- <img class="previewImage"  src= "assets/noimg.png" alt="NoImage"> -->
                         
                     </figure>
                 </div>
@@ -101,20 +100,20 @@
                     <div class="content">
                     <p class="limitedText has-text-weight-bold is-size-4">
                         <!-- notice the class limitedText, when the text is too long, it ends with "..." -->
-                        item.itemname <!--{{item.itemname}}-->
+                        {{item.reservation?.service?.commissionname}} <!--{{item.itemname}}-->
                     </p>
                     
                     <p class="is-size-5 has-text-weight-medium is-marginless">
                         Total:
                         <span class="text has-text-weight-bold has-text-primary">
-                            ₱ item.price <!--{{item.price?.toFixed(2)}}-->
+                            ₱ {{item.reservation?.service?.price}} <!--{{item.price?.toFixed(2)}}-->
                         </span>
                     </p>
                     <div class="block">
                         <div class="text is-size-6">
                             Seller Name:
                         <a class="tag is-white is-light has-text-weight-bold is-small">
-                            item.sellername <!--{{item.sellername}}-->
+                            {{item.reservation?.seller?.name}} <!--{{item.sellername}}-->
                         </a>
                         </div>
                     </div>
@@ -126,19 +125,19 @@
                 <div class="level-left">
                     <div class="level-item">
                         <div class="tags has-addons is-marginless">
-                            <!--
+                            
                             <div class="tag is-link is-light has-text-weight-bold is-small" 
-                                *ngIf="item.category == 'Product'"> 
+                                *ngIf="item.orderType == 'Product'"> 
                                 Product
                             </div>
                             <div class="tag is-danger is-light has-text-weight-bold is-small" 
-                                *ngIf="item.category == 'Commission'"> 
+                                *ngIf="item.orderType == 'Commission'"> 
                                 Commission
                             </div>
-                            -->
-                            <div class="tag is-danger is-light has-text-weight-bold is-small"> 
+                           
+                            <!-- <div class="tag is-danger is-light has-text-weight-bold is-small"> 
                                 Commission
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -146,7 +145,7 @@
                     <div class="level-item">
                         <div class="field is-grouped is-grouped-right">
                             <div class="buttons is-centered pl-4 ml-4 ">
-                                <button class="button is-success is-hovered has-text-weight-bold">
+                                <button class="button is-success is-hovered has-text-weight-bold" *ngIf = "item.orderStatus=='Co'">
                                     RECEIVED
                                 </button>
                                 <button class="button is-danger is-outlined has-text-weight-bold">
@@ -160,8 +159,13 @@
         </div>
     </div>
 
+    <div class="buttons is-centered pl-4 ml-4 ">
+        <button  *ngIf = "load === 'true'"  class="button is-hovered has-text-weight-bold" (click)= "LoadMore()">
+            Load More ...
+        </button>
+    </div>
  <!-- Pagination -->
-<section class="section is-centered">
+<!-- <section class="section is-centered">
     <nav
       class="pagination is-centered is-small is-rounded"
       role="navigation"
@@ -180,7 +184,7 @@
         ></pagination-controls>
       </div>
     </nav>
-  </section>
+  </section> -->
   
   <app-footer></app-footer>
   

@@ -100,7 +100,7 @@ export class ReservationSellerComponent implements OnInit, OnChanges {
   }
 
   removeReservation(item:any){
-    this.reserv.removeReservation(item._id)
+    this.reserv.deleteReservation(item._id)
     setTimeout( ()=>{
       this.subs.forEach( x=> x.unsubscribe())
       this.subscribeReserveList()

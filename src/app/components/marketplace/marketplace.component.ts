@@ -61,7 +61,6 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   sort_value: string|null
   constructor(
     private marketserv: MarketService,
-    private sortserv: SortService,
     private router: Router,
     private route: ActivatedRoute,
   ) {
@@ -95,7 +94,7 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
       
     // }
     //else if(localStorage.getItem('reload') == "false"){
-      this.curr_category = new BehaviorSubject<string>('Product')
+      this.curr_category = new BehaviorSubject<string>('Commission')
 
       if("curr_category" in localStorage){
         this.curr_category = new BehaviorSubject<string|null>(localStorage.getItem('curr_category'))

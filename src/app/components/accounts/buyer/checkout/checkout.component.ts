@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Input} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { OrderService } from 'src/app/services/order';
+import { ReservationService } from 'src/app/services/reservation';
 import { Subscription, Observable} from 'rxjs';
 import {AngularFireStorage, AngularFireUploadTask} from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
@@ -49,6 +50,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   halfprice: any;
   submitted: boolean = false;
   amt_topay: number
+  amt_paid: number
 
   task: AngularFireUploadTask;
   snapshot: Observable<any>;
@@ -65,7 +67,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private orderserv: OrderService,
     private afStorage: AngularFireStorage,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private reserv: ReservationService,
   ) {
     this.setDetails()
   }
@@ -84,14 +87,13 @@ export class CheckoutComponent implements OnInit, OnDestroy {
           contentType: ['', Validators.required],
           imageBase64:['', Validators.required],
         }),
-        totalAmount: ''  
+        totalAmount: '', 
+        amt_paid: '' 
     })
 
     this.getCheckoutdetails()
 
-    this.payment_proof.patchValue({
-      totalAmount: this.checkout_details.service.price
-    })
+ 
   }
 
   get formControls() { return this.payment_proof.controls; }
@@ -148,9 +150,11 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.payment_option = event.target.value;
     if(this.payment_option == 'half'){
       this.amt_topay = this.checkout_details.service.price - this.halfprice
+      this.amt_paid = this.halfprice
     }
     if(this.payment_option == 'full'){
       this.amt_topay = 0
+      this.amt_paid  = this.checkout_details.service.price
     }
   }
   //Function for the uploading of proof of payment
@@ -199,8 +203,15 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       console.log("Error in placing order.")
       return
     }
+    this.payment_proof.patchValue({
+      totalAmount: this.checkout_details.service.price,
+      amt_paid: this.amt_paid,
+    })
+
+
     this.openSuccessModal = true; 
-    this.orderserv.addCommOrder(this.payment_proof.value, this.checkout_details.service._id, this.checkout_details.seller._id )
+    this.orderserv.addCommOrder(this.payment_proof.value, this.checkout_details._id, this.checkout_details.seller._id )
+    this.reserv.removeReservation(this.checkout_details._id, this.checkout_details.seller._id)
     console.log("Successfully placed order! " + JSON.stringify(this.payment_proof.value) )
   }
 

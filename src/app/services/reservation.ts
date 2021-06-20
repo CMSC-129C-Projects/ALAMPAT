@@ -92,10 +92,36 @@ export class ReservationService {
         
     }
 
-    removeReservation = async (res_id: string) => {
+    deleteReservation = async (res_id: string) => {
         try {
             this.userID = localStorage.getItem('id')
             const response = await axios.delete(`${test_API}/users/${this.userID}/removeReservation?reserv_id=${res_id}`);
+            const { message, success } = response.data
+            console.log(response.data)
+            if (success) {
+                this.isDeleted = true;
+                console.log(JSON.stringify(message))
+                return this.isDeleted
+
+            } else {
+                this.isDeleted = false;
+                console.error(JSON.stringify(message))
+
+                return this.isDeleted
+            }
+
+        } catch (error) {
+            this.isDeleted = false
+            console.error(error.message)
+            //console.log("faaaill")
+            return this.isDeleted;
+        }
+    }
+
+    removeReservation = async (res_id: string, seller_id: string) => {
+        try {
+            this.userID = localStorage.getItem('id')
+            const response = await axios.delete(`${test_API}/buyer/${this.userID}/removeReservation?reserv_id=${res_id}&seller_id=${seller_id}`);
             const { message, success } = response.data
             console.log(response.data)
             if (success) {
