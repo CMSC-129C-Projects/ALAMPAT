@@ -1,13 +1,10 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import axios from 'axios';
 import { DomSanitizer } from '@angular/platform-browser';
-import { User } from '../../../../models/User'
 
 import { AccountService } from 'src/app/services/account';
-import { Router, ActivatedRoute } from '@angular/router';
 
-import {AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask} from '@angular/fire/storage';
+import {AngularFireStorage,  AngularFireUploadTask} from '@angular/fire/storage';
 
 import { Observable, Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';

@@ -221,13 +221,13 @@
 
                     <!---------------------- PROOF OF PAYMENT ----------------------------->
                     <div class="column is-8">
-                        <div [formGroup]="proofForm">
+                        <div [formGroup]="payment_proof">
                             <div class="field">
                                 <div class="control">
                                     <div class="file is-info is-fullwidth">
                                         <label class="file-label">
                                             <input class="file-input" #proofimage type="file" accept="image/*" 
-                                            (change)="uploadFile($event); imageSRC= ''" 
+                                            (change)="uploadFile($event); imageSRC= ''"  
                                             name="proof" formControlName="proof" 
                                             [ngClass]="{'has-error': formControlsProof.controls['filename']?.errors }" required>
                                             <span class="file-cta">
@@ -282,14 +282,20 @@
         <div class="column is-2"></div> <!-- INSERT SIDE BAR HERE-->
         <div class="column">
             <div class="block">
-                <div class="text is-size-6 has-text-right">
-                    Order Amount: <strong>₱ {{checkout_details.service?.price}}</strong>
+                <div *ngIf = "checkout_details.service?.price" class="text is-size-6 has-text-right">
+                    Order Amount: <strong>₱ {{checkout_details.service?.price?.toFixed(2)}}</strong>
                 </div>
-                <div class="text is-size-6 has-text-right">
+                <div *ngIf = "payment_option == 'half'"class="text is-size-6 has-text-right">
+                    Paid Amount: <strong>₱ {{halfprice.toFixed(2)}}</strong>
+                </div>
+                <div *ngIf = "payment_option == 'full'"class="text is-size-6 has-text-right">
+                    Paid Amount: <strong>₱ {{checkout_details.service?.price?.toFixed(2)}}</strong>
+                </div>
+                <!-- <div class="text is-size-6 has-text-right">
                     Shipping Fee: <strong>₱ 69.00</strong>
-                </div>
-                <div class="text is-size-4 has-text-danger-dark has-text-weight-bold has-text-right">
-                    TOTAL AMOUNT: ₱ 420.00
+                </div> -->
+                <div *ngIf = "amt_topay >=  0" class="text is-size-4 has-text-danger-dark has-text-weight-bold has-text-right">
+                     AMOUNT TO PAY: ₱ {{amt_topay.toFixed(2)}}
                 </div>
                 &nbsp;
                 <div class="block has-text-right">

@@ -5,40 +5,24 @@ import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import Axios from 'axios-observable';
 
-interface item {
-    _id?: string;
-    itemname:string;
-    description: string;
-    stock?: number;
-    slot?: number;
-    price: number;
-    images: {
-      filename: string;
-      contentType: string;
-      imageBase64: string;
-    };
-    category:string;
-    sellername?: string;
-    profileImage?: string;
-    status: string;
-}
 
 const localAPI = 'https://alampat.herokuapp.com'
 const test_API = 'http://localhost:3000'
 
-@Injectable({
-    providedIn: 'root',
-})
-
+interface uploadResponse {
+    message: string;
+    success: boolean;
+}
 @Injectable({
     providedIn: 'root',
 })
 
 export class OrderService {
     order: BehaviorSubject<any> ;
-    item: BehaviorSubject<item>
+    //item: BehaviorSubject<item>
     reload: EventEmitter<boolean> ;
-    user_id:string
+
+    user_id:string|null
     constructor() {
         this.order = new BehaviorSubject<any>([])
         this.reload = new EventEmitter<boolean>(true)
@@ -77,11 +61,11 @@ export class OrderService {
         this.order.next([])
     }
 
-    getallOrder(): Observable<any>{
-        //this.order = new BehaviorSubject<any>([])
-        this.getallOrderdata()
-        return this.order.asObservable()
-    }   
+    // getallOrder(): Observable<any>{
+    //     //this.order = new BehaviorSubject<any>([])
+    //     this.getallOrderdata()
+    //     return this.order.asObservable()
+    // }   
 
     // getproductMarket(): Observable<any>{
 
@@ -94,33 +78,51 @@ export class OrderService {
     //     return this.market.asObservable()
     // }  
 
-    getcommission(): Observable<any>{
-        
-        //this.getCommission(_id)
-        return this.item.asObservable()
-    }  
-
-    getproduct(): Observable<any>{
-        //this.getProduct(_id)
-        return this.item.asObservable()
-    }  
-
-    getallOrderdata() {
-        
-        axios.get(`${localAPI}/buyer/order`)
-        .then(resp => {
-            this.order.next([])
-            if(resp.status === 200){
-                this.order.next(resp.data.all)
-            }
-            
-        })
-        .catch(err => {
-
-            console.log(err);
-        });
-    
+    addCommOrder = async(reservation: any, reserv_id: string, seller_id: string)=>{
+        try {
+            this.user_id = localStorage.getItem('id')
+            const response = await axios.post<uploadResponse>(`${test_API}/buyer/${this.user_id}/addCommOrder?orderStatus=${"P"}&orderType=${"Commission"}&reserv_id=${reserv_id}&seller_id=${seller_id}`, reservation);
+            const { message, success } = response.data
+            console.log(JSON.stringify(response.data))
+            // if (success) {
+            //     this.isUploaded = true;
+            // } else {
+            //     this.isUploaded = false;
+            //     this.uploadError = 'Something went wrong'
+            // }
+        } catch (error) {
+            console.error(error)
+            //this.uploadError = error
+        }
     }
+
+    // getcommission(): Observable<any>{
+        
+    //     //this.getCommission(_id)
+    //     return this.item.asObservable()
+    // }  
+
+    // getproduct(): Observable<any>{
+    //     //this.getProduct(_id)
+    //     return this.item.asObservable()
+    // }  
+
+    // getallOrderdata() {
+        
+    //     axios.get(`${localAPI}/buyer/order`)
+    //     .then(resp => {
+    //         this.order.next([])
+    //         if(resp.status === 200){
+    //             this.order.next(resp.data.all)
+    //         }
+            
+    //     })
+    //     .catch(err => {
+
+    //         console.log(err);
+    //     });
+    
+    // }
 
     getCheckoutdetails(reserv_id: string): Observable<any>{
             this.user_id = String(localStorage.getItem('id'))
@@ -152,37 +154,37 @@ export class OrderService {
 
     getCommissionOrder(_id: string|null, ) {
        // this.setItem()
-        axios.get(`${localAPI}/buyer/getCommission/${_id}`)
-        .then(resp => {
-            this.item.next(resp.data.commission)
-            // /console.log("market value: " + JSON.stringify(this.market))
-            // /console.log("Market data: " + JSON.stringify(resp.data.all));
-            //return resp.data
-        })
-        .catch(err => {
-            // Handle Error Here
-            //this.error.emit(err)
-            console.log(err);
-            //return err
-        });
+        // axios.get(`${localAPI}/buyer/getCommission/${_id}`)
+        // .then(resp => {
+        //     this.item.next(resp.data.commission)
+        //     // /console.log("market value: " + JSON.stringify(this.market))
+        //     // /console.log("Market data: " + JSON.stringify(resp.data.all));
+        //     //return resp.data
+        // })
+        // .catch(err => {
+        //     // Handle Error Here
+        //     //this.error.emit(err)
+        //     console.log(err);
+        //     //return err
+        // });
     
     }
    
     getProductOrder(_id: string|null) {
-        //this.setItem()
-        axios.get(`${localAPI}/buyer/getProduct/${_id}`)
-        .then(resp => {
-            this.item.next(resp.data.product)
-            // /console.log("market value: " + JSON.stringify(this.market))
-            // /console.log("Market data: " + JSON.stringify(resp.data.all));
-            //return resp.data
-        })
-        .catch(err => {
-            // Handle Error Here
-            //this.error.emit(err)
-            console.log(err);
-            //return err
-        });
+        // //this.setItem()
+        // axios.get(`${localAPI}/buyer/getProduct/${_id}`)
+        // .then(resp => {
+        //     this.item.next(resp.data.product)
+        //     // /console.log("market value: " + JSON.stringify(this.market))
+        //     // /console.log("Market data: " + JSON.stringify(resp.data.all));
+        //     //return resp.data
+        // })
+        // .catch(err => {
+        //     // Handle Error Here
+        //     //this.error.emit(err)
+        //     console.log(err);
+        //     //return err
+        // });
     
     }
 }

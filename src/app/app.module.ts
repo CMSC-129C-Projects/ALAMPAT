@@ -71,12 +71,8 @@ import { AboutusComponent } from './aboutus/aboutus.component';
     CommissionItemComponent,
     ViewProductComponent,
     OrderbuyerComponent,
-    CheckoutComponent,
-    ReservationsComponent,
     OrderbuyerComponent,
     OrderdetailsbuyerComponent,
-    ReservationSellerComponent,
-    AboutusComponent
   ],
   imports: [
     BrowserModule,

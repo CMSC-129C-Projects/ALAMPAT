@@ -47,13 +47,14 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   fileName: string = '';
   halfprice: any;
   submitted: boolean = false;
+  amt_topay: number
 
   task: AngularFireUploadTask;
   snapshot: Observable<any>;
   percentage: Observable<number|undefined> = new Observable();
   url: Promise<string>;
   payment_proof: FormGroup;
-  proofForm: FormGroup;
+  //proofForm: FormGroup;
   
 
   @ViewChild('proofimage') image_proof: ElementRef
@@ -81,10 +82,15 @@ export class CheckoutComponent implements OnInit, OnDestroy {
           filename: ['', Validators.required],
           contentType: ['', Validators.required],
           imageBase64:['', Validators.required],
-        })  
+        }),
+        totalAmount: ''  
     })
 
     this.getCheckoutdetails()
+
+    this.payment_proof.patchValue({
+      totalAmount: this.checkout_details.service.price
+    })
   }
 
   get formControls() { return this.payment_proof.controls; }
@@ -127,6 +133,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.checkout_sub = this.orderserv.getCheckoutdetails(this.reserv_id).subscribe( item => {
       this.checkout_details = item.data.details
       this.halfprice = item.data.details.service.price/2
+      this.amt_topay = item.data.details.service.price - this.halfprice
       console.log( JSON.stringify(item.data))
     })
   }
@@ -137,6 +144,13 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   selectChangeHandler (event: any) {
     //update the ui
     this.payment_option = event.target.value;
+    if(this.payment_option == 'half'){
+      this.amt_topay = this.checkout_details.service.price - this.halfprice
+    }
+    if(this.payment_option == 'full'){
+      this.amt_topay = 0
+    }
+   
     //Selected option in dropdown
     //this.payment_option.setValue(event.target.value, {
     //  onlySelf: true
@@ -185,8 +199,11 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.submitted = true;
     if (this.payment_proof.invalid) {
       console.log("Error in placing order.")
-    } 
-    console.log("Successfully placed order!")
+      return
+    }
+
+    this.orderserv.addCommOrder(this.payment_proof.value, this.checkout_details.service._id, this.checkout_details.seller._id )
+    console.log("Successfully placed order! " + JSON.stringify(this.payment_proof.value) )
   }
 
 }
