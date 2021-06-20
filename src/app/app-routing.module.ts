@@ -35,10 +35,10 @@ const routes: Routes = [
   { path: 'seller-commission', component: CommissionComponent, canActivate: [AuthGuard]  },
   { path: 'seller-products', component: ProductsComponent, canActivate: [AuthGuard]  },
   { path: 'view-reservations', component: ReservationsComponent, canActivate: [AuthGuard] },
-  { path: 'buyer-productview', component: ViewProductComponent, canActivate:[AuthGuard] }, //wala pa na connect sa object na naas marketplace
+  { path: 'buyer-productview', component: ViewProductComponent, canActivate:[AuthGuard] }, 
   { path: 'marketplace', component: MarketplaceComponent },
   { path: 'commission-item', component: ViewcommissionComponent },
-  { path: 'product-item', component: ViewProductComponent }, //wala pa na connect sa object na naas marketplace
+  { path: 'product-item', component: ViewProductComponent },
   { path: 'checkout', component: CheckoutComponent, canActivate:[AuthGuard]},
   { path: 'reservation', component: ReservationsComponent, canActivate:[AuthGuard]},
   { path: 'reservation-seller', component: ReservationSellerComponent, canActivate:[AuthGuard]},
