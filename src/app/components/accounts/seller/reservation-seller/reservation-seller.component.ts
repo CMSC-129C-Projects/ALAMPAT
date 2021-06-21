@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, Input } from '@angular/core';
 import { ReservationService } from 'src/app/services/reservation';
 import { Subscription } from 'rxjs';
 
@@ -30,7 +30,8 @@ interface reservation {
   styleUrls: ['./reservation-seller.component.css']
 })
 export class ReservationSellerComponent implements OnInit, OnChanges {
-  
+  @Input() openCommFormModal: boolean;
+
   reserv_List: reservation[] = []
   reservation: reservation
 
@@ -105,6 +106,15 @@ export class ReservationSellerComponent implements OnInit, OnChanges {
       this.subs.forEach( x=> x.unsubscribe())
       this.subscribeReserveList()
     }, 500)
-    
+  }
+
+  CommissionFormModal() {
+    this.openCommFormModal = true;
+  }
+
+  onClickExit () {
+    if(this.openCommFormModal == true) {
+      this.openCommFormModal = false;
+    }
   }
 }

@@ -71,7 +71,6 @@ export class CommissionComponent implements OnInit, OnDestroy {
     this.subscribeComms()
     //For tabs
     const tabs = document.querySelectorAll('.tabs li');
-    //this.tabs = tabs
     const tabContentBoxes = document.querySelectorAll('#tab-content > div');
 
     tabs.forEach((tab: any) => {
@@ -80,8 +79,6 @@ export class CommissionComponent implements OnInit, OnDestroy {
         tab.classList.add('is-active');
 
         const target = tab.dataset.target;
-        //this.curr_tab = target
-        //console.log(tab);
         tabContentBoxes.forEach( box => {
           
           if (box.getAttribute('id') == target) {
@@ -215,7 +212,6 @@ export class CommissionComponent implements OnInit, OnDestroy {
   reloadPage(refresh: boolean){
     if(refresh == true){
       this.subscriptions.forEach(sub => sub.unsubscribe())
-      //this.prodServ.getProductdata()
       this.ngOnInit()
       this.subscribebuttons()
     }
