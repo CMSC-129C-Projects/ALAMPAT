@@ -68,7 +68,7 @@ export class OrderdetailsbuyerComponent implements OnChanges {
   
     const order_id = this.orderserv.orderID_value
     //console.log("Order ID: " + order_id)
-    if(order_id != undefined || null || ''){
+    if(order_id){
       this.sub = this.orderserv.getOrder(order_id).subscribe( item => {
         this.order = item.data.order
         //console.log("Order ID: " + JSON.stringify(this.order))
