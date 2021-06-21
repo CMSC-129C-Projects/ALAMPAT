@@ -5,10 +5,16 @@ const ObjectId = require("mongodb").ObjectID
 //for getting orders data for all users
 const getOrderList = async(req, res, next) => {
     try{//finds user id and user orders is populated
+        const limit = 5
+        const startIndex = parseInt(req.query.startindex)
         const user = await User.findById(req.params.id)
             .populate({
                 path:'orders',
                 select: '_id reservation totalAmount orderStatus orderType', 
+                options:{
+                    limit: limit,
+                    skip: startIndex
+                },
                 populate: {
                     path: 'reservation',
                     select: 'service seller buyer',
@@ -49,11 +55,17 @@ const getOrderList = async(req, res, next) => {
 
 const getOrderList_Filter = async(req, res, next) => {
     try{//finds user id and user orders is populated
+        const limit = 5
+        const startIndex = parseInt(req.query.startindex)
         const user = await User.findById(req.params.id)
             .populate({
                 path:'orders',
                 select: '_id reservation totalAmount orderStatus orderType',
                 match: { orderStatus: req.query.tab},
+                options:{
+                    limit: limit,
+                    skip: startIndex
+                },
                 populate: {
                     path: 'reservation',
                     select: 'service seller buyer',
