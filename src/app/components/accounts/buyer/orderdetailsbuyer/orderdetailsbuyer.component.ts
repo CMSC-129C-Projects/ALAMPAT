@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { OrderService } from 'src/app/services/order';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { FormArray } from '@angular/forms';
 interface order_details{
   _id?: string;
   progresstrackerDescription?: string[],
@@ -52,12 +53,13 @@ interface order_details{
   styleUrls: ['./orderdetailsbuyer.component.css']
 })
 export class OrderdetailsbuyerComponent implements OnChanges {
-  @Input() openOrderDetailsModal: boolean;
+  @Input() openOrderDetailsModal: boolean
 
   order: order_details
   sub: Subscription
-
+  proof_payment = FormArray
   amt_topay: number = 0
+
   constructor(
     private orderserv: OrderService
     )
@@ -73,6 +75,7 @@ export class OrderdetailsbuyerComponent implements OnChanges {
         this.order = item.data.order
         //console.log("Order ID: " + JSON.stringify(this.order))
         this.amt_topay = this.order.totalAmount - this.order.amount_paid
+        this.proof_payment = item.data.proof
       } )
     }
     
