@@ -45,7 +45,7 @@
             totalItems: totalRecords }">
     -->
     <div class="column" *ngFor=" let item of orderdata" >
-        <div class="box is-clickable" (click)="onClickOrderDetails()">
+        <div class="box is-clickable" (click)="onClickOrderDetails(item)">
             <div class="level is-marginless">
                 <div class="level-left">
                     <div class="level-item">
@@ -148,7 +148,7 @@
                                 <button class="button is-success is-hovered has-text-weight-bold" *ngIf = "item.orderStatus=='Co'">
                                     RECEIVED
                                 </button>
-                                <button class="button is-danger is-outlined has-text-weight-bold">
+                                <button class="button is-danger is-outlined has-text-weight-bold" *ngIf = "item.orderStatus=='P'">
                                     CANCEL
                                 </button>
                             </div>   

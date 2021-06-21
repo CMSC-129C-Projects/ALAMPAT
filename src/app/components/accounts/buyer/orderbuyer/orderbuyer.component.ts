@@ -126,19 +126,7 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
     this.subs.forEach((x) => x.unsubscribe())
   }
 
-  //SwitchTab(event:Event) {
-  //  const tab = event.target as HTMLInputElement
-  //  const tab_choice = tab.value
-    //this.marketdata = []
-  //  localStorage.setItem('curr_tab', tab_choice)
-  //  this.page.next(1)
-  //  localStorage.setItem("pagenum", String(this.page.value))
 
-  //  this.curr_tab.next(tab_choice)
-  
-  //  this.orderserv.order.next([])
-  //  this.orderStatusdata(tab_choice)
-  //}
 
   load_wholeorder(){
     this.orderStatusdata(this.curr_tab.value)
@@ -240,8 +228,10 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
   }
 
   //Function for the Order Details Modal
-  onClickOrderDetails () {
+  onClickOrderDetails (item:any) {
     this.orderserv.detailsswitch(true);
+    console.log('item id ' + item._id)
+    this.orderserv.save_OrderID(item._id)
   }
 
   pageChanged(){

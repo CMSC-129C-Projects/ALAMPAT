@@ -7,3 +7,9 @@
     height: 120px;
     object-fit: cover;
 }
+
+figure img{
+    width: 150px;  
+    height: 150px; 
+    object-fit: scale-down;
+}

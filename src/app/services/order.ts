@@ -23,14 +23,26 @@ export class OrderService {
     reload: EventEmitter<boolean>;
     showDetails: EventEmitter<boolean> = new EventEmitter();
 
+
+    order_id: BehaviorSubject<string>
     user_id:string|null
+    
     constructor() {
         this.order = new BehaviorSubject<any>([])
+        this.order_id = new BehaviorSubject<string>('')
         this.reload = new EventEmitter<boolean>(true)
     }
     
     public get orderValue(): any {
         return this.order.value;
+    }
+
+    save_OrderID(_id:string){
+        this.order_id.next(_id)
+    }
+
+    get orderID_value(): string {
+        return this.order_id.value
     }
 
     detailsswitch(resp: boolean){
@@ -160,12 +172,16 @@ export class OrderService {
         return Axios.get(`${test_API}/users/${this.user_id}/getOrderswithFilter?tab=${tab}&startindex=${startindex}`)
     }
 
+    getOrder(_id: string|null){
+        this.user_id = String(localStorage.getItem('id'))
+        return Axios.get(`${test_API}/users/${this.user_id}/getOrder/${_id}`)
+    }
 
     getCommissionOrder(_id: string|null, ) {
        // this.setItem()
         // axios.get(`${localAPI}/buyer/getCommission/${_id}`)
         // .then(resp => {
-        //     this.item.next(resp.data.commission)
+        //     this.item.next(resp.data.commission) 
         //     // /console.log("market value: " + JSON.stringify(this.market))
         //     // /console.log("Market data: " + JSON.stringify(resp.data.all));
         //     //return resp.data

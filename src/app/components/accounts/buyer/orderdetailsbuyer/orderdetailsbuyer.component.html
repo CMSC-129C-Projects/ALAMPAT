@@ -14,7 +14,7 @@
                 <div class="level-left">
                     <div class="level-item">
                         <p class= "is-size-7 has-text-weight-medium"> 
-                            Order ID: <!--{{item._id}}--> 
+                            Order ID:  {{order._id}}<!--{{item._id}}--> 
                         </p>
                     </div>
                 </div>
@@ -22,22 +22,22 @@
                     <div class="level-item is-pulled-right">
                         <div class="is-size-7 has-text-weight-medium is-marginless">
                             Order Status:
-                            <!-- NGIF 
+                             
                             <div class="tag is-warning is-light has-text-weight-bold" 
-                            *ngIf="item.orderstatus=='Processing'">
+                            *ngIf="order.orderStatus=='P'">
                                 Processing
                             </div>
                             <div class="tag is-success has-text-weight-bold is-small"
-                            *ngIf="item.orderstatus=='Completed'">
+                            *ngIf="order.orderStatus=='Co'">
                                 Completed
                             </div> 
                             <div class="tag is-danger is-light has-text-weight-bold is-small"
-                            *ngIf="item.orderstatus=='Cancelled'">
+                            *ngIf="order.orderStatus=='Ca'">
                                 Cancelled
-                            </div> -->
-                            <div class="tag is-warning is-light has-text-weight-bold">
+                            </div>
+                            <!-- <div class="tag is-warning is-light has-text-weight-bold">
                                 Processing
-                            </div>       
+                            </div>        -->
                         </div>
                     </div>
                 </div>
@@ -45,15 +45,15 @@
             <article class="media">
                 <div class="media-left">
                     <figure class="image">
-                        <!--
-                        <div *ngIf="reservation.service.images?.imageBase64">
-                            <img class="object-fit_cover" [src]= "reservation.service.images?.imageBase64" alt="">
+                        
+                        <div *ngIf="order.reservation?.service?.images?.imageBase64">
+                            <img class="object-fit_cover" [src]= "order.reservation?.service?.images?.imageBase64" alt="">
                         </div>
-                        <div *ngIf="!reservation.service.images?.imageBase64">
+                        <div *ngIf="!order.reservation?.service?.images?.imageBase64">
                             <img class="object-fit_cover"  src= "assets/noimg.png" alt="">
                         </div>
-                        -->
-                        <img class="previewImage"  src= "assets/noimg.png" alt="">
+                       
+                        <!-- <img class="previewImage"  src= "assets/noimg.png" alt=""> -->
                     </figure>
                 </div>
                 <div class="media-content">
@@ -62,13 +62,13 @@
                             Commission Name   
                         </p>
                         <p class=" text has-text-primary is-size-4 has-text-weight-bold is-marginless">
-                            ₱1000.00 <!--{{item.price?.toFixed(2)}}-->
+                            ₱ {{order.reservation?.service?.price?.toFixed(2)}}
                         </p>
                         <div class="block">
                             <div class="text is-size-6">
                                 Seller Name:
                                 <a class="tag is-white is-light has-text-weight-bold is-small">
-                                    Name of the Seller
+                                    {{order.reservation?.seller?.name}}
                                 </a>
                             </div>
                         </div>
@@ -95,11 +95,11 @@
             <div class="block">
                 <hr style="background-color:#e8e6e6" class="is-marginless my-1">
                 <!---------------- PAYMENT DETAILS -------------------------->
-                <p class="is-size-5 has-text-weight-medium">
+                <p class="is-size-5 has-text-weight-medium" *ngIf = "amt_topay > 0">
                     Payment 
                 </p>
                 <!------------------- PROOF OF PAYMENT ---------------------->
-                <div class="column is-full">
+                <div class="column is-full" *ngIf = "amt_topay > 0">
                     <!--<div [formGroup]="payment_proof">-->
                         <div class="field">
                             <div class="control">
@@ -153,16 +153,16 @@
                     Delivery Details
                 </p>
                 <p class="text is-size-6">
-                    Jaira Marimon   
+                    {{order.reservation?.buyer?.name}}
                 </p>
                 <p class="text is-size-7">
-                    09228999585
+                    +63 {{order.reservation?.buyer?.phoneNumber}}
                 </p>
                 <p class="text is-size-7">
-                    sample.email@gmail.com
+                    {{order.reservation?.buyer?.email}}
                 </p>
                 <p class="text is-size-7">
-                    Unit 2-D, Sample, Sample City, Cebu
+                    {{order.reservation?.buyer?.address}}
                 </p>
             </div>
             <!------------- TERMS AND CONDITIONS -------------------->
@@ -172,8 +172,8 @@
                     Terms & Conditions
                 </p>
                 <p class="text is-size-7 has-text-grey">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-                <!--{{reservation.service?.terms}} -->
+                    {{order.reservation?.service?.terms}}
+               
                 </p>
             </div>
         </div>
@@ -182,18 +182,18 @@
             <div class="column is-full is-paddingless">
                 <div  class="text is-size-6 has-text-right">
                     <!--Order Amount: <strong>₱ {{checkout_details.service?.price?.toFixed>(2)}}</strong> -->
-                    Order Amount: <strong>₱1000.00</strong> 
+                    Order Amount: <strong>₱ {{order.totalAmount?.toFixed(2)}}</strong> 
                 </div>
                 <div class="text is-size-6 has-text-right">
-                    Paid Amount: <strong>₱1000.00</strong>
+                    Paid Amount: <strong>₱{{order.amount_paid?.toFixed(2)}}</strong>
                 </div>
-                <div class="text is-size-6 has-text-right">
+                <!-- <div class="text is-size-6 has-text-right">
                     Shipping Fee: <strong>₱ 150.00</strong>
-                </div>
+                </div> -->
                 <div class="text is-size-5 has-text-danger-dark has-text-weight-bold has-text-right">
-                    AMOUNT TO PAY: ₱150.00
+                    AMOUNT TO PAY: ₱{{amt_topay.toFixed(2)}}
                 </div>
-                <div class="block has-text-right mt-3">
+                <div class="block has-text-right mt-3" *ngIf = "amt_topay > 0">
                     <button class="button is-fullwidth is-info is-outlined">
                         PAY
                     </button>
