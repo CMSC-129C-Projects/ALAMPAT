@@ -23,8 +23,12 @@ const reservationSchema = new Schema({
         type: String
     },
 
-    more_fees: {
-        type: String
+    form:{
+        type: String,
+    },
+
+    totalAmount: {
+        type: Number
     }
 
 

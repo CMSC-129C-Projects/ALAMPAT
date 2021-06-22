@@ -11,7 +11,7 @@ const addtoCart = (req, res, next) => {
         User.findByIdAndUpdate(req.params.id , { $push: { cart: req.params._id} })
         //if product exists and found on the database
         .then((result) => {
-            res.json({
+            res.status(200).json({
                 message: 'Product added to Cart successfully!',
                 result: result.cart,
                 success: true,
@@ -70,7 +70,7 @@ const deleteCartitem = async(req, res, next) => {
 
            User.findByIdAndUpdate(req.params.id , { $pull: { cart: {$in: req.body.items_ids} } })
            .then((result) => {//if user id and product id is found, product is deleted
-                res.json({
+                res.status(200).json({
                     message: 'Item/s removed from Cart successfully!',
                     result: result.cart,
                     success: true,
@@ -100,7 +100,7 @@ const updateReservation = async(req, res, next) => {
 
         Reserve.findByIdAndUpdate(req.query.id , { $set: { reservationStatus: req.query.status } })
         .then((result) => {//if query for service id is found, cancel reservation
-            res.json({
+            res.status(200).json({
                 message: ' Reservation cancelled successfully!',
                 result: result,
                 success: true,
@@ -129,7 +129,7 @@ const getCheckout = async( req, res, next )=>{
         const reservation = await Reserve.findById(req.query.id)
             .populate([{//if query service id is found, populate the following
                     path: 'service',
-                    select: 'images _id commissionname price category'
+                    select: 'images _id commissionname price category slot'
                 },{
                     path: 'seller',
                     select: 'name _id'

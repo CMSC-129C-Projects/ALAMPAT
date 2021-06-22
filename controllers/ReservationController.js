@@ -13,6 +13,7 @@ const addReservation = async(req, res, next) => {
             service: req.body.service_id,
             seller: user._id,
             buyer: req.params.id,
+            
             reservationStatus: req.body.reservationstatus,
         })
 
@@ -42,7 +43,7 @@ const addReservation = async(req, res, next) => {
             })
 
             
-            res.json({
+            res.status(200).json({
                 message:"Reservation Id added",
                 result: result,
                 success: true
@@ -50,7 +51,7 @@ const addReservation = async(req, res, next) => {
         
 
             }else{
-                res.json({
+                res.status(409).json({
                     message: "Reservation already exists.",
                     succcess: false,
                     err
@@ -154,7 +155,7 @@ const updateReservation = async(req, res, next) => {
             Reserve.findByIdAndUpdate( req.query.res_id , { $set: rese})
                 .then((result) => {
                     //console.log(result)
-                    res.json({
+                    res.status(200).json({
                         message: 'Reservation status updated successfully!',
                         result,
                         success: true,
@@ -174,7 +175,7 @@ const updateReservation = async(req, res, next) => {
     }
     catch (error) {
         console.log(error)
-        res.status(400).json({ 
+        res.status(404).json({ 
             message: 'Reservation update process failed',
             error,
             success: false, })
@@ -191,13 +192,13 @@ const deleteReservation = async(req, res, next) => {
             Reserve.findByIdAndUpdate( req.query.reserv_id , { $set: {reservationStatus: "Invalid"}})
                 .then((result) => {
                     //console.log(result)
-                    res.json({
+                    res.status(200).json({
                         message: 'Reservation data updated successfully!',
                         result,
                         success: true,
                     })
                 })
-            res.json({
+            res.status(200).json({
                 message: 'Reservation data removed successfully!',
                 data: data,
                 success: true,
@@ -216,7 +217,7 @@ const deleteReservation = async(req, res, next) => {
     }
     catch (error) {
         console.log(error)
-        res.status(400).json({ 
+        res.status(404).json({ 
             message: 'Reservation  data removing process failed',
             error,
             success: false, })
@@ -229,7 +230,7 @@ const removeReservation_inUser = async(req, res, next) => {
         const buyer  = await User.findByIdAndUpdate(req.params.id , { $pull: { reservation: req.query.reserv_id } })
         const seller = await User.findByIdAndUpdate(req.query.seller_id , { $pull: { reservation: req.query.reserv_id } })
         if(buyer && seller){
-            res.json({
+            res.status(200).json({
                 message: 'Reservation removed in Buyer and Seller successfully!',
                 result: buyer,
                 success: true,
@@ -245,11 +246,90 @@ const removeReservation_inUser = async(req, res, next) => {
     
     }
 }
+
+const addlinkform = async(req, res, next) => {
+    try {
+        
+            //creates a new user object together with the final image object
+            let forms = {
+                form: req.body.form,
+            }
+        //updates the user object data to the database 
+            Reserve.findByIdAndUpdate( req.query.res_id , { $set: forms})
+                .then((result) => {
+                    //console.log(result)
+                    res.status(200).json({
+                        message: 'Commission Form added successfully!',
+                        result,
+                        success: true,
+                    })
+                    
+                }).catch((error)=>{
+                    res.status(400).json({
+                        message: 'Adding Commission Form failed!',
+                        error:error,
+                        user,
+                        success: false,
+                    })
+                
+                })
+        
+        
+    }
+    catch (error) {
+        console.log(error)
+        res.status(404).json({ 
+            message: 'Commission form Process failed',
+            error: error.message,
+            success: false, })
+    }
+}
+
+const addtotal_Amount = async(req, res, next) => {
+    try {
+        
+            //creates a new user object together with the final image object
+            let total = {
+                totalAmount: req.body.totalAmount,
+            }
+        //updates the user object data to the database 
+            Reserve.findByIdAndUpdate( req.query.res_id , { $set: total})
+                .then((result) => {
+                    //console.log(result)
+                    res.status(200).json({
+                        message: 'Total Amount saved successfully!',
+                        result,
+                        success: true,
+                    })
+                    
+                }).catch((error)=>{
+                    res.status(400).json({
+                        message: 'Total Amount Saving failed!',
+                        error:error,
+                        user,
+                        success: false,
+                    })
+                
+                })
+        
+        
+    }
+    catch (error) {
+        console.log(error)
+        res.status(404).json({ 
+            message: 'Total Amoutn Saving Process failed',
+            error: error.message,
+            success: false, })
+    }
+}
+
 module.exports = { 
     addReservation, 
     getReservationList, 
     updateReservation,
     deleteReservation,
     getReservation,
-    removeReservation_inUser
+    removeReservation_inUser,
+    addlinkform,
+    addtotal_Amount
 }

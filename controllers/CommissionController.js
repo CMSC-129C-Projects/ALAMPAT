@@ -31,7 +31,7 @@ const addCommission = async(req, res, next) => {
                 
                 User.findByIdAndUpdate( req.params.id , { $push: { commissions: result._id } })
                     .then((result) => {
-                        res.json({
+                        res.status(200).json({
                             message: "Commission Id added to User's Commissions and saved succesfully! ",
                             success: true,
                         })
@@ -114,7 +114,7 @@ const updateCommission = async(req, res, next) => {
         //updates the user object data to the database 
             Commission.findByIdAndUpdate( req.params.commissionid , commission)
                 .then((result) => {
-                    res.json({
+                    res.status(200).json({
                         message: 'Commission data updated successfully!',
                         result,
                         success: true,
@@ -134,7 +134,7 @@ const updateCommission = async(req, res, next) => {
     }
     catch (error) {
         console.log(error)
-        res.status(400).json({ 
+        res.status(404).json({ 
             message: error.message,
             success: false, })
     }
@@ -150,7 +150,7 @@ const deleteCommission = async(req, res, next) => {
             if(!err){
                 User.findByIdAndUpdate( req.params.id , { $pull: { commissions: result._id } })
                 .then((data)=>{
-                    res.json({
+                    res.status(200).json({
                         message: 'Commission data removed successfully!',
                         data: data,
                         success: true,
@@ -170,13 +170,37 @@ const deleteCommission = async(req, res, next) => {
     }
     catch (error) {
         console.log(error)
-        res.status(400).json({ 
+        res.status(404).json({ 
             message: error.message,
             success: false, })
     }
 }
 
+const deductSlot = async(req, res, next) => {
+    try {
+        let slot = {
+            slot: req.body.slot
+        }
+        //finds user, then commission service id from the database to be deleted 
+        Commission.findByIdAndUpdate(req.body._id, slot)
+            .then((result) => {
+                res.status(200).json({
+                    message: 'Commission slot updated successfully!',
+                   
+                    success: true,
+                })
+            })
+
+        
+    }
+    catch (error) {
+        console.log(error)
+        res.status(404).json({ 
+            message: error.message,
+            success: false, })
+    }
+}
 
 module.exports = { 
-    addCommission, getCommissionList, updateCommission,deleteCommission
+    addCommission, getCommissionList, updateCommission,deleteCommission,deductSlot
 }

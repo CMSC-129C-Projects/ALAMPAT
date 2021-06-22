@@ -13,7 +13,7 @@ const register = async (req, res, next) => {
 
         bcrypt.hash(req.body.password, 10, function (err, hashedPass) {
             if (err) {
-                res.json({
+                res.status(404).json({
                     error: err
                 })
             }
@@ -51,12 +51,12 @@ const register = async (req, res, next) => {
             //save user data on database
             user.save(function(err,user){
                 if(err){
-                    res.json({
+                    res.status(400).json({
                         message: 'an error occurred',
                         error: err
                     })
                 } else {
-                    res.json({
+                    res.status(200).json({
                         message: 'user registered succesfully',
                         success: true
                     })
@@ -70,7 +70,7 @@ const register = async (req, res, next) => {
 
     }
     else {//if email is already in database
-        res.json({
+        res.status(409).json({
             message: 'User Email exists',
             success: false
         })
@@ -89,7 +89,7 @@ const login = (req, res, next) => {
                 bcrypt.compare(password, user.token, function (err, result) {
                     if (err) {
                         
-                        res.json({
+                        res.status(404).json({
                             error: err,
                             loggedin: false
                         })
@@ -97,7 +97,7 @@ const login = (req, res, next) => {
                     if (result) {//if password input matches the user password on database
                         let token = jwt.sign({ password: user.password }, process.env.JWT_TOKEN, { expiresIn: '1h' })
                         
-                        res.json({
+                        res.status(200).json({
                             message: 'Login Successful!',
                             userdata: user,
                             token: token,
@@ -113,7 +113,7 @@ const login = (req, res, next) => {
                     }
                 })
             } else {//if input user credentials do not exist in the database
-                res.json({
+                res.status(404).json({
                     message: 'No user found',
                     loggedin: false
                 })
