@@ -29,7 +29,7 @@ const addProduct = async(req, res, next) => {
                 User.findByIdAndUpdate( req.params.id , { $push: { products: result._id } })
                     .then((result) => {
                         //console.log(result)
-                        res.json({
+                        res.status(200).json({
                             message: "Product Id added to User's Products and saved succesfully! ",
                             success: true,
                         })
@@ -44,7 +44,7 @@ const addProduct = async(req, res, next) => {
                     })
     
                 }else{
-                    res.json({
+                    res.status(409).json({
                         message: 'Product Save Failed! Image file name already existed!',
                         success: false,
                         err
@@ -112,7 +112,7 @@ const updateProduct = async(req, res, next) => {
             Product.findByIdAndUpdate( req.params.productid , { $set: product})
                 .then((result) => {
                     //console.log(result)
-                    res.json({
+                    res.status(200).json({
                         message: 'Product data updated successfully!',
                         result,
                         success: true,
@@ -132,7 +132,7 @@ const updateProduct = async(req, res, next) => {
     }
     catch (error) {
         console.log(error)
-        res.status(400).json({ 
+        res.status(404).json({ 
             message: error.message,
             success: false, })
     }
@@ -149,7 +149,7 @@ const deleteProduct = async(req, res, next) => {
             if(!err){
                 User.findByIdAndUpdate( req.params.id , { $pull: { products: result._id } })
                 .then((data)=>{
-                    res.json({
+                    res.status(200).json({
                         message: 'Product data removed successfully!',
                         data: data,
                         success: true,
@@ -169,7 +169,7 @@ const deleteProduct = async(req, res, next) => {
     }
     catch (error) {
         console.log(error)
-        res.status(400).json({ 
+        res.status(404).json({ 
             message: error.message,
             success: false, })
     }

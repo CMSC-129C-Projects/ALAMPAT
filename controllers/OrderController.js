@@ -158,7 +158,7 @@ const updateOrder = async(req, res, next) => {
         //updates the user object data to the database 
             Order.findByIdAndUpdate( req.params.order_id , order_updates)
                 .then((result) => {
-                    res.json({
+                    res.status(200).json({
                         message: 'Order data updated successfully!',
                         result: result,
                         success: true,
@@ -178,7 +178,7 @@ const updateOrder = async(req, res, next) => {
     }
     catch (error) {
         console.log(error)
-        res.status(400).json({ 
+        res.status(404).json({ 
             message: error.message,
             error,
             success: false, })
@@ -207,7 +207,7 @@ const addProductOrder = async(req, res, next) => {
                 User.findByIdAndUpdate( req.params.id , { $push: { orders: result._id } })
                 .then((result) => {
                     
-                    res.json({
+                    res.status(200).json({
                         message: "Order added successfully! ",
                         orders: result.orders,
                         success: true,
@@ -261,7 +261,7 @@ const addCommissionOrder = async(req, res, next) => {
             .then(() => {
                 User.findByIdAndUpdate( req.query.seller_id , { $push: { orders: result._id } })
                 .then(() => {
-                    res.json({
+                    res.status(200).json({
                         success: true
                     })
                 })

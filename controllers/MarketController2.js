@@ -132,7 +132,7 @@ const getProductList = async (req, res, next) => {
         //all = res.paginatedResults
         //all = res.paginatedResults.results
         
-        return res.json({
+        return res.status(200).json({
             all:res.paginatedResults.results, 
             totalitems:res.paginatedResults.totalitems,
             currpage: res.paginatedResults.currpage,
@@ -148,7 +148,7 @@ const getProductList = async (req, res, next) => {
 const getCommissionList = (req, res, next) => {
     try{
         //all = res.paginatedResults
-        return res.json({
+        return res.status(200).json({
             all:res.paginatedResults.results, 
             totalitems:res.paginatedResults.totalitems,
             currpage: res.paginatedResults.currpage,

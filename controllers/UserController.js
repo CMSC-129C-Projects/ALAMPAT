@@ -55,7 +55,7 @@ const updateAccount = async(req, res, next) => {
     try {//updates user object data
         bcrypt.hash(req.body.password, 10, function (err, hashedPass) {
             if (err) {
-                res.json({
+                res.status(400).json({
                     message: "Failed hashing the password",
                     error: err
                 })
@@ -86,7 +86,7 @@ const updateAccount = async(req, res, next) => {
             //updates the user object data to the database 
                 User.findByIdAndUpdate( id , {$set: user})
                     .then((result) => {
-                        res.json({
+                        res.status(200).json({
                             message: 'User account data updated successfully!',
                             result,
                             success: true,
@@ -106,7 +106,7 @@ const updateAccount = async(req, res, next) => {
     }
     catch (error) {
         console.log(error)
-        res.status(400).json({  message: error.message,
+        res.status(404).json({  message: error.message,
             success: false, })
     }
 }

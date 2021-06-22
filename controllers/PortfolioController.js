@@ -24,7 +24,7 @@ const addArtwork = async(req, res, next) => {
                 
                 User.findByIdAndUpdate( req.params.id , { $push: { portfolio: result._id } })
                     .then((result) => {
-                        res.json({
+                        res.status(200).json({
                             message: "Artwork Id added to User's Portfolio and saved succesfully! ",
                             success: true,
                         })
@@ -39,7 +39,7 @@ const addArtwork = async(req, res, next) => {
                     })
     
                 }else{
-                    res.json({
+                    res.status(409).json({
                         message: 'Artwork Save Failed! Image file name already existed!',
                         success: false,
                         err
@@ -93,7 +93,7 @@ const getArtwork = (req, res, next) => {
     Portfolio.findById(req.params._id, async  function (err, art){
         if(err) throw err;
         
-        return res.json({
+        return res.status(200).json({
             artwork: art
         })
           
@@ -122,7 +122,7 @@ const updateArtwork = async(req, res, next) => {
         //updates the user object data to the database 
             Portfolio.findByIdAndUpdate( req.params.artid , art)
                 .then((result) => {
-                    res.json({
+                    res.status(200).json({
                         message: 'Artwork data updated successfully!',
                         result,
                         success: true,
@@ -142,7 +142,7 @@ const updateArtwork = async(req, res, next) => {
     }
     catch (error) {
         console.log(error)
-        res.status(400).json({ 
+        res.status(404).json({ 
             message: error.message,
             success: false, })
     }
@@ -160,7 +160,7 @@ const deleteArtwork = async(req, res, next) => {
             if(!err){
                 User.findByIdAndUpdate( req.params.id , { $pull: { portfolio: result._id } })
                 .then((data)=>{
-                    res.json({
+                    res.status(200).json({
                         message: 'Artwork data removed successfully!',
                         data: data,
                         success: true,
@@ -180,7 +180,7 @@ const deleteArtwork = async(req, res, next) => {
     }
     catch (error) {
         console.log(error)
-        res.status(400).json({ 
+        res.status(404).json({ 
             message: error.message,
             success: false, })
     }
