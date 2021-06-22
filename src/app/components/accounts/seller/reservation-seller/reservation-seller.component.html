@@ -91,90 +91,91 @@
                                 </div> 
                             </div>  
                             <div class="field is-grouped is-grouped-right" *ngIf="item.reservationStatus == 'Approved'">
-                                <a class="text is-size-7 pl-4 ml-4 mt-6 pt-6" (click)="CommissionFormModal()"> 
+                                <a class="text is-size-7 pl-4 ml-4 mt-6 pt-6" (click)="CommissionFormModal(); onClickForm(item)"> 
                                     Once reservation is approved, upload <br>a form for the buyer to fill up,
                                     and input<br> the final price of the commission.
                                 </a>
                             </div>  
                         </div>
                     </article>
+                    <!----------------- COMMISSION FORM MODAL --------------------->
+                    <div class="modal" [ngClass]="openCommFormModal ? 'is-active' : ''">
+                        <div class="modal-background" (click)="onClickExit()"></div>
+                        <div class="modal-card">
+                            <header class="modal-card-head is-paddingless py-2 px-2"> 
+                                <div class="column has-text-right is-paddingless is-marginless">
+                                    <button (click)="onClickExit()" class="delete "></button>
+                                </div>
+                            </header>
+                            
+                            <div class="modal-card-body">
+                                <!----------------- COMMISSION FORM --------------------->
+                                <div class="field">
+                                    <label class="label">Commission Form</label>
+                                    <p class="is-size-7">
+                                        Upload the link of Commission Form via Google Form to be filled in by the buyer.
+                                        Indicate prices of additional features on the commission to finalize the total amount.
+                                    </p>
+                                    <div class="control">  
+                                        <div class="level is-marginless">
+                                                <div class="level-item">
+                                                    <input class="input mt-2" 
+                                                    placeholder="Input link of your Commission Form" type="url"  [value]="comm_link" (input)="inputLink($event)"> 
+                                                </div>
+                                            
+                                            <div class="level-right">
+                                                <div class="level-item">
+                                                    <div class="buttons is-right mt-2">
+                                                        <button class="button is-success has-text-weight-medium" (click)= "saveLink()">
+                                                            Save
+                                                        </button>
+                                                    </div> 
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <!----------------- TOTAL AMOUNT --------------------->
+                                <div class="field">
+                                    <label class="label">Total Amount</label>
+                                    <p class="is-size-7">
+                                        Once the buyer has completed the form, indicate the total amount of the commission.
+                                    </p>
+                                    <div class="control field has-addons mt-2">
+                                        <a class="button is-static">₱</a>
+                                        <div class="control">
+                                            <div class="level is-marginless">
+                                                <div class="level-item">
+                                                    <input class="input" placeholder="Input total amount" 
+                                                        type="number" min="1" [value]="total_Amt" (input)="inputTotalAmt($event)" >
+                                                </div>
+                                            
+                                                <div class="level-right">
+                                                    <div class="level-item">
+                                                        <div class="buttons is-right">
+                                                            <button class="button is-success has-text-weight-medium" (click)= "saveTotalAmt()">
+                                                                Save
+                                                            </button>
+                                                        </div> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-card-foot">
+                            </div>
+                        </div>
+                    </div>
                 </div>
            </div>
         </div>
     </div>
 </section>
 
-<!----------------- COMMISSION FORM MODAL --------------------->
-<div class="modal" [ngClass]="openCommFormModal ? 'is-active' : ''">
-    <div class="modal-background" (click)="onClickExit()"></div>
-    <div class="modal-card">
-        <header class="modal-card-head is-paddingless py-2 px-2"> 
-            <div class="column has-text-right is-paddingless is-marginless">
-                <button (click)="onClickExit()" class="delete "></button>
-            </div>
-        </header>
-        
-        <div class="modal-card-body">
-            <!----------------- COMMISSION FORM --------------------->
-            <div class="field">
-                <label class="label">Commission Form</label>
-                <p class="is-size-7">
-                    Upload the link of Commission Form via Google Form to be filled in by the buyer.
-                    Indicate prices of additional features on the commission to finalize the total amount.
-                </p>
-                <div class="control">  
-                    <div class="level is-marginless">
-                            <div class="level-item">
-                                <input class="input mt-2" formControlName="commissionform" 
-                                placeholder="Input link of your Commission Form" type="url" required> 
-                            </div>
-                        
-                        <div class="level-right">
-                            <div class="level-item">
-                                <div class="buttons is-right mt-2">
-                                    <button class="button is-success has-text-weight-medium">
-                                        Save
-                                    </button>
-                                </div> 
-                            </div>
-                        </div>
-                    </div> 
-                </div>
-            </div>
-            <!----------------- TOTAL AMOUNT --------------------->
-            <div class="field">
-                <label class="label">Total Amount</label>
-                <p class="is-size-7">
-                    Once the buyer has completed the form, indicate the total amount of the commission.
-                </p>
-                <div class="control field has-addons mt-2">
-                    <a class="button is-static">₱</a>
-                    <div class="control">
-                        <div class="level is-marginless">
-                            <div class="level-item">
-                                <input class="input" placeholder="Input total amount" 
-                                    formControlName="price" type="number" min="1" required>
-                            </div>
-                        
-                            <div class="level-right">
-                                <div class="level-item">
-                                    <div class="buttons is-right">
-                                        <button class="button is-success has-text-weight-medium">
-                                            Save
-                                        </button>
-                                    </div> 
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                </div>
-            </div>
-        </div>
 
-        <div class="modal-card-foot">
-        </div>
-    </div>
-</div>
 
         
   

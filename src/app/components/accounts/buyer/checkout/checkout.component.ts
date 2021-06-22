@@ -18,6 +18,7 @@ interface details {
     commissionname: string,
     price: number,
     category: string,
+    slot: number
   },
   seller:{
     _id: string,
@@ -116,6 +117,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         commissionname: '',
         price: 0,
         category: '',
+        slot: 0,
       },
       seller:{
         _id: '',
@@ -210,7 +212,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
 
     this.openSuccessModal = true; 
-    this.orderserv.addCommOrder(this.payment_proof.value, this.checkout_details._id, this.checkout_details.seller._id )
+    this.orderserv.addCommOrder(this.checkout_details.service._id,this.checkout_details.service.slot, this.payment_proof.value, this.checkout_details._id, this.checkout_details.seller._id )
     this.reserv.removeReservation(this.checkout_details._id, this.checkout_details.seller._id)
     console.log("Successfully placed order! " + JSON.stringify(this.payment_proof.value) )
   }

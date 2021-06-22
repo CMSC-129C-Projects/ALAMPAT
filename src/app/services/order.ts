@@ -96,12 +96,19 @@ export class OrderService {
     // }  
     
 
-    addCommOrder = async(reservation: any, reserv_id: string, seller_id: string)=>{
+    addCommOrder = async(com_id: string, slot: number, reservation: any, reserv_id: string, seller_id: string)=>{
         try {
             this.user_id = localStorage.getItem('id')
             const response = await axios.post<uploadResponse>(`${test_API}/buyer/${this.user_id}/addCommOrder?orderStatus=${"P"}&orderType=${"Commission"}&reserv_id=${reserv_id}&seller_id=${seller_id}`, reservation);
-            const { message, success } = response.data
-            console.log(JSON.stringify(response.data))
+            const { success } = response.data
+            //console.log(JSON.stringify(response.data))
+            if(success){
+               const min_slot = slot - 1 
+               console.log(min_slot)
+               const response = await axios.patch<uploadResponse>(`${test_API}/buyer/${this.user_id}/deductSlot`, {_id: com_id ,slot: min_slot});
+               const { message, success } = response.data
+               console.log("Slot Update: " + message)
+            }
             // if (success) {
             //     this.isUploaded = true;
             // } else {

@@ -54,7 +54,7 @@ export class ReservationService {
         try {
             this.userID = localStorage.getItem('id')
 
-            const response = await axios.post<uploadResponse>(`${localAPI}/seller/${this.userID}/addCommissionForm?res_id=${id}`, {data:{ form: form}});
+            const response = await axios.patch<uploadResponse>(`${test_API}/seller/${this.userID}/addCommissionForm?res_id=${id}`, { form: form});
             //const { message, result, success } = response.data
             //console.log("" + JSON.stringify(result))
             
@@ -68,7 +68,7 @@ export class ReservationService {
         try {
             this.userID = localStorage.getItem('id')
 
-            const response = await axios.post<uploadResponse>(`${localAPI}/seller/${this.userID}/addTotalAmount?res_id=${id}`, {data:{ totalAmount: totalAmount}});
+            const response = await axios.patch<uploadResponse>(`${test_API}/seller/${this.userID}/addTotalAmount?res_id=${id}`, { totalAmount: totalAmount});
             //const { message, result, success } = response.data
             //console.log("" + JSON.stringify(result))
             

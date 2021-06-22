@@ -23,7 +23,7 @@ interface reservation {
     name: string,
   },
   form?: string,
-  totalAmount: number,
+  totalAmount?: number,
   reservationStatus: string,
 }
 @Component({
@@ -37,20 +37,27 @@ export class ReservationSellerComponent implements OnInit, OnChanges {
   reserv_List: reservation[] = []
   reservation: reservation
 
+  comm_link:string |undefined = ' '
+  total_Amt: number |undefined= 0
+  
+  res_id: string
   subs: Subscription[] = []
   constructor(
     private reserv: ReservationService,
   ) { 
-    this.setreservation()
+    
   }
 
   ngOnInit( ): void {
+    this.setreservation()
     this.subscribeReserveList()
   }
 
   ngOnChanges(): void {
+   
     
   }
+  
   setreservation(){
     this.reservation = {
       _id: '',
@@ -72,7 +79,7 @@ export class ReservationSellerComponent implements OnInit, OnChanges {
         _id: "",
         name: "",
       },
-      form: '',
+      form: ' ',
       totalAmount: 0,
       reservationStatus: "",
     }
@@ -82,6 +89,7 @@ export class ReservationSellerComponent implements OnInit, OnChanges {
     this.subs.push(
       this.reserv.getReservationList().subscribe((reservs: any)=>{
         this.reserv_List = reservs.data.reservationsArray
+        
         //this.reserv_List.forEach(x => { console.log("Reservation: " + JSON.stringify(x))})
        
       })
@@ -116,9 +124,54 @@ export class ReservationSellerComponent implements OnInit, OnChanges {
     this.openCommFormModal = true;
   }
 
+  inputLink(event:Event){
+    
+    const input = (event.target as HTMLInputElement).value
+    this.comm_link = input
+    console.log("Form Link: " + this.comm_link)
+  }
+
+  inputTotalAmt(event:Event){
+    
+    const input = (event.target as HTMLInputElement).value
+    this.total_Amt = Number(input)
+    console.log("Total Amount: " + this.total_Amt)
+  }
+
+  onClickForm(item:reservation){
+    this.res_id = item._id
+    this.comm_link = item.form ? item.form : ' ' 
+    if(item.totalAmount){
+      this.total_Amt = item.totalAmount
+    }else{
+      this.total_Amt = item.service.price
+    }
+     
+  }
+
+  saveLink(){
+    //console.log("Form Link: " + this.comm_link + ' id: ' + item._id )
+    this.reserv.addCommissionForm(this.res_id, String(this.comm_link))
+    setTimeout( ()=>{
+      this.subs.forEach( x=> x.unsubscribe())
+      this.subscribeReserveList()
+    }, 500)
+  }
+
+  saveTotalAmt(){
+    //console.log("Total Amount: " + this.total_Amt)
+    this.reserv.addtotalAmount(this.res_id, Number(this.total_Amt))
+    setTimeout( ()=>{
+      this.subs.forEach( x=> x.unsubscribe())
+      this.subscribeReserveList()
+    }, 500)
+  }
+
   onClickExit () {
     if(this.openCommFormModal == true) {
       this.openCommFormModal = false;
+      this.comm_link = ''
+      this.total_Amt = 0
     }
   }
 }
