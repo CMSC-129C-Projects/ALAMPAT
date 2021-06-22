@@ -141,12 +141,7 @@ export class ReservationSellerComponent implements OnInit, OnChanges {
   onClickForm(item:reservation){
     this.res_id = item._id
     this.comm_link = item.form ? item.form : ' ' 
-    if(item.totalAmount){
-      this.total_Amt = item.totalAmount
-    }else{
-      this.total_Amt = item.service.price
-    }
-     
+    this.total_Amt = item.totalAmount ? item.totalAmount : 0 
   }
 
   saveLink(){

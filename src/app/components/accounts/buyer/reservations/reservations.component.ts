@@ -24,6 +24,8 @@ interface reservation {
     _id: string,
     name: string,
   },
+  form?: string,
+  totalAmount?: number,
   reservationStatus: string,
 }
 @Component({
@@ -77,6 +79,8 @@ export class ReservationsComponent implements OnInit, OnDestroy{
         _id: "",
         name: "",
       },
+      form: '',
+      totalAmount: 0,
       reservationStatus: "",
     }
   }

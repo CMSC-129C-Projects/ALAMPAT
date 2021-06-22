@@ -31,6 +31,7 @@ interface details {
     address: string,
     phoneNumber: string,
   },
+  totalAmount: number,
   reservationStatus: string,
 }
 @Component({
@@ -127,6 +128,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         address: '',
         phoneNumber: '',
       },
+      totalAmount: 0,
       reservationStatus: '',
     }
   }
@@ -134,8 +136,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   getCheckoutdetails(){
     this.checkout_sub = this.orderserv.getCheckoutdetails(this.reserv_id).subscribe( item => {
       this.checkout_details = item.data.details
-      this.halfprice = item.data.details.service.price/2
-      this.amt_topay =  item.data.details.service.price
+      this.halfprice = item.data.details.totalAmount/2
+      this.amt_topay =  item.data.details.totalAmount
       console.log( JSON.stringify(item.data))
     })
   }
@@ -146,12 +148,12 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   selectChangeHandler (event: any) {
     this.payment_option = event.target.value;
     if(this.payment_option == 'half'){
-      this.amt_topay = this.checkout_details.service.price - this.halfprice
+      this.amt_topay = this.checkout_details.totalAmount - this.halfprice
       this.amt_paid = this.halfprice
     }
     if(this.payment_option == 'full'){
       this.amt_topay = 0
-      this.amt_paid  = this.checkout_details.service.price
+      this.amt_paid  = this.checkout_details.totalAmount
     }
   }
   //Function for the uploading of proof of payment
