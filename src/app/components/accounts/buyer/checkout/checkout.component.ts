@@ -58,7 +58,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   percentage: Observable<number|undefined> = new Observable();
   url: Promise<string>;
   payment_proof: FormGroup;
-  //proofForm: FormGroup;
   
 
   @ViewChild('proofimage') image_proof: ElementRef
@@ -93,8 +92,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     })
 
     this.getCheckoutdetails()
-
- 
   }
 
   get formControls() { return this.payment_proof.controls; }
@@ -139,7 +136,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       this.checkout_details = item.data.details
       this.halfprice = item.data.details.service.price/2
       this.amt_topay =  item.data.details.service.price
-      //this.amt_topay = item.data.details.service.price - this.halfprice
       console.log( JSON.stringify(item.data))
     })
   }
@@ -148,7 +144,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   selectChangeHandler (event: any) {
-    //update the ui
     this.payment_option = event.target.value;
     if(this.payment_option == 'half'){
       this.amt_topay = this.checkout_details.service.price - this.halfprice
@@ -219,10 +214,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   //Function to close the successful modal
   onClickExit () {
-    //this.imageSRC = '';
     if(this.openSuccessModal) {
       this.openSuccessModal = false;
     }
   }
-
 }
