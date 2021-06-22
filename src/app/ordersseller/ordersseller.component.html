@@ -1,0 +1,199 @@
+<app-headerseller></app-headerseller>
+
+<section>
+    <!------------ HEADER --------------------->
+    <div class="container">
+        <div class="column is-10 is-offset-1 ">
+            <div class="card-container ">
+                <div class="title is-family-primary has-icons-left">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-clipboard-data" viewBox="0 0 16 16">
+                        <path d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z"/>
+                        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                        <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                    </svg>
+                    <i class="bi bi-clipboard-data"></i>
+                    Orders
+                </div>  
+            </div>
+            <hr style="background-color:#a9c5b2" class=" mt-4 is-marginless">
+        
+            <div class="block px-6 py-4 is-shadowless has-background-success-light">
+                <link
+                rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+                />
+
+                <!--------------- TABS ------------------->
+                <hr style="background-color:#e8e6e6" class="is-marginless">
+                <div class="tabs is-boxed is-centered is-fullwidth has-background-success-light">
+                    
+                    <ul>
+                        <li class="is-active" data-target="order-all" value="All">
+                            <a class="has-text-weight-medium"  > 
+                                All
+                            </a>
+                        </li>
+
+                        <li data-target="order-processing" value="Processing">
+                            <a class="has-text-weight-medium" >
+                                Processing
+                            </a>
+                        </li>
+
+                        <li data-target="order-completed" value="Completed">
+                            <a class="has-text-weight-medium" >
+                                Completed
+                            </a>
+                        </li>
+
+                        <li data-target="order-cancelled" value="Cancelled">
+                            <a class="has-text-weight-medium" >
+                                Cancelled
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <!------------------------ ORDER ITEMS -------------------------------->
+                <div class="column">
+                    <div class="box is-clickable">
+                        <div class="level is-marginless">
+                            <div class="level-left">
+                                <div class="level-item">
+                                    <p class= "is-size-7 has-text-weight-medium"> 
+                                        Order ID: 42563457
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="level-right">
+                                <div class="level-item">
+                                    <div class="is-size-7 has-text-weight-medium is-marginless">
+                                        Order Status:
+                                        <div class="tag is-warning is-light has-text-weight-bold" 
+                                        >
+                                            Processing
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        <article class="media">
+                            <div class="media-left">
+                                <figure class="image is-100x100">
+                                    <div>
+                                        <img class="previewImage" src="https://mymodernmet.com/wp/wp-content/uploads/2017/06/wire-sculpture-everyday-objects-1.jpg" alt="Image"/>
+                                    </div>
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <div class="content">
+                                <p class="limitedText has-text-weight-bold is-size-4">
+                                    Telephone Black Copper Wire Sculpture
+                                </p>
+                                
+                                <p class="is-size-5 has-text-weight-medium is-marginless">
+                                    Total:
+                                    <span class="text has-text-weight-bold has-text-primary">
+                                        ₱ 799.99
+                                    </span>
+                                </p>
+                                <div class="block">
+                                    <div class="text is-size-6">
+                                        Seller Name:
+                                    <a class="tag is-white is-light has-text-weight-bold is-small">
+                                        Josiah Ocampo
+                                    </a>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <div class="level is-marginless">
+                            <div class="level-left">
+                                <div class="level-item">
+                                    <div class="tags has-addons is-marginless">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="level-right">
+                                <div class="level-item">
+                                    <div class="field is-grouped is-grouped-right">
+                                        <div class="buttons is-centered pl-4 ml-4">
+                                            <button class="button is-warning has-text-weight-bold">
+                                                Update Status
+                                            </button>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+
+
+  <!--
+  <app-orderdetailsbuyer [openOrderDetailsModal] = 'showOrderDetailsModal'></app-orderdetailsbuyer>-->
+
+            <!------------ EACH ORDER -----------------
+                <div class="box is-clickable">
+                    <div class="level pb-2 is-marginless">
+                        <div class="level-left">
+                            <div class="level-item">
+                                <p class= "is-size-7 has-text-weight-medium has-text-grey"> 
+                                    Order ID: 4398765
+                                </p>
+                            </div>
+                        </div>
+                        <div class="level-right">
+                            <div class="level-item">
+                                <div class="is-size-7 has-text-weight-medium is-marginless">
+                                    Status:
+                                    <div class="tag is-warning is-light has-text-weight-bold">
+                                        Item is being packed by Seller
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <article class="media">
+                        <div class="media-left">
+                            <figure class="image is-100x100">
+                                <div>
+                                    <img class="object-fit_cover" src= "item.service.images?.imageBase64" alt="">
+                                </div>
+                            </figure>
+                        </div>
+                        <div class="media-content is-mobile">
+                            <div class="content">
+                                <p class="limitedText has-text-weight-bold is-size-4">
+                                    Product Name
+                                </p>
+                                <p class="is-size-5 has-text-weight-medium is-marginless">
+                                    Total:
+                                    <span class="text has-text-weight-bold has-text-warning-dark">
+                                        ₱ 1999.99
+                                    </span>
+                                </p>
+                                <div class="block">
+                                    <div class="text is-size-6">
+                                        Availed by:
+                                    <a class="tag is-white is-light has-text-weight-bold is-small">
+                                        Josiah Ocampo
+                                    </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>-->
+           </div>
+        </div>
+    </div>
+</section>
+
+        
+<app-footer></app-footer>
