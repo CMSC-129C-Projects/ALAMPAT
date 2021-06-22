@@ -78,37 +78,19 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log("I am here " )
-    
     if(!("pagenum" in localStorage)){
-      //const page = Number(localStorage.getItem('curr_category'))
       this.page = new BehaviorSubject<number>(1)  
-      // this.sort_ord.next(localStorage.getItem('sort'))
     }
       
-    // if(localStorage.getItem('reload') == "true"){
-    //   //this.curr_category.next('All')
-    //   this.curr_category = new BehaviorSubject<string>('Product')
-    //   //this.curr_category.next(localStorage.getItem('curr_category'))
-    //   this.load_wholemarket()
-      
-    // }
-    //else if(localStorage.getItem('reload') == "false"){
       this.curr_category = new BehaviorSubject<string>('Commission')
 
       if("curr_category" in localStorage){
         this.curr_category = new BehaviorSubject<string|null>(localStorage.getItem('curr_category'))
-        // this.sort_ord.next(localStorage.getItem('sort'))
       }
 
       if("pagenum" in localStorage){
-        //const page = Number(localStorage.getItem('curr_category'))
         this.page = new BehaviorSubject<any>(Number(localStorage.getItem('pagenum')))
-        //console.log("Page Number: " + this.page.value)
-        // this.sort_ord.next(localStorage.getItem('sort'))
       }
-      //const cat = localStorage.getItem('curr_category') ? localStorage.getItem('curr_category') : null
-
       if("sort" in localStorage){
         this.sort_value = localStorage.getItem('sort')
         if(localStorage.getItem('sort') == 'price'){
@@ -132,28 +114,9 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
         
       }
       if("searched_item" in localStorage){
-          // const word = localStorage.getItem('searched_item') ? localStorage.getItem('searched_item') : null
           this.word.next(localStorage.getItem('searched_item'))
-          // this.searchItem(localStorage.getItem("searched_item"))
         }
       this.load_wholemarket()
-      // if("searched_item" in localStorage){
-      //   const word = localStorage.getItem('searched_item') ? localStorage.getItem('searched_item') : null
-      //   this.word.next(word)
-      //   this.searchItem(localStorage.getItem("searched_item"))
-      // }
-      // if("p_min" in localStorage && "p_max" in localStorage){
-      //   this.onReload_applyprice()
-      // }
-      // if("sort" in localStorage){
-      //   this.Sortby(localStorage.getItem('sort'))
-
-      //   // /this.select.nativeElement.value = localStorage.getItem('sort')
-      // }
-      // this.marketserv.setmarket()
-      //localStorage.setItem('reload', 'true')
-    //}
-    //console.log("Page Number 1 : " + this.page.value)
   }
 
   ngOnDestroy(): void {
@@ -161,10 +124,9 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   }
 
   Categorizeby(event: Event  ){
-    console.log("I am here 2")
     const category = event.target as HTMLInputElement
     const cat_choice = category.value
-    //this.marketdata = []
+
     localStorage.setItem('curr_category', cat_choice)
     this.page.next(1)
     localStorage.setItem("pagenum", String(this.page.value))
@@ -177,8 +139,6 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     localStorage.removeItem("p_min")
     localStorage.removeItem("p_max")
     localStorage.removeItem('sort')
-
-    //console.log("Category choice:" + JSON.stringify(category.value))  
     
     this.curr_category.next(cat_choice)
   
@@ -187,20 +147,16 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
   }
 
   load_wholemarket(){
-    console.log("I am here 4")
     this.categorizeData(this.curr_category.value)
   }
 
   categorizeData(cat_choice: string){
-    console.log("I am here 3 " , cat_choice)
     this.subs.forEach((x)=> x.unsubscribe())
 
     var pmin = '0'
     var pmax = '999999999999' 
 
     if(this.pmin.value != '' && this.pmax.value != ''){
-      // this.pmin.next('0')
-      // this.pmax.next('999999999999')
       pmin = this.pmin.value
       pmax = this.pmax.value 
     }
@@ -210,41 +166,25 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
       
       this.subs.push(
         this.marketserv.getProductMarketdata(String(this.page.value), this.pagelimit, this.sort_ord.value, pmin, pmax, this.word.value ).subscribe( (items) => {
-        //this.marketdata = items
+    
         this.marketdata = items.data.all
         this.totalRecords = items.data.totalitems
         this.loading = true
-        //this.page = items.data.currpage
-        //this.temp_list.next(this.marketdata)
       })
       )
-      //this.marketdata.push(item)
     }
     else if( cat_choice == "Commission"){
       this.subs.push(
         this.marketserv.getCommissionMarketdata(String(this.page.value), this.pagelimit, this.sort_ord.value, pmin, pmax, this.word.value  ).subscribe( (items) => {
-        //this.marketdata = items
+    
         this.marketdata = items.data.all
         this.totalRecords = items.data.totalitems
         this.loading = true
-        //this.page = items.data.currpage
-        //this.temp_list.next(this.marketdata)
       })
       )
 
     }
     this.loading = false
-    // else if(cat_choice == ''|| cat_choice == 'All' ){
-    //   this.subs.push(
-    //     this.marketserv.getallMarket().subscribe( (items: any[]) => {
-    //     //this.marketdata = items
-    //    this.marketdata = items 
-    //     this.temp_list.next(this.marketdata)
-    //   })
-    //   )
-    //   //this.marketdata.push(item)
-    // }
-    
   }
   
  
@@ -272,14 +212,11 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     localStorage.setItem("pagenum", String(this.page.value))
 
     if(p_max == undefined || p_min == undefined || p_min == '' || p_max== '' ){
-      console.log("Ayaw sulod ari")
       this.pmin.next('')
       this.pmax.next('')
       this.load_wholemarket()
       return
     }
-
-    console.log("Ayaw sulod ari 2")
     var min:number = Number(p_min)
     var  max:number = Number(p_max)
 
@@ -287,12 +224,8 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     this.pmax.next(String(max))
     console.log( "Value : " + min + "  " + max )
       
-    
-    // this.marketdata = []
     this.load_wholemarket()
   
-
-    console.log("I am here 5")
   }
 
   searchItem(word: string | null){
@@ -306,7 +239,6 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
     this.pmax.next('')
     this.sort_ord.next('')
     if(word == null){
-      //localStorage.removeItem("searched_item")
       this.word.next('')
       localStorage.setItem("searched_item", '')
       this.load_wholemarket()
@@ -395,7 +327,6 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
 
    
     localStorage.setItem("curr_category", this.curr_category.value)
-    //console.log("View Item: " + JSON.stringify(_id))
 
     if(item.category == "Commission"){
       localStorage.setItem('reload', "false")
@@ -405,10 +336,6 @@ export class MarketplaceComponent implements OnInit, OnDestroy {
       localStorage.setItem('reload', "false")
       this.router.navigate(['/product-item/', {id: _id} ])
     }
-    // else{
-    //   localStorage.setItem('reload', "false")
-    //   this.router.navigate(['/marketplace/' ])
-    // }
   }
 
   GotoReservation(){

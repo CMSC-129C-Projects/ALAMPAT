@@ -38,26 +38,16 @@ export class ViewProductComponent implements OnInit, OnDestroy{
     private route:ActivatedRoute,
     private marketserv: MarketService,
     private cartServ: ReservationService,
-  ) {
-    
-    //this.copy = new BehaviorSubject<any>('')
-   }
+  ) { }
 
   ngOnInit(): void {
     const com_id = this.route.snapshot.paramMap.get('id');
-    //this.slide_len = "i"
-    //console.log("Item : " + JSON.stringify(com_id))
     this.marketserv.getProduct(com_id)
     
     this.subs.push(this.marketserv.getproduct().subscribe((prod:product)=>{
       this.prod_item = prod
       this.prod_stock = prod.stock
       this.image_list = prod.images
-      //var len = com.images.length
-      //this.slide_len = this.slide_len + String(len)
-      //this.slide_len.concat(String(this.comm_item.images.length))
-      //\console.log("Item : " + JSON.stringify(this.comm_item))
-      //this.copy.next(com)
     })
     )
   }

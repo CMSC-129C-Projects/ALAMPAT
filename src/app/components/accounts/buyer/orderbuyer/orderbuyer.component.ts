@@ -79,23 +79,13 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     if(!("pagenum" in localStorage)){
-      //const page = Number(localStorage.getItem('curr_category'))
       this.page = new BehaviorSubject<number>(1)  
-      // this.sort_ord.next(localStorage.getItem('sort'))
     }
 
     this.curr_tab = new BehaviorSubject<string>('All')
 
-      // if("curr_tab" in localStorage){
-      //   this.curr_tab = new BehaviorSubject<string|null>(localStorage.getItem('curr_category'))
-      //   // this.sort_ord.next(localStorage.getItem('sort'))
-      // }
-
       if("pagenum" in localStorage){
-        //const page = Number(localStorage.getItem('curr_category'))
         this.page = new BehaviorSubject<any>(Number(localStorage.getItem('pagenum')))
-        //console.log("Page Number: " + this.page.value)
-        // this.sort_ord.next(localStorage.getItem('sort'))
       }
 
       //For Tabs
@@ -126,8 +116,6 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
     this.subs.forEach((x) => x.unsubscribe())
   }
 
-
-
   load_wholeorder(){
     this.orderStatusdata(this.curr_tab.value)
   }
@@ -149,16 +137,6 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
           }
         })
       )
-      // this.subs.push(
-      //   this.orderserv.getAlldata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
-      //   //this.marketdata = items
-      //   this.orderdata = items.data.all
-      //   this.totalRecords = items.data.totalitems
-      //   //this.page = items.data.currpage
-      //   //this.temp_list.next(this.marketdata)
-      // })
-      // )
-      //this.marketdata.push(item)
     }
     else if( tab_choice == "Processing"){
       this.subs.push(
@@ -171,15 +149,6 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
           }
         })
       )
-      // this.subs.push(
-      //   this.orderserv.getProcessingdata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
-      //   //this.marketdata = items
-      //   this.orderdata = items.data.all
-      //   this.totalRecords = items.data.totalitems
-      //   //this.page = items.data.currpage
-      //   //this.temp_list.next(this.marketdata)
-      // })
-      // )
     }
 
     else if( tab_choice == "Completed"){
@@ -193,15 +162,6 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
           }
         })
       )
-      // this.subs.push(
-      //   this.orderserv.getCompleteddata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
-      //   //this.marketdata = items
-      //   this.orderdata = items.data.all
-      //   this.totalRecords = items.data.totalitems
-      //   //this.page = items.data.currpage
-      //   //this.temp_list.next(this.marketdata)
-      // })
-      // )
     }
 
     else if( tab_choice == "Cancelled"){
@@ -215,15 +175,6 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
           }
         })
       )
-      // this.subs.push(
-      //   this.orderserv.getCancelleddata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
-      //   //this.marketdata = items
-      //   this.orderdata = items.data.all
-      //   this.totalRecords = items.data.totalitems
-      //   //this.page = items.data.currpage
-      //   //this.temp_list.next(this.marketdata)
-      // })
-      // )
     }   
   }
 
@@ -248,7 +199,6 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
   }
 
   LoadMore(){
-    //this.vcrf.clear()
     this.subs.forEach((x)=> x.unsubscribe())
     setTimeout(()=>{
       if(this.curr_tab.value == "All"){
@@ -258,26 +208,13 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
             items.data.orderArray.forEach( order => {
               this.orderdata.push(order)
             })
-              // console.log("Added Info: " + JSON.stringify(this.orderdata))
             if(items.data.orderArray.length == 0){
               this.load = "false"
-              
             }
 
             this.curritems_amt = this.curritems_amt + this.items_limit
           })
-          
         )
-        // this.subs.push(
-        //   this.orderserv.getAlldata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
-        //   //this.marketdata = items
-        //   this.orderdata = items.data.all
-        //   this.totalRecords = items.data.totalitems
-        //   //this.page = items.data.currpage
-        //   //this.temp_list.next(this.marketdata)
-        // })
-        // )
-        //this.marketdata.push(item)
       }
       else if( this.curr_tab.value == "Processing"){
         this.subs.push(
@@ -292,15 +229,6 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
             this.curritems_amt = this.curritems_amt + this.items_limit
           })
         )
-        // this.subs.push(
-        //   this.orderserv.getProcessingdata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
-        //   //this.marketdata = items
-        //   this.orderdata = items.data.all
-        //   this.totalRecords = items.data.totalitems
-        //   //this.page = items.data.currpage
-        //   //this.temp_list.next(this.marketdata)
-        // })
-        // )
       }
   
       else if( this.curr_tab.value == "Completed"){
@@ -316,15 +244,6 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
             this.curritems_amt = this.curritems_amt + this.items_limit
           })
         )
-        // this.subs.push(
-        //   this.orderserv.getCompleteddata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
-        //   //this.marketdata = items
-        //   this.orderdata = items.data.all
-        //   this.totalRecords = items.data.totalitems
-        //   //this.page = items.data.currpage
-        //   //this.temp_list.next(this.marketdata)
-        // })
-        // )
       }
   
       else if( this.curr_tab.value == "Cancelled"){
@@ -340,44 +259,8 @@ export class OrderbuyerComponent implements OnInit, OnDestroy {
             this.curritems_amt = this.curritems_amt + this.items_limit
           }) 
         )
-        // this.subs.push(
-        //   this.orderserv.getCancelleddata(String(this.page.value), this.pagelimit, tab_choice ).subscribe( (items) => {
-        //   //this.marketdata = items
-        //   this.orderdata = items.data.all
-        //   this.totalRecords = items.data.totalitems
-        //   //this.page = items.data.currpage
-        //   //this.temp_list.next(this.marketdata)
-        // })
-        // )
       } 
       this.cdr.detectChanges()
     }, 500)
-    
-    
-    
-    
   }
-
-  //ViewItem(item: item){
-  //  const _id = item ? item._id : null;
-  //  this.marketdata = []
-  //  this.subs.forEach((x)=> x.unsubscribe())
-
-   
-   // localStorage.setItem("curr_category", this.curr_category.value)
-    //console.log("View Item: " + JSON.stringify(_id))
-
-  //  if(item.category == "Commission"){
-  //    localStorage.setItem('reload', "false")
-  //    this.router.navigate(['/commission-item/', {id: _id} ])
-  //  }
-  //  else if(item.category == "Product"){
-  //    localStorage.setItem('reload', "false")
-  //    this.router.navigate(['/product-item/', {id: _id} ])
-  //  }
-    // else{
-    //   localStorage.setItem('reload', "false")
-    //   this.router.navigate(['/marketplace/' ])
-    // }
-  //}
 }

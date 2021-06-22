@@ -283,15 +283,13 @@
                 <div *ngIf = "payment_option == 'full'"class="text is-size-6 has-text-right">
                     Paid Amount: <strong>₱ {{checkout_details.service?.price?.toFixed(2)}}</strong>
                 </div>
-                <!-- <div class="text is-size-6 has-text-right">
-                    Shipping Fee: <strong>₱ 69.00</strong>
-                </div> -->
                 <div *ngIf = "amt_topay >=  0" class="text is-size-4 has-text-danger-dark has-text-weight-bold has-text-right">
                      AMOUNT TO PAY: ₱{{amt_topay.toFixed(2)}}
                 </div>
                 &nbsp;
                 <div class="block has-text-right">
-                    <button class="button is-fullwidth is-info is-medium has-text-weight-bold" (click)="placeOrder()">
+                    <button class="button is-fullwidth is-info is-medium has-text-weight-bold" (click)="placeOrder()"
+                    routerLink="/marketplace">
                         PLACE ORDER
                     </button>
                 </div>
