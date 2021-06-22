@@ -50,6 +50,34 @@ export class ReservationService {
         }
     }
 
+    addCommissionForm = async (id: any, form: string) => {
+        try {
+            this.userID = localStorage.getItem('id')
+
+            const response = await axios.post<uploadResponse>(`${localAPI}/seller/${this.userID}/addCommissionForm?res_id=${id}`, {data:{ form: form}});
+            //const { message, result, success } = response.data
+            //console.log("" + JSON.stringify(result))
+            
+        } catch (error) {
+            console.error(error.message)
+            this.additem_error = error
+        }
+    }
+
+    addtotalAmount = async (id: any, totalAmount: number) => {
+        try {
+            this.userID = localStorage.getItem('id')
+
+            const response = await axios.post<uploadResponse>(`${localAPI}/seller/${this.userID}/addTotalAmount?res_id=${id}`, {data:{ totalAmount: totalAmount}});
+            //const { message, result, success } = response.data
+            //console.log("" + JSON.stringify(result))
+            
+        } catch (error) {
+            console.error(error.message)
+            this.additem_error = error
+        }
+    }
+
     addReservation = async (body: any) => {
         try {
             this.userID = localStorage.getItem('id')

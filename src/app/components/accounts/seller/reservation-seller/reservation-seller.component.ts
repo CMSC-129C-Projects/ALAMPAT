@@ -22,6 +22,8 @@ interface reservation {
     _id: string,
     name: string,
   },
+  form?: string,
+  totalAmount: number,
   reservationStatus: string,
 }
 @Component({
@@ -70,6 +72,8 @@ export class ReservationSellerComponent implements OnInit, OnChanges {
         _id: "",
         name: "",
       },
+      form: '',
+      totalAmount: 0,
       reservationStatus: "",
     }
   }
