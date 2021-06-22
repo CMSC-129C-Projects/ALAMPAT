@@ -155,29 +155,8 @@ const getCheckout = async( req, res, next )=>{
     }
 }
 
-const removeReservation_inBuyer = async(req, res, next) => {
-    try{
 
-        const user = await User.findByIdAndUpdate(req.params.id , { $pull: { reservation: req.query.reserv_id } })
-        
-        if(user){
-            res.json({
-                message: 'Reservation removed in Buyer successfully!',
-                result: user,
-                success: true,
-            })
-        }
-    }
-    catch(error){
-    
-        console.log(error)
-        res.status(404).json({ 
-            message: error.message,
-            success: false, })
-    
-    }
-}
 
 module.exports = { 
-   addtoCart, getCartItems, deleteCartitem, updateReservation, getCheckout, removeReservation_inBuyer
+   addtoCart, getCartItems, deleteCartitem, updateReservation, getCheckout
 }

@@ -108,7 +108,6 @@ const getOrder = async(req, res, next) => {
     try{//finds user id and user orders is populated
         const order = await Order.findById(req.params.order_id)
             .populate({
-                
                 path: 'reservation',
                 select: 'service seller buyer',
                 populate: [{
@@ -125,9 +124,9 @@ const getOrder = async(req, res, next) => {
             })
             
         if(order){
-        res.status(200).json({
-            order: order
-        })
+            res.status(200).json({
+                order: order
+            })
 
         }else{
             res.status(400).json({

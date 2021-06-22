@@ -5,7 +5,7 @@ const Product = require('../models/products')
 
 const addProduct = async(req, res, next) => {
     try{//adds new product
-
+            
             let product = new Product ({
                 _id: new ObjectId(),
                 productname: req.body.productName, 
