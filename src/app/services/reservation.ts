@@ -54,7 +54,7 @@ export class ReservationService {
         try {
             this.userID = localStorage.getItem('id')
 
-            const response = await axios.patch<uploadResponse>(`${test_API}/seller/${this.userID}/addCommissionForm?res_id=${id}`, { form: form});
+            const response = await axios.patch<uploadResponse>(`${localAPI}/seller/${this.userID}/addCommissionForm?res_id=${id}`, { form: form});
             //const { message, result, success } = response.data
             //console.log("" + JSON.stringify(result))
             
@@ -68,7 +68,7 @@ export class ReservationService {
         try {
             this.userID = localStorage.getItem('id')
 
-            const response = await axios.patch<uploadResponse>(`${test_API}/seller/${this.userID}/addTotalAmount?res_id=${id}`, { totalAmount: totalAmount});
+            const response = await axios.patch<uploadResponse>(`${localAPI}/seller/${this.userID}/addTotalAmount?res_id=${id}`, { totalAmount: totalAmount});
             //const { message, result, success } = response.data
             //console.log("" + JSON.stringify(result))
             
@@ -83,7 +83,7 @@ export class ReservationService {
             this.userID = localStorage.getItem('id')
 
            
-            const response = await axios.post<uploadResponse>(`${test_API}/buyer/${this.userID}/addReservation/`, body );
+            const response = await axios.post<uploadResponse>(`${localAPI}/buyer/${this.userID}/addReservation/`, body );
             const { message, result, success } = response.data
             console.log("Reservation" + JSON.stringify(result))
             if (success) {
@@ -100,18 +100,18 @@ export class ReservationService {
 
     getReservationList (): Observable<any>{
         this.userID = localStorage.getItem('id')
-        return Axios.get(`${test_API}/buyer/${this.userID}/getReservationList`)
+        return Axios.get(`${localAPI}/buyer/${this.userID}/getReservationList`)
     }
 
     getReservation(res_id: string): Observable<any>{
         this.userID = localStorage.getItem('id')
-        return Axios.get(`${test_API}/buyer/${this.userID}/getReservation?id=${res_id}`)
+        return Axios.get(`${localAPI}/buyer/${this.userID}/getReservation?id=${res_id}`)
     }
 
     cancelReservation = async (res_id: string) => {
         try{
             this.userID = localStorage.getItem('id')
-            const response = await axios.patch(`${test_API}/buyer/${this.userID}/cancelReservation?id=${res_id}&status=Cancelled`)
+            const response = await axios.patch(`${localAPI}/buyer/${this.userID}/cancelReservation?id=${res_id}&status=Cancelled`)
             console.log("Response: " + response.data.message)
         }
         catch(error){
@@ -123,7 +123,7 @@ export class ReservationService {
     deleteReservation = async (res_id: string) => {
         try {
             this.userID = localStorage.getItem('id')
-            const response = await axios.delete(`${test_API}/users/${this.userID}/removeReservation?reserv_id=${res_id}`);
+            const response = await axios.delete(`${localAPI}/users/${this.userID}/removeReservation?reserv_id=${res_id}`);
             const { message, success } = response.data
             console.log(response.data)
             if (success) {
@@ -149,7 +149,7 @@ export class ReservationService {
     removeReservation = async (res_id: string, seller_id: string) => {
         try {
             this.userID = localStorage.getItem('id')
-            const response = await axios.delete(`${test_API}/buyer/${this.userID}/removeReservation?reserv_id=${res_id}&seller_id=${seller_id}`);
+            const response = await axios.delete(`${localAPI}/buyer/${this.userID}/removeReservation?reserv_id=${res_id}&seller_id=${seller_id}`);
             const { message, success } = response.data
             console.log(response.data)
             if (success) {
@@ -175,7 +175,7 @@ export class ReservationService {
     updateReservation = async (res_id: string, status_res: string) => {
         try{
             this.userID = localStorage.getItem('id')
-            const response = await axios.patch(`${test_API}/seller/${this.userID}/updateReservation?res_id=${res_id}&status=${status_res}`)
+            const response = await axios.patch(`${localAPI}/seller/${this.userID}/updateReservation?res_id=${res_id}&status=${status_res}`)
             console.log("Response: " + response.data.message)
         }
         catch(error){
@@ -184,75 +184,5 @@ export class ReservationService {
         
     }
 
-    // updateProductdata = async (product: Products, id: any) => {
-    //     try {
-    //         this.userID = localStorage.getItem('id')
-    //         const response = await axios.patch(`${localAPI}/seller/${this.userID}/editproduct/${id}`, product);
-    //         const { message, success } = response.data
-    //         //console.log(response.data)
-    //             if (success) {
-    //             this.isUploaded = true;
 
-    //             console.log("Product Updated!" + response.data.result)
-
-    //             return this.isUploaded
-
-    //         } else {
-    //             this.isUploaded = false;
-
-    //             console.log(" Update failed: " + response.data)
-    //             return this.isUploaded
-    //         }
-
-    //     } catch (error) {
-    //         this.isUploaded = false
-    //         console.log(error)
-    //         return this.isUploaded;
-    //     }
-    // }
-
-    // getProductdata() {
-    //     try {
-    //         this.userID = localStorage.getItem('id')
-    //         axios.get(`${localAPI}/seller/${this.userID}/product`)
-    //             .then(resp => {
-    //                 this.productlist.next(resp.data.productsArray)
-
-    //                 //console.log("Get prodlist " + JSON.stringify(resp.data.productsArray));
-    //             })
-    //             .catch(err => {
-    //                 console.log(err);
-    //             });
-
-    //     } catch (error) {
-    //         console.log(error)
-    //         this.uploadError = error
-    //     }
-    // }
-    // deleteProductdata = async (id: any) => {
-    //     try {
-    //         this.userID = localStorage.getItem('id')
-    //         const response = await axios.delete(`${localAPI}/seller/${this.userID}/removeproduct/`, { data: { _id: id } });
-    //         const { message, success } = response.data
-    //         console.log(response.data)
-    //         if (success) {
-    //             this.isDeleted = true;
-    //             console.log("Product Deleted!" + JSON.stringify(response.data))
-
-    //             return this.isDeleted
-
-    //         } else {
-    //             this.isDeleted = false;
-    //             console.log(" Deletion failed: " + response.data)
-
-    //             return this.isDeleted
-    //         }
-
-    //     } catch (error) {
-    //         this.isDeleted = false
-    //         console.log(error)
-    //         console.log("faaaill")
-    //         return this.isDeleted;
-    //     }
-    // }
 }

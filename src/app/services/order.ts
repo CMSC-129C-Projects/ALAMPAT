@@ -99,13 +99,13 @@ export class OrderService {
     addCommOrder = async(com_id: string, slot: number, reservation: any, reserv_id: string, seller_id: string)=>{
         try {
             this.user_id = localStorage.getItem('id')
-            const response = await axios.post<uploadResponse>(`${test_API}/buyer/${this.user_id}/addCommOrder?orderStatus=${"P"}&orderType=${"Commission"}&reserv_id=${reserv_id}&seller_id=${seller_id}`, reservation);
+            const response = await axios.post<uploadResponse>(`${localAPI}/buyer/${this.user_id}/addCommOrder?orderStatus=${"P"}&orderType=${"Commission"}&reserv_id=${reserv_id}&seller_id=${seller_id}`, reservation);
             const { success } = response.data
             //console.log(JSON.stringify(response.data))
             if(success){
                const min_slot = slot - 1 
                console.log(min_slot)
-               const response = await axios.patch<uploadResponse>(`${test_API}/buyer/${this.user_id}/deductSlot`, {_id: com_id ,slot: min_slot});
+               const response = await axios.patch<uploadResponse>(`${localAPI}/buyer/${this.user_id}/deductSlot`, {_id: com_id ,slot: min_slot});
                const { message, success } = response.data
                console.log("Slot Update: " + message)
             }
@@ -151,37 +151,37 @@ export class OrderService {
 
     getCheckoutdetails(reserv_id: string): Observable<any>{
             this.user_id = String(localStorage.getItem('id'))
-            return Axios.get(`${test_API}/buyer/${this.user_id}/getCheckout?id=${reserv_id}`)
+            return Axios.get(`${localAPI}/buyer/${this.user_id}/getCheckout?id=${reserv_id}`)
  
     }
 
     //For ALL TAB
     getAlldata(startindex: string): Observable<any>  {
         this.user_id = String(localStorage.getItem('id'))
-        return Axios.get(`${test_API}/users/${this.user_id}/getOrders?startindex=${startindex}`)
+        return Axios.get(`${localAPI}/users/${this.user_id}/getOrders?startindex=${startindex}`)
   
     }
     //FOR PROCESSING TAB
     getProcessingdata(tab: string, startindex:string): Observable<any>  {
         this.user_id = String(localStorage.getItem('id'))
-        return Axios.get(`${test_API}/users/${this.user_id}/getOrderswithFilter?tab=${tab}&startindex=${startindex}`)
+        return Axios.get(`${localAPI}/users/${this.user_id}/getOrderswithFilter?tab=${tab}&startindex=${startindex}`)
     }
 
     //FOR COMPLETED TAB
     getCompleteddata(tab: string, startindex:string): Observable<any>  {
         this.user_id = String(localStorage.getItem('id'))
-        return Axios.get(`${test_API}/users/${this.user_id}/getOrderswithFilter?tab=${tab}&startindex=${startindex}`)
+        return Axios.get(`${localAPI}/users/${this.user_id}/getOrderswithFilter?tab=${tab}&startindex=${startindex}`)
     }
 
     //FOR CANCELLED TAB
     getCancelleddata(tab: string, startindex:string): Observable<any>  {
         this.user_id = String(localStorage.getItem('id'))
-        return Axios.get(`${test_API}/users/${this.user_id}/getOrderswithFilter?tab=${tab}&startindex=${startindex}`)
+        return Axios.get(`${localAPI}/users/${this.user_id}/getOrderswithFilter?tab=${tab}&startindex=${startindex}`)
     }
 
     getOrder(_id: string|null){
         this.user_id = String(localStorage.getItem('id'))
-        return Axios.get(`${test_API}/users/${this.user_id}/getOrder/${_id}`)
+        return Axios.get(`${localAPI}/users/${this.user_id}/getOrder/${_id}`)
     }
 
     getCommissionOrder(_id: string|null, ) {
