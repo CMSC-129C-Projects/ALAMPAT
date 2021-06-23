@@ -44,14 +44,20 @@
         <div class="title is-family-primary has-icons-left">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="30"
-            height="30"
+            width="28"
+            height="28"
             fill="currentColor"
-            class="bi bi-shop"
+            class="bi bi-clipboard-data"
             viewBox="0 0 16 16"
           >
             <path
-              d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z"
+              d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z"
+            />
+            <path
+              d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"
+            />
+            <path
+              d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"
             />
           </svg>
           Reservations
@@ -77,13 +83,12 @@
             <div *ngIf="!item.service.images?.imageBase64">
                 <img class="object-fit_cover"  src= "assets/noimg.png" alt="">
             </div>
-            <!-- <img class="object-fit_cover" [src]= "item.images.imageBase64" alt=""> -->
           </figure>
         </div>
         <div class="media-content">
           <div class="content">
             <p
-              class="limitedText has-text-weight-bold is-size-4 is-marginless"
+              class="has-text-weight-bold is-size-4 is-marginless"
               readonly
             >
               <!-- notice the class limitedText, when the text is too long, it ends with "..." -->
@@ -117,17 +122,8 @@
                 <div
                   class="tag is-warning is-light has-text-weight-bold is-small"
                 >
-                  <!-- Waiting for Seller's Approval -->
                   {{item.reservationStatus}}
                 </div>
-                <!-- NGIF part
-                                <div class="tag is-success has-text-weight-bold is-small">
-                                    Reservation Accepted
-                                </div> 
-                                <div class="tag is-danger is-light has-text-weight-bold is-small">
-                                    Reservation Denied
-                                </div>
-                                -->
               </div>
             </div>
           </div>
@@ -141,14 +137,6 @@
           >
             See Reservation Info
           </button>
-          <!-- NGIF part
-                    <button class="button is-success has-text-weight-bold">
-                        Proceed to Checkout
-                    </button>
-                    <button class="button is-danger has-text-weight-bold">
-                        Remove Reservation
-                    </button>
-                -->
         </div>
       </article>
     </div>
@@ -160,7 +148,6 @@
 <!-- VIEW RESERVATION MODAL -->
 
 <div class="modal" [ngClass]="showReservation ? 'is-active' : ''">
-  <!-- <div class="modal is-active"> -->
   <div class="modal-background" (click)="onClickExit()"></div>
   <div class="modal-card">
     <header class="modal-card-head">
@@ -178,7 +165,6 @@
             <div *ngIf="!reservation.service.images?.imageBase64">
                 <img class="object-fit_cover"  src= "assets/noimg.png" alt="">
             </div>
-            <!-- <img class="object-fit_cover" [src]= "item.images.imageBase64" alt=""> -->
           </figure>
         </div>
         <div class="media-content">
@@ -201,7 +187,7 @@
               readonly
             >
               <!-- Price -->
-              {{reservation.service.price}}
+              ₱{{reservation.service.price?.toFixed(2)}}
             </p>
             <div class="block">
               <div class="text is-size-6" readonly>
@@ -219,38 +205,51 @@
                   <!-- Waiting for Seller's Approval -->
                   {{reservation.reservationStatus}}
                 </div>
-                <!-- NGIF part
-                                <div class="tag is-success has-text-weight-bold is-small">
-                                    Reservation Accepted
-                                </div> 
-                                <div class="tag is-danger is-light has-text-weight-bold is-small">
-                                    Reservation Denied
-                                </div>
-                                -->
               </div>
-            </div>
+            </div>        
             <div class="block">
               <p class="text has-text-weight-bold is-size-5">
                 Terms & Conditions
               </p>
-              <p class="text is-size-7">
+              <p class="text is-size-7 format">
                 {{reservation.service?.terms}}
-                <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean cursus, ligula quis facilisis convallis, nibh mauris ultrices nibh, rhoncus fringilla erat felis vitae neque. Mauris blandit elit non nisl interdum ultrices. Vestibulum mollis est non rhoncus mattis. Donec tincidunt odio dolor, lacinia commodo arcu luctus ut. Aenean tincidunt nibh quis orci vestibulum, quis mattis ipsum sagittis. Quisque quis ante porttitor, ullamcorper ligula sit amet, auctor nulla. Ut cursus, ex nec euismod accumsan, mauris massa facilisis felis, sed suscipit metus enim mattis nibh. Praesent nec ex imperdiet, sagittis nunc vitae, scelerisque dui. Nulla auctor risus sem, vitae venenatis lorem faucibus ut. Mauris iaculis suscipit posuere. Morbi non sem consectetur leo mattis bibendum. Nullam id semper nisi. Mauris dolor urna, tristique a finibus ac, sollicitudin a nisl. Etiam non tellus pharetra, dignissim purus quis, bibendum felis. Aliquam erat volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.-->
               </p>
             </div>
           </div>
         </div>
       </article>
+      <hr style="background-color:#e8e6e6" class="is-marginless mt-2">
+      <div class="block">
+        <p class="text is-size-5 has-text-weight-bold mt-2">
+          Commission Form
+        </p>
+        <p class="text is-size-7" *ngIf ="!form">
+          Please wait for the seller to upload their commission form.
+        </p>
+        <div class="text is-size-7" *ngIf ="form">
+          Please fill in the Commission Form to finalize your commission and the total amount.
+          <a class="pt-3" link="form">
+            {{reservation.form}}
+          </a>
+        </div>
+        <!----------- FINAL PRICE --------------->
+        <div class="text is-size-5 has-text-weight-bold mt-2">
+          Total Amount
+          <p class="text has-text-danger-dark is-size-4 has-text-weight-bold is-marginless" *ngIf ="totalAmount != 0">
+            ₱{{totalAmount.toFixed(2)}}
+          </p>
+        </div>
+        <p class="text is-size-7" *ngIf ="totalAmount == 0">
+          Please wait for the seller to input the total amount.
+        </p>
+      </div>
     </div>
+    
     <footer class="modal-card-foot">
       <div *ngIf = "reservation.reservationStatus" class="column has-text-centered is-paddingless is-marginless">
         <button *ngIf = "reservation.reservationStatus == 'Waiting for Approval'" class="button is-link has-text-weight-bold" disabled>
           Pending Approval
         </button>
-        <!-- NGIF part
-        <button class="button is-link has-text-weight-bold">
-          Proceed To Checkout
-        </button> -->
        
         <button *ngIf = "reservation.reservationStatus == 'Waiting for Approval'" class="button is-danger has-text-weight-bold" (click)="onCancellation(reservation._id)">
           Cancel Reservation
@@ -260,8 +259,14 @@
           Remove Reservation
         </button>
         
-        <button *ngIf = "reservation.reservationStatus == 'Approved' " class="button is-danger has-text-weight-bold" (click)="onCheckout(reservation._id)">
+        <button *ngIf = "reservation.reservationStatus == 'Approved' && totalAmount == 0" 
+        class="button is-danger has-text-weight-bold" (click)="onCheckout(reservation._id)" disabled>
           Proceed to Checkout
+        </button>
+
+        <button *ngIf = "reservation.reservationStatus == 'Approved' && totalAmount != 0" 
+          class="button is-danger has-text-weight-bold" (click)="onCheckout(reservation._id)">
+            Proceed to Checkout
         </button>
 
       </div>

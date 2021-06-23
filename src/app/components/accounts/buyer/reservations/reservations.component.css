@@ -8,3 +8,7 @@ figure img{
     height: 150px; 
     object-fit: scale-down;
 }
+
+.format {
+    white-space: pre-wrap;
+}

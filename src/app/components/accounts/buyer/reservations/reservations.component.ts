@@ -23,7 +23,7 @@ interface reservation {
   buyer:{
     _id: string,
     name: string,
-  },
+  }
   form?: string,
   totalAmount?: number,
   reservationStatus: string,
@@ -37,6 +37,8 @@ export class ReservationsComponent implements OnInit, OnDestroy{
   // @Input() openReservationModal: boolean;
   showReservation: boolean = false;
   
+  totalAmount= 0;
+  form: string = "";
   reserv_List: reservation[] = []
 
   reservation: reservation
@@ -53,6 +55,7 @@ export class ReservationsComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.subscribeReserveList()
+    console.log(this.form)
 
   }
   
@@ -95,8 +98,6 @@ export class ReservationsComponent implements OnInit, OnDestroy{
     this.subs.push(
       this.reserv.getReservationList().subscribe((reservs: any)=>{
         this.reserv_List = reservs.data.reservationsArray
-        //this.reserv_List.forEach(x => { console.log("Reservation: " + JSON.stringify(x))})
-       
       })
     )
   }
@@ -112,13 +113,18 @@ export class ReservationsComponent implements OnInit, OnDestroy{
     this.subs.push(
       this.reserv.getReservation(item_id).subscribe( reserv => {
         this.reservation = reserv.data.reserv_data
-        //console.log("Reservation: " + JSON.stringify(this.reservation))
+        if( reserv.data.reserv_data.totalAmount > 0) { 
+          this.totalAmount = reserv.data.reserv_data.totalAmount
+        }
+        if( reserv.data.reserv_data.form != ""){
+          this.form = reserv.data.reserv_data.form
+        }
+
       })
     )
   }
 
   onCancellation(reserv_id: string){
-    //this.setreservation()
     this.reserv.cancelReservation(reserv_id)
     this.subs.forEach(x => x.unsubscribe())
     
