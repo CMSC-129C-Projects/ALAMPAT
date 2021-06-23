@@ -39,7 +39,8 @@ export class ReservationSellerComponent implements OnInit, OnChanges {
 
   comm_link:string |undefined = ' '
   total_Amt: number |undefined= 0
-  
+  saved_link:boolean = false
+  saved_amount:boolean = false
   res_id: string
   subs: Subscription[] = []
   constructor(
@@ -132,7 +133,6 @@ export class ReservationSellerComponent implements OnInit, OnChanges {
   }
 
   inputTotalAmt(event:Event){
-    
     const input = (event.target as HTMLInputElement).value
     this.total_Amt = Number(input)
     console.log("Total Amount: " + this.total_Amt)
@@ -146,6 +146,7 @@ export class ReservationSellerComponent implements OnInit, OnChanges {
 
   saveLink(){
     //console.log("Form Link: " + this.comm_link + ' id: ' + item._id )
+    this.saved_link = true;
     this.reserv.addCommissionForm(this.res_id, String(this.comm_link))
     setTimeout( ()=>{
       this.subs.forEach( x=> x.unsubscribe())
@@ -154,6 +155,7 @@ export class ReservationSellerComponent implements OnInit, OnChanges {
   }
 
   saveTotalAmt(){
+    this.saved_amount = true;
     //console.log("Total Amount: " + this.total_Amt)
     this.reserv.addtotalAmount(this.res_id, Number(this.total_Amt))
     setTimeout( ()=>{
@@ -167,6 +169,8 @@ export class ReservationSellerComponent implements OnInit, OnChanges {
       this.openCommFormModal = false;
       this.comm_link = ''
       this.total_Amt = 0
+      this.saved_link = false
+      this.saved_amount = false
     }
   }
 }
