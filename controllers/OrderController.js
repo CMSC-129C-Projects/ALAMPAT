@@ -109,7 +109,7 @@ const getOrder = async(req, res, next) => {
         const order = await Order.findById(req.params.order_id)
             .populate({
                 path: 'reservation',
-                select: 'service seller buyer',
+                select: 'service seller buyer totalAmount',
                 populate: [{
                     path: 'service',
                     select: 'images _id, commissionname price terms'
