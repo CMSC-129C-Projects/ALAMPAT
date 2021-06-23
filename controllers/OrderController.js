@@ -17,7 +17,7 @@ const getOrderList = async(req, res, next) => {
                 },
                 populate: {
                     path: 'reservation',
-                    select: 'service seller buyer',
+                    select: 'service seller buyer totalAmount',
                     populate: [{
                         path: 'service',
                         select: 'images _id, commissionname price'
@@ -68,7 +68,7 @@ const getOrderList_Filter = async(req, res, next) => {
                 },
                 populate: {
                     path: 'reservation',
-                    select: 'service seller buyer',
+                    select: 'service seller buyer totalAmount',
                     populate: [{
                         path: 'service',
                         select: 'images _id, commissionname price'
