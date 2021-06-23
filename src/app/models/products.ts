@@ -9,6 +9,7 @@ export class Products {
     category: string;
     stock: number;
     price: number;
+
     constructor() {
         
         this.productName = '';
