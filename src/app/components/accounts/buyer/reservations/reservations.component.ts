@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { ReservationService } from 'src/app/services/reservation';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Url, UrlObject } from 'url';
 interface reservation {
   _id: string;
   service: {
@@ -38,7 +39,7 @@ export class ReservationsComponent implements OnInit, OnDestroy{
   showReservation: boolean = false;
   
   totalAmount= 0;
-  form: string = "";
+  form: any;
   reserv_List: reservation[] = []
 
   reservation: reservation
