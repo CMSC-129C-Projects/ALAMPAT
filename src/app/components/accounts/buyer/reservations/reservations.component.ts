@@ -38,7 +38,7 @@ export class ReservationsComponent implements OnInit, OnDestroy{
   showReservation: boolean = false;
   
   totalAmount= 0;
-  form: string = "";
+  form: any;
   reserv_List: reservation[] = []
 
   reservation: reservation
