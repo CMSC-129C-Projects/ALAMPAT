@@ -275,7 +275,7 @@
         <div class="column">
             <div class="block">
                 <div *ngIf = "checkout_details.service?.price" class="text is-size-6 has-text-right">
-                    Order Amount: <strong>₱ {{checkout_details.service?.price?.toFixed(2)}}</strong>
+                    Order Amount: <strong>₱ {{checkout_details.totalAmount?.toFixed(2)}}</strong>
                 </div>
                 <div *ngIf = "payment_option == 'half'"class="text is-size-6 has-text-right">
                     Paid Amount: <strong>₱ {{halfprice.toFixed(2)}}</strong>
@@ -289,7 +289,7 @@
                 &nbsp;
                 <div class="block has-text-right">
                     <button class="button is-fullwidth is-info is-medium has-text-weight-bold" (click)="placeOrder()"
-                    routerLink="/marketplace">
+                    >
                         PLACE ORDER
                     </button>
                 </div>

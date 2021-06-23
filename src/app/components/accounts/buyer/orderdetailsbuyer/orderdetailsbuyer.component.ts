@@ -36,7 +36,7 @@ interface order_details{
           email: string,
           address: string
         },
-
+    totalAmount:number
   },
   proof: [{
     filename: string,
@@ -74,7 +74,7 @@ export class OrderdetailsbuyerComponent implements OnChanges {
       this.sub = this.orderserv.getOrder(order_id).subscribe( item => {
         this.order = item.data.order
         //console.log("Order ID: " + JSON.stringify(this.order))
-        this.amt_topay = this.order.totalAmount - this.order.amount_paid
+        this.amt_topay = this.order.reservation.totalAmount - this.order.amount_paid
         this.proof_payment = item.data.proof
       } )
     }
@@ -124,7 +124,7 @@ export class OrderdetailsbuyerComponent implements OnChanges {
               email: '',
               address: ''
             },
-    
+        totalAmount: 0, 
       },
       proof: [{
         filename: '',

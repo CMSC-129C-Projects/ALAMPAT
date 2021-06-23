@@ -28,7 +28,7 @@ export class ViewcommissionComponent implements OnInit, OnDestroy {
   @Input() openSuccessModal: boolean;
 
   comm_item:  commission
-  comm_slot: any;
+  comm_slot: any
   subs : Subscription[] = []
   image_list :any[] = []
   slide_len: any ;

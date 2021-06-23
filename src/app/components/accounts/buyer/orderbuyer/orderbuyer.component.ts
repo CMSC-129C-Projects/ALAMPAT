@@ -30,7 +30,7 @@ interface order_item {
           _id: string,
           name: string,
         },
-
+    totalAmount: number    
   }
   totalAmount: number
 }

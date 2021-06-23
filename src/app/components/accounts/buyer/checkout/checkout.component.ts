@@ -219,5 +219,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     if(this.openSuccessModal) {
       this.openSuccessModal = false;
     }
+    this.router.navigate(['reservation'])
   }
 }

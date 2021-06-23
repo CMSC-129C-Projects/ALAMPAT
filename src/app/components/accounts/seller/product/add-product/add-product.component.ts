@@ -268,9 +268,9 @@ export class AddProductComponent implements OnChanges, OnDestroy {
       if (proddata) {
         //console.log("On Save Art: " + JSON.stringify(this.editForm))
         //this.portfolioForm.get('artowkimage')?.reset();
-        if(this.imagesrc != this.prev_image && this.prev_image!=""){
-          this.afStorage.storage.refFromURL(this.prev_image).delete();
-        }
+        // if(this.imagesrc != this.prev_image && this.prev_image!=""){
+        //   this.afStorage.storage.refFromURL(this.prev_image).delete();
+        // }
         //this.afStorage.storage.refFromURL(this.prev_image).delete();
         this.prev_image = '';
         //this.ngOnInit();
