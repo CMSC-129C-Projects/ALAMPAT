@@ -39,8 +39,9 @@ const routes: Routes = [
   { path: 'marketplace', component: MarketplaceComponent },
   { path: 'commission-item', component: ViewcommissionComponent },
   { path: 'checkout', component: CheckoutComponent, canActivate:[AuthGuard]},
-  // { path: 'reservation', component: ReservationsComponent, canActivate:[AuthGuard]},
+  { path: 'reservation', component: ReservationsComponent, canActivate:[AuthGuard]},
   { path: 'reservation-seller', component: ReservationSellerComponent, canActivate:[AuthGuard]},
+  { path: 'product-item', component: ViewProductComponent },
   { path: 'notfound', component: NoPageFoundComponent},
   { path: 'about-us', component: AboutusComponent },
   { path: '**', redirectTo:'notfound' }
