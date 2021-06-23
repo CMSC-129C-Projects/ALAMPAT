@@ -102,7 +102,6 @@
                                 <input [ngClass]="{ 'has-error': formControls.slot?.errors }" class="input" placeholder="Input no. of slots" formControlName="slot" type="number" min="1" required>
                                 <div *ngIf="submitted || (formControls.slot?.touched || formControls.slot?.dirty) && formControls.slot?.errors" class="help is-danger pt-2">
                                     <div *ngIf="formControls.slot?.errors?.required">Number of slots is required</div>
-                                    <div *ngIf="formControls.slot?.errors?.min">Slot cannot be less than 1</div>
                                 </div>
                             </div>
                         </div>
@@ -262,7 +261,6 @@
                                 <div *ngIf="submitted || (formControlsEdit.slot?.touched || formControlsEdit.slot?.dirty) 
                                 && formControlsEdit.slot?.errors" class="help is-danger pt-2">
                                     <div *ngIf="formControlsEdit.slot?.errors?.required">Number of slots is required</div>
-                                    <div *ngIf="formControlsEdit.slot?.errors?.min">Slot cannot be less than 1</div>
                                 </div>
                             </div>
                         </div>
