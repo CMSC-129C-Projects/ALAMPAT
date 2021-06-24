@@ -34,3 +34,7 @@ figure img{
     height: 150px; 
     object-fit: scale-down;
 }
+
+.is-horizontal-center {
+    justify-content: center;
+  }

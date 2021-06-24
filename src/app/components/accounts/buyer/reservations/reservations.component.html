@@ -68,6 +68,9 @@
   </div>
 </div>
 
+<div *ngIf="reserv_List.length == 0" class="column is-half is-offset-one-quarter is-paddingless">
+  <img  class="pl-6 ml-6 is-horizontal-center has-ratio" width="540" height="260" src= "assets/empty1.png">
+</div>
 <!-- RESERVED ITEMS -->
 <div class="columns is-centered is-mobile" *ngFor="let item of reserv_List; index as i">
 

@@ -137,6 +137,9 @@
       <!------------ PRODUCT SECTION | LIVE (ON STOCK) ----------------->
       <div class="px-2" id="tab-content">
         <div class="columns is-multiline is-mobile" id="product-live">
+          <div *ngIf="productList.length == 0" class="column is-half is-offset-one-quarter is-paddingless">
+            <img  class=" is-horizontal-center has-ratio" width="540" height="260" src= "assets/empty1.png">
+          </div>
           <div
             class="column is-4"
             *ngFor="let product of productList; index as i"
@@ -220,6 +223,9 @@
           class="columns is-multiline is-mobile is-hidden"
           id="product-soldout"
         >
+          <div *ngIf="soldoutList.length == 0" class="column is-half is-offset-one-quarter is-paddingless">
+            <img  class=" is-horizontal-center has-ratio" width="540" height="260" src= "assets/empty1.png">
+          </div>
           <div
             class="column is-4"
             *ngFor="let product of soldoutList; index as i"

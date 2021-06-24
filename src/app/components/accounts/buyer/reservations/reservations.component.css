@@ -12,3 +12,7 @@ figure img{
 .format {
     white-space: pre-wrap;
 }
+
+.is-horizontal-center {
+    justify-content: center;
+  }

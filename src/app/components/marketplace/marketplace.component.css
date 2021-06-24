@@ -17,3 +17,7 @@
   margin-right: auto;
   width: 9%;
 }
+
+.is-horizontal-center {
+  justify-content: center;
+}

@@ -38,6 +38,9 @@
             
             <!-- ARTWORK SECTION  -->
             <div class="columns is-multiline is-mobile" >
+                <div *ngIf="portfolioList.length == 0" class="column is-half is-offset-one-quarter is-paddingless">
+                    <img  class=" is-horizontal-center has-ratio" width="540" height="260" src= "assets/empty1.png">
+                </div>
                 <!-- EACH ARTWORK -->
                 <div class="column is-4" *ngFor="let item of portfolioList; index as i">
                     <div class="card"> 
