@@ -2,7 +2,9 @@
 
 ## ALAMPAT
 
-Alampat is a consumer-to-consumer (C2C) e-commerce application that aims to develop an online marketplace for handmade goods, art merchandise, and art commission services (i.e., customizations). 
+Alampat is a consumer-to-consumer (C2C) e-commerce application that aims to develop an online marketplace for handmade goods, art merchandise, and art commission services (i.e., customizations).
+
+Visit the project's page link: [https://alampat-f.herokuapp.com/](https://alampat-f.herokuapp.com/)
 
 ## Tech Stack
 
